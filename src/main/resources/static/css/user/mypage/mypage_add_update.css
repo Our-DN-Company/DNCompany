@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style-type: none;
+}
+
+th,
+td {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 10px;
+  text-align: center;
+}
+
+.mypage_pet_add_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 300px;
+
+  p {
+    font-size: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+form {
+  border: 1px solid #f0f0f0;
+  padding: 100px;
+
+  div {
+    display: flex;
+  }
+}
+
+input {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  border: 1px solid #f0f0f0;
+
+  padding: 20px;
+  width: 300px;
+}
+
+input:focus,
+select:focus {
+  outline-color: var(--main-color);
+}
+
+label {
+  margin-top: 50px;
+  margin-right: 50px;
+  width: 200px;
+}
+
+button {
+  position: relative;
+
+  left: 100px;
+  margin-top: 20px;
+
+  color: white;
+  background-color: var(--main-color);
+  width: 300px;
+  height: 54px;
+
+  border: none;
+  padding: 15px;
+  border-radius: 3px;
+}
+
+#mypage_add_pet_img_preview {
+  background-image: url(../img/pet_proflie.png);
+  background-position: center; /* 이미지의 중심을 기준으로 배치 */
+  background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
+  background-size: cover; /* 컨테이너에 맞게 이미지 크기를 조정 */
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  margin: 0 20px;
+
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.addPetSpeciesBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#addPetSpecieslist {
+  height: 60px;
+  width: 100px;
+  margin-left: 10px;
+  border: 1px solid #f0f0f0;
+  margin-bottom: 10px;
+}
+
+#addAge {
+  background-color: #f0f0f0;
+}
+
+.addPetSpecies {
+  width: 200px;
+}
+#mypage_add_pet_img {
+  border: none;
+}
+.myppage_main_pet {
+  max-width: 250px;
+  overflow: hidden;
+}
+.mypage_main_pet_list {
+  width: 500px;
+}
+
+.mypage_main_pet_button_left {
+  position: relative;
+  left: 500px;
+}
+
+.mypage_main_pet_button_rigth {
+  position: relative;
+}
+small {
+  display: inline; /* small 태그가 기본적으로 inline 요소로 표시되도록 설정 */
+  font-size: 14px; /* 적절한 글자 크기 */
+  color: red; /* 기본 경고 메시지 색상 */
+  margin-top: 10px; /* 약간의 여백 추가 */
+}
+#message {
+  display: none;
+  font-size: 14px;
+}
+
+/* 경고 스타일 */
+.error {
+  color: red;
+}
+
+/* 안내 스타일 */
+.success {
+  color: green;
+}
+
+.updatePassword,
+.update_email {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  input {
+    margin-bottom: 10px;
+  }
+}

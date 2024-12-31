@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_nav.css}">
+    <script defer th:src="@{/js/user/mypage/mypage_nav.js}"></script>
+</head>
+<body>
+<nav th:fragment="mypageNav">
+    <div class="myPage__wrap">
+        <div id="myPage">
+            <ul id="gnb__myP" class="">
+                <li class="mypage_nav_title">
+                    <a href="#">마이페이지</a>
+                </li>
+                <li>
+                    <a href="#">정보수정</a>
+                    <div class="snb">
+                        <ul>
+                            <li><a href="#">회원정보 수정</a></li>
+                            <li><a href="#">반려동물 정보 등록</a></li>
+                            <li><a href="#">반려동물 정보 수정</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">활동기록</a>
+                    <div class="snb">
+                        <ul>
+                            <li><a href="#">게시물</a></li>
+                            <li><a href="#">댓글</a></li>
+                            <li><a href="#">QnA</a></li>
+                            <li><a href="#">쪽지</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mypage/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mypage/font.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mypage/header.css}">
+
+    <script defer th:src="@{/js/user/mypage/common.js}"></script>
+    <script defer th:src="@{/js/user/mypage/mypage_list.js}"></script>
+
+</head>
+<body>
+<div class="container">
+    <header></header>
+    <nav class="mypage_nav" th:include="~{fragments/nav ::nav}></nav>
+    <div class="main-wrap">
+        <main>
+            <div class="mypage_list">
+                <div class="mypage_list_title">
+                    <p>쪽지</p>
+                    <div class="mypage_list_line"></div></div>
+
+                <table>
+                    <tr>
+                        <th>작성날짜</th>
+                        <th>읽음여부</th>
+                    </tr>
+                    <!-- 쪽지 컨텐츠 -->
+                    <tr>
+                        <td>샘플 작성날짜</td>
+                        <td>샘플 읽음여부</td>
+                    </tr>
+                </table>
+        </main>
+    </div>
+    <footer></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_add_update.css}">
+
+    <link rel="stylesheet" th:href="@{/css/user/mypage/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mypage/font.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mypage/header.css}">
+
+    <script defer th:src="@{/js/user/mypage/common.js}"></script>
+    <script defer th:src="@{/js/user/mypage/mypage_update_profile.js}"></script>
+
+</head>
+<body>
+<div class="container">
+    <header></header>
+    <nav class="mypage_nav" th:include="~{fragments/nav ::nav}></nav>
+    <div class="main-wrap">
+        <main>
+            <div class="mypage_pet_add_box">
+                <p>반려동물 정보 수정</p>
+
+                <form action="">
+                    <div>
+                        <label for="">사진등록</label>
+                        <input id="mypage_add_pet_img" type="file" accept="img/*" />
+                        <div id="mypage_add_pet_img_preview"></div>
+                    </div>
+                    <div>
+                        <label for="">종 </label>
+                        <input type="text" name="updatePetSpecies" />
+                    </div>
+
+                    <div>
+                        <label>이름</label>
+                        <input type="text" name="updatePetName" />
+                    </div>
+
+                    <div>
+                        <label>나이</label>
+                        <input type="number" name="updateAge" />
+                    </div>
+
+                    <div>
+                        <label>생일</label>
+                        <input type="date" name="updateBrithDay" />
+                    </div>
+
+                    <div>
+                        <label>입양일</label>
+                        <input type="date" name="updateAdoptionDate" />
+                    </div>
+
+                    <button type="submit">완료</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <footer></footer>
+</div>
+</body>
+</html>
