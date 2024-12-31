@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/schedule/calender.css}" />
+
+    <!-- js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
+    <script src="fullcalendar/lib/locales-all.js"></script>
+
+    <script th:src="@{/js/user/schedule/calender.js}"></script>
+    <script th:src="@{/js/fragment/header.js}"></script>
+    <script th:src="@{/js/fragment/footer.js}"></script>
+    <!--    <script src="/js/common.js"></script>-->
+  </head>
+  <body>
+    <!-- 홈페이지 전체 사이즈 -->
+    <div class="container">
+      <!-- 헤더 넣기 -->
+      <header>
+        <div id="header__container"></div>
+      </header>
+      <div class="main-wrap">
+        <main class="calendarMain">
+          <div id="calendarBox">
+            <p>캘린더</p>
+            <div class="my-schedule-wrap">
+              <div class="my-schedule">
+                <!-- 반복 요소 -->
+                <div class="my-schedule-list">
+                  <a href="#">
+                    <span>내 일정1 </span>
+                    <div>
+                      시작일 <br />
+                      종료일 <br />
+                      시작시간 <br />
+                      종료시간<br />
+                    </div>
+                  </a>
+                </div>
+                <!-- 반복 요소 -->
+                <div class="my-schedule-list">
+                  <a href="#">
+                    <span>내 일정1 </span>
+                    <div>
+                      시작일 <br />
+                      종료일 <br />
+                      시작시간 <br />
+                      종료시간<br />
+                    </div>
+                  </a>
+                </div>
+                <div class="my-schedule-list">
+                  <a href="#">
+                    <span>내 일정1 </span>
+                    <div>
+                      시작일 : <br />
+                      종료일 <br />
+                      시작시간 <br />
+                      종료시간<br />
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div id="calendar"></div>
+          </div>
+        </main>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
