@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/common.css}" />
+  <link rel="stylesheet" th:href="@{/css/font.css}" />
+  <link rel="stylesheet" th:href="@{/css/fragment/header.css}" />
+  <link rel="stylesheet" th:href="@{/css/fragment/footer.css}" />
+  <script defer th:src="@{/js/fragment/header.js}"></script>
+
+  <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+  <script defer th:src="@{/js/mainPage.js}"></script>
+  <title>Document</title>
+
+</head>
+
+<body>
+  <!-- 홈페이지 전체 사이즈 -->
+  <header class="header__main" th:include="~{fragment/header::header}"></header>
+  <div class="container">
+    <main class="main-wrap">
+      <div class="main__help">
+        <div class="main__help__top">
+          <div class="main__help__title">
+            <span class="main__help__text"></span><span class="help__blank">|</span>
+            <span class="main__help__text2"> 서비스로 <br>
+              사랑하는 반려동물과 더 행복한 라이프를 즐기세요.<br>
+              <span>당신 주위의 친절한 이웃이 도와줍니다!</span></span>
+          </div>
+          <div class="main__help__img"></div>
+        </div>
+
+        <div class="main__help__btn">
+          <a href="#" class="main__help__button">도와주세요!
+            <img src="/images/feet.png" alt="고양이발" class="help__button__img">
+          </a>
+          <a href="#" class="main__help__button">도와드려요!
+            <img src="/images/feet.png" alt="고양이발" class="help__button__img">
+          </a>
+        </div>
+      </div>
+      <div class="main__contents">
+        <h3><span>댕냥바다</span> 오늘의 Hot item!</h3>
+        <div class="main__hot__box">
+          <div class="main__hot__item">
+            <div class="main__hot__item__in"></div>
+            <div class="main__hot__title">
+              <p>1</p>
+            </div>
+          </div>
+          <div class="main__hot__item">
+            <div class="main__hot__item__in"></div>
+            <div class="main__hot__title">
+              <p>2</p>
+            </div>
+          </div>
+          <div class="main__hot__item">
+            <div class="main__hot__item__in"></div>
+            <div class="main__hot__title">
+              <p>3</p>
+            </div>
+          </div>
+
+          <div class="main__hot__item">
+            <div class="main__hot__item__in"></div>
+            <div class="main__hot__title">
+              <p>4</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>요즘 시즌 <span>festival</span> 정보!</h3>
+        <div class="main__festival__box">
+          <div class="main__festival__item">
+            <div class="main__festival__item__in"></div>
+            <div class="main__festival__title">
+              <p>1</p>
+            </div>
+          </div>
+          <div class="main__festival__item">
+            <div class="main__festival__item__in"></div>
+            <div class="main__festival__title">
+              <p>2</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </main>
+  </div>
+  <footer th:include="~{fragment/footer::footer}"></footer>
+</body>
+
+</html>

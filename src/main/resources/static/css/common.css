@@ -1,0 +1,35 @@
+/* 공통 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 헤더, 푸터를 포함헌 전체 컨테이너 */
+.container {
+  min-height: 600px;
+  height: auto;
+  width: 100%;
+  min-width: 1200px;
+}
+
+/* main 레이아웃 */
+.main-wrap {
+  /* footer가 메인 높이에 따라 하단 고정이 되는지 확인하기 위해 임의로 설정 */
+  /* 이후 삭제 필요요 */
+  width: 1200px;
+  min-width: 1200px;
+  /* 화면 위치를 보기 위해 추가 이후 삭제 필요  */
+  height: auto;
+  margin: 0 auto;
+}

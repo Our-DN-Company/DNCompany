@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../static/css/font.css" />
+  <link rel="stylesheet" href="../../static/css/fragment/header.css" />
+  <script defer src="/js/fragment/header.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <header class="header__main" th:fragment="header">
+    <div id="header__wrap">
+      <div id="header">
+        <h1>
+          <a href="#" class="header__img__box"><img src="/images/fragment/logo_header4.png" alt="로고"
+                                                    class="header__logo__img"></a>
+        </h1>
+        <ul id="gnb" class="">
+          <li>
+            <a href="#">CARE</a><img src="/images/feet.png" alt="고양이발" class="header__item__foot" />
+            <div class="snb">
+              <ul>
+                <li><a href="#">Help me</a></li>
+                <li><a href="#">Help you</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">TALK</a>
+            <div class="snb">
+              <ul>
+                <li><a href="#">댕냥바다</a></li>
+                <li><a href="#">초보Zip</a></li>
+                <li><a href="#">우리들의 이벤트</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">WHERE</a>
+            <div class="snb">
+              <ul>
+                <li><a href="#">동물 병원 정보</a></li>
+                <li><a href="#">반려 동물 동반 시설</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">Q&A</a>
+            <div class="snb">
+              <ul></ul>
+            </div>
+          </li>
+        </ul>
+        <nav>
+          <ul>
+            <li class="nav__item"><a href="#">로그인 / 회원가입</a></li>
+            <li class="nav__item"><a href="#">마이페이지</a></li>
+            <li class="nav__item"><a href="#">캘린더</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+</body>
+
+</html>
