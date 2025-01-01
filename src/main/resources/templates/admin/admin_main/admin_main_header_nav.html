@@ -1,0 +1,35 @@
+<header class="header header_nav" th:fragment="admin_main_header_nav">
+  <a href="https://www.example.com">
+    <!-- 로고 이미지  길이 조절 필요할시 조절하셈-->
+    <img
+      th:src="@{/images/admin/admin_images/header_image/samplelogo2.png}"
+      width="300px"
+      height="50px"
+      alt="Site Logo"
+    />
+
+  </a>
+  <nav>
+    <div class="nav_name">
+      <h2>댕냥 컴퍼니 관리자 페이지입니다</h2>
+    </div>
+    <ul>
+      <!-- 어드민 메인 페이지로 링크 이동 -->
+      <li><a th:href="@{/admin/main}">Home</a></li>
+      <!--  -->
+      <li><a th:href="@{/admin/user/board/list}">회원</a></li>
+      <li><a th:href="@{/admin/board/list}">게시글</a></li>
+    </ul>
+  </nav>
+  <div class="user-menu">
+    <img src="https://via.placeholder.com/40" alt="User Image" id="userImage" />
+    <div class="modal" id="userModal">
+      <p><strong>Username</strong></p>
+      <p class="subtext">운영자님</p>
+      <hr />
+      <button id="myPageButton" class="link-button">내정보</button>
+      <hr />
+      <button id="logoutButton">로그아웃</button>
+    </div>
+  </div>
+</header>

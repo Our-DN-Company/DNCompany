@@ -1,0 +1,132 @@
+/* 공통 스타일 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style-type: none; /* 리스트 글머리 제거 */
+}
+
+a {
+  color: inherit; /* 부모의 글자색 상속 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+/* =============================== */
+/* 헤더 스타일 */
+/* =============================== */
+.header {
+}
+
+header.header_nav {
+  display: flex;
+  align-items: center;
+  min-width: 992px;
+  height: 56px;
+  padding: 9px 24px;
+  border-bottom: 1px solid #e2e5ea;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+header.header_nav nav {
+  display: flex;
+  margin-left: auto;
+}
+
+header.header_nav nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+header.header_nav nav ul li {
+  margin-right: 20px;
+}
+
+header.header_nav nav ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+header.header_nav .user-menu {
+  position: relative;
+  margin-left: 20px;
+}
+
+header.header_nav .user-menu img {
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+header.header_nav .user-menu .modal {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e2e5ea;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 200px;
+}
+
+header.header_nav .user-menu .modal.show {
+  display: block;
+}
+
+header.header_nav .user-menu .modal p {
+  margin: 0 0 10px 0;
+}
+
+header.header_nav .user-menu .modal p.subtext {
+  font-size: 0.9em;
+  color: #888;
+  margin-top: -10px;
+}
+
+header.header_nav .user-menu .modal hr {
+  border: none;
+  border-top: 1px solid #e2e5ea;
+  margin: 10px 0;
+}
+
+header.header_nav .user-menu .modal button {
+  background: none;
+  color: #007bff;
+  border: none;
+  padding: 5px 0;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+header.header_nav .user-menu .modal button.link-button {
+  color: #000;
+  text-decoration: underline;
+}
+
+header.header_nav .user-menu .modal button#logoutButton {
+  color: #000;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+
+/* 중앙 정렬을 위한 CSS */
+.nav_name {
+  flex-grow: 1; /* nav_name이 공간을 채우도록 설정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header.header_nav nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
