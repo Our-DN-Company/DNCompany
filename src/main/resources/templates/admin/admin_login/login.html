@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/admin/admin_login/common.css}" />
+  <link rel="stylesheet" th:href="@{/css/admin/admin_login/login.css}" />
+  <link rel="stylesheet" th:href="@{/css/admin/admin_login/font.css}" />
+  <script defer th:src="@{/js/admin/admin_login/login.js}"></script>
+  <title>관리자 페이지 로그인</title>
+</head>
+
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+  <header></header>
+  <main class="main-wrap">
+    <div class="content_box">
+      <!-- 배너 추가 -->
+      <div class="banner-space">
+        <img src="../../../../static/admin_page/image/header_image/samplelogo2.png" alt="배너 이미지" />
+      </div>
+      <div class="login-wrap">
+        <div class="login__kit">
+          <h2>관리자 페이지 로그인</h2>
+        </div>
+        <div class="login__input">
+          <form>
+            <div class="login__input__box">
+              <input
+                      type="text"
+                      name="id"
+                      placeholder="아이디를 입력해주세요"
+                      value=""
+              />
+              <input
+                      type="password"
+                      name="password"
+                      placeholder="비밀번호를 입력해주세요"
+                      autocomplete="off"
+                      value=""
+              />
+            </div>
+            <div class="login___id___chk__find">
+              <div class="login__id__chk">
+                <div class="login___id___chk__box">
+                  <input
+                          type="checkbox"
+                          id="saveId"
+                          name="saveId"
+                          value="y"
+                          checked=""
+                  />
+                  <label for="saveId">아이디 저장</label>
+                </div>
+              </div>
+              <div class="login__find">
+                <a>아이디 찾기</a><span></span><a>비밀번호 찾기</a>
+              </div>
+            </div>
+            <div class="login__btn__box">
+              <button class="btnLogin" type="submit" height="54" radius="3">
+                <span class="btn__title">로그인</span>
+              </button>
+              <button class="btnJoin" type="button" height="54" radius="3">
+                <span class="btn__title">회원가입</span>
+              </button>
+            </div>
+            <div class="login__SNS">
+              <div class="login__SNS__title">
+                <p>SNS 간편 로그인</p>
+              </div>
+              <div class="login__SNS__input">
+                <a href="#" class="login__SNS__input__tool">
+                  <img src="../../../../static/admin_page/image/login_image/naver-logo_v2.png" alt="네이버" />
+                </a>
+                <a href="#" class="login__SNS__input__tool">
+                  <img src="../../../../static/admin_page/image/login_image/kakao-logo_v2.png" alt="카카오톡" />
+                </a>
+                <a href="#" class="login__SNS__input__tool">
+                  <img src="../../../../static/admin_page/image/login_image/google-logo_v2.png" alt="구글" />
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer></footer>
+</div>
+</body>
+</html>
