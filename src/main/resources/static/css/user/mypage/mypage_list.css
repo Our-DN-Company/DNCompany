@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style-type: none;
+}
+
+th,
+td {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 10px;
+  text-align: center;
+}
+td {
+  cursor: pointer;
+}
+.mypage_list {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  width: 1200px;
+  height: 100vh;
+  align-items: stretch;
+  justify-content: flex-start;
+
+  margin-top: 300px;
+  p {
+    font-size: 25px;
+  }
+}
+
+.mypage_list_line {
+  border: 1px solid var(--main-color);
+  margin: 30px 0;
+}
+
+.mypage_review_button {
+  color: white;
+  background-color: var(--main-color);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
