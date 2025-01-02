@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/help/common.css" />
+  <link rel="stylesheet" href="/css/help/helpdetail.css" />
+  <link rel="stylesheet" href="/css/help/font.css" />
+  <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+  <header></header>
+  <div class="main-wrap">
+    <main>
+      <!-- 여기에 작업 -->
+      <div class="container">
+        <article class="pet-detail">
+          <!-- 상단 섹션 -->
+          <header class="detail-header">
+            <div class="tags">
+              <span class="tag status">모집중</span>
+            </div>
+            <h1>우리 댕댕이 산책 도와주실 분 구해요</h1>
+            <div class="header-info">
+              <div class="writer-info">
+                <span class="writer-name">김철수</span>
+              </div>
+              <div class="post-info">
+                <span>작성일: 2024.12.13</span>
+                <span>조회 42</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- 반려동물 정보 -->
+          <section class="info-section pet-info">
+            <h2>🐾 반려동물 정보</h2>
+            <div class="pet-profile">
+              <div class="pet-details">
+                <dl>
+                  <dt>이름</dt>
+                  <dd>코코</dd>
+                  <dt>나이</dt>
+                  <dd>2살</dd>
+                  <dt>종류</dt>
+                  <dd>강아지 / 말티즈</dd>
+                  <dt>성별</dt>
+                  <dd>남자아이 (중성화 완료)</dd>
+                </dl>
+              </div>
+            </div>
+          </section>
+
+          <!-- 돌봄 정보 -->
+          <section class="info-section care-info">
+            <h2>📅 돌봄 정보</h2>
+            <div class="care-details">
+              <div class="care-point">
+                <span class="point-amount">2,000P</span>
+                <span class="point-text">포인트 제공</span>
+              </div>
+              <dl>
+                <dt>돌봄 유형</dt>
+                <dd><span class="tag care-type">산책</span></dd>
+                <dt>돌봄 날짜</dt>
+                <dd>2024년 12월 15일</dd>
+                <dt>돌봄 시간</dt>
+                <dd>오후 2시 - 4시</dd>
+                <dt>돌봄 장소</dt>
+                <dd>서울시 강남구 삼성동</dd>
+              </dl>
+            </div>
+          </section>
+
+          <!-- 특이사항 -->
+          <section class="info-section note-info">
+            <h2>📝 특이사항</h2>
+            <p class="note-text">
+              사람을 좋아하는 아이입니다.
+              산책을 매우 좋아하며 다른 강아지들과도 잘 어울립니다.
+              간식은 알러지가 있어서 주시면 안됩니다.
+            </p>
+          </section>
+
+          <!-- 신청하기 버튼 -->
+          <div class="action-buttons">
+            <button class="apply-button" onclick="applyForCare()">돌봄 신청하기</button>
+          </div>
+        </article>
+      </div>
+
+      <script>
+        function applyForCare() {
+          if(confirm('돌봄을 신청하시겠습니까?')) {
+            alert('신청이 완료되었습니다.');
+          }
+        }
+      </script>
+    </main>
+  </div>
+  <footer></footer>
+</div>
+</body>
+</html>

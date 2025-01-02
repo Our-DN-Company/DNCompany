@@ -1,0 +1,249 @@
+/* 공통 설정 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.header__wrap {
+    width: 100%;
+    background: #fff;
+}
+
+#header {
+    position: fixed;
+    width: 100%;
+    min-width: 1000px;
+    left: 0;
+    top: 0;
+    padding: 0 50px;
+    margin: auto;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #fff;
+    z-index: 9999;
+}
+
+#header h1 {
+    padding: 20px 0;
+}
+
+#header > #gnb {
+    width: 800px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(34, 34, 34);
+    background-color: #fff;
+}
+
+#header > #gnb::before {
+    content: "";
+    width: 100%;
+    position: absolute;
+    top: 81px;
+    left: 0;
+    height: 150px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 3px 4px 0px;
+    display: block;
+}
+
+#header > #gnb::before {
+    display: none;
+}
+
+#header > #gnb.on::before {
+    display: block;
+}
+
+.header__item__foot {
+    height: 20px;
+    width: 20px;
+
+    vertical-align: bottom;
+}
+
+#header > #gnb > li .snb {
+    position: absolute;
+    top: 90px;
+    display: none;
+
+    color: rgb(51, 51, 51);
+}
+
+#header > #gnb.on > li .snb {
+    display: block;
+}
+
+#header > #gnb > li > .snb > ul > li + li {
+    margin-top: 20px;
+}
+
+#header > #gnb > li a:hover {
+    color: rgb(95, 0, 128);
+}
+
+nav {
+    ul {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: flex-start;
+        align-items: left;
+        gap: 5px;
+
+        font-size: 12px;
+        font-weight: 600;
+        color: rgb(34, 34, 34);
+
+        white-space: nowrap;
+        overflow: hidden;
+
+        li:hover {
+            color: rgb(95, 0, 128);
+        }
+    }
+}
+
+
+/* 필터 섹션 */
+.filter-section {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+/* 필터 옵션 레이아웃 */
+.filter-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+/* 필터 선택박스와 날짜 입력 스타일 */
+.filter-select, .filter-date {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+/* 검색창 컨테이너 */
+.search-box {
+    position: relative;
+}
+
+/* 검색 입력창 스타일 */
+.search-box input {
+    width: 100%;
+    padding: 8px 8px 8px 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+/* 게시글 목록 컨테이너 */
+.post-list {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    gap: 16px;
+}
+
+.post-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* 게시글 카드 호버 효과 */
+.post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* 태그 컨테이너 */
+.post-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+/* 태그 공통 스타일 */
+.tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.tag-purple {
+    background-color: rgb(189, 118, 255);
+    color: white;
+}
+/* 게시글 제목 스타일 */
+.post-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: rgb(34, 34, 34);
+}
+
+/* 게시글 정보(위치, 시간 등) 스타일 */
+.post-info {
+    display: flex;
+    gap: 16px;
+    color: #64748b;
+}
+
+/* 게시글 포인트 스타일 */
+.post-side {
+    text-align: right;
+}
+
+.point {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(95, 0, 128);
+}
+
+/* 페이지네이션 컨테이너 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.page-button {
+    padding: 8px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: none;
+    cursor: pointer;
+}
+
+.page-button.active {
+    background-color:rgb(95, 0, 128);
+    color: white;
+    border-color: rgb(95, 0, 128);
+}
