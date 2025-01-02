@@ -46,6 +46,7 @@ function addEventListeners() {
 
 
 
+// 차트 js
 function setActiveButton(buttonId) {
   document
       .querySelectorAll(".chart-button")
