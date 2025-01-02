@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/help/common.css" />
-    <link rel="stylesheet" href="/css/help/helpwrite.css" />
-    <link rel="stylesheet" href="/css/help/font.css" />
+    <link rel="stylesheet" th:href="@{/css/help/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/help/helpwrite.css}" />
+    <link rel="stylesheet" th:href="@{/css/help/font.css}" />
+    <script defer th:src="@{/js/help/helpwrite.js}"></script>
     <title>Document</title>
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -232,6 +233,6 @@
     </div>
     <footer></footer>
 </div>
-<script src="./summary.js"></script>
+
 </body>
 </html>
