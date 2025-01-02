@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/help/common.css" />
+    <link rel="stylesheet" href="/css/help/helplist.css" />
+    <link rel="stylesheet" href="/css/help/font.css" />
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <header></header>
+    <div class="main-wrap">
+        <main>
+            <!-- 여기에 작업 -->
+
+            <!-- 필터 섹션 -->
+            <div class="filter-section">
+                <div class="filter-options">
+                    <select class="filter-select">
+                        <option>서울시 전체</option>
+                        <option>강남구</option>
+                        <option>서초구</option>
+                    </select>
+                    <input type="date" class="filter-date">
+                    <select class="filter-select">
+                        <option>돌봄 유형</option>
+                        <option>산책</option>
+                        <option>돌봄</option>
+                        <option>병원 동행</option>
+                    </select>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="검색어를 입력하세요">
+                </div>
+            </div>
+
+            <!-- 게시글 목록 -->
+            <div class="post-list">
+                <!-- 게시글 카드 1 -->
+                <div class="post-card">
+                    <div class="post-content">
+                        <div class="post-tags">
+                            <span class="tag tag-purple">산책</span>
+                        </div>
+                        <h3 class="post-title">우리 댕댕이 산책 도와주실 분 구해요</h3>
+                        <div class="post-info">
+                            <span class="location">서울시 강남구</span>
+                            <span class="time">12/15 오후 2시-4시</span>
+                        </div>
+                    </div>
+                    <div class="post-side">
+                        <div class="point">2,000P</div>
+                    </div>
+                </div>
+
+                <!-- 게시글 카드 2 -->
+                <div class="post-card">
+                    <div class="post-content">
+                        <div class="post-tags">
+                            <span class="tag tag-purple">돌봄</span>
+                        </div>
+                        <h3 class="post-title">주말 2일 케어 가능하신 분 찾습니다</h3>
+                        <div class="post-info">
+                            <span class="location">서울시 서초구</span>
+                            <span class="time">12/16-17 종일</span>
+                        </div>
+                    </div>
+                    <div class="post-side">
+                        <div class="point">3,000P</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 페이지네이션 -->
+            <div class="pagination">
+                <button class="page-button active">1</button>
+                <button class="page-button">2</button>
+                <button class="page-button">3</button>
+            </div>
+    </div>
+    </main>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>
