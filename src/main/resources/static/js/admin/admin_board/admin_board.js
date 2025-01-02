@@ -1,6 +1,8 @@
+
+// 메인 페이지에서 특정버튼으로 넘어갈시 자동 셀렉트 박스 설정 코드
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category'); // category 값에 따라 셀렉트 박스의 선택 항목을 설정합니다.
+    const category = urlParams.get('category'); // category 값에 따라 셀렉트 박스의 선택 항목을 설정
     if (category) {
         const boardSelect = document.getElementById("boardSelect");
         if (boardSelect) {
