@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root {
   /* 메인 컬러 */
   --main-color: rgb(95, 0, 128);
@@ -29,3 +30,36 @@
   font-weight: normal;
   font-style: normal;
 }
+=======
+:root {
+  /* 메인 컬러 */
+  --main-color: rgb(95, 0, 128);
+  /* 서브 컬러 */
+  --sub-color: rgb(189, 118, 255);
+  /* 메인 폰트 색상 */
+  --main-font-color: rgb(34, 34, 34);
+  /* 서브 폰트 색상 */
+  --sub-font-color: rgb(51, 51, 51);
+}
+
+/* 메인 폰트 */
+/* 크게 들어가야하는 글씨나 깔끔해야 하는 글씨는 이걸로 사용 */
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 포인트 폰트 */
+/* 작은 버튼에 들어가는 포인트 글씨로만 사용 */
+/* 자칫하면 지저분해질 수 있으니 적용해보고 확인 이후 사용하기! */
+@font-face {
+  font-family: "Ownglyph_ParkDaHyun";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+>>>>>>> 6c8f40148c03fa9d3784d1cfe972cb3855ccfdfb
