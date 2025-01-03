@@ -149,20 +149,20 @@
                 <!-- 주소 -->
                 <div class="signup__info">
                   <div class="signup__info__title"><label class="info__title">주소<span>*</span></label></div>
-                  <input type="hidden" id="address_postcode" placeholder="우편번호">
+                  <input type="hidden" name="zipCode" id="address_postcode" placeholder="우편번호">
                   <div class="signup__info__box">
                     <div class="info__box__in" >
                       <!-- 초기에는 비활성화 상태 -->
-                      <label for="address_address"></label><input type="text" id="address_address" placeholder="주소" class="info__box__in__content"
+                      <label for="address_address"></label><input type="text" id="address_address" name="address" placeholder="주소" class="info__box__in__content"
                                                                   disabled><br>
-                      <label for="address_detailAddress"></label><input type="text" id="address_detailAddress" placeholder="상세주소" class="info__box__in__content"
+                      <label for="address_detailAddress"></label><input type="text" id="address_detailAddress" name="addressDetail" placeholder="상세주소" class="info__box__in__content"
                                                                         disabled>
                       <div class="testinfomvp">
                         <p class="testmessagenot address__message">상세 주소를 입력해주세요.</p>
                       </div>
                     </div>
                   </div>
-                  <input type="hidden" id="address_extraAddress" placeholder="참고항목">
+                  <input type="hidden" id="address_extraAddress" name="addressExtra" placeholder="참고항목">
 
                   <div class="signup__info__out">
                     <input class="address_btn" type="button" onclick="address_execDaumPostcode()" value="주소 검색">
