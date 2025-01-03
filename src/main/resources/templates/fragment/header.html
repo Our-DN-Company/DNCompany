@@ -42,8 +42,8 @@
             <a href="#">WHERE</a>
             <div class="snb">
               <ul>
-                <li><a href="#">동물 병원 정보</a></li>
-                <li><a href="#">반려 동물 동반 시설</a></li>
+                <li><a th:href="@{/map/hospital}">동물 병원 정보</a></li>
+                <li><a th:href="@{/map/pet-service}">반려 동물 동반 시설</a></li>
               </ul>
             </div>
           </li>
@@ -57,7 +57,7 @@
         <nav>
           <ul>
             <li class="nav__item"><a th:href="@{/user/login}">로그인 / 회원가입</a></li>
-            <li class="nav__item"><a href="#">마이페이지</a></li>
+            <li class="nav__item"><a th:href="@{mypage/main}">마이페이지</a></li>
             <li class="nav__item"><a th:href="@{/schedule/calender}">캘린더</a></li>
           </ul>
         </nav>
