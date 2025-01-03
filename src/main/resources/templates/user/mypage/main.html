@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_main.css}">
+
+
+
+
+    <script  th:src="@{/js/user/mypage/mypage_pet_slide.js}" defer=""></script>
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <header> </header>
+    <div class="main-wrap">
+
+
+        <main>
+            <!--마이페이지 메인-->
+
+
+            <div class="mypage_main">
+
+
+
+                <!--(좌측)회원정보-->
+
+                <div class="mypage_main_left">
+
+                    <div class="mypage_main_top">
+
+                        <div class="mypage_main_member_proflie">
+
+                            <div class="mypage_main_member_name"><span>$$</span>님</div>
+
+                            <!-- 회원정보 -->
+                            <ul class="mypage_user_profile">
+                                <li>아이디: ####</li>
+                                <li>이메일: ###@###.com</li>
+                                <li>가입일자:####-##-##</li>
+                            </ul>
+                            <div class="mypage_main_member_line"></div>
+                            <!-- 활동횟수/포인트 -->
+                            <ul class="mypage_user_now">
+                                <li>도와주세요: $$건</li>
+                                <li>도와줄게요:$$건</li>
+                                <li>보유 포인트: $$p</li>
+                                <li>(사용기한 yyyy-mm-dd)</li>
+                            </ul>
+
+                        </div>
+                        <!-- (우측) -->
+                        <div class="mypage_main_rigth">
+                            <!--  반려동물정보 -->
+                            <div class="mypage_main_pet">
+                                <div class="mypage_main_pet_box">
+                                    <!-- 이전 버튼 -->
+                                    <button class="mypage_main_pet_button_left"></button>
+
+                                    <!-- 반려동물 리스트 -->
+                                    <div class="mypage_main_pet_list active">
+                                        <p>반려동물 1과 100일째 함께합니다</p>
+                                        <div class="mypage_main_pet_content">
+                                            <div class="mypage_main_pet_img">
+                                                <img class="mypage_main_pet_image" src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진" />
+                                            </div>
+                                            <ul class="mypage_main_pet_profile">
+                                                <li>이름: 코코</li>
+                                                <li>나이: 2살</li>
+                                                <li>성별: 암컷</li>
+                                                <li>생일: 2022-01-01</li>
+                                                <li>입양일: 2022-03-01</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="mypage_main_pet_list">
+                                        <p>반려동물 2과 200일째 함께합니다</p>
+                                        <div class="mypage_main_pet_content">
+                                            <div class="mypage_main_pet_img">
+                                                <img class="mypage_main_pet_image" src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진" />
+                                            </div>
+                                            <ul class="mypage_main_pet_profile">
+                                                <li>이름: 초코</li>
+                                                <li>나이: 3살</li>
+                                                <li>성별: 수컷</li>
+                                                <li>생일: 2021-05-10</li>
+                                                <li>입양일: 2021-08-15</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="mypage_main_pet_list">
+                                        <p>반려동물 3과 300일째 함께합니다</p>
+                                        <div class="mypage_main_pet_content">
+                                            <div class="mypage_main_pet_img">
+                                                <img class="mypage_main_pet_image" src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진" />
+                                            </div>
+                                            <ul class="mypage_main_pet_profile">
+                                                <li>이름: 쿠키</li>
+                                                <li>나이: 4살</li>
+                                                <li>성별: 암컷</li>
+                                                <li>생일: 2020-09-15</li>
+                                                <li>입양일: 2021-01-20</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- 다음 버튼 -->
+                                    <button class="mypage_main_pet_button_right"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- 활동정보 -->
+                    <div class="mypage_main_work">
+
+                        <!-- 도와주세요 -->
+                        <div class="mypage_main_help_me">
+                            <div class="mypage_main_content_title"><p>도와주세요</p>
+                                <button class="mypage_main_content_button"><a th:href="@{/user/mypage/list/helpme-list}"></a></button></div>
+                            <div class="mypage_main_line"></div>
+                            <table class="mypage_main_list_top">
+                                <tr>
+                                    <th>제목</th>
+                                    <th>매칭상태</th>
+                                    <th>작성날짜</th>
+                                    <th>매칭 시어터</th>
+                                    <th>신청날짜</th>
+                                    <th>후기</th>
+
+                                </tr>
+
+
+                                <tr>
+                                    <td>이런 도움이 필요해요</td>
+                                    <td>매칭 대기중</td>
+                                    <td>2021.12.12</td>
+                                    <td>-</td>
+                                    <td>2020-23-12[진행중]</td>
+                                    <td><button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>이런 도움이 필요해요</td>
+                                    <td>매칭 완료</td>
+                                    <td>2021.12.12</td>
+                                    <td>누구님</td>
+                                    <td>2020-33-11[완료]</td>
+                                    <td><button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+
+                        <!-- 도와드려요 -->
+                        <div class="mypage_main_help_you">
+                            <div class="mypage_main_content_title"> <p>도와드려요</p>
+                                <button class="mypage_main_content_button"><a th:href="@{mypage/list/helpyou-list}"></a></button></div>
+                            <div class="mypage_main_line"></div>
+                            <table class="mypage_main_list_top">
+                                <tr>
+                                    <th>신청자</th>
+                                    <th>신청날짜</th>
+                                    <th>상태</th>
+                                </tr>
+
+                                <tr>
+                                    <td>누구님</td>
+                                    <td>2024.13.20</td>
+                                    <td>도움 주기 전입니다</td>
+                                </tr>
+
+                                <tr>
+                                    <td>누구님</td>
+                                    <td>2024.12.20</td>
+                                    <td><button class="mypage_review_button">도움완료</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- (게시물) -->
+                    <div class="mypage_main_content">
+                        <div class="mypage_main_content_title"><p>게시물</p>
+                            <button class="mypage_main_content_button"><a th:href="@{mypage/list/content-list}"></a></button></div>
+
+                        <div class="mypage_main_line"></div>
+                        <table class="mypage_main_list_top">
+                            <tr>
+                                <th>순번</th>
+                                <th>게시판</th>
+                                <th>제목</th>
+                                <th>작성날짜</th>
+
+                                <!-- 게시물 컨텐츠 -->
+                            <tr>
+                                <td>1</td>
+                                <td>QNA</td>
+                                <td>샘플 제목입니다</td>
+                                <td>2024.12.23</td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <!-- (댓글) -->
+                    <div class="mypage_main_comment">
+                        <div class="mypage_main_content_title"><p>댓글</p>
+                            <button class="mypage_main_content_button"><a th:href="@{mypage/list/comment-list}"></a></button></div>
+                        <div class="mypage_main_line"></div>
+                        <table class="mypage_main_list_top">
+                            <tr>
+                                <th>순번</th>
+                                <th>게시판</th>
+                                <th>원글 제목</th>
+                                <th>작성날짜</th>
+                            </tr>
+
+                            <!-- 댓글 컨텐츠 -->
+                            <tr>
+                                <td>샘플 순번</td>
+                                <td>샘플 게시판</td>
+                                <td>샘플 원글제목</td>
+                                <td>샘플 작성날짜</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <div class="mypage_main_work_bottom">
+                        <!-- (QnA) -->
+                        <div class="mypage_main_qna">
+                            <div class="mypage_main_content_title"><p>QnA</p>
+                                <button class="mypage_main_content_button"><a th:href="@{mypage/list/qna-list}"></a></button></div>
+                            <div class="mypage_main_line"></div>
+                            <table class="mypage_main_list_bottom">
+                                <tr>
+                                    <th>제목</th>
+                                    <th>작성날짜</th>
+                                    <th>답변</th>
+                                </tr>
+
+                                <!-- QnA 컨텐츠 -->
+                                <tr>
+                                    <td>이것이 궁금합니다~~~~~~~~~~~~~</td>
+                                    <td>2021.12.12</td>
+                                    <td>5</td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+
+                        <!-- (이벤트) -->
+                        <div class="mypage_main_event">
+                            <div class="mypage_main_content_title"> <p>이벤트</p>
+                                <button class="mypage_main_content_button"><a th:href="@{mypage/list/event-list}"></a></button></div>
+                            <div class="mypage_main_line"></div>
+                            <table class="mypage_main_list_bottom">
+                                <tr>
+                                    <th>작성날짜</th>
+                                    <th>읽음여부</th>
+                                </tr>
+
+                                <!--쪽지 컨텐츠 -->
+                                <tr>
+                                    <td>2024.12.20</td>
+                                    <td>읽음</td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer></footer>
+</div>
+</body>
+</html>
