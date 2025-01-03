@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/font.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_add_update.css}" />
+
+
+    <script defer th:src="@{/js/common.js}"></script>
+    <script defer th:src="@{/js/user/mypage/mypage_add.js}"></script>
+
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <header>
+
+    </header>
+
+
+    <div class="main-wrap">
+        <main>
+            <div class="mypage_pet_add_box">
+                <p>반려동물 정보 등록</p>
+
+                <form action="">
+                    <div>
+                        <label for="">사진등록</label>
+                        <div id="mypage_add_pet_img_preview"></div>
+                        <input id="mypage_add_pet_img" type="file" accept="img/*" />
+                    </div>
+                    <div>
+                        <label for="addPetSpecieslist">반려동물 분류</label>
+                        <div class="addPetSpeciesBox">
+                            <input
+                                    type="text"
+                                    name="addPetSpecies"
+                                    class="addPetSpecies"
+                                    placeholder="입력해주세요"
+                            />
+                            <select name="addPetSpecieslist" id="addPetSpecieslist">
+                                <option value="dog">강아지</option>
+                                <option value="cat">고양이</option>
+                                <option value="other" selected>직접입력</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label>이름 </label>
+                        <input type="text" name="addPetName" />
+                    </div>
+                    <div>
+                        <label>나이 </label>
+                        <input type="text" name="addAge" id="addAge" readonly />
+                    </div>
+
+                    <div>
+                        <label>생일 </label>
+                        <input type="date" name="addBrithDay" id="addBrithDay" />
+                    </div>
+
+                    <div>
+                        <label>입양일 </label>
+                        <input type="date" name="addAdoptionDate" />
+                    </div>
+
+                    <button type="submit">완료</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <footer></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/font.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}" />
+
+    <script defer th:src="@{/js/common.js}"></script>
+    <script defer th:src="@{/js/user/mypage/mypage_nav.js}"></script>
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+
+<main>
+    <div class="mypage_list">
+        <div class="mypage_list_title">
+            <p>도와주세요</p>
+            <div class="mypage_list_line"></div></div>
+        <table>
+            <tr>
+                <th>제목</th>
+                <th>매칭상태</th>
+                <th>작성날짜</th>
+                <th>매칭 시어터</th>
+                <th>신청날짜</th>
+                <th>후기</th>
+
+            </tr>
+
+
+            <tr>
+                <td>이런 도움이 필요해요</td>
+                <td>매칭 대기중</td>
+                <td>2021.12.12</td>
+                <td>-</td>
+                <td>2020-23-12[진행중]</td>
+                <!-- <td><button class="mypage_review_button">후기</button>
+                <button class="mypage_review_button">신고</button></td> -->
+            </tr>
+
+            <tr>
+                <td>이런 도움이 필요해요</td>
+                <td>매칭 완료</td>
+                <td>2021.12.12</td>
+                <td>누구님</td>
+                <td>2020-33-11[완료]</td>
+                <td><button class="mypage_review_button">후기</button>
+                    <button class="mypage_review_button">신고</button></td>
+            </tr>
+        </table>
+
+</main>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

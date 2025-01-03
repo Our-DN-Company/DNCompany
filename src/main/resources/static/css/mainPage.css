@@ -1,0 +1,184 @@
+@media (max-width: 1350px) {
+  .content_box {
+    width: 90%;
+  }
+}
+
+.main__help {
+  margin-top: 200px;
+  width: 100%;
+}
+
+.main__help__top {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.main__help__title {
+  font-size: 30px;
+  color: var(--main-color);
+  font-family: "Pretendard-Regular";
+  font-weight: bold;
+  text-align: center;
+}
+
+.help__blank {
+  animation: blink 0.5s infinite;
+  font-size: 30px;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.main__help__text {
+  line-height: 2;
+}
+.main__help__text2 {
+  display: inline;
+  color: var(--sub-font-color);
+  span {
+    font-size: 13px;
+    color: var(--sub-font-color);
+  }
+}
+
+.main__help__btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 150px;
+
+  .main__help__button {
+    display: inline-block;
+
+    background-color: #fff;
+    color: var(--main-color);
+    text-decoration: none;
+
+    font-family: "Pretendard-Regular";
+    margin-top: 50px;
+    padding: 20px 70px;
+    border: 2px solid var(--main-color);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+
+    .help__button__img {
+      width: 16px;
+      height: 16px;
+      vertical-align: bottom;
+    }
+    &:hover {
+      background-color: var(--main-color);
+      color: #fff;
+    }
+  }
+}
+
+.main__contents {
+  width: 100%;
+
+  h3 {
+    display: block;
+    margin: 150px 0px 30px 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--main-font-color);
+    line-height: 1;
+    span {
+      color: var(--main-color);
+      font-family: "Ownglyph_ParkDaHyun";
+      font-size: 25px;
+    }
+  }
+}
+
+.main__hot__box {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column-gap: 20px;
+
+  .main__hot__item {
+    padding: 10px;
+    border-radius: 3%;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+      0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    font-size: 14px;
+
+    .main__hot__item__in {
+      border: 1px solid var(--sub-font-color);
+      border-radius: 10px;
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-top: 100%;
+      overflow: hidden;
+    }
+
+    .main__hot__title {
+      height: 38px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+.main__hot__item:hover {
+  box-shadow: 0 10px 10px rgba(95, 0, 128, 0.25),
+    10px 10px 10px 10px rgba(0, 0, 0, 0.22);
+  transition: all 0.3s ease-in-out;
+}
+
+.main__festival__box {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 20px;
+
+  margin-bottom: 100px;
+
+  .main__festival__item {
+    height: 300px; /* 고정 높이 설정 */
+    padding: 10px;
+    border-radius: 3%;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+      0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    font-size: 14px;
+
+    .main__festival__item__in {
+      border: 1px solid var(--sub-font-color);
+      border-radius: 10px;
+      position: relative;
+      width: 100%;
+      height: 80%; /* 전체 높이의 80% 사용 */
+      overflow: hidden;
+    }
+
+    .main__festival__title {
+      height: 15%; /* 전체 높이의 15% 사용 */
+      margin-top: 5px; /* 타이틀 상단 간격 조정 */
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px; /* 텍스트 크기 줄임 */
+    }
+  }
+}
+
+.main__festival__item:hover {
+  box-shadow: 0 10px 10px rgba(95, 0, 128, 0.25),
+    10px 10px 10px 10px rgba(0, 0, 0, 0.22);
+  transition: all 0.3s ease-in-out;
+}
