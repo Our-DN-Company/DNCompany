@@ -1,3 +1,5 @@
+
+// DOM이 완전히 로드된 후 실행되는 이벤트 리스너
 document.addEventListener("DOMContentLoaded", function () {
 
 
@@ -16,14 +18,20 @@ document.addEventListener("DOMContentLoaded", function () {
         {번호: 11, 아이디: 'user11', 이름: '엄지현', 주소: '전북', 폰번호: '010-1234-5678', 생년월일: '2001-11-11', 성별: '여성', 가입일: '2022-11-11', 신고: 0, 포인트: 1300}
     ];
 
+    // DOM 요소 참조 변수
     const memberListBody = document.getElementById('memberListBody');
     const itemsPerPageSelect = document.getElementById('itemsPerPage');
-
+    // 회원 목록을 화면에 렌더링하는 코드
     function renderMemberList(members, itemsPerPage = 10) {
+        // 기존 테이블 내용을 초기화
         memberListBody.innerHTML = "";
+        // 페이지당 표시할 회원 수만큼 데이터 자르기 #삭제 예성 데이터베이스 연결시 쿼리문으로 대체 예정임
         const paginatedMembers = members.slice(0, itemsPerPage);
 
+
+        // 각 회원별 테이블 행 생성
         paginatedMembers.forEach(member => {
+            // 회원 정보와 관리 버튼을 포함한 HTML 템플릿
             const row = document.createElement('tr');
             row.innerHTML = `
               <td><input type="checkbox"></td>
@@ -61,6 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
         renderMemberList(dummyData, itemsPerPage);
     });
 
-    // 초기 렌더링
+    // 페이지 로드 시 초기 목록 렌더링
     renderMemberList(dummyData);
 });
