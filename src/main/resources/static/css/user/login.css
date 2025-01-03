@@ -82,7 +82,7 @@
 
 .login__btn__box {
   margin-top: 28px;
-  button:last-of-type {
+  a {
     margin-top: 10px;
   }
 }
@@ -99,9 +99,11 @@
   border: 0px none;
 }
 .btnJoin {
-  display: block;
+  display: flex;
   padding: 0px 10px;
   text-align: center;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   width: 100%;
   height: 54px;
@@ -111,12 +113,12 @@
   border: 1px solid rgb(95, 0, 128);
 }
 .btn__title {
-  display: inline-block;
+  display: flex;
   font-size: 16px;
   font-weight: 500;
   font-family: "Pretendard-Regular";
-  display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
@@ -137,7 +139,6 @@
   font-size: 16px;
   font-weight: 500;
   font-family: "Pretendard-Regular";
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
