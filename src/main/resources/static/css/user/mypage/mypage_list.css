@@ -19,14 +19,13 @@ td {
 }
 .mypage_list {
   display: flex;
-  position: fixed;
   flex-direction: column;
   width: 1200px;
-  height: 100vh;
-  align-items: stretch;
-  justify-content: flex-start;
 
-  margin-top: 300px;
+  align-items: stretch;
+  justify-content: center;
+
+  margin: 300px auto;
   p {
     font-size: 25px;
   }

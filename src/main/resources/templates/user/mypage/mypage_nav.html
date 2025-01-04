@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_nav.css}" />
+
+  <script defer th:src="@{/js/user/mypage/mypage_nav.js}"></script>
+  <title>Document</title>
+</head>
+
+<body>
+<!-- 마이페이지 서브 메뉴바 -->
+<nav th:fragment="mypage-nav">
+  <div class="myPage__wrap">
+    <div id="myPage">
+      <ul id="gnb__myP" class="">
+        <li>
+          <a th:href="@{/mypage/main}">마이페이지</a>
+        </li>
+        <li>
+          <a th:href="@{/mypage/update/profile}">정보수정</a>
+          <div class="snb">
+            <ul>
+              <li><a th:href="@{/mypage/update/profile}">회원정보 수정</a></li>
+              <li><a th:href="@{/mypage/update/pet}">반려동물 정보 등록</a></li>
+              <li><a th:href="@{/mypage/add/pet}">반려동물 정보 수정</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a th:href="@{/mypage/list/content}">활동기록</a>
+          <div class="snb">
+            <ul>
+              <li><a th:href="@{/mypage/list/content}">게시물</a></li>
+              <li><a th:href="@{/mypage/list/comment}">댓글</a></li>
+              <li><a th:href="@{/mypage/list/qna}">QnA</a></li>
+              <li><a th:href="@{/mypage/list/event}">쪽지</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</body>
+
+</html>
