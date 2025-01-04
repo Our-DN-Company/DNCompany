@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +18,9 @@
   <body>
     <!-- 홈페이지 전체 사이즈 -->
     <div class="container">
-      <header></header>
+      <th:block th:insert="~{fragment/header::header}">
+
+      </th:block>
       <div class="main-wrap">
         <main>
           <p>동물 병원 정보</p>
@@ -61,7 +63,9 @@
           </div>
         </main>
       </div>
-      <footer></footer>
+      <th:block th:insert="~{fragment/footer::footer}">
+
+      </th:block>
     </div>
   </body>
 </html>
