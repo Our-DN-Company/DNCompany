@@ -1,4 +1,4 @@
-package com.example.dncompany.controller.adminController;
+package com.example.dncompany.dto.admin.board;
 
 
 import lombok.Getter;
