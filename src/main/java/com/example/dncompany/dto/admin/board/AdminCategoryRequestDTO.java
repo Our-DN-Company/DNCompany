@@ -1,4 +1,4 @@
-package com.example.dncompany.controller.adminController;
+package com.example.dncompany.dto.admin.board;
 
 
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoryRequestDTO {
+public class AdminCategoryRequestDTO {
     private String category;
     private String searchType;
     private String searchInput;
