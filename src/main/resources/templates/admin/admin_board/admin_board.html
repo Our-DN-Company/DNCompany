@@ -13,38 +13,42 @@
 
 <div class="post-management">
     <h3>게시물 관리</h3>
-    <div class="filter">
-        <label for="searchInput">작성일:</label>
-        <button>오늘</button>
-        <button>3일</button>
-        <button>7일</button>
-        <button>1개월</button>
-        <label for="startDate">작성일 (시작):</label> <input id="startDate" placeholder="시작 날짜 입력" type="date"> <label
-            for="endDate">작성일 (종료):</label> <input id="endDate" placeholder="종료 날짜 입력" type="date">
-    </div>
-    <div class="filter">
-        <label for="boardSelect">게시판 선택:</label>
-        <select id="boardSelect">
-            <option value="all">전체 목록</option>
-            <option value="qna">QnA</option>
-            <option value="신고">신고</option>
-            <option value="도와주세요">도와주세요</option>
-            <option value="이벤트">이벤트</option>
-        </select>
-    </div>
-    <div class="filter">
-        <label for="searchType">게시글 찾기:</label>
-        <select id="searchType">
-            <option value="title">제목</option>
-            <option value="content">내용</option>
-            <option value="author">작성자</option>
-            <option value="id">아이디</option>
-        </select>
-        <input id="searchInput" placeholder="검색어를 입력하세요" type="text"/>
-    </div>
-    <div class="filter">
-        <button class="search-button" id="searchButton">검색</button>
-    </div>
+    <form id="searchForm" method="post" th:action="@{/admin/board/list/reportBoard}">
+        <div class="filter">
+            <label for="searchInput">작성일:</label>
+            <button>오늘</button>
+            <button>3일</button>
+            <button>7일</button>
+            <button>1개월</button>
+            <label for="startDate">작성일 (시작):</label>
+            <input id="startDate" type="date" placeholder="시작 날짜 입력">
+            <label for="endDate">작성일 (종료):</label>
+            <input id="endDate" type="date" placeholder="종료 날짜 입력">
+        </div>
+        <div class="filter">
+            <label for="boardSelect">게시판 선택:</label>
+            <select id="boardSelect" name="category">
+                <option value="all">전체 목록</option>
+                <option value="qna">QnA</option>
+                <option value="신고">신고</option>
+                <option value="도와주세요">도와주세요</option>
+                <option value="이벤트">이벤트</option>
+            </select>
+        </div>
+        <div class="filter">
+            <label for="searchType">게시글 찾기:</label>
+            <select id="searchType">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="author">작성자</option>
+                <option value="id">아이디</option>
+            </select>
+            <input id="searchInput" type="text" placeholder="검색어를 입력하세요"/>
+        </div>
+        <div class="filter">
+            <button type="submit" class="search-button" id="searchButton">검색</button>
+        </div>
+    </form>
 </div>
 
 <div class="post-list">
@@ -59,7 +63,7 @@
     <table>
         <thead>
         <tr>
-            <th><input id="selectAll" type="checkbox"/></th>
+            <th><input type="checkbox" id="selectAll"/></th>
             <th>번호</th>
             <th>카테고리</th>
             <th>제목</th>
@@ -71,7 +75,17 @@
         </tr>
         </thead>
         <tbody id="postListBody">
-        <!-- 임시 게시물 데이터 -->
+        <tr th:each="post, index : ${reports}">
+            <td><input type="checkbox" class="post-checkbox"></td>
+            <td th:text="${index.count}"></td>
+            <td th:text="${post.category}"></td>
+            <td th:text="${post.title}"></td>
+            <td th:text="${post.status}"></td>
+            <td th:text="${post.writer}"></td>
+            <td th:text="${post.email}"></td>
+            <td th:text="${post.phoneNumber}"></td>
+            <td th:text="${post.createdAt}"></td>
+        </tr>
         </tbody>
     </table>
     <button class="delete-button">삭제</button>
