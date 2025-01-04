@@ -6,9 +6,14 @@
 
     <link rel="stylesheet" th:href="@{/css/common.css}" />
     <link rel="stylesheet" th:href="@{/css/font.css}" />
-    <link rel="stylesheet" th:href="/css/user/mypage/mypage_add_update.css" />
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_add_update.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_nav.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
 
 
+    <script defer th:src="@{/js/user/mypage/mypage_nav.js}"></script>
+    <script defer th:src="@{/js/fragment/header.js}"></script>
     <script defer th:src="@{/js/common.js}"></script>
     <script defer th:src="@{/js/user/mypage/mypage_add.js}"></script>
     <title>Document</title>
@@ -16,11 +21,11 @@
 <body>
 <!-- 홈페이지 전체 사이즈 -->
 <div class="container">
-    <header>
+    <th:block th:insert="~{fragment/header::header}">
+    </th:block>
 
-    </header>
-
-
+    <th:block th:insert="~{user/mypage/mypage_nav::mypage-nav}">
+    </th:block>
 
     <div class="main-wrap">
         <main>
@@ -29,12 +34,12 @@
 
                 <form action="">
                     <div>
-                        <label for="">사진등록</label>
+                        <label >사진등록</label>
                         <input id="mypage_add_pet_img" type="file" accept="img/*" />
                         <div id="mypage_add_pet_img_preview"></div>
                     </div>
                     <div>
-                        <label for="">종 </label>
+                        <label >종 </label>
                         <input type="text" name="updatePetSpecies" />
                     </div>
 
@@ -64,6 +69,9 @@
         </main>
     </div>
     <footer></footer>
+<th:block th:insert="~{fragment/footer::footer}">
+
+</th:block>
 </div>
 </body>
 </html>
