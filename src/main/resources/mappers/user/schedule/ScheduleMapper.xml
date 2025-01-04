@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dncompany.mapper.user.schedule.ScheduleMapper">
+    <!-- 도움 테이블로부터 회원의 일정 데이터 가져오기-->
+    <select id="selectScheduleByUserId" parameterType="long" resultType="ScheduleDTO">
+        SELECT SCHEDULE_ID, SCHEDULE_TITLE, SCHEDULE_CONTENT, SCHEDULE_DATE, SCHEDULE_START_TIME, SCHEDULE_END_TIME, USERS_ID, HELP_ID
+        FROM SCHEDULE
+        WHERE USERS_ID = #{usersId}
+    </select>
 </mapper>
