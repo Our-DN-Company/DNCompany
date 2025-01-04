@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/dn/detail.css}"/>
+    <style>
+        @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
+        @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
+    </style>
+</head>
+<body>
+<header class="header" th:include="~{fragment/header::header}">
+</header>
+
+<div class="container">
+    <div class="main-wrap">
+        <main>
+            <!-- 여기에 작업 -->
+            <!-- 게시글 상세 -->
+            <div class="product_qaDetailContainer">
+                <div class="product_qaDetailContent">
+                    <!-- 작성글 박스 -->
+                    <div class="product_qaDetailQuestion">
+                        <div class="product_qaDetailTitle">
+                            <div class="product_labelListWrapper">
+                                <button class="mylabel_activeLabel">강아지</button>
+                                <button class="mylabel_activeLabel">간식</button>
+                            </div>
+                            <h1 class="product_qaDetailTop">물품명</h1>
+                        </div>
+                        <div class="product_qaDetailText">
+                            <div class="product_detail_left">
+                                <!-- 상품 이미지 -->
+                                <img
+                                        src="https://via.placeholder.com/150"
+                                        alt="상품 이미지"
+                                        class="product_image"
+                                />
+                            </div>
+                            <div class="product_detail_right">
+                                <!-- 판매 금액 -->
+                                <div class="product_price">₩50,000</div>
+                                <!-- 판매 글 내용 -->
+                                <div class="product_description">
+                                    이 상품은 강아지 간식으로 적합하며, 고품질 원료로
+                                    제작되었습니다.
+                                </div>
+                                <!-- 관심 상품 버튼 -->
+                                <button class="favorite_button">💖 관심 상품</button>
+                                <!-- 포인트 사용 텍스트 박스 -->
+                                <input
+                                        type="text"
+                                        class="point_input"
+                                        placeholder="사용할 포인트 입력"
+                                />
+                                <!-- 판매자와 대화 버튼 -->
+                                <button class="chat_button">판매자와 대화</button>
+                            </div>
+                        </div>
+
+                        <!-- 작성자 정보 -->
+                        <div class="product_qaDetailInfo">
+                            <div>
+                                <a href="" class="product_infoWrapper" href="#">
+                                    <img
+                                            src="https://bff-images.bemypet.kr/media/medias/profile_image/927-image_picker4881577713905119062.jpg"
+                                    />
+                                    <div class="product_qaDetailUser">삼색이짱짱</div>
+                                    <div class="product_qaDetailDate">2024.12.17</div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- 작성글 삭제/수정 버튼 -->
+                        <div class="delete_modify_Btn">
+                            <div class="delete_Btn">
+                                <button class="delete_Btn_item" tabindex="0" type="button">
+                                    글 삭제
+                                </button>
+                            </div>
+                            <!-- 작성글 수정 버튼 -->
+                            <div class="modify_Btn">
+                                <button class="modify_Btn_item" tabindex="0" type="button">
+                                    글 수정
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+</div>
+</body>
+</html>
