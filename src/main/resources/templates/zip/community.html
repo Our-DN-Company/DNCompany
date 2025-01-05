@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/zip/community.css}"/>
+    <style>
+        @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
+        @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
+    </style>
+</head>
+<body>
+<header class="header" th:include="~{fragment/header::header}">
+</header>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <div class="main-wrap">
+        <main>
+            <!-- 여기에 작업 -->
+            <!-- 게시판 영역 -->
+
+            <!-- 검색 영역 -->
+            <div class="community_loungeContents">
+                <div class="community_SearchContainer">
+                    <div class="community_inputContainer">
+                        <input
+                                type="text"
+                                placeholder="찾으시는 커뮤니티 글이 있으신가요?"
+                                maxlength="130"
+                                class="community_searchInput"
+                                enterkeyhint="search"
+                                value
+                        />
+                    </div>
+                    <!-- 네비게이션 -->
+                    <div class="community_loungeContainer">
+                        <div class="SubView-sub">
+                            <div class="SubView-sub-box">
+                                <div class="SubView-sub-tab">
+                                    <ul class="SubView-sub-tabList">
+                                        <li class="SubView-tab-item">
+                                            <a href="#" class="SubView-tab-t1">강아지</a>
+                                        </li>
+                                        <li class="SubView-tab-item">
+                                            <a href="#" class="SubView-tab-t1">고양이</a>
+                                        </li>
+                                        <li class="SubView-tab-item">
+                                            <a href="#" class="SubView-tab-t1">소동물</a>
+                                        </li>
+                                        <li class="SubView-tab-item">
+                                            <a href="#" class="SubView-tab-t1">기타</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 경계선 -->
+                    <hr class="community_pageDivider"/>
+
+                    <!-- 메인 게시판 -->
+                    <div class="community_loungeContents">
+                        <div class="community_filterBtnWrapper">
+                            <!-- 정렬 -->
+                            <div class="community_radioContainer">
+                                <div class="community_radioWrap">
+                                    <input
+                                            type="radio"
+                                            class="radio_myRadio"
+                                            id="최신 순"
+                                            name="question"
+                                            value="최신 순"
+                                            checked
+                                    />
+                                    <label for="최신 순">최신 순</label>
+                                </div>
+                                <div class="community_radioWrap">
+                                    <input
+                                            type="radio"
+                                            class="radio_myRadio"
+                                            id="인기 순"
+                                            name="question"
+                                            value="인기순"
+                                    />
+                                    <label for="인기순">인기 순</label>
+                                </div>
+                            </div>
+
+                            <!-- 글쓰기 버튼 -->
+                            <div class="write_Btn">
+                                <button class="write_Btn_item" tabindex="0" type="button">
+                                    글쓰기
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 글 목록 -->
+                        <div class="community_loungeLeftContent">
+                            <div class="community_loungeList">
+                                <!-- 반복요소 -->
+                                <div class="qaList_qaListContainer">
+                                    <div class="qaList_qaListWrapper">
+                                        <div>
+                                            <div class="qaList_qaListLabelWrapper">
+                                                <div class="qaList_labelListWrapper">
+                                                    <div class="animalLabel_animalLabelContainer">
+                                                        <img
+                                                                src="https://bemypet.kr/icons/community/ANIMALICON_ETC.svg"
+                                                        />
+                                                        <div>기타</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="qaList_qaListTitle">리리 팬아트!!</div>
+                                            <div class="qaList_qaListText">
+                                                지난번에 리리도 팬아트 만들어달라고 했는데.. 그림은
+                                                준비되었는데 색이없어 어쩔수없이 편집의 힘을 빌려
+                                                완성한 팬아트... (리리 사토루)
+                                            </div>
+                                        </div>
+                                        <div class="qaList_qaListImg"></div>
+                                    </div>
+                                    <div class="qaList_qaListAbout">
+                                        <a class="qaList_qaAuthor" href="">
+                                            <img
+                                                    src="https://bff-images.bemypet.kr/media/medias/profile_image/927-image_picker4881577713905119062.jpg"
+                                            />
+                                            <div class="qaList_nickname">삼색이짱짱</div>
+                                        </a>
+                                        <div class="qaList_communityType">댓글 : 0</div>
+                                        <div>1시간 전</div>
+                                    </div>
+                                    <div class="qaList_labelWrapper">
+                                        <div class="qaList_desktopLabelContainer"></div>
+                                    </div>
+                                    <hr class="qaList_qaListDivider"/>
+                                </div>
+                                <!-- /반복요소 -->
+                                <!-- 샘플 -->
+
+                                <!-- /샘플 -->
+                            </div>
+                        </div>
+
+                        <!-- 페이지 영역 -->
+                        <section class="pagination-section">
+                            <ul class="pagination">
+                                <li class>
+                                    <a class href="#" aria-label="Go to first page">‹</a>
+                                </li>
+                                <li class>
+                                    <a class href="#" aria-label="Go to page number 1">1</a>
+                                </li>
+                                <li class>
+                                    <a class href="#" aria-label="Go to page number 2">2</a>
+                                </li>
+                                <li class="active">
+                                    <a class href="un" aria-label="Go to page number 3">3</a>
+                                </li>
+                                <li class>
+                                    <a class href="undefined" aria-label="Go to page number 4"
+                                    >4</a
+                                    >
+                                </li>
+                                <li class>
+                                    <a class href="#" aria-label="Go to page number 5">5</a>
+                                </li>
+                                <li class>
+                                    <a class href="#" aria-label="Go to last page">›</a>
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+</div>
+</body>
+</html>
