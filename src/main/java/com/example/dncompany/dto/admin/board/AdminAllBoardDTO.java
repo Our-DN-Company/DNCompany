@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AdminTotalBoardDTO {
+public class AdminAllBoardDTO {
     private Long id;
     private String category;
     private String title;
