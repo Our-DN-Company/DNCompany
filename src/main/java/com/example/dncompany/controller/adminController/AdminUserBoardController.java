@@ -1,15 +1,17 @@
 package com.example.dncompany.controller.adminController;
 
+import com.example.dncompany.dto.admin.user.AdmInUserReportDTO;
 import com.example.dncompany.dto.admin.user.board.AdminUserAllBoard;
 import com.example.dncompany.service.admin.AdminUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/user/board")
@@ -20,19 +22,72 @@ public class AdminUserBoardController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        // 기본적으로 첫 화면에 모든 사용자 데이터를 표시
-//        List<AdminUserAllBoard> userList = adminUserService.getAllUserData(new AdminUserAllBoard());
-//        model.addAttribute("userList", userList);
-
         return "admin/admin_board/admin_user_board";
     }
 
     // 회원정보 검색 및 조회 (부분 업데이트)
     @PostMapping("/list/data")
-    public String listData(AdminUserAllBoard searchCriteria, Model model) {
-        // 검색조건에 맞는 회원 리스트 조회
+    public String listData(@ModelAttribute AdminUserAllBoard searchCriteria, Model model) {
         List<AdminUserAllBoard> userList = adminUserService.getAllUserData(searchCriteria);
         model.addAttribute("userList", userList);
-        return "admin/admin_board/admin_user_board :: #memberListBody";  // 특정 부분만 갱신
+        return "admin/admin_board/admin_user_board :: #memberListBody";
+    }
+
+
+    // 신고 내역 조회
+    @GetMapping("/reportDetails/{userId}")
+    @ResponseBody  // JSON 응답을 위해 추가
+    public ResponseEntity<List<AdmInUserReportDTO>> getReportDetails(@PathVariable Long userId) {
+        List<AdmInUserReportDTO> reports = adminUserService.getReportsByUserId(userId);
+        return ResponseEntity.ok(reports);
+    }
+
+    // 신고 처리
+    @PostMapping("/processReport/{reportId}")
+    @ResponseBody  // JSON 응답을 위해 추가
+    public ResponseEntity<Map<String, Object>> processReport(
+            @PathVariable Long reportId,
+            @RequestBody Map<String, Integer> request) {
+
+        String status = "처리완료";  // 실제 DB에 맞는 상태값으로 수정
+        boolean success = adminUserService.updateReportStatus(reportId, status);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
+
+        return ResponseEntity.ok(response);
+    }
+
+    // 활동 정지 처리
+    @PostMapping("/banUser/{userId}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> banUser(
+            @PathVariable Long userId,
+            @RequestBody Map<String, Integer> request) {
+
+        Integer banDays = request.get("banDays");
+        boolean success = adminUserService.banUser(userId, banDays);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
+
+        return ResponseEntity.ok(response);
+    }
+
+    // 포인트 수정
+    @PostMapping("/updatePoints/{userId}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> updatePoints(
+            @PathVariable Long userId,
+            @RequestBody Map<String, Integer> request) {
+
+        Integer points = request.get("points");
+        boolean success = adminUserService.updateUserPoints(userId, points);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
+        response.put("newPoints", points);
+
+        return ResponseEntity.ok(response);
     }
 }
