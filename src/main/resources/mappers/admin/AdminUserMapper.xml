@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.admin.AdminUserMapper">
+
+    <select id="selectUserData" resultType="AdminUserAllBoard">
+        SELECT
+            u.USERS_ID AS userId,
+            u.LOGIN_ID AS loginId,
+            u.NAME AS name,
+            u.ADDRESS AS address,
+            u.PHONE_NUMBER AS phoneNumber,
+            TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') AS birthDate,  -- 생일 날짜 형식 변환
+            u.GENDER AS gender,
+            TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') AS signUpDate,  -- 가입 날짜 (BIRTH_DATE로 사용)
+            (SELECT COUNT(*)
+             FROM HR.REVIEW r
+                      JOIN HR.HELP_OFFER ho ON r.HELP_YOU_NUMBER = ho.HELP_OFFER_ID  -- HELP_OFFER와 연결
+             WHERE r.REVIEW_CHECK_STATUS = '신고'  -- 신고된 리뷰만 카운트
+               AND ho.USERS_ID = u.USERS_ID) AS reportCount,  -- 신고된 리뷰 카운트
+            u.POINT AS points
+        FROM HR.USERS u
+    </select>
+
+
+</mapper>
