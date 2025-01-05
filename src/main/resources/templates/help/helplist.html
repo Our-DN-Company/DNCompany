@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -6,12 +7,17 @@
     <link rel="stylesheet" th:href="@{/css/help/common.css}" />
     <link rel="stylesheet" th:href="@{/css/help/helplist.css}" />
     <link rel="stylesheet" th:href="@{/css/help/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
     <title>Document</title>
 </head>
 <body>
 <!-- 홈페이지 전체 사이즈 -->
 <div class="container">
-    <header></header>
+    <th:block th:insert="~{fragment/header::header}">
+
+    </th:block>
     <div class="main-wrap">
         <main>
             <!-- 여기에 작업 -->
@@ -80,10 +86,12 @@
                 <button class="page-button">2</button>
                 <button class="page-button">3</button>
             </div>
-    </div>
+     </div>
     </main>
 </div>
-<footer></footer>
+<th:block th:insert="~{fragment/footer::footer}">
+
+</th:block>
 </div>
 </body>
 </html>

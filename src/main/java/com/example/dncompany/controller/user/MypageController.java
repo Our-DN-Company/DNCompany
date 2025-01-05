@@ -20,12 +20,10 @@ public class MypageController {
         return "user/mypage/add-pet";
     }
 
-
-
     @GetMapping("/update/pet")
-    public String mypageUpdatePet() {
-        return "user/mypage/update-pet";
-    }
+    public String mypageUpdatePet() {return "user/mypage/update-pet";}
+
+
 
     @GetMapping("/update/profile")
     public String mypageUpdateProfile() {
