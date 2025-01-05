@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.user.MypageMapper">
+    <!-- Insert 반려동물 정보 -->
+    <insert id="addPet" parameterType="AddPetDTO">
+        <selectKey resultType="long" keyProperty="petId" order="BEFORE">
+            SELECT SEQ_PET.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO PET(PET_ID, PET_SPECIES, PET_NAME,PET_AGE PET_GENDER, PET_BIRTH_DATE, ADOPTION_DATE, USERS_ID)
+        VALUES (#{petId}, #{petSpecies}, #{petName},#{petAge}, #{petGender}, #{petBirthDate}, #{adoptionDate},#{usersId})
+    </insert>
+
+</mapper>
