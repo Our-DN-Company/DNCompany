@@ -13,12 +13,6 @@ import java.time.LocalDate;
 public class MypageService {
     private final MypageMapper mypageMapper;
 
-//    public void CalculateAge(AddPetDTO addPetDTO) {
-//        if(addPetDTO.getPetBirthDate()==null){
-//            throw new PetCalculateException("생일을 입력해주세요");
-//
-//        }
-//        LocalDate today = LocalDate.now();//현재날짜
-//
-//    }
+
+
 }
