@@ -27,9 +27,9 @@
     <!-- 홈페이지 전체 사이즈 -->
     <div class="container">
       <!-- 헤더 넣기 -->
-      <header>
-        <div id="header__container"></div>
-      </header>
+      <th:block th:insert="~{fragment/header::header}">
+
+      </th:block>
       <div class="main-wrap">
         <main class="calendarMain">
           <div id="calendarBox">
@@ -77,7 +77,9 @@
           </div>
         </main>
       </div>
-      <footer></footer>
+      <th:block th:insert="~{fragment/footer::footer}">
+
+      </th:block>
     </div>
   </body>
 </html>
