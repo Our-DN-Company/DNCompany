@@ -6,7 +6,7 @@
         <selectKey resultType="long" keyProperty="petId" order="BEFORE">
             SELECT SEQ_PET.NEXTVAL FROM DUAL
         </selectKey>
-        INSERT INTO PET(PET_ID, PET_SPECIES, PET_NAME,PET_AGE PET_GENDER, PET_BIRTH_DATE, ADOPTION_DATE, USERS_ID)
+        INSERT INTO PET(PET_ID, PET_SPECIES, PET_NAME,PET_AGE,PET_GENDER, PET_BIRTH_DATE, ADOPTION_DATE, USERS_ID)
         VALUES (#{petId}, #{petSpecies}, #{petName},#{petAge}, #{petGender}, #{petBirthDate}, #{adoptionDate},#{usersId})
     </insert>
 

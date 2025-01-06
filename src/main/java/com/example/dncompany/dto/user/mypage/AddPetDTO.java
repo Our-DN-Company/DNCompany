@@ -12,7 +12,7 @@ public class AddPetDTO {
    private Long petId;
    private String petSpecies;
    private String petName;
-   private Long petAge;
+   private int petAge;
    private String petGender;
    private LocalDate petBirthDate;
    private LocalDate adoptionDate;
