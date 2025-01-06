@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ScheduleController {
     @GetMapping("/calender")
     public String calender() {
-        return "schedule";
+        return "user/schedule/schedule";
     }
 }
