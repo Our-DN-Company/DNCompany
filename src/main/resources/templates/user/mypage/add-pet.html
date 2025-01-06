@@ -33,75 +33,70 @@
             <div class="mypage_pet_add_box">
                 <p>반려동물 정보 등록</p>
 
-                <form action="">
+                <form th:action="@{/mypage/add/pet}" method="post">
                     <div>
                         <label for="">사진등록</label>
                         <div id="mypage_add_pet_img_preview"></div>
                         <input id="mypage_add_pet_img" type="file" accept="img/*" />
                     </div>
                     <div>
-                        <label for="addPetSpecieslist">반려동물 분류</label>
+                        <label for="petSpecies">반려동물 분류</label>
                         <div class="addPetSpeciesBox">
                             <input
                                     type="text"
-                                    name="addPetSpecies"
-                                    class="addPetSpecies"
+                                    name="petSpecies"
+                                    class="petSpecies"
                                     placeholder="입력해주세요"
+                                    required
                             />
-                            <select name="addPetSpecieslist" id="addPetSpecieslist">
-                                <option value="dog">강아지</option>
-                                <option value="cat">고양이</option>
-                                <option value="other" selected>직접입력</option>
-                            </select>
+
                         </div>
                     </div>
                     <div>
-                        <label>이름 </label>
-                        <input type="text" name="addPetName" />
+                        <label for="petName">이름 </label>
+                        <input type="text" name="petName" required />
                     </div>
-                    <div>
-                        <label>나이 </label>
-                        <input type="text" name="addAge" id="addAge" readonly />
-                    </div>
+
                     <div class="pet_gender">
                         <label>성별</label>
                         <div>
                             <input
                                     type="radio"
-                                    id="female"
-                                    name="addGender"
-                                    value="female"
+                                    id="petGender"
+                                    name="petGender"
+                                    value="F"
                                     required
                             />
-                            <label for="female">암컷</label>
+                            <label for="petGender">암컷</label>
 
                             <input
                                     type="radio"
-                                    id="male"
-                                    name="addGender"
-                                    value="male"
+                                    id="petGender"
+                                    name="petGender"
+                                    value="M"
                             />
-                            <label for="male">수컷</label>
+                            <label for="petGender">수컷</label>
 
                             <input
                                     type="radio"
-                                    id="neutered"
-                                    name="addGender"
-                                    value="neutered"
+                                    id="petGender"
+                                    name="petGender"
+                                    value="N"
                             />
-                            <label for="neutered">중성화</label>
+                            <label for="petGender">중성화</label>
                         </div>
                     </div>
 
 
                     <div>
-                        <label>생일 </label>
-                        <input type="date" name="addBrithDay" id="addBrithDay" />
+                        <label for="petBirthDate">생일 </label>
+                        <input type="date" name="petBirthDate" />
+
                     </div>
 
                     <div>
-                        <label>입양일 </label>
-                        <input type="date" name="addAdoptionDate" />
+                        <label for="adoptionDate">입양일 </label>
+                        <input type="date" name="adoptionDate" />
                     </div>
 
                     <button type="submit">완료</button>

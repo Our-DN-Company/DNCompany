@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface MypageMapper {
 
  void addPet(AddPetDTO addPetDTO);
+
+
 }

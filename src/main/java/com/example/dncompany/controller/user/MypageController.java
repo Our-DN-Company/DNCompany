@@ -3,6 +3,7 @@ package com.example.dncompany.controller.user;
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
 import com.example.dncompany.mapper.user.MypageMapper;
 import com.example.dncompany.service.user.MypageService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,17 @@ public class MypageController {
     }
 
     @PostMapping("/add/pet")
-    public String mypageAddPet(AddPetDTO addPetDTO){
-          log.debug("addPetDTO: {}", addPetDTO);
+    public String mypageAddPet(AddPetDTO addPetDTO, HttpSession session) {
 
-          mypageMapper.addPet(addPetDTO);
+        Long usersId = (Long)session.getAttribute("usersId");
+        addPetDTO.setUsersId(usersId);
+
+
+
+
+        log.debug("addPetDTO: {}", addPetDTO);
+
+        mypageMapper.addPet(addPetDTO);
 
           return "redirect:/mypage/main";
 

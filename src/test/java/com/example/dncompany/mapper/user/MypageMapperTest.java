@@ -20,17 +20,19 @@ class MypageMapperTest {
     @BeforeEach
     void setUp(){
         addPetDTO = new AddPetDTO();
-        addPetDTO.setPetId(3L);
+        addPetDTO.setPetId(6L);
         addPetDTO.setPetName("테스");
-        addPetDTO.setPetAge(4);
         addPetDTO.setPetSpecies("강아지");
         addPetDTO.setPetGender("F");
         addPetDTO.setPetBirthDate(LocalDate.of(1990, 1, 1));
         addPetDTO.setAdoptionDate(LocalDate.of(1990, 1, 1));
-        addPetDTO.setUsersId(6L);
     }
 
     @Test
     void addPet(){mypageMapper.addPet(addPetDTO);
+    }
+
+    @Test
+    void petAgeCalculation() {
     }
 }
