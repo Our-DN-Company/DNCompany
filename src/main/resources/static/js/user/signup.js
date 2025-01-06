@@ -1,3 +1,7 @@
+import * as smsApi from './modules/smsApi.js';
+import * as membersApi from './modules/userApi.js';
+
+
 // 입력 필드와 메시지 DOM 요소 가져오기
 // 아이디
 const elInputId = document.querySelector("#memberId");
@@ -132,6 +136,7 @@ elInputName.addEventListener("input", function (e) {
   }
 });
 
+
 const domainEl = document.querySelector(".info__box__email__btn__select");
 const domainListEl = document.querySelector(".info__dropdown__email");
 const emailTxt = document.getElementById("emailTxt");
@@ -141,7 +146,14 @@ const massageemailNot1 = document.querySelector(".email__notmessage1");
 const massageemailNot2 = document.querySelector(".email__notmessage2");
 const messageOk = document.querySelector(".email__okmessage");
 
+function isValidEmail(email) {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email.trim()); // 공백 제거 후 검사
+}
+
 let isActiveDomainList = false;
+
+// 드롭다운 토글
 domainEl.addEventListener("click", function () {
   isActiveDomainList = !isActiveDomainList; // toggle active state
   if (isActiveDomainList) {
@@ -151,62 +163,89 @@ domainEl.addEventListener("click", function () {
   }
 });
 
+// 도메인 버튼 클릭 시
 function btnClick(domain) {
-  emailTxt.value = domain; // set the domain value
-  emailTxt.disabled = true; // disable editing when domain is selected
-  domainListEl.classList.remove("active1"); // hide dropdown after selection
+  if (!domain) {
+    console.error("No domain passed to btnClick");
+    return;
+  }
+  console.log("Selected domain:", domain); // 전달된 도메인 확인
+  emailTxt.value = domain.trim(); // 도메인 설정
+  emailTxt.disabled = true; // 수정 불가 상태로 변경
+  domainListEl.classList.remove("active1"); // 드롭다운 숨기기
+  console.log("emailTxt.value after setting:", emailTxt.value); // emailTxt 값 확인
+  validateEmail(); // 이메일 유효성 검사 실행
 }
 
-
+// 입력 가능 상태로 전환 (직접 입력 모드)
 function enableEditing() {
+  console.log("Switching to manual input mode");
   emailTxt.value = ""; // 현재 값 지우기
-  emailTxt.placeholder = "입력하기"; // placeholder 지우기
+  emailTxt.placeholder = "입력하기"; // placeholder 설정
   emailTxt.disabled = false; // 수정 가능 상태로 변경
   domainListEl.classList.remove("active1"); // 드롭다운 숨기기
 }
 
-emailId.addEventListener("input", function () {
-  const emailValue = emailId.value + "@" + emailTxt.value;
+// 이메일 ID와 도메인 입력 시 유효성 검사
+emailId.addEventListener("input", validateEmail);
+emailTxt.addEventListener("input", validateEmail); // 도메인 변경 시도 유효성 검사
+
+function validateEmail() {
+  const domain = emailTxt.value.trim();
+  const localPart = emailId.value.trim();
+  const emailValue = localPart + (domain ? "@" + domain : "");
+
+  console.log("emailId.value:", localPart); // emailId 값 확인
+  console.log("emailTxt.value:", domain); // emailTxt 값 확인
+  console.log("Generated Email Value:", emailValue); // 생성된 전체 이메일 확인
+
   emailField.value = emailValue;
 
-  // 이메일 ID가 비어있으면 첫 번째 메시지를 보여주고, 나머지는 숨깁니다.
-  if (emailId.value === "") {
+  // 이메일 ID가 비어있는 경우
+  if (!localPart) {
     massageemailNot1.style.display = "block"; // 이메일을 입력해 주세요.
     massageemailNot2.style.display = "none"; // 이메일 형식으로 입력해 주세요.
     messageOk.style.display = "none"; // 사용 가능한 이메일입니다.
     return;
   }
 
-  // 이메일이 유효하지 않으면 두 번째 메시지를 보여줍니다.
-  if (!isValidEmail(emailValue)) {
-    massageemailNot1.style.display = "none"; // 이메일을 입력해 주세요.
+  // 도메인이 비어있는 경우
+  if (!domain) {
+    massageemailNot1.style.display = "none";
     massageemailNot2.style.display = "block"; // 이메일 형식으로 입력해 주세요.
-    messageOk.style.display = "none"; // 사용 가능한 이메일입니다.
+    messageOk.style.display = "none";
     return;
   }
 
-  // 이메일이 유효하면, OK 메시지를 표시합니다.
+  // 이메일 형식이 유효하지 않은 경우
+  if (!isValidEmail(emailValue)) {
+    massageemailNot1.style.display = "none";
+    massageemailNot2.style.display = "block"; // 이메일 형식으로 입력해 주세요.
+    messageOk.style.display = "none";
+    return;
+  }
+
+  // 유효한 이메일인 경우
   massageemailNot1.style.display = "none";
   massageemailNot2.style.display = "none";
   messageOk.style.display = "block";
-});
-
-function isValidEmail(email) {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return emailRegex.test(email);
 }
 
+
+
+
 // 휴대폰 번호 입력 필드와 메시지 DOM 요소 가져오기
-const elInputMobileNumber = document.querySelector("#mobileNumber");
+const elInputphoneNumber = document.querySelector("#phoneNumber");
 const elFailureMessageOneMobileNumber = document.querySelector(
-  ".mobileNumber__message"
+    ".mobileNumber__message"
 );
+const elMobileNumber = document.querySelector(".signup__info__number");
 
 // 숫자만 허용하는 정규 표현식
 const numberOnlyRegex = /[^0-9]/g;
 
 // 입력 이벤트 핸들러
-elInputMobileNumber.addEventListener("input", function (e) {
+elInputphoneNumber.addEventListener("input", function (e) {
   const currentValue = e.target.value;
 
   // 특수문자나 알파벳이 포함되면 제거
@@ -218,11 +257,163 @@ elInputMobileNumber.addEventListener("input", function (e) {
   // 입력값이 있으면 메시지 숨기기
   if (e.target.value.trim() !== "") {
     elFailureMessageOneMobileNumber.classList.remove("active");
+    elMobileNumber.style.backgroundColor = "rgb(95, 0, 128)";
+    elMobileNumber.style.color = "#fff";
+
   } else {
     // 입력이 비어있으면 메시지 표시
     elFailureMessageOneMobileNumber.classList.add("active");
+    elMobileNumber.style.backgroundColor = "rgb(255, 255, 255)";
+    elMobileNumber.style.color = "rgb(95, 0, 128)";
   }
 });
+
+const $sendAuthBtn = document.getElementById('phoneNumber-btn');
+const $authNumberGroup = document.getElementById('authNumberGroup');
+const $authNumber = document.getElementById('authNumber');
+const $verifyAuthBtn = document.getElementById('verifyAuthBtn');
+const $authTimer = document.getElementById('authTimer');
+
+// 인증 관련 변수
+let isPhoneVerified = false; // 휴대폰 인증 완료 여부
+let authTimeoutId = null; // 인증 타이머의 ID (타이머 정리용)
+let isAuthenticating = false; // 인증 진행 중 여부 (인증번호 전송 후 ~ 완료/만료 전)
+
+// 휴대폰 인증 관련
+{
+  // 인증번호 전송
+  $sendAuthBtn.addEventListener('click', function () {
+    if (!numberOnlyRegex.test(elInputphoneNumber.value)) {
+      alert('올바른 휴대폰 번호를 입력해주세요.');
+      elInputphoneNumber.focus();
+      return;
+    }
+
+    // 인증 진행 중 상태로 변경
+    isAuthenticating = true;
+    resetAuthState();
+
+    smsApi.sendVerificationCode(elInputphoneNumber.value, function (data) {
+      console.log(data);
+
+      if (data.success) {
+        $authNumberGroup.style.display = 'block';
+        $authTimer.style.display = 'block';
+        startAuthTimer();
+        alert('인증번호가 전송되었습니다.');
+      } else {
+        isAuthenticating = false;
+        alert('인증번호 전송에 실패했습니다. 다시 시도해주세요.');
+      }
+
+    });
+
+  });
+
+  // 인증번호 확인
+  $verifyAuthBtn.addEventListener('click', function () {
+    if (!isAuthenticating) {
+      alert('인증이 만료되었습니다. 다시 시도해주세요.');
+      resetAuthState();
+      return;
+    }
+
+    const authNumber = $authNumber.value;
+    if (authNumber.length !== 6) {
+      alert('인증번호 6자리를 입력해주세요.');
+      return;
+    }
+
+    smsApi.verifyCode(authNumber, function (data) {
+      if (data.success) {
+        completeAuth();
+        alert('인증이 완료되었습니다.');
+      } else {
+        alert('인증번호가 일치하지 않습니다.');
+        $authNumber.value = '';
+        $authNumber.focus();
+      }
+    });
+
+  });
+
+  // 인증 타이머 (3분)
+  function startAuthTimer() {
+    let timeLeft = 180;
+    clearTimeout(authTimeoutId);
+
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      $authTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      if (timeLeft === 0) {
+        expireAuth();
+        return;
+      }
+
+      timeLeft--;
+      authTimeoutId = setTimeout(updateTimer, 1000);
+    }
+
+    updateTimer();
+  }
+
+  // 인증 완료 처리
+  function completeAuth() {
+    isPhoneVerified = true;
+    isAuthenticating = false;
+    clearTimeout(authTimeoutId);
+
+    $authTimer.style.display = 'none';
+    $authNumberGroup.style.display = 'none';
+    elInputphoneNumber.readOnly = true;
+    $sendAuthBtn.disabled = true;
+  }
+
+  // 인증 만료 처리
+  function expireAuth() {
+    isAuthenticating = false;
+    clearTimeout(authTimeoutId);
+
+    $authTimer.textContent = '인증시간이 만료되었습니다.';
+    $authNumber.value = '';
+    $sendAuthBtn.disabled = false;
+  }
+
+  // 인증 상태 초기화
+  function resetAuthState() {
+    clearTimeout(authTimeoutId);
+    $authNumber.value = '';
+    $authTimer.textContent = '';
+  }
+}
+
+// UI 관련 유틸리티 함수
+function toggleValidationUI(element, isValid) {
+  if (!isValid) {
+    element.classList.add('invalid');
+  } else {
+    element.classList.remove('invalid');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 주소 api
 // 주소 검색 버튼 클릭 시 실행되는 함수
@@ -246,7 +437,7 @@ function address_execDaumPostcode() {
         }
         if (data.buildingName !== "") {
           extraAddr +=
-            extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
+              extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
         }
         if (extraAddr !== "") {
           extraAddr = " (" + extraAddr + ")";
@@ -266,8 +457,8 @@ function address_execDaumPostcode() {
       // 상세주소 필드만 활성화
       document.getElementById("address_detailAddress").disabled = false;
       document
-        .getElementById("address_detailAddress")
-        .classList.remove("disabled"); // 비활성화 클래스 제거
+          .getElementById("address_detailAddress")
+          .classList.remove("disabled"); // 비활성화 클래스 제거
 
       // 주소 입력 필드는 계속 비활성화
       document.getElementById("address_address").disabled = true;
@@ -277,27 +468,27 @@ function address_execDaumPostcode() {
 
 // 상세주소 입력 이벤트 리스너
 document
-  .getElementById("address_detailAddress")
-  .addEventListener("input", function () {
-    // 상세주소 입력을 시작하면 메시지 숨기기
-    if (this.value.trim() !== "") {
-      document.querySelector(".address__message").style.display = "none";
-    } else {
-      // 모든 입력이 지워졌을 때 메시지 보이기
-      if (this.value.trim() === "") {
-        document.querySelector(".address__message").style.display = "block";
+    .getElementById("address_detailAddress")
+    .addEventListener("input", function () {
+      // 상세주소 입력을 시작하면 메시지 숨기기
+      if (this.value.trim() !== "") {
+        document.querySelector(".address__message").style.display = "none";
+      } else {
+        // 모든 입력이 지워졌을 때 메시지 보이기
+        if (this.value.trim() === "") {
+          document.querySelector(".address__message").style.display = "block";
+        }
       }
-    }
-  });
+    });
 
 // 상세주소가 비어있을 경우 메시지 보여주기
 document
-  .getElementById("address_detailAddress")
-  .addEventListener("blur", function () {
-    if (this.value.trim() === "") {
-      document.querySelector(".address__message").style.display = "block";
-    }
-  });
+    .getElementById("address_detailAddress")
+    .addEventListener("blur", function () {
+      if (this.value.trim() === "") {
+        document.querySelector(".address__message").style.display = "block";
+      }
+    });
 
 // 성별
 const $radios = document.querySelectorAll(".info__gender");
@@ -332,12 +523,12 @@ function limitValue(inputField, min, max) {
   let value = parseInt(inputField.value, 10);
   if (value < min) {
     inputField.value = min
-      .toString()
-      .padStart(inputField.placeholder.length, "0"); // 최소값으로 설정
+        .toString()
+        .padStart(inputField.placeholder.length, "0"); // 최소값으로 설정
   } else if (value > max) {
     inputField.value = max
-      .toString()
-      .padStart(inputField.placeholder.length, "0"); // 최대값으로 설정
+        .toString()
+        .padStart(inputField.placeholder.length, "0"); // 최대값으로 설정
   }
 }
 
@@ -354,8 +545,8 @@ function limitValue(inputField, min, max) {
       e.target.value = e.target.value.slice(0, 4); // 4자리로 제한
     }
     if (
-      (e.target === elInputMonth || e.target === elInputDay) &&
-      e.target.value.length > 2
+        (e.target === elInputMonth || e.target === elInputDay) &&
+        e.target.value.length > 2
     ) {
       e.target.value = e.target.value.slice(0, 2); // 2자리로 제한
     }
