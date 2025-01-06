@@ -100,3 +100,8 @@ birthDayInput.addEventListener("change", () => {
     ageInput.value = ""; // 생일 값이 유효하지 않을 경우 초기화
   }
 });
+
+{//TODO:이름, 반려동물 분류 문자열만 받기
+
+
+}

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/dn/write.css}"/>
+    <style>
+        @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
+        @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
+    </style>
+</head>
+<body>
+<header class="header" th:include="~{fragment/header::header}">
+</header>
+<div class="container">
+    <div class="main-wrap">
+        <main>
+            <!-- 여기에 작업 -->
+            <div class="prouduct_prouductContainer">
+                <div class="prouduct_prouductContent">
+                    <!--반려동물 카테고리 선택 -->
+                    <span class="prouduct_animalCategory">반려동물 카테고리</span>
+                    <span class="prouduct_prouductMark">*</span>
+                    <div class="animal_radioWrap">
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="animal"
+                                    id="강아지"
+                                    value="강아지"
+                                    checked
+                            />
+                            <label for="강아지">강아지</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="animal"
+                                    id="고양이"
+                                    value="고양이"
+                                    checked
+                            />
+                            <label for="고양이">고양이</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="animal"
+                                    id="소동물"
+                                    value="소동물"
+                                    checked
+                            />
+                            <label for="소동물">소동물</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="animal"
+                                    id="기타"
+                                    value="기타"
+                                    checked
+                            />
+                            <label for="기타">기타</label>
+                        </div>
+                    </div>
+
+                    <!--물품 카테고리 선택 -->
+                    <span class="prouduct_prouductCategory">물품 카테고리</span>
+                    <span class="prouduct_prouductMark">*</span>
+                    <div class="prouduct_radioWrap">
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="간식"
+                                    value="간식"
+                                    checked
+                            />
+                            <label for="간식">간식</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="매트"
+                                    value="매트"
+                                    checked
+                            />
+                            <label for="매트">매트</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="사료"
+                                    value="사료"
+                                    checked
+                            />
+                            <label for="사료">사료</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="식기"
+                                    value="식기"
+                                    checked
+                            />
+                            <label for="식기">식기</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="영양제"
+                                    value="영양제"
+                                    checked
+                            />
+                            <label for="영양제">영양제</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="위생"
+                                    value="위생"
+                                    checked
+                            />
+                            <label for="위생">위생</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="이동장"
+                                    value="이동장"
+                                    checked
+                            />
+                            <label for="이동장">이동장</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="장난감"
+                                    value="장난감"
+                                    checked
+                            />
+                            <label for="장난감">장난감</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="집/하우스"
+                                    value="집/하우스"
+                                    checked
+                            />
+                            <label for="집/하우스">집/하우스</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="패션"
+                                    value="패션"
+                                    checked
+                            />
+                            <label for="패션">패션</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="펫가전"
+                                    value="펫가전"
+                                    checked
+                            />
+                            <label for="펫가전">펫가전</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="하네스/줄"
+                                    value="하네스/줄"
+                                    checked
+                            />
+                            <label for="하네스/줄">하네스/줄</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="prouduct"
+                                    id="해충방지용품"
+                                    value="해충방지용품"
+                                    checked
+                            />
+                            <label for="해충방지용품">해충방지용품</label>
+                        </div>
+                    </div>
+
+                    <!-- 판매 금액 박스 -->
+                    <div>
+                        <div>
+                            <span class="prouduct_price">판매 금액</span>
+                            <span class="prouduct_prouductMark">*</span>
+                        </div>
+                        <input
+                                placeholder="금액을 입력해주세요"
+                                class="prouduct_priceInput"
+                                value
+                        />
+                        <!-- 박스 하단 여백 -->
+                        <div class="prouduct_alertText"></div>
+                    </div>
+
+                    <!-- 제목 입력 박스 -->
+                    <div>
+                        <div>
+                            <span class="prouduct_prouductCategory">판매글 작성</span>
+                            <span class="prouduct_prouductMark">*</span>
+                        </div>
+                        <input
+                                placeholder="제목을 입력해주세요"
+                                class="prouduct_titleInput"
+                                value
+                        />
+                        <!-- 박스 하단 여백 -->
+                        <div class="prouduct_alertText"></div>
+                    </div>
+
+                    <!-- 내용 입력 박스 -->
+                    <div class="prouduct_prouductInputWrapper">
+                <textarea
+                        placeholder="5자 이상의 글 내용을 입력해주세요"
+                        class="prouduct_prouductInput"
+                ></textarea>
+                        <!-- 박스 하단 여백 -->
+                        <div class="prouduct_alertText"></div>
+                    </div>
+
+                    <form action="multipart/form-data">
+                        <div class="prouduct_fileInputWrapper">
+                            <!-- 사진 업로드 박스 -->
+                            <span class="prouduct_prouductCategory">사진 업로드</span>
+                            <div class="prouduct_prouductImgContainer"></div>
+                            <input
+                                    id="uploadFile"
+                                    type="file"
+                                    multiple
+                                    accept="image/jpg,image/png,image/jpeg,image/gif"
+                                    style="display: none"
+                            />
+                            <label for="uploadFile" class="prouduct_inputFileBtn">
+                                <div class="prouduct_inputFileText">사진 첨부</div>
+                                <img
+                                        src="https://bemypet.kr/icons/community/ICON_PHOTO_CAMERA.svg"
+                                />
+                            </label>
+                            <span class="prouduct_imgDesc"
+                            >개당 업로드 용량: 20MB, 첨부 파일의 경우 사진과 동영상을
+                    합쳐 최대 10개 업로드 가능합니다.</span
+                            >
+                        </div>
+                    </form>
+
+                    <!-- 등록 버튼 -->
+                    <button class="prouduct_nosubmitBtn" disabled>글 등록</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+</div>
+</body>
+</html>

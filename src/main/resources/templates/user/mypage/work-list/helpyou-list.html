@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" th:href="@{/css/common.css}" />
     <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
 
     <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_nav.css}" />
 
+    <script defer th:src="@{/js/fragment/header.js}"></script>
     <script defer th:src="@{/js/common.js}"></script>
     <script defer th:src="@{/js/user/mypage/mypage_nav.js}"></script>
     <title>Document</title>
@@ -15,7 +19,10 @@
 <body>
 <!-- 홈페이지 전체 사이즈 -->
 <div class="container">
-    <header></header>
+    <th:block th:insert="~{fragment/header::header}">
+    </th:block>
+    <th:block th:insert="~{user/mypage/mypage_nav::mypage-nav}">
+    </th:block>
 
     <main>
         <div class="mypage_list">
@@ -41,10 +48,12 @@
                     <td><button class="mypage_review_button">도움완료</button></td>
                 </tr>
             </table>
-
-    </main>
+        </div>
+     </main>
 </div>
-<footer></footer>
+<th:block th:insert="~{fragment/footer::footer}">
+
+</th:block>
 </div>
 </body>
 </html>
