@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.zip.ZipMapper">
+    <insert id="insertZipBoard" parameterType="ZipBoardWriteDTO">
+        <selectKey resultType="long" keyProperty="zipId" order="BEFORE">
+            SELECT SEQ_ZIP_BOARD.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO ZIP_BOARD (ZIP_ID, USERS_ID, ZIP_PET_CATEGORY, ZIP_CATEGORY, ZIP_TITLE, ZIP_CONTENT)
+        VALUES (#{zipId}, #{userId}, #{zipPetCategory}, #{zipCategory}, #{zipTitle}, #{zipContent})
+    </insert>
+
+    <update id="updateViewCount" parameterType="long">
+        UPDATE ZIP_BOARD
+        SET ZIP_VIEWCOUNT = ZIP_VIEWCOUNT + 1
+        WHERE ZIP_ID = #{zipId}
+    </update>
+</mapper>

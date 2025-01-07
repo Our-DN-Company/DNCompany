@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DnController {
 
     @GetMapping("/list")
-    public String list() {return "dn/list";}
+    public String list() {return "dn/market_board";}
 
     @GetMapping("/detail")
     public String detail() {return "dn/detail";}

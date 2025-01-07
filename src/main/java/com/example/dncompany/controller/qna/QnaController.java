@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class QnaController {
 
     @GetMapping("/list")
-    public String list() {return "qna/list";}
+    public String list() {return "qna/QNAcommunity";}
 
     @GetMapping("/detail")
-    public String detail() {return "qna/detail";}
+    public String detail() {return "qna/QNAdetail";}
 
     @GetMapping("/write")
-    public String write() {return "qna/write";}
+    public String write() {return "qna/QNAwrite";}
 }

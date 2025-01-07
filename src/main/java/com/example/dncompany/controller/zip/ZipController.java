@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ZipController {
 
     @GetMapping("/list")
-    public String list() {return "zip/list";}
+    public String list() {return "zip/community";}
 
     @GetMapping("/detail")
     public String detail() {return "zip/detail";}
