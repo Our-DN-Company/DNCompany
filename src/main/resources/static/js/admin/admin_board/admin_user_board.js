@@ -135,9 +135,8 @@ window.processReport = function(reportId, banDays) {
 
 window.applyCustomPoints = function(userId) {
     const pointInput = document.getElementById(`point-${userId}`);
-    const points = pointInput.value;
-
-    if (!points) {
+    const points = parseInt(pointInput.value, 10);
+    if (isNaN(points)) {
         alert('포인트 값을 입력해주세요.');
         return;
     }
@@ -152,7 +151,9 @@ window.applyCustomPoints = function(userId) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert(`포인트가 성공적으로 수정되었습니다.`);
+                alert(`포인트가 성공적으로 수정되었습니다. 현재 포인트: ${data.newPoints}`);
+
+
                 const pointsDisplay = document.querySelector(`#point-${userId}`).parentNode.previousElementSibling.querySelector('.current-points');
                 pointsDisplay.textContent = data.newPoints;
                 pointInput.value = '';

@@ -36,26 +36,30 @@
         <if test="searchPhoneNumber != null and searchPhoneNumber != ''">
             AND u.PHONE_NUMBER LIKE '%' || #{searchPhoneNumber} || '%'
         </if>
-        <if test="searchSignUpDate != null and searchSignUpDate != ''">
-            AND TO_CHAR(u.SIGN_UP_DATE, 'YYYY-MM-DD') = #{searchSignUpDate}
+        <if test="searchSignStartDate != null and searchSignEndDate != null
+        and searchSignStartDate != '' and searchSignEndDate != ''">
+            AND u.SIGN_UP_DATE >= TO_DATE(#{searchSignStartDate}, 'YYYY-MM-DD')
+            AND u.SIGN_UP_DATE <![CDATA[<=]]> TO_DATE(#{searchSignEndDate}, 'YYYY-MM-DD')
         </if>
         <if test="reportStatus != null and reportStatus != '' and reportStatus != 'all'">
-            AND EXISTS (
-            SELECT 1
-            FROM ADMIN.REVIEW r
-            JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
-            WHERE ho.USERS_ID = u.USERS_ID
-            AND r.REVIEW_CHECK_STATUS = '신고'
-            AND
             <choose>
                 <when test="reportStatus == 'reported'">
-                    r.REVIEW_CHECK_STATUS = '신고'
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) > 0
                 </when>
                 <when test="reportStatus == 'notReported'">
-                    r.REVIEW_CHECK_STATUS != '신고'
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) = 0
                 </when>
             </choose>
-            )
         </if>
         ORDER BY u.USERS_ID
     </select>
@@ -104,8 +108,14 @@
 
 
     <update id="updateUserPoints">
-        UPDATE ADMIN.USERS
-        SET POINT = #{points}
+        UPDATE USERS
+        SET POINT = POINT + #{points}
         WHERE USERS_ID = #{userId}
     </update>
+    <!-- 포인트 조회 위와 세트임  -->
+    <select id="getCurrentUserPoints" resultType="Integer">
+        SELECT POINT
+            FROM USERS
+        WHERE USERS_ID = #{userId}
+    </select>
 </mapper>

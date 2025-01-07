@@ -4,6 +4,7 @@ import com.example.dncompany.dto.admin.user.AdmInUserReportDTO;
 import com.example.dncompany.dto.admin.user.board.AdminUserAllBoard;
 import com.example.dncompany.service.admin.AdminUserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 @Controller
 @RequestMapping("/admin/user/board")
 @RequiredArgsConstructor
@@ -28,6 +29,13 @@ public class AdminUserBoardController {
     // 회원정보 검색 및 조회 (부분 업데이트)
     @PostMapping("/list/data")
     public String listData(@ModelAttribute AdminUserAllBoard searchCriteria, Model model) {
+
+
+        log.info("Received Search Criteria: {}", searchCriteria);
+        log.info("Search Sign Start Date: {}", searchCriteria.getSearchSignStartDate());
+        log.info("Search Sign End Date: {}", searchCriteria.getSearchSignEndDate());
+
+
         List<AdminUserAllBoard> userList = adminUserService.getAllUserData(searchCriteria);
         model.addAttribute("userList", userList);
         return "admin/admin_board/admin_user_board :: #memberListBody";
@@ -81,13 +89,11 @@ public class AdminUserBoardController {
             @PathVariable Long userId,
             @RequestBody Map<String, Integer> request) {
 
+
+
         Integer points = request.get("points");
-        boolean success = adminUserService.updateUserPoints(userId, points);
+        Map<String, Object> result = adminUserService.updateUserPoints(userId, points);
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", success);
-        response.put("newPoints", points);
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(result);
     }
 }
