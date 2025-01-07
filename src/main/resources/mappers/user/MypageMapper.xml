@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dncompany.mapper.user.MypageMapper">
+<!--반려동물 정보 등록/수정-->
     <!-- Insert 반려동물 정보 -->
     <insert id="addPet" parameterType="AddPetDTO">
         <selectKey resultType="long" keyProperty="petId" order="BEFORE">
@@ -11,6 +12,13 @@
         (EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM #{petBirthDate}) + 1),
             #{petGender}, #{petBirthDate, jdbcType=DATE}, #{adoptionDate, jdbcType=DATE})
     </insert>
-        
+<!--미이페이지 메인-->
+        <!--반려동물 슬라이드용 정보-->
+    <select id="petSlide" parameterType="PetSlideDTO" resultType="long">
+        SELECT P.PET_ID, P.PET_SPECIES, P.PET_NAME, P.PET_AGE, P.PET_GENDER, P.PET_BIRTH_DATE, P.ADOPTION_DATE, U.USERS_ID
+            FROM PET P
+                JOIN USERS U ON P.USERS_ID = U.USERS_ID
+
+    </select>
 
 </mapper>
