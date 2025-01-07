@@ -37,40 +37,19 @@
             <div class="my-schedule-wrap">
               <div class="my-schedule">
                 <!-- 반복 요소 -->
-                <div class="my-schedule-list">
+                <div class="my-schedule-list" th:each="schedule : ${scheduleList}">
                   <a href="#">
-                    <span>내 일정1 </span>
+                    <span class="my-schedule-list-top" th:text="${schedule.helpTitle}">내 일정1 </span>
                     <div>
-                      돌봄 날짜 : 2024-01-01 <br />
-                      카테고리 : 산책 <br />
-                      시작시간 : 06:00 <br />
-                      종료시간 : 12:00 <br />
+                      <span th:text="'돌봄 날짜: ' + ${schedule.helpCareDate}"> 2024-01-01</span><br>
+                      <span>산책</span><br>
+                      <span th:text="'시작시간: ' + ${ schedule.helpStartTime}">06:00</span><br>
+                      <span th:text="'종료시간: ' + ${schedule.helpEndTime}">12:00</span><br>
                     </div>
                   </a>
                 </div>
                 <!-- 반복 요소 -->
-                <div class="my-schedule-list">
-                  <a href="#">
-                    <span>내 일정1 </span>
-                    <div>
-                      시작일 <br />
-                      종료일 <br />
-                      시작시간 <br />
-                      종료시간<br />
-                    </div>
-                  </a>
-                </div>
-                <div class="my-schedule-list">
-                  <a href="#">
-                    <span>내 일정1 </span>
-                    <div>
-                      시작일 : <br />
-                      종료일 <br />
-                      시작시간 <br />
-                      종료시간<br />
-                    </div>
-                  </a>
-                </div>
+
               </div>
             </div>
             <div id="calendar"></div>
