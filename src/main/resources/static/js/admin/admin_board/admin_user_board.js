@@ -1,74 +1,210 @@
-
-// DOM이 완전히 로드된 후 실행되는 이벤트 리스너
 document.addEventListener("DOMContentLoaded", function () {
-
-
-
-    const dummyData = [
-        {번호: 1, 아이디: 'user1', 이름: '홍길동', 주소: '서울특별시 중랑구 겸재로92 502호', 폰번호: '010-1234-5678', 생년월일: '1990-01-01', 성별: '남성', 가입일: '2022-01-01', 신고: 0, 포인트: 1000},
-        {번호: 2, 아이디: 'user2', 이름: '김철수', 주소: '서울특별시 서초구 신반포로 270 (반포동, 반포자이아파트) 102동 706호', 폰번호: '010-2345-6789', 생년월일: '1992-02-02', 성별: '남성', 가입일: '2022-02-02', 신고: 1, 포인트: 800},
-        {번호: 3, 아이디: 'user3', 이름: '이영희', 주소: '부산광역시 강서구 녹산산단382로14번가길 10~29번지(송정동) 301호', 폰번호: '010-3456-7890', 생년월일: '1993-03-03', 성별: '여성', 가입일: '2022-03-03', 신고: 2, 포인트: 1200},
-        {번호: 4, 아이디: 'user4', 이름: '박영수', 주소: '인천', 폰번호: '010-4567-8901', 생년월일: '1994-04-04', 성별: '남성', 가입일: '2022-04-04', 신고: 1, 포인트: 500},
-        {번호: 5, 아이디: 'user5', 이름: '최지우', 주소: '광주', 폰번호: '010-5678-9012', 생년월일: '1995-05-05', 성별: '여성', 가입일: '2022-05-05', 신고: 0, 포인트: 2000},
-        {번호: 6, 아이디: 'user6', 이름: '장미희', 주소: '대전', 폰번호: '010-6789-0123', 생년월일: '1996-06-06', 성별: '여성', 가입일: '2022-06-06', 신고: 0, 포인트: 1700},
-        {번호: 7, 아이디: 'user7', 이름: '홍길순', 주소: '울산', 폰번호: '010-7890-1234', 생년월일: '1997-07-07', 성별: '여성', 가입일: '2022-07-07', 신고: 3, 포인트: 600},
-        {번호: 8, 아이디: 'user8', 이름: '강철민', 주소: '경기', 폰번호: '010-8901-2345', 생년월일: '1998-08-08', 성별: '남성', 가입일: '2022-08-08', 신고: 2, 포인트: 1100},
-        {번호: 9, 아이디: 'user9', 이름: '심지훈', 주소: '강원', 폰번호: '010-9012-3456', 생년월일: '1999-09-09', 성별: '남성', 가입일: '2022-09-09', 신고: 0, 포인트: 1400},
-        {번호: 10, 아이디: 'user10', 이름: '하진수', 주소: '충남', 폰번호: '010-0123-4567', 생년월일: '2000-10-10', 성별: '남성', 가입일: '2022-10-10', 신고: 1, 포인트: 900},
-        {번호: 11, 아이디: 'user11', 이름: '엄지현', 주소: '전북', 폰번호: '010-1234-5678', 생년월일: '2001-11-11', 성별: '여성', 가입일: '2022-11-11', 신고: 0, 포인트: 1300}
-    ];
-
-    // DOM 요소 참조 변수
-    const memberListBody = document.getElementById('memberListBody');
+    // 기존 변수 선언
     const itemsPerPageSelect = document.getElementById('itemsPerPage');
-    // 회원 목록을 화면에 렌더링하는 코드
-    function renderMemberList(members, itemsPerPage = 10) {
-        // 기존 테이블 내용을 초기화
-        memberListBody.innerHTML = "";
-        // 페이지당 표시할 회원 수만큼 데이터 자르기 #삭제 예성 데이터베이스 연결시 쿼리문으로 대체 예정임
-        const paginatedMembers = members.slice(0, itemsPerPage);
+    const searchForm = document.getElementById('searchForm');
+    const selectAllCheckbox = document.getElementById('selectAll');
+    const memberListBody = document.getElementById('memberListBody');
+    const reportModal = document.getElementById('reportModal');
+    const reportTableBody = document.getElementById('reportTableBody');
 
-
-        // 각 회원별 테이블 행 생성
-        paginatedMembers.forEach(member => {
-            // 회원 정보와 관리 버튼을 포함한 HTML 템플릿
-            const row = document.createElement('tr');
-            row.innerHTML = `
-              <td><input type="checkbox"></td>
-              <td>${member.번호}</td>
-              <td>${member.아이디}</td>
-              <td>${member.이름}</td>
-              <td>${member.주소}</td>
-              <td>${member.폰번호}</td>
-              <td>${member.생년월일}</td>
-              <td>${member.성별}</td>
-              <td>${member.가입일}</td>
-              <td>${member.신고}</td>
-              <td><span class="current-points">${member.포인트}</span></td>
-              <td>
-                <input type="number" min="1" placeholder="포인트" class="small-input" id="point-${member.번호}">
-                <button onclick="applyCustomPoints(${member.번호})" class="blue-button">적용</button>
-              </td>
-              <td class="activity-buttons">
-                <button onclick="applyBan(${member.번호}, 1)" class="blue-button">1일</button>
-                <button onclick="applyBan(${member.번호}, 3)" class="blue-button">3일</button>
-                <button onclick="applyBan(${member.번호}, 7)" class="blue-button">7일</button>
-                <div class="ban-input">
-                  <input type="number" min="1" placeholder="일수" id="ban-${member.번호}">
-                  <button onclick="applyCustomBan(${member.번호})" class="blue-button">적용</button>
-                </div>
-              </td>
-            `;
-            memberListBody.appendChild(row);
-        });
-    }
-
-    // 페이지당 게시물 수 선택 변경 이벤트
+    // 기존 이벤트 리스너들 유지
     itemsPerPageSelect.addEventListener("change", function () {
-        const itemsPerPage = parseInt(itemsPerPageSelect.value, 10);
-        renderMemberList(dummyData, itemsPerPage);
+        searchForm.submit();
     });
 
-    // 페이지 로드 시 초기 목록 렌더링
-    renderMemberList(dummyData);
+    searchForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(searchForm);
+
+        // FormData를 서버에 전송
+        fetch("/admin/user/board/list/data", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(html => {
+                memberListBody.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('검색 중 오류가 발생했습니다.');
+            });
+    });
+
+    selectAllCheckbox.addEventListener("change", function () {
+        const checkboxes = memberListBody.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+    });
 });
+
+// 전역 함수들을 window 객체에 명시적으로 할당
+window.openReportModal = function(userId) {
+    const reportModal = document.getElementById('reportModal');
+    const reportTableBody = document.getElementById('reportTableBody');
+
+    fetch(`/admin/user/board/reportDetails/${userId}`)
+        .then(response => response.json())
+        .then(reports => {
+            reportTableBody.innerHTML = '';
+
+            reports.forEach(report => {
+                const row = document.createElement('tr');
+                let banPeriod = '-';
+
+                // 정지 상태 배지 설정
+                const statusBadge = `<span class="status-badge ${
+                    report.status === 'SUSPENDED' ? 'status-processed' : 'status-pending'
+                }">${report.status === 'SUSPENDED' ? '정지' : '정상'}</span>`;
+
+                // 정지 기간 설정
+                if (report.status === 'SUSPENDED' && report.banStartDate && report.banEndDate) {
+                    banPeriod = `${formatDateTime(report.banStartDate)} ~ ${formatDateTime(report.banEndDate)}`;
+                }
+
+                row.innerHTML = `
+                    <td>${report.reportTitle || '-'}</td>
+                    <td>${report.reportContent || '-'}</td>
+                    <td>${formatDateTime(report.reportDate)}</td>
+                    <td>${report.reporterName || '-'} (${report.reporterLoginId || '-'})</td>
+                    <td>${report.reportedName || '-'} (${report.reportedLoginId || '-'})</td>
+                    <td>${statusBadge}</td>
+                    <td>${banPeriod}</td>
+                `;
+
+                reportTableBody.appendChild(row);
+            });
+
+            reportModal.style.display = "block";
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('신고 내역을 불러오는데 실패했습니다.');
+        });
+};
+
+// 날짜 포맷팅 함수
+function formatDateTime(dateTime) {
+    if (!dateTime) return '-';
+    const date = new Date(dateTime);
+    return new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    }).format(date);
+}
+
+
+window.closeReportModal = function() {
+    const reportModal = document.getElementById('reportModal');
+    reportModal.style.display = "none";
+};
+
+window.processReport = function(reportId, banDays) {
+    fetch(`/admin/user/board/processReport/${reportId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ banDays: banDays })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`신고가 처리되었습니다. ${banDays}일 정지가 적용되었습니다.`);
+                openReportModal(data.userId);
+            } else {
+                alert('신고 처리에 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('신고 처리 중 오류가 발생했습니다.');
+        });
+};
+
+window.applyCustomPoints = function(userId) {
+    const pointInput = document.getElementById(`point-${userId}`);
+    const points = pointInput.value;
+
+    if (!points) {
+        alert('포인트 값을 입력해주세요.');
+        return;
+    }
+
+    fetch(`/admin/user/board/updatePoints/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ points: points })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`포인트가 성공적으로 수정되었습니다.`);
+                const pointsDisplay = document.querySelector(`#point-${userId}`).parentNode.previousElementSibling.querySelector('.current-points');
+                pointsDisplay.textContent = data.newPoints;
+                pointInput.value = '';
+            } else {
+                alert('포인트 수정에 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('포인트 수정 중 오류가 발생했습니다.');
+        });
+};
+
+window.applyBan = function(userId, days) {
+    fetch(`/admin/user/board/banUser/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ banDays: days })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`${days}일 동안 사용자의 활동이 정지되었습니다.`);
+            } else {
+                alert('활동 정지 적용에 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('활동 정지 처리 중 오류가 발생했습니다.');
+        });
+};
+
+window.applyCustomBan = function(userId) {
+    const banInput = document.getElementById(`ban-${userId}`);
+    const days = banInput.value;
+
+    if (!days) {
+        alert('정지 일수를 입력해주세요.');
+        return;
+    }
+
+    applyBan(userId, days);
+    banInput.value = '';
+};
+
+// 모달 외부 클릭 시 닫기
+window.onclick = function(event) {
+    const reportModal = document.getElementById('reportModal');
+    if (event.target === reportModal) {
+        closeReportModal();
+    }
+};

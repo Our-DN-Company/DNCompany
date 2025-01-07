@@ -30,8 +30,36 @@
                  JOIN HR.USERS u ON q.USERS_ID = u.USERS_ID
     </select>
 
+    <select id="selectHelpBoard" resultType="AdminHelpBoardDTO">
+        SELECT hb.HELP_ID                                AS helpId,
+               'HELP'                                    AS category,
+               hb.HELP_TITLE                             AS title,
+               NVL(hb.HELP_CARE_TYPE, '없음')              AS careType,
+               u.NAME                                    AS writer,
+               u.EMAIL                                   AS email,
+               u.PHONE_NUMBER                            AS phoneNumber,
+               TO_CHAR(hb.HELP_CREATED_AT, 'YYYY-MM-DD') AS createdAt
+        FROM HR.HELP_BOARD hb
+                 JOIN HR.USERS u ON hb.USERS_ID = u.USERS_ID
+    </select>
+
+    <select id="selectEventBoard" resultType="AdminEventBoardDTO">
+        SELECT eb.EVENT_ID                                AS eventId,
+               'EVENT'                                    AS category,
+               eb.EVENT_TITLE                             AS title,
+               u.NAME                                     AS writer,
+               u.EMAIL                                    AS email,
+               u.PHONE_NUMBER                             AS phoneNumber,
+               TO_CHAR(eb.EVENT_CREATED_AT, 'YYYY-MM-DD') AS createdAt
+        FROM HR.EVENT_BOARD eb
+                 JOIN HR.USERS u ON eb.USERS_ID = u.USERS_ID
+    </select>
+
+
     <!-- @TODO 전체 게시판 조회 (미완성 필요 조회 쿼리 하나씩 작성 시 union all으로 합칠 예정) -->
-    <select id="selectAllBoard" resultType="Object">
+    <!-- @TODO 옛날 코드 곧 삭제 예정 단순 조회가 목적이면 사용 권장 다른 사람이 사용 할 까봐 살려둠
+               나처럼 검색 조건이 필요하다면 아래 코드를 사용하는 것을 권장-->
+    <select id="selectAllBoard" resultType="AdminAllBoardDTO">
         SELECT *
         FROM (SELECT *
               FROM (SELECT r.REPORT_ID                      AS id,
@@ -56,8 +84,116 @@
                            u.PHONE_NUMBER                AS phoneNumber,
                            q.QNA_CREATED_AT              AS createdAt
                     FROM HR.QNA_BOARD q
-                             JOIN HR.USERS u ON q.USERS_ID = u.USERS_ID))
+                             JOIN HR.USERS u ON q.USERS_ID = u.USERS_ID)
+              UNION ALL
+              SELECT *
+              FROM (SELECT eb.EVENT_ID         AS id,
+                           'EVENT'             AS category,
+                           eb.EVENT_TITLE      AS title,
+                           '없음'                AS status,
+                           u.NAME              AS writer,
+                           u.EMAIL             AS email,
+                           u.PHONE_NUMBER      AS phoneNumber,
+                           eb.EVENT_CREATED_AT AS createdAt
+                    FROM HR.EVENT_BOARD eb
+                             JOIN HR.USERS u ON eb.USERS_ID = u.USERS_ID)
+              UNION ALL
+              SELECT *
+              FROM (SELECT hb.HELP_ID                   AS id,
+                           'HELP'                       AS category,
+                           hb.HELP_TITLE                AS title,
+                           NVL(hb.HELP_CARE_TYPE, '없음') AS status,
+                           u.NAME                       AS writer,
+                           u.EMAIL                      AS email,
+                           u.PHONE_NUMBER               AS phoneNumber,
+                           hb.HELP_CREATED_AT           AS createdAt
+                    FROM HR.HELP_BOARD hb
+                             JOIN HR.USERS u ON hb.USERS_ID = u.USERS_ID))
         ORDER BY createdAt DESC
+    </select>
 
+
+    <select id="selectBoardByCondition" resultType="AdminAllBoardDTO" parameterType="BoardSearchDTO">
+        SELECT *
+        FROM (SELECT *
+              FROM (SELECT r.REPORT_ID                      AS id,
+                           '신고'                             AS category,
+                           r.REPORT_TITLE                   AS title,
+                           NVL(r.REPORT_CHECK_STATUS, '없음') AS status,
+                           u.NAME                           AS writer,
+                           u.EMAIL                          AS email,
+                           u.PHONE_NUMBER                   AS phoneNumber,
+                           r.REPORT_DATE                    AS createdAt
+                    FROM HR.REPORT r
+                             JOIN HR.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                             JOIN HR.USERS u ON ho.USERS_ID = u.USERS_ID)
+              UNION ALL
+              SELECT *
+              FROM (SELECT q.QNA_ID                      AS id,
+                           'QNA'                         AS category,
+                           q.QNA_TITLE                   AS title,
+                           NVL(q.QNA_CHECK_STATUS, '없음') AS status,
+                           u.NAME                        AS writer,
+                           u.EMAIL                       AS email,
+                           u.PHONE_NUMBER                AS phoneNumber,
+                           q.QNA_CREATED_AT              AS createdAt
+                    FROM HR.QNA_BOARD q
+                             JOIN HR.USERS u ON q.USERS_ID = u.USERS_ID)
+              UNION ALL
+              SELECT *
+              FROM (SELECT eb.EVENT_ID         AS id,
+                           'EVENT'             AS category,
+                           eb.EVENT_TITLE      AS title,
+                           '없음'                AS status,
+                           u.NAME              AS writer,
+                           u.EMAIL             AS email,
+                           u.PHONE_NUMBER      AS phoneNumber,
+                           eb.EVENT_CREATED_AT AS createdAt
+                    FROM HR.EVENT_BOARD eb
+                             JOIN HR.USERS u ON eb.USERS_ID = u.USERS_ID)
+              UNION ALL
+              SELECT *
+              FROM (SELECT hb.HELP_ID                   AS id,
+                           'HELP'                       AS category,
+                           hb.HELP_TITLE                AS title,
+                                   '없음'                AS status,
+                           u.NAME                       AS writer,
+                           u.EMAIL                      AS email,
+                           u.PHONE_NUMBER               AS phoneNumber,
+                           hb.HELP_CREATED_AT           AS createdAt
+                    FROM HR.HELP_BOARD hb
+                             JOIN HR.USERS u ON hb.USERS_ID = u.USERS_ID))
+        result
+        WHERE 1=1
+         <!-- 카테고리가 null이 아니고 빈 문자열이 아니며 'all'이 아닌 경우 카테고리 값을 비교 -->
+        <if test="category != null and category != '' and category != 'all'">
+            AND LOWER(category) = LOWER(#{category})
+        </if>
+        <!-- searchType 과 searchKeyword가 null이 아니고 빈 문자열이 아닌 경우 검색 -->
+        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <!-- searchType이 'title'인 경우 제목에서 검색 키워드를 찾음 -->
+                <when test="searchType == 'title'">
+                    AND LOWER(title) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+                <!-- 위와 같은 내용 -->
+                <when test="searchType == 'author'">
+                    AND LOWER(writer) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+                <!-- 위와 같은 내용 -->
+                <when test="searchType == 'id'">
+                    AND LOWER(email) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+            </choose>
+        </if>
+        <!-- 시작 날짜가 null이 아니고 빈 문자열이 아닌 경우 시작 날짜 이후의 데이터를 찾음 -->
+        <if test="startDate != null and startDate != ''">
+            AND createdAt >= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+        </if>
+        <!-- 위와 반대 -->
+        <if test="endDate != null and endDate != ''">
+            AND createdAt &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+        </if>
+        ORDER BY createdAt DESC
     </select>
 </mapper>

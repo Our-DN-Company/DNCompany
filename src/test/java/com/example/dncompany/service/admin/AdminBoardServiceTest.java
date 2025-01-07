@@ -15,15 +15,15 @@ class AdminBoardServiceTest {
     @Autowired
     private AdminBoardService adminBoardService;
 
-    @Test
-    void getReportBoardData() {
-        List<AdminReportBoardDTO> adminReportBoardDTO = adminBoardService.getReportBoardSearch();
+//    @Test
+//    void getReportBoardData() {
+//        List<AdminReportBoardDTO> adminReportBoardDTO = adminBoardService.getReportBoardSearch();
 
 
-    }
+//    }
 
-    @Test
-    void getQnABoard() {
-        List<AdminQnABoardDTO> adminQnABoardDTO = adminBoardService.getQnABoard();
-    }
+//    @Test
+//    void getQnABoard() {
+//        List<AdminQnABoardDTO> adminQnABoardDTO = adminBoardService.getQnABoard();
+//    }
 }

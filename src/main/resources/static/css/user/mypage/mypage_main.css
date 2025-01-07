@@ -9,7 +9,6 @@ li {
 }
 
 table {
-  margin-bottom: 200px;
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
@@ -59,6 +58,12 @@ td {
 
 .mypage_main_line {
   border: 1px solid var(--main-color);
+  margin: 10px 0;
+}
+
+.mypage_main_sub_line {
+  border: 1px solid var(--sub-color);
+  opacity: 0.5;
   margin: 10px 0;
 }
 
@@ -129,7 +134,7 @@ td {
 }
 
 .mypage_main_pet_button_left {
-  background-image: url(/images/user/mypage/left-button);
+  background-image: url(/images/user/mypage/left-button.png);
   background-color: transparent;
   background-repeat: no-repeat;
   margin-right: 50px;
@@ -140,7 +145,7 @@ td {
 }
 
 .mypage_main_pet_button_right {
-  background-image: url(../img/>button.png);
+  background-image: url(/images/user/mypage/right-button.png);
   background-color: transparent;
   background-repeat: no-repeat;
   margin-left: 50px;
@@ -148,13 +153,6 @@ td {
   width: 50px;
   height: 50px;
   border: none;
-}
-.mypage_main_work {
-  /* padding: 100px; */
-
-  p {
-    font-size: 25px;
-  }
 }
 
 .mypage_main_work_bottom {
@@ -167,14 +165,18 @@ td {
 .mypage_main_content_title {
   display: flex;
   justify-content: space-between;
-
+  margin-top: 50px;
   button {
     border: none;
+  }
+
+  p {
+    font-size: 25px;
   }
 }
 
 .mypage_main_content_button {
-  background-image: url(../img/+button.png);
+  background-image: url(/images/user/mypage/+button.png);
   background-color: transparent;
   background-repeat: no-repeat;
 
@@ -203,4 +205,13 @@ td {
 
 .mypage_main_pet_list.active {
   display: block;
+}
+
+.mypage_main_list_dn {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+p {
+  margin-top: 20px;
 }
