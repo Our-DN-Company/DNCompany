@@ -1,0 +1,222 @@
+.prouduct_prouductContainer {
+  margin-top: 200px;
+  width: 100%;
+}
+
+.prouduct_prouductContent {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+/* 카테고리 */
+.prouduct_prouductCategory {
+  font-family: "Pretendard-Regular";
+  letter-spacing: 3px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.prouduct_animalCategory {
+  font-family: "Pretendard-Regular";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 3px;
+}
+
+.prouduct_prouductMark {
+  color: red;
+}
+
+/* 반려동물 카테고리 */
+.animal_radioWrap {
+  margin: 20px 0 30px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.animal_radioWrap input[type="radio"] {
+  display: none;
+}
+
+.animal_radioWrap input[type="radio"]:checked + label {
+  background-color: rgb(189, 118, 255);
+  color: black;
+  z-index: 1;
+}
+
+.animal_radioWrap input[type="radio"] + label {
+  width: 70px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  border: none;
+  border-radius: 10px;
+  background-color: #f6f6f9;
+  color: black;
+  font-family: "Ownglyph_ParkDaHyun";
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+/* 물품 카테고리 */
+.prouduct_radioWrap {
+  margin: 10px 0 30px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.prouduct_radioWrap input[type="radio"] {
+  display: none;
+}
+
+.prouduct_radioWrap input[type="radio"]:checked + label {
+  background-color: rgb(189, 118, 255);
+  color: black;
+  z-index: 1;
+}
+
+.prouduct_radioWrap input[type="radio"] + label {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background-color: #f6f6f9;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: "Ownglyph_ParkDaHyun";
+  letter-spacing: 2px;
+}
+
+/* 판매 금액 박스 */
+.prouduct_price {
+  font-family: "Pretendard-Regular";
+  letter-spacing: 3px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.prouduct_priceInput {
+  margin: 10px 0;
+  padding: 0 10px;
+  width: 20%;
+  height: 55px;
+  border: 1px solid #e4e4e6;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+/* 제목 박스 */
+.prouduct_prouductCategory {
+  font-family: "Pretendard-Regular";
+  letter-spacing: 3px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.prouduct_titleInput {
+  margin: 10px 0;
+  padding: 0 10px;
+  width: 100%;
+  height: 55px;
+  border: 1px solid #e4e4e6;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+/* 제목 박스 여백 */
+.prouduct_alertText {
+  padding-left: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: red;
+}
+
+/* 내용 입력 박스 */
+.prouduct_prouductInputWrapper {
+  margin-bottom: 58px;
+}
+
+.prouduct_prouductInput {
+  margin-bottom: 10px;
+  padding: 20px 10px;
+  width: 100%;
+  height: 300px;
+  resize: none;
+  border: 1px solid #e4e4e6;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+/* 업로드 영역 */
+.prouduct_fileInputWrapper {
+  margin: 50px 0;
+}
+
+/* 사진 업로드 박스 */
+.prouduct_prouductImgContainer {
+  height: 112px;
+  margin: 16px 0 20px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 1px dashed #868688;
+  border-radius: 15px;
+  text-align: center;
+  color: #f24147;
+}
+
+.prouduct_inputFileBtn {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  position: relative;
+  padding: 8px 20px;
+  background-color: #f6f6f9;
+  border-radius: 21px;
+  color: black;
+  font-weight: 700;
+}
+
+.prouduct_imgDesc {
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  color: lightgray;
+}
+
+.prouduct_inputFileText {
+  font-size: 12px;
+}
+
+.prouduct_thumbnailText {
+  color: lightgray;
+}
+
+.prouduct_nosubmitBtn {
+  width: 240px;
+  height: 40px;
+  background-color: #e4e4e6;
+  color: black;
+  border-radius: 21px;
+  border: none;
+  margin: 60px auto 100px;
+  display: block;
+  cursor: pointer;
+  font-weight: 700;
+}

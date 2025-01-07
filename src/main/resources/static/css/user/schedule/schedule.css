@@ -1,0 +1,171 @@
+/* 공통 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 헤더, 푸터를 포함한 전체 컨테이너 */
+.container {
+  min-height: 600px;
+  width: 100%;
+  min-width: 1200px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* main 레이아웃 */
+.main-wrap {
+  width: 1200px;
+  margin: 100px auto;
+  padding: 80px 20px 250px 20px;
+  border: 2px solid #e8e8e8;
+}
+
+/* 캘린더 설정 */
+:root {
+  --fc-small-font-size: 0.85em;
+  --fc-page-bg-color: #fff;
+  --fc-neutral-bg-color: rgba(208, 208, 208, 0.3);
+  --fc-neutral-text-color: #808080;
+  --fc-border-color: #ddd;
+
+  /* 버튼 속성 */
+  --fc-button-text-color: #fff;
+  --fc-button-bg-color: rgba(189, 118, 255, 0.5);
+  --fc-button-border-color: rgba(208, 208, 208, 0.3);
+  --fc-button-hover-bg-color: rgba(95, 0, 128, 0.9);
+  --fc-button-hover-border-color: rgba(189, 118, 255, 0.9);
+  --fc-button-active-bg-color: rgb(95, 0, 128);
+  --fc-button-active-border-color: rgb(189, 118, 255);
+
+  /* 이벤트 속성 */
+  --fc-event-bg-color: rgb(189, 118, 255);
+  --fc-event-border-color: rgb(189, 118, 255);
+  --fc-event-text-color: #fff;
+  --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
+
+  --fc-more-link-bg-color: #d0d0d0;
+  --fc-more-link-text-color: inherit;
+
+  --fc-event-resizer-thickness: 8px;
+  --fc-event-resizer-dot-total-width: 8px;
+  --fc-event-resizer-dot-border-width: 1px;
+
+  --fc-non-business-color: rgba(215, 215, 215, 0.3);
+  --fc-bg-event-color: rgb(143, 223, 130);
+  --fc-bg-event-opacity: 0.3;
+  --fc-highlight-color: rgba(188, 232, 241, 0.3);
+  /* 캘린더 오늘 날짜 색상 변경 */
+  --fc-today-bg-color: rgba(189, 118, 255, 0.5);
+  --fc-now-indicator-color: red;
+
+  /* dayGrid 이벤트 속성 */
+  --fc-daygrid-event-dot-width: 8px;
+}
+
+/* 캘린더 일요일, 토요일 색상 설정 */
+.fc-day-sun a {
+  color: red;
+}
+
+.fc-day-sat a {
+  color: blue;
+}
+
+/* 일정표 툴바 */
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 0;
+  padding: 0 40px;
+  background-color: rgb(189, 118, 255);
+  height: 50px;
+
+  font-size: 12px;
+  line-height: 20px;
+  color: white;
+  border-radius: 20px 20px 0px 0px;
+}
+
+/* 툴바 포커스시 그림자 제거 */
+.fc .fc-toolbar-chunk .fc-button:focus {
+  box-shadow: none;
+}
+
+/* 캘린더 레이아웃 설정 */
+.calendarMain {
+  display: flex;
+  justify-content: flex-start;
+  font-family: "Pretendard-Regular";
+}
+
+/* 요일 높이 */
+.fc-theme-standard th {
+  height: 20px;
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  font-weight: normal;
+  color: #7b7b7b;
+  vertical-align: middle;
+}
+
+/* 캘린더 제목 */
+#calendarBox p {
+  display: inline-block;
+  /* position: absolute; */
+  padding-bottom: 30px;
+  font-family: "Ownglyph_ParkDaHyun";
+  font-weight: 100;
+  font-size: 28px;
+}
+
+#calendarBox {
+  position: relative;
+  display: block;
+  font-size: 12px;
+  width: 70%;
+  padding-left: 15%;
+
+  /* 내 일정 레이아웃 설정 */
+  .my-schedule-wrap {
+    position: absolute;
+    left: 820px;
+    width: 170px;
+    height: 490px;
+    margin-top: 50px;
+    background-color: rgb(255, 245, 240);
+    border-radius: 10px;
+  }
+
+  .my-schedule {
+    margin: 10px;
+  }
+
+  .my-schedule-list {
+    padding: 10px 0px;
+  }
+
+  .my-schedule-list a {
+    display: block;
+    padding: 5px;
+    margin: 0px 10px;
+    border-radius: 10px;
+    background-color: rgb(189, 118, 255);
+    color: #fff;
+  }
+
+  .my-schedule-list a span {
+    display: block;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #fff;
+  }
+}
