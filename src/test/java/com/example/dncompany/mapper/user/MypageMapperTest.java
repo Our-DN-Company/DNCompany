@@ -1,38 +1,62 @@
 package com.example.dncompany.mapper.user;
 
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
+
+import com.example.dncompany.dto.user.mypage.PetSlideDTO;
+import com.example.dncompany.dto.user.mypage.UserProfileDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class MypageMapperTest {
 
     @Autowired
     MypageMapper mypageMapper;
     AddPetDTO addPetDTO;
-
+    UserProfileDTO userProfileDTO;
     @BeforeEach
     void setUp(){
         addPetDTO = new AddPetDTO();
-        addPetDTO.setPetId(6L);
-        addPetDTO.setPetName("테스");
+//        addPetDTO.setPetId(6L);
+        addPetDTO.setPetName("테스트");
         addPetDTO.setPetSpecies("강아지");
         addPetDTO.setPetGender("F");
+        addPetDTO.setUsersId(6L);
+
         addPetDTO.setPetBirthDate(LocalDate.of(1990, 1, 1));
         addPetDTO.setAdoptionDate(LocalDate.of(1990, 1, 1));
+
+
+
     }
 
     @Test
-    void addPet(){mypageMapper.addPet(addPetDTO);
+    void insertPet(){
+        mypageMapper.insertPet(addPetDTO);
+
+        List<PetSlideDTO> petList = mypageMapper.selectPetList(6L);
+
+        assertThat(petList)
+                .isNotEmpty()
+                .extracting("petName")
+                .contains("테스트");
     }
 
+
     @Test
-    void petAgeCalculation() {
+    void userProfile() {
+        Optional<UserProfileDTO> userProfile = mypageMapper.userProfile(21L);
+
+
     }
 }
