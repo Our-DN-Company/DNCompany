@@ -2,18 +2,18 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" th:href="@{/css/common.css}" />
-  <link rel="stylesheet" th:href="@{/css/font.css}" />
-  <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
-  <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
-  <script defer th:src="@{/js/fragment/header.js}"></script>
-  <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
-  <link rel="stylesheet" th:href="@{/css/user/signup.css}" />
-  <script defer th:src="@{/js/user/signup.js}"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/user/signup.css}"/>
+    <script defer type="module" th:src="@{/js/user/signup.js}"></script>
 
-  <title>Document</title>
+    <title>Document</title>
 </head>
 
 <body>
@@ -22,249 +22,305 @@
 
 </th:block>
 <div class="container">
-  <div class="main-wrap">
-    <main class="main-wrap">
-      <div class="content_box">
-        <div class="signup-wrap">
-          <div class="signup__kit">
-            <h2>회원가입</h2>
-          </div>
-          <div class="signup__input">
-            <div class="signup__upbar"><span>*</span><span>&nbsp;필수입력사항</span></div>
-            <!-- 가입 박스 -->
-            <form class="signup__input__box">
-              <!-- 가입 시작 -->
-              <!-- 아이디 -->
-              <div class="signup__info">
-                <div class="signup__info__title"><label class="info__title">아이디<span>*</span></label></div>
-                <div class="signup__info__box">
-                  <div class="info__box__in"><label for="memberId"></label><input id="memberId" name="memberId" placeholder="아이디를 입력해주세요"
-                                                                                  type="text" required class="info__box__in__content" value></div>
-                  <div class="testinfomvp">
-                    <p class="testmessagenot id__notmessage1">6자 이상 16자 이하의 영문 혹은 영문과 숫자를 조합</p>
-                    <p class="testmessagenot id__notmessage2">사용 불가능한 아이디입니다.</p>
-                    <p class="testmessageok id__okmessage">사용 가능한 아이디입니다.</p>
-                  </div>
-                </div>
-
-                <div class="signup__info__out"></div>
-              </div>
-              <!-- 비밀번호 -->
-              <div class="signup__info">
-                <div class="signup__info__title"><label class="info__title">비밀번호<span>*</span></label></div>
-                <div class="signup__info__box">
-                  <div class="info__box__in"><label for="password"></label>
-                    <input id="password" name="password" placeholder="비밀번호를 입력해주세요"
-                           type="password" required autocomplete="off" class="info__box__in__content" value></div>
-                  <div class="testinfomvp">
-                    <p class="testmessagenot pw__notmessage1">최소 10자 이상 입력</p>
-                    <p class="testmessagenot pw__notmessage2">영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합</p>
-                  </div>
-                </div>
-                <div class="signup__info__out"></div>
-              </div>
-              <!-- 비밀번호 확인 -->
-              <div class="signup__info">
-                <div class="signup__info__title"><label class="info__title">비밀번호확인<span>*</span></label></div>
-                <div class="signup__info__box">
-                  <div class="info__box__in"><label for="passwordConfirm"></label><input id="passwordConfirm" name="passwordConfirm"
-                                                                                         placeholder="비밀번호를 한번 더 입력해주세요" type="password" required autocomplete="off"
-                                                                                         class="info__box__in__content" value></div>
-                  <div class="testinfomvp">
-                    <p class="testmessagenot pw__confirmmessage1">비밀번호를 한번 더 입력해 주세요.</p>
-                    <p class="testmessagenot pw__confirmmessage2">동일한 비밀번호를 입력</p>
-                  </div>
-                </div>
-
-                <div class="signup__info__out"></div>
-              </div>
-              <!-- 이름 -->
-              <div class="signup__info">
-                <div class="signup__info__title"><label class="info__title">이름<span>*</span></label></div>
-                <div class="signup__info__box">
-                  <div class="info__box__in"><label for="name"></label><input id="name" name="name" placeholder="이름을 입력해주세요" type="text"
-                                                                              required class="info__box__in__content" value></div>
-                  <div class="testinfomvp">
-                    <p class="testmessagenot name__message">이름을 입력해주세요</p>
-                  </div>
-                </div>
-                <div class="signup__info__out"></div>
-              </div>
-              <!-- 이메일 -->
-              <div class="signup__info">
-                <div class="signup__info__title">
-                  <label class="info__title">이메일<span>*</span></label>
-                </div>
-                <div class="signup__info__box">
-                  <div class="signup__info__box__email">
-                    <input id="email" type="hidden" name="email" value="" />
-                    <label for="emailId"></label><input id="emailId" name="emailId" placeholder="예: DNCompany" type="text" required
-                                                        class="info__box__in__content__email" value="" />
-                    <div class="info__box__email__at">@</div>
-                    <div class="info__box__email__btn">
-                      <label for="emailTxt"></label><input id="emailTxt" name="emailTxt" placeholder="선택하기" type="text" required
-                                                           class="info__box__email__btn__content" value="" disabled />
-                      <button type="button" class="info__box__email__btn__select">
-                        <img src="/images/user/signup_email.png" alt="이메일 드롭 다운 화살표"/>
-                      </button>
-                      <div class="info__dropdown__email">
-                        <button type="button" class="dropdown__item"
-                                onclick="btnClick('naver.com')">naver.com</button>
-                        <button type="button" class="dropdown__item"
-                                onclick="btnClick('gmail.com')">gmail.com</button>
-                        <button type="button" class="dropdown__item"
-                                onclick="btnClick('hanmail.net')">hanmail.net</button>
-                        <button type="button" class="dropdown__item"
-                                onclick="btnClick('kakao.com')">kakao.com</button>
-                        <button type="button" class="dropdown__item" onclick="btnClick('daum.net')">daum.net</button>
-                        <button type="button" class="dropdown__item"
-                                onclick="btnClick('hotmail.com')">hotmail.com</button>
-                        <button type="button" class="dropdown__item"
-                                onclick="btnClick('yahoo.co.kr')">yahoo.co.kr</button>
-                        <button type="button" class="dropdown__item" onclick="enableEditing()">직접입력</button>
-                      </div>
+    <div class="main-wrap">
+        <main class="main-wrap">
+            <div class="content_box">
+                <div class="signup-wrap">
+                    <div class="signup__kit">
+                        <h2>회원가입</h2>
                     </div>
-                  </div>
-                  <div class="testinfomvp">
-                    <p class="testmessagenot email__notmessage1">이메일을 입력해 주세요.</p>
-                    <p class="testmessagenot email__notmessage2">이메일 형식으로 입력해 주세요.</p>
-                    <p class="testmessageok email__okmessage">사용 가능한 이메일입니다.</p>
-                  </div>
-                </div>
-                <div class="signup__info__out"></div>
-              </div>
-              <!-- 전화번호 -->
-              <div class="signup__info">
-                <div class="signup__info__title"><label class="info__title">휴대폰<span>*</span></label></div>
-                <div class="signup__info__box">
-                  <div class="info__box__in"><label for="phoneNumber"></label><input id="phoneNumber" name="mobileNumber" placeholder="숫자만 입력해주세요"
-                                                                                     type="tel" required class="info__box__in__content" value></div>
-                  <div class="testinfomvp">
-                    <p class="testmessagenot mobileNumber__message">휴대폰 번호를 입력해주세요.</p>
-                  </div>
-                </div>
-                <div class="signup__info__out">
-                  <button class="signup__info__number" type="button" id="phoneNumber-btn" disabled=""><span
-                          class="info__number__title">인증번호 받기</span></button>
-                </div>
-                  <div class="signup__info__box" id="authNumberGroup" style="display: none">
-                    <label for="authNumber" class="input-label">인증번호</label>
-                    <div class="info__box__in">
-                      <input type="text" id="authNumber" class="info__box__in__content" placeholder="인증번호 6자리를 입력하세요" maxlength="6" />
-                      <div class="signup__info__out">
-                        <button type="button" class="signup__info__number" id="verifyAuthBtn"><span class="info__number__title">인증확인</span></button>
-                      </div>
+                    <div class="signup__input">
+                        <div class="signup__upbar"><span>*</span><span>&nbsp;필수입력사항</span></div>
+                        <!-- 가입 박스 -->
+                        <form class="signup__input__box">
+                            <!-- 가입 시작 -->
+                            <!-- 아이디 -->
+                            <div class="signup__info">
+                                <div class="signup__info__title"><label class="info__title">아이디<span>*</span></label>
+                                </div>
+                                <div class="signup__info__box">
+                                    <div class="info__box__in"><label for="userId"></label><input id="userId"
+                                                                                                  name="userId"
+                                                                                                  placeholder="아이디를 입력해주세요"
+                                                                                                  type="text" required
+                                                                                                  class="info__box__in__content"
+                                                                                                  value></div>
+                                    <div class="testinfomvp">
+                                        <p class="testmessagenot id__notmessage1">6자 이상 16자 이하의 영문 혹은 영문과 숫자를 조합</p>
+                                        <p class="testmessagenot id__notmessage2">사용 불가능한 아이디입니다.</p>
+                                        <p class="testmessageok id__okmessage">사용 가능한 아이디입니다.</p>
+                                    </div>
+                                </div>
+
+                                <div class="signup__info__out"></div>
+                            </div>
+                            <!-- 비밀번호 -->
+                            <div class="signup__info">
+                                <div class="signup__info__title"><label class="info__title">비밀번호<span>*</span></label>
+                                </div>
+                                <div class="signup__info__box">
+                                    <div class="info__box__in"><label for="password"></label>
+                                        <input id="password" name="password" placeholder="비밀번호를 입력해주세요"
+                                               type="password" required autocomplete="off"
+                                               class="info__box__in__content" value></div>
+                                    <div class="testinfomvp">
+                                        <p class="testmessagenot pw__notmessage1">최소 10자 이상 입력</p>
+                                        <p class="testmessagenot pw__notmessage2">영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합</p>
+                                    </div>
+                                </div>
+                                <div class="signup__info__out"></div>
+                            </div>
+                            <!-- 비밀번호 확인 -->
+                            <div class="signup__info">
+                                <div class="signup__info__title"><label class="info__title">비밀번호확인<span>*</span></label>
+                                </div>
+                                <div class="signup__info__box">
+                                    <div class="info__box__in"><label for="passwordConfirm"></label><input
+                                            id="passwordConfirm" name="passwordConfirm"
+                                            placeholder="비밀번호를 한번 더 입력해주세요" type="password" required autocomplete="off"
+                                            class="info__box__in__content" value></div>
+                                    <div class="testinfomvp">
+                                        <p class="testmessagenot pw__confirmmessage1">비밀번호를 한번 더 입력해 주세요.</p>
+                                        <p class="testmessagenot pw__confirmmessage2">동일한 비밀번호를 입력</p>
+                                    </div>
+                                </div>
+
+                                <div class="signup__info__out"></div>
+                            </div>
+                            <!-- 이름 -->
+                            <div class="signup__info">
+                                <div class="signup__info__title"><label class="info__title">이름<span>*</span></label>
+                                </div>
+                                <div class="signup__info__box">
+                                    <div class="info__box__in"><label for="name"></label><input id="name" name="name"
+                                                                                                placeholder="이름을 입력해주세요"
+                                                                                                type="text"
+                                                                                                required
+                                                                                                class="info__box__in__content"
+                                                                                                value></div>
+                                    <div class="testinfomvp">
+                                        <p class="testmessagenot name__message">이름을 입력해주세요</p>
+                                    </div>
+                                </div>
+                                <div class="signup__info__out"></div>
+                            </div>
+                            <!-- 이메일 -->
+                            <div class="signup__info">
+                                <div class="signup__info__title">
+                                    <label class="info__title">이메일<span>*</span></label>
+                                </div>
+                                <div class="signup__info__box">
+                                    <div class="signup__info__box__email">
+                                        <input id="email" type="hidden" name="email" value=""/>
+                                        <label for="emailId"></label><input id="emailId" name="emailId"
+                                                                            placeholder="예: DNCompany" type="text"
+                                                                            required
+                                                                            class="info__box__in__content__email"
+                                                                            value=""/>
+                                        <div class="info__box__email__at">@</div>
+                                        <div class="info__box__email__btn">
+                                            <label for="emailTxt"></label><input id="emailTxt" name="emailTxt"
+                                                                                 placeholder="선택하기" type="text" required
+                                                                                 class="info__box__email__btn__content"
+                                                                                 value="" disabled/>
+                                            <button type="button" class="info__box__email__btn__select">
+                                                <img src="/images/user/signup_email.png" alt="이메일 드롭 다운 화살표"/>
+                                            </button>
+                                            <div class="info__dropdown__email">
+                                                <button type="button" class="dropdown__item">naver.com</button>
+                                                <button type="button" class="dropdown__item">gmail.com</button>
+                                                <button type="button" class="dropdown__item">hanmail.net</button>
+                                                <button type="button" class="dropdown__item">kakao.com</button>
+                                                <button type="button" class="dropdown__item">daum.net</button>
+                                                <button type="button" class="dropdown__item">hotmail.com</button>
+                                                <button type="button" class="dropdown__item">yahoo.co.kr</button>
+                                                <button type="button" class="dropdown__item">직접입력</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="testinfomvp">
+                                        <p class="testmessagenot email__notmessage1">이메일을 입력해 주세요.</p>
+                                        <p class="testmessagenot email__notmessage2">이메일 형식으로 입력해 주세요.</p>
+                                        <p class="testmessageok email__okmessage">사용 가능한 이메일입니다.</p>
+                                    </div>
+                                </div>
+                                <div class="signup__info__out"></div>
+                            </div>
+                            <!-- 전화번호 -->
+                            <div class="signup__info">
+                                <div class="signup__info__title">
+                                    <label class="info__title">휴대폰<span>*</span></label>
+                                </div>
+                                <div class="signup__info__box">
+                                    <div class="info__box__in">
+                                        <label for="phoneNumber"></label>
+                                        <input id="phoneNumber" name="phoneNumber" placeholder="숫자만 입력해주세요" type="tel" required class="info__box__in__content" value=""
+                                        />
+                                        <div class="testinfomvp">
+                                            <p class="testmessagenot mobileNumber__message">휴대폰 번호를 입력해주세요.</p>
+                                        </div>
+                                        <div id="authNumberGroup" style="display: none">
+                                            <label for="authNumber" class="input-label"></label>
+                                            <div class="info__box__in">
+                                                <input
+                                                        type="text"
+                                                        id="authNumber"
+                                                        class="info__box__in__content"
+                                                        placeholder="인증번호 6자리를 입력하세요"
+                                                        maxlength="6"
+                                                />
+                                                <button type="button" class="signup__info__number" id="verifyAuthBtn">
+                                                    <span class="info__number__title">인증확인</span>
+                                                </button>
+                                            </div>
+                                            <span class="timer" id="authTimer"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="signup__info__out">
+                                        <button class="signup__info__number" type="button" id="phoneNumber-btn"
+                                                disabled>
+                                            <span class="info__number__title">인증번호 받기</span>
+                                        </button>
+                                    </div>
+                            </div>
+                                <!-- 주소 -->
+                                <div class="signup__info">
+                                    <div class="signup__info__title"><label class="info__title">주소<span>*</span></label>
+                                    </div>
+                                    <input type="hidden" id="address_postcode" placeholder="우편번호">
+                                    <div class="signup__info__box">
+                                        <div class="info__box__in">
+                                            <!-- 초기에는 비활성화 상태 -->
+                                            <label for="address_address"></label><input type="text" id="address_address"
+                                                                                        placeholder="주소" required
+                                                                                        class="info__box__in__content"
+                                                                                        disabled><br>
+                                            <label for="address_detailAddress"></label><input type="text"
+                                                                                              id="address_detailAddress"
+                                                                                              placeholder="상세주소"
+                                                                                              required
+                                                                                              class="info__box__in__content"
+                                                                                              disabled>
+                                            <div class="testinfomvp">
+                                                <p class="testmessagenot address__message">상세 주소를 입력해주세요.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="address_extraAddress" placeholder="참고항목">
+
+                                    <div class="signup__info__out">
+                                        <input class="address_btn" type="button" onclick="address_execDaumPostcode()"
+                                               value="주소 검색">
+                                    </div>
+
+                                </div>
+                                <!-- 성별 -->
+                                <div class="signup__info">
+                                    <div class="signup__info__title"><label class="info__title">성별</label></div>
+                                    <div class="signup__info__box">
+                                        <div class="signup__info__box__gender">
+                                            <!-- 남자 -->
+                                            <!-- 버튼 -->
+                                            <div class="signup__gender__box">
+                                                <label class="info__gender" for="gender-man">
+                                                </label>
+                                                <div class="gender__btn__in"></div>
+                                                <input data-testid="radio-MALE" id="gender-man" name="gender"
+                                                       type="radio"
+                                                       class="info__gender__input" value="MALE"/>
+                                                <span aria-labelledby="gender-man" class="gender__btn__title">남자</span>
+                                            </div>
+                                            <!-- 여자 -->
+                                            <!-- 버튼 -->
+                                            <div class="signup__gender__box">
+                                                <label class="info__gender" for="gender-woman">
+                                                </label>
+                                                <div class="gender__btn__in"></div>
+                                                <input data-testid="radio-FEMALE" id="gender-woman" name="gender"
+                                                       type="radio"
+                                                       class="info__gender__input" value="FEMALE"/>
+                                                <span aria-labelledby="gender-woman"
+                                                      class="gender__btn__title">여자</span>
+                                            </div>
+                                            <!-- 선택안함 -->
+                                            <!-- 버튼 -->
+                                            <div class="signup__gender__box">
+                                                <label class="info__gender" for="gender-none">
+                                                </label>
+                                                <div class="gender__btn__in"></div>
+
+                                                <input data-testid="radio-none" id="gender-none" name="gender"
+                                                       type="radio"
+                                                       class="info__gender__input" value="NONE"/>
+
+                                                <span aria-labelledby="gender-none"
+                                                      class="gender__btn__title">선택안함</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="signup__info__out"></div>
+                                </div>
+                                <!-- 생년월일 -->
+                                <div class="signup__info">
+                                    <div class="signup__info__title"><label class="info__title">생년월일</label></div>
+
+                                    <div class="signup__info__box__date">
+                                        <div class="info__date__box">
+                                            <div height="40" class="info__date__box__in">
+                                                <label for="birthYear"></label><input data-testid="input-box"
+                                                                                      id="birthYear"
+                                                                                      name="birthYear"
+                                                                                      placeholder="YYYY"
+                                                                                      type="text"
+                                                                                      height="40"
+                                                                                      class="info__date__box__input"
+                                                                                      value="">
+                                            </div>
+                                        </div>
+                                        <span class="info__date__slash"></span>
+                                        <div class="info__date__box">
+                                            <div height="40" class="info__date__box__in">
+                                                <label for="birthMonth"></label><input data-testid="input-box"
+                                                                                       id="birthMonth"
+                                                                                       name="birthMonth"
+                                                                                       placeholder="MM"
+                                                                                       type="text"
+                                                                                       height="40"
+                                                                                       class="info__date__box__input"
+                                                                                       value="">
+                                            </div>
+                                        </div>
+                                        <span class="info__date__slash"></span>
+                                        <div class="info__date__box">
+                                            <div height="40" class="info__date__box__in">
+                                                <label for="birthDay"></label><input data-testid="input-box"
+                                                                                     id="birthDay"
+                                                                                     name="birthDay" placeholder="DD"
+                                                                                     type="text"
+                                                                                     height="40"
+                                                                                     class="info__date__box__input"
+                                                                                     value="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="signup__info__out"></div>
+                                </div>
+
+
+                                <div class="signup__btn__box">
+                                    <button class="btnSignup" type="submit" width="240" height="54" radius="3">
+                                        <span class="btn__title">가입하기</span>
+                                    </button>
+                                </div>
+
+                        </form>
                     </div>
-                    <span class="timer" id="authTimer"></span>
-                  </div>
                 </div>
-
-              <!-- 주소 -->
-              <div class="signup__info">
-                <div class="signup__info__title"><label class="info__title">주소<span>*</span></label></div>
-                <input type="hidden" id="address_postcode" placeholder="우편번호">
-                <div class="signup__info__box">
-                  <div class="info__box__in" >
-                    <!-- 초기에는 비활성화 상태 -->
-                    <label for="address_address"></label><input type="text" id="address_address" placeholder="주소" required class="info__box__in__content"
-                                                                disabled><br>
-                    <label for="address_detailAddress"></label><input type="text" id="address_detailAddress" placeholder="상세주소" required class="info__box__in__content"
-                                                                      disabled>
-                    <div class="testinfomvp">
-                      <p class="testmessagenot address__message">상세 주소를 입력해주세요.</p>
-                    </div>
-                  </div>
-                </div>
-                <input type="hidden" id="address_extraAddress" placeholder="참고항목">
-
-                <div class="signup__info__out">
-                  <input class="address_btn" type="button" onclick="address_execDaumPostcode()" value="주소 검색">
-                </div>
-
-              </div>
-              <!-- 성별 -->
-              <div class="signup__info">
-                <div class="signup__info__title"><label class="info__title">성별</label></div>
-                <div class="signup__info__box">
-                  <div class="signup__info__box__gender">
-                    <!-- 남자 -->
-                    <!-- 버튼 -->
-                    <div class="signup__gender__box">
-                      <label class="info__gender" for="gender-man">
-                      </label>
-                      <div class="gender__btn__in"></div>
-                      <input data-testid="radio-MALE" id="gender-man" name="gender" type="radio"
-                             class="info__gender__input" value="MALE" />
-                      <span aria-labelledby="gender-man" class="gender__btn__title">남자</span>
-                    </div>
-                    <!-- 여자 -->
-                    <!-- 버튼 -->
-                    <div class="signup__gender__box">
-                      <label class="info__gender" for="gender-woman">
-                      </label>
-                      <div class="gender__btn__in"></div>
-                      <input data-testid="radio-FEMALE" id="gender-woman" name="gender" type="radio"
-                             class="info__gender__input" value="FEMALE" />
-                      <span aria-labelledby="gender-woman" class="gender__btn__title">여자</span>
-                    </div>
-                    <!-- 선택안함 -->
-                    <!-- 버튼 -->
-                    <div class="signup__gender__box">
-                      <label class="info__gender" for="gender-none">
-                      </label>
-                      <div class="gender__btn__in"></div>
-
-                      <input data-testid="radio-none" id="gender-none" name="gender" type="radio"
-                             class="info__gender__input" value="NONE" />
-
-                      <span aria-labelledby="gender-none" class="gender__btn__title">선택안함</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="signup__info__out"></div>
-              </div>
-              <!-- 생년월일 -->
-              <div class="signup__info">
-                <div class="signup__info__title"><label class="info__title">생년월일</label></div>
-
-                <div class="signup__info__box__date">
-                  <div class="info__date__box">
-                    <div height="40" class="info__date__box__in">
-                      <label for="birthYear"></label><input data-testid="input-box" id="birthYear" name="birthYear" placeholder="YYYY" type="text"
-                                                            height="40" class="info__date__box__input" value="">
-                    </div>
-                  </div>
-                  <span class="info__date__slash"></span>
-                  <div class="info__date__box">
-                    <div height="40" class="info__date__box__in">
-                      <label for="birthMonth"></label><input data-testid="input-box" id="birthMonth" name="birthMonth" placeholder="MM" type="text"
-                                                             height="40" class="info__date__box__input" value="">
-                    </div>
-                  </div>
-                  <span class="info__date__slash"></span>
-                  <div class="info__date__box">
-                    <div height="40" class="info__date__box__in">
-                      <label for="birthDay"></label><input data-testid="input-box" id="birthDay" name="birthDay" placeholder="DD" type="text"
-                                                           height="40" class="info__date__box__input" value="">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="signup__info__out"></div>
-              </div>
-
-
-              <div class="signup__btn__box">
-                <button class="btnSignup" type="submit" width="240" height="54" radius="3">
-                  <span class="btn__title">가입하기</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
+            </div>
+        </main>
+    </div>
 </div>
 <th:block th:insert="~{fragment/footer::footer}">
 
