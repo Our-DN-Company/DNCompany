@@ -1,14 +1,22 @@
 package com.example.dncompany.controller.user;
 
+import com.example.dncompany.dto.user.mypage.AddPetDTO;
+import com.example.dncompany.mapper.user.MypageMapper;
+import com.example.dncompany.service.user.MypageService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+@Slf4j
 @Controller
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
 public class MypageController {
+    public final MypageMapper mypageMapper;
+    public final MypageService mypageService;
 
     @GetMapping("/main")
     public String mypageMain() {
@@ -19,6 +27,24 @@ public class MypageController {
         public String mypageAddPet() {
         return "user/mypage/add-pet";
     }
+
+    @PostMapping("/add/pet")
+    public String mypageAddPet(AddPetDTO addPetDTO, HttpSession session) {
+
+        Long usersId = (Long)session.getAttribute("usersId");
+        addPetDTO.setUsersId(usersId);
+
+
+
+
+        log.debug("addPetDTO: {}", addPetDTO);
+
+        mypageMapper.addPet(addPetDTO);
+
+          return "redirect:/mypage/main";
+
+
+    };
 
     @GetMapping("/update/pet")
     public String mypageUpdatePet() {return "user/mypage/update-pet";}

@@ -35,6 +35,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // coolsms 문자 인증 추가
+    implementation 'net.nurigo:sdk:4.3.2'
 
     // Oracle Security Developer Tools (OSDT) Certificate 라이브러리 (인증서 관련)
     implementation 'com.oracle.database.security:osdt_cert:21.16.0.0'
@@ -42,6 +44,7 @@ dependencies {
     implementation 'com.oracle.database.security:oraclepki:23.6.0.24.10'
     // OSDT Core 라이브러리 (기본 보안 기능 담당)
     implementation 'com.oracle.database.security:osdt_core:21.16.0.0'
+
 }
 
 tasks.named('test') {
