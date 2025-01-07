@@ -41,23 +41,23 @@ document.addEventListener("DOMContentLoaded", function () {
       // 반복 돌려야함
       {
         title: "내 일정",
-        start: "2024-12-25",
-        end: "2024-12-25",
+        start: "2025-01-25",
+        end: "2025-01-25",
       },
       {
         title: "내 일정2",
-        start: "2024-12-26",
-        end: "2024-12-26",
+        start: "2025-01-26",
+        end: "2025-01-26",
       },
       {
         title: "내 일정3",
-        start: "2024-12-25",
-        end: "2024-12-25",
+        start: "2025-01-27",
+        end: "2025-01-27",
       },
       {
         title: "내 일정4",
-        start: "2024-12-26",
-        end: "2024-12-26",
+        start: "2025-01-28",
+        end: "2025-01-28",
       },
     ],
     editable: true, // false로 변경 시 draggable 작동 x
