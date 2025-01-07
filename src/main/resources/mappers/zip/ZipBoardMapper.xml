@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dncompany.mapper.zip.ZipMapper">
+    <!--  게시글 삽입  -->
     <insert id="insertZipBoard" parameterType="ZipBoardWriteDTO">
         <selectKey resultType="long" keyProperty="zipId" order="BEFORE">
             SELECT SEQ_ZIP_BOARD.nextval FROM DUAL
@@ -9,6 +10,18 @@
         VALUES (#{zipId}, #{userId}, #{zipPetCategory}, #{zipCategory}, #{zipTitle}, #{zipContent})
     </insert>
 
+    <!--  게시글 전체 정보  -->
+    <select id="selectAllZipBoards" resultType="ZipBoardListDTO">
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+               U.USERS_ID, U.NICKNAME,
+               (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
+               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+        FROM ZIP_BOARD ZB
+                 JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
+        ORDER BY ZIP_ID DESC
+    </select>
+
+    <!--  게시글 조회수  -->
     <update id="updateViewCount" parameterType="long">
         UPDATE ZIP_BOARD
         SET ZIP_VIEWCOUNT = ZIP_VIEWCOUNT + 1

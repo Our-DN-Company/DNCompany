@@ -1,9 +1,7 @@
 package com.example.dncompany.mapper.zip;
 
-import com.example.dncompany.dto.user.UserJoinDTO;
-import com.example.dncompany.dto.zip.ZipBoardDetailDTO;
+import com.example.dncompany.dto.zip.ZipBoardListDTO;
 import com.example.dncompany.dto.zip.ZipBoardWriteDTO;
-import com.example.dncompany.mapper.user.UserMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,35 +9,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest
 @Transactional
 class ZipMapperTest {
     @Autowired
     ZipMapper zipMapper;
-    @Autowired
-    UserMapper userMapper;
 
     ZipBoardWriteDTO zipBoardWriteDTO;
 
-    UserJoinDTO userJoinDTO;
-
     @BeforeEach
     void setUp() {
-
+        zipBoardWriteDTO = new ZipBoardWriteDTO();
+        zipBoardWriteDTO.setZipTitle("test title");
+        zipBoardWriteDTO.setUserId(21L);
     }
 
+
     @Test
-    void insertZipBoard() {
+    void selectAllZipBoards() {
         // given
         zipMapper.insertZipBoard(zipBoardWriteDTO);
         // when
-        Optional<ZipBoardDetailDTO> foundBoard = zipMapper.selectById(zipBoardWriteDTO.getZipId());
+        List<ZipBoardListDTO> zipBoardList = zipMapper.selectAllZipBoards();
         // then
-        assertThat(foundBoard)
-                .isNotNull();
+        assertThat(zipBoardList)
+                .isNotEmpty()
+                .extracting("zipTitle")
+                .contains("test title");
     }
 }

@@ -8,6 +8,7 @@ import lombok.ToString;
 public class ZipBoardWriteDTO {
     private Long zipId;
     private String zipTitle;
+    private String zipCategory;
     private String zipPetCategory;
     private String zipContent;
     private Long userId;
