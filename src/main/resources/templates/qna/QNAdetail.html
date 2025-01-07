@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/qna/QNAdetail.css}"/>
+    <style>
+        @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
+        @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
+    </style>
+</head>
+<body>
+<header class="header" th:include="~{fragment/header::header}">
+</header>
+<div class="container">
+    <div class="main-wrap">
+        <!-- 여기에 작업 -->
+        <!-- 게시글 상세 -->
+        <main>
+            <div class="qaDetail_qaDetailContainer">
+                <div class="qaDetail_qaDetailContent">
+                    <!-- 작성글 박스 -->
+                    <div class="qaDetail_qaDetailQuestion">
+                        <div class="qaDetail_qaDetailTitle">
+                            <div class="qaDetail_labelListWrapper"></div>
+                            <h1 class="qaDetail_qaDetailTop">
+                                4개월 마티즈 파보장염에대해궁굼한게있어요
+                            </h1>
+                        </div>
+                        <div class="qaDetail_qaDetailText">
+                            강아지 공장에서 구출된 4개월 남아를 이틀전에 입양했는데요
+                            입양한첫날밤부터 변을 보는데 설사가좀섞여서 나오더니
+                            다음날부터 설사를 심하게 해서 병원에 갔더니
+                            파보장염양성판정이나왔고 항체검사를 했더니 항체도 없다고
+                            하더라구요..입원해서 치료하기로했는데 파보장염을 앐고나면 계속
+                            병을 달고살게되나요? 어떤 후유증이 있는지 어떻게 관리를
+                            해야하는지 궁굼합니다
+                        </div>
+                        <div class="qaDetail_qaDetailImgBox">
+                            <img class="img_verticalImage" src=""/>
+                        </div>
+
+                        <!-- 작성글 삭제/수정 버튼 -->
+                        <div class="delete_modify_Btn">
+                            <div class="delete_Btn">
+                                <button class="delete_Btn_item" tabindex="0" type="button">
+                                    글 삭제
+                                </button>
+                            </div>
+                            <!-- 작성글 수정 버튼 -->
+                            <div class="modify_Btn">
+                                <button class="modify_Btn_item" tabindex="0" type="button">
+                                    글 수정
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 작성자 정보 -->
+                        <div class="qaDetail_qaDetailInfo">
+                            <div>
+                                <a href="" class="qaDetail_infoWrapper" href="">
+                                    <img src=""/>
+                                    <div class="qaDetail_qaDetailUser">닉네임</div>
+                                    <div class="qaDetail_qaDetailDate">작성 날짜</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 경계선 -->
+                    <div class="qaDetail_qaDetailBar"></div>
+
+                    <!-- 답글 -->
+                    <div class="qaDetail_qaDetailAnswerWrapper">
+                        <div class="qaDetail_qaDetailTotal">댓글 0</div>
+                        <div class="qaDetail_qaDetailComment">
+                            <div class="answer_qaAnswerInputWrapper">
+                                <textarea placeholder="댓글을 입력해주세요"></textarea>
+                                <div class="answer_inputBtnWrapper">
+                                    <div class="answer_questionImgContainer"></div>
+                                    <div class="answer_answerBtnContainer">
+                                        <form enctype="multipart/form-data">
+                                            <input
+                                                    id="uploadFile"
+                                                    type="file"
+                                                    multiple
+                                                    accept="image/jpg,image/png,image/jpeg,image/gif"
+                                                    class="answer_fileUploadWrapper"
+                                            />
+                                        </form>
+
+                                        <div>
+                                            <label for="uploadFile" class="answer_photoBtn">
+                                                <img
+                                                        src="https://bemypet.kr/icons/ICON_Camera.png"
+                                                />
+                                                사진첨부
+                                            </label>
+                                            <button class="answer_submitBtn">등록</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 댓글 리스트 -->
+                        <div class="qaDetail_qaDetailAnswer" id="answers">
+                            <!-- 반복요소 -->
+                            <div class="comment_qaDetailComment">
+                                <div class="comment_qaCommentIdWrapper">
+                                    <a class="comment_qaCommentAuthor" href="#">
+                                        <img src=""/>
+                                        <div class="comment_qaCommentId">닉네임</div>
+                                    </a>
+
+                                    <div class="comment_edit_delete">
+                                        <!-- 삭제 아이콘 -->
+                                        <div class="comment_delete">
+                                            <img
+                                                    src="../img/—Pngtree—delete glyph black icon_4008308.png"
+                                            />
+                                        </div>
+                                        <!-- 수정 아이콘 -->
+                                        <div class="comment_edit">
+                                            <img src="../img/—Pngtree—edit icon_4643109.png"/>
+                                        </div>
+                                    </div>
+                                    <div class="comment_qaCommentDate">날짜</div>
+                                </div>
+
+                                <div class="comment_qaDetailImgNone"></div>
+                                <div class="comment_qaComment">내용</div>
+                            </div>
+                            <!-- 반복요소 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+</div>
+</body>
+</html>

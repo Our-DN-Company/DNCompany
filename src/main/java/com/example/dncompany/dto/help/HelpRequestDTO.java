@@ -20,4 +20,6 @@ public class HelpRequestDTO {
    private String helpAddressDetail;
    private Integer helpPrice;
    private Integer helpPoint;
+   private LocalDateTime helpCreatedAt;
+   private Long usersId;
 }

@@ -15,7 +15,7 @@ public class HelpResponseDTO {
    private String helpCareType;
    private LocalDate helpCareDate;
    private LocalDateTime helpStartTime;
-   private LocalDateTime helpEndDateTime;
+   private LocalDateTime helpEndTime;
    private String helpAddress;
    private String helpAddressDetail;
    private Integer helpPrice;

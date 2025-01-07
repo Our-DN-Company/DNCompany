@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,14 +11,14 @@
     <link rel="stylesheet" th:href="@{/css/font.css}" />
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}" />
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}" />
-    <link rel="stylesheet" th:href="@{/css/user/schedule/calender.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/schedule/schedule.css}" />
 
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
     <script src="fullcalendar/lib/locales-all.js"></script>
 
-    <script th:src="@{/js/user/schedule/calender.js}"></script>
+    <script th:src="@{/js/user/schedule/schedule.js}"></script>
     <script th:src="@{/js/fragment/header.js}"></script>
     <script th:src="@{/js/fragment/footer.js}"></script>
     <!--    <script src="/js/common.js"></script>-->
@@ -27,9 +27,9 @@
     <!-- 홈페이지 전체 사이즈 -->
     <div class="container">
       <!-- 헤더 넣기 -->
-      <header>
-        <div id="header__container"></div>
-      </header>
+      <th:block th:insert="~{fragment/header::header}">
+
+      </th:block>
       <div class="main-wrap">
         <main class="calendarMain">
           <div id="calendarBox">
@@ -77,7 +77,9 @@
           </div>
         </main>
       </div>
-      <footer></footer>
+      <th:block th:insert="~{fragment/footer::footer}">
+
+      </th:block>
     </div>
   </body>
 </html>
