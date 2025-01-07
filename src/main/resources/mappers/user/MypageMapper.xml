@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dncompany.mapper.user.MypageMapper">
+    <!--반려동물 정보 등록/수정-->
     <!-- Insert 반려동물 정보 -->
-    <insert id="addPet" parameterType="AddPetDTO">
+    <insert id="insertPet" parameterType="AddPetDTO">
         <selectKey resultType="long" keyProperty="petId" order="BEFORE">
             SELECT SEQ_PET.NEXTVAL FROM DUAL
         </selectKey>
         INSERT INTO PET(PET_ID, PET_SPECIES, PET_NAME,PET_AGE,PET_GENDER, PET_BIRTH_DATE, ADOPTION_DATE)
         VALUES (#{petId}, #{petSpecies}, #{petName},
         (EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM #{petBirthDate}) + 1),
-            #{petGender}, #{petBirthDate, jdbcType=DATE}, #{adoptionDate, jdbcType=DATE})
+        #{petGender}, #{petBirthDate, jdbcType=DATE}, #{adoptionDate, jdbcType=DATE})
     </insert>
-        
+    <!--미이페이지 메인-->
+    <!--반려동물 정보-->
+    <select id="selectPetList" parameterType="long" resultType="PetSlideDTO">
+        SELECT P.PET_ID,
+               PET_SPECIES,
+               PET_NAME,
+               PET_AGE,
+               PET_GENDER,
+               PET_BIRTH_DATE,
+               ADOPTION_DATE,
+               USERS_ID
+        FROM PET P
+        WHERE P.USERS_ID = #{usersId}
+    </select>
+    <!--회원정보-->
+    <select id="userProfile"  parameterType="long" resultType="userProfileDTO">
+        SELECT U.USERS_ID,U.LOGIN_ID,U.NICKNAME, U.EMAIL,U.PHONE_NUMBER,
+               (SELECT COUNT(*) FROM HELP_BOARD HB WHERE HB.USERS_ID = U.USERS_ID )AS HB_COUNT,
+               (SELECT COUNT(*) FROM HELP_OFFER HO WHERE HO.USERS_ID = U.USERS_ID )AS HO_COUNT,
+               P.POINT,P.POINT_EXPIRATION_AT
+        FROM USERS U
+                 JOIN POINT P ON U.USERS_ID = P.USERS_ID
+        WHERE U.USERS_ID=#{usersId}
+    </select>
 
 </mapper>

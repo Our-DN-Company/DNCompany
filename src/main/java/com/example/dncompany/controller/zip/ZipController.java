@@ -1,17 +1,27 @@
 package com.example.dncompany.controller.zip;
 
+import com.example.dncompany.dto.zip.ZipBoardListDTO;
+import com.example.dncompany.service.zip.ZipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/zip")
 @RequiredArgsConstructor
 public class ZipController {
+    private final ZipService zipService;
 
-    @GetMapping("/list")
-    public String list() {return "zip/list";}
+    @GetMapping("/community")
+    public String community(Model model) {
+        List<ZipBoardListDTO> boardList = zipService.getAllZipBoards();
+        model.addAttribute("boardList", boardList);
+        return "zip/community";
+    }
 
     @GetMapping("/detail")
     public String detail() {return "zip/detail";}
@@ -20,3 +30,26 @@ public class ZipController {
     public String write() {return "zip/write";}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

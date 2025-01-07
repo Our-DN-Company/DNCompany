@@ -11,16 +11,15 @@
         u.PHONE_NUMBER AS phoneNumber,
         TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') AS birthDate,
         u.GENDER AS gender,
-        TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') AS signUpDate,
+        TO_CHAR(u.SIGN_UP_DATE, 'YYYY-MM-DD') AS signUpDate,
         (
         SELECT COUNT(*)
-        FROM HR.REVIEW r
-        JOIN HR.HELP_OFFER ho ON r.HELP_YOU_NUMBER = ho.HELP_OFFER_ID
-        WHERE r.REVIEW_CHECK_STATUS = '신고'
-        AND ho.USERS_ID = u.USERS_ID
+        FROM ADMIN.REPORT r
+        JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+        WHERE ho.USERS_ID = u.USERS_ID
         ) AS reportCount,
         u.POINT AS points
-        FROM HR.USERS u
+        FROM ADMIN.USERS u
         WHERE 1=1
         <if test="searchLoginId != null and searchLoginId != ''">
             AND LOWER(u.LOGIN_ID) LIKE '%' || LOWER(#{searchLoginId}) || '%'
@@ -37,26 +36,30 @@
         <if test="searchPhoneNumber != null and searchPhoneNumber != ''">
             AND u.PHONE_NUMBER LIKE '%' || #{searchPhoneNumber} || '%'
         </if>
-        <if test="searchSignUpDate != null and searchSignUpDate != ''">
-            AND TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') = #{searchSignUpDate}
+        <if test="searchSignStartDate != null and searchSignEndDate != null
+        and searchSignStartDate != '' and searchSignEndDate != ''">
+            AND u.SIGN_UP_DATE >= TO_DATE(#{searchSignStartDate}, 'YYYY-MM-DD')
+            AND u.SIGN_UP_DATE <![CDATA[<=]]> TO_DATE(#{searchSignEndDate}, 'YYYY-MM-DD')
         </if>
         <if test="reportStatus != null and reportStatus != '' and reportStatus != 'all'">
-            AND EXISTS (
-            SELECT 1
-            FROM HR.REVIEW r
-            JOIN HR.HELP_OFFER ho ON r.HELP_YOU_NUMBER = ho.HELP_OFFER_ID
-            WHERE ho.USERS_ID = u.USERS_ID
-            AND r.REVIEW_CHECK_STATUS = '신고'
-            AND
             <choose>
                 <when test="reportStatus == 'reported'">
-                    r.REVIEW_CHECK_STATUS = '신고'
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) > 0
                 </when>
                 <when test="reportStatus == 'notReported'">
-                    r.REVIEW_CHECK_STATUS != '신고'
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) = 0
                 </when>
             </choose>
-            )
         </if>
         ORDER BY u.USERS_ID
     </select>
@@ -67,7 +70,7 @@
             r.REPORT_TITLE as reportTitle,
             r.REPORT_CONTENT as reportContent,
             r.HELP_OFFER_ID as helpOfferId,
-            r.REPORT_DATE as reportDate,
+            r.REPORT_CREATED_AT as reportDate,
             r.REPORT_CHECK_STATUS as reportCheckStatus,
 
             /* 신고당한 사람 정보 */
@@ -80,31 +83,39 @@
             reporter.LOGIN_ID as reporterLoginId,
 
             /* 정지 정보 */
-            us.STATUS as status,
+            us.USERS_STATUS as status,
             us.USERS_BAN_AT as banStartDate,
             us.USERS_PERMIT_AT as banEndDate
         FROM
-            HR.REPORT r
-                JOIN HR.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
-                JOIN HR.USERS reported ON ho.USERS_ID = reported.USERS_ID  /* 신고당한 사람 */
-                JOIN HR.HELP_BOARD hb ON ho.HELP_ID = hb.HELP_ID
-                JOIN HR.USERS reporter ON hb.USERS_ID = reporter.USERS_ID  /* 신고한 사람 */
-                LEFT JOIN HR.USERS_STATUS us ON (reported.USERS_ID = us.USERS_ID AND us.REPORT_ID = r.REPORT_ID)
+            ADMIN.REPORT r
+                JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                JOIN ADMIN.USERS reported ON ho.USERS_ID = reported.USERS_ID  /* 신고당한 사람 */
+                JOIN ADMIN.HELP_BOARD hb ON ho.HELP_ID = hb.HELP_ID
+                JOIN ADMIN.USERS reporter ON hb.USERS_ID = reporter.USERS_ID  /* 신고한 사람 */
+                LEFT JOIN ADMIN.USERS_STATUS us ON (reported.USERS_ID = us.USERS_ID AND us.REPORT_ID = r.REPORT_ID)
         WHERE
             reported.USERS_ID = #{userId}
         ORDER BY
-            r.REPORT_DATE DESC
+            r.REPORT_CREATED_AT DESC
     </select>
 
     <update id="updateReportStatus">
-        UPDATE REPORT
+        UPDATE ADMIN.REPORT
         SET REPORT_CHECK_STATUS = #{status}
         WHERE REPORT_ID = #{reportId}
     </update>
 
+
+
     <update id="updateUserPoints">
-        UPDATE HR.USERS
-        SET POINT = #{points}
+        UPDATE USERS
+        SET POINT = POINT + #{points}
         WHERE USERS_ID = #{userId}
     </update>
+    <!-- 포인트 조회 위와 세트임  -->
+    <select id="getCurrentUserPoints" resultType="Integer">
+        SELECT POINT
+            FROM USERS
+        WHERE USERS_ID = #{userId}
+    </select>
 </mapper>

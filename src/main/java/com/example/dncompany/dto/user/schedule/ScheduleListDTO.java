@@ -9,10 +9,11 @@ import java.time.LocalTime;
 
 @Setter @Getter @ToString
 public class ScheduleListDTO {
-    String helpTitle;
-    LocalDate helpCareDate;
-    LocalTime helpStartTime;
-    LocalTime helpEndTime;
-    Long usersId;
-    Long helpId;
+    private String helpTitle;
+    private LocalDate helpCareDate;
+    private LocalTime helpStartTime;
+    private LocalTime helpEndTime;
+    private Long usersId;
+    private Long helpId;
+    private String helpCareType;
 }
