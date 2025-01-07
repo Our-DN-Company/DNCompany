@@ -28,20 +28,22 @@
         </div>
         <div class="filter">
             <label for="genderSelect">성별:</label>
-            <select id="genderSelect" name="gender">
+            <select id="genderSelect" name="searchGender">
                 <option value="all">전체</option>
-                <option value="male">남성</option>
-                <option value="female">여성</option>
+                <option value="M">남성</option>
+                <option value="F">여성</option>
             </select>
         </div>
         <div class="filter">
             <label for="phoneInput">폰번호:</label>
-            <input id="phoneInput" name="phoneNumber" placeholder="폰번호를 입력하세요" type="text">
+            <input id="phoneInput" name="searchPhoneNumber" placeholder="폰번호를 입력하세요" type="text">
         </div>
         <div class="filter">
-            <label for="joinDate">가입일:</label>
-            <input id="joinDate" name="signUpDate" type="date">
-        </div>
+        <label for="startDate">시작일:</label>
+        <input id="startDate" name="searchSignStartDate" type="date">
+        <label for="endDate">종료일:</label>
+        <input id="endDate" name="searchSignEndDate" type="date">
+    </div>
         <div class="filter">
             <label for="reportStatus">신고 여부:</label>
             <select id="reportStatus" name="reportStatus">
@@ -87,7 +89,10 @@
         </tr>
         </thead>
         <tbody id="memberListBody">
-        <!-- Thymeleaf가 서버에서 데이터를 렌더링합니다 -->
+        <!--  Thymeleaf가 서버에서 데이터를 렌더링한다. -->
+        <!--  이부분은 지금 :admin_user_board :: #memberListBody 뿌리고 있으며   -->
+        <!--  전체페이지가 아닌 이 영역만 새로고침이 된다   -->
+        <!--   modal 로 userList를 뿌리고 있다(post방식)      -->
         <tr th:each="user : ${userList}">
             <td><input type="checkbox"></td>
             <td th:text="${user.userId}"></td>
@@ -101,7 +106,8 @@
             <td><a href="#" th:onclick="'openReportModal(\'' + ${user.userId} + '\')'" th:text="${user.reportCount}"></a></td>
             <td><span class="current-points" th:text="${user.points}"></span></td>
             <td>
-                <input class="small-input" th:id="'point-' + ${user.userId}" min="1" placeholder="포인트" type="number">
+                <input class="small-input" th:id="'point-' + ${user.userId}" placeholder="포인트"
+                       min="-100000"  max="100000"     type="number">
                 <button class="blue-button" th:onclick="'applyCustomPoints(\'' + ${user.userId} + '\')'">적용</button>
             </td>
             <td class="activity-buttons">

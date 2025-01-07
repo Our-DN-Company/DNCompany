@@ -8,11 +8,13 @@ import java.time.LocalDate;
 
 @Getter @Setter @ToString
 public class PetSlideDTO {
-    Long petId;
-    String petName;
-    int petAge;
-    String petGender;
-    String petSpecies;
-    LocalDate petBirthDate;
-    LocalDate petAdoptionDate;
+    private Long petId;
+    private String petSpecies;
+    private String petName;
+    private int petAge;
+    private String petGender;
+    private LocalDate petBirthDate;
+    private LocalDate adoptionDate;
+    private Long userId;
+
 }

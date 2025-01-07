@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -104,7 +104,7 @@
                         <div class="community_loungeLeftContent">
                             <div class="community_loungeList">
                                 <!-- 반복요소 -->
-                                <div class="qaList_qaListContainer">
+                                <div class="qaList_qaListContainer" th:each="board : ${boardList}">
                                     <div class="qaList_qaListWrapper">
                                         <div>
                                             <div class="qaList_qaListLabelWrapper">
@@ -113,12 +113,15 @@
                                                         <img
                                                                 src="https://bemypet.kr/icons/community/ANIMALICON_ETC.svg"
                                                         />
-                                                        <div>기타</div>
+                                                        <div th:if="${board.zipPetCategory.equals('CAT')}">고양이</div>
+                                                        <div th:if="${board.zipPetCategory.equals('DOG')}">강아지</div>
+                                                        <div th:if="${board.zipPetCategory.equals('SMALL')}">소동물</div>
+                                                        <div th:if="${board.zipPetCategory.equals('OTHER')}">기타</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="qaList_qaListTitle">리리 팬아트!!</div>
-                                            <div class="qaList_qaListText">
+                                            <div class="qaList_qaListTitle" th:text="${board.zipTitle}">리리 팬아트!!</div>
+                                            <div class="qaList_qaListText" th:text="${board.zipContent}">
                                                 지난번에 리리도 팬아트 만들어달라고 했는데.. 그림은
                                                 준비되었는데 색이없어 어쩔수없이 편집의 힘을 빌려
                                                 완성한 팬아트... (리리 사토루)
@@ -131,9 +134,9 @@
                                             <img
                                                     src="https://bff-images.bemypet.kr/media/medias/profile_image/927-image_picker4881577713905119062.jpg"
                                             />
-                                            <div class="qaList_nickname">삼색이짱짱</div>
+                                            <div class="qaList_nickname" th:text="${board.nickname}">삼색이짱짱</div>
                                         </a>
-                                        <div class="qaList_communityType">댓글 : 0</div>
+                                        <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 : 0</div>
                                         <div>1시간 전</div>
                                     </div>
                                     <div class="qaList_labelWrapper">

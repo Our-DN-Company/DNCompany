@@ -36,40 +36,25 @@
             <p>캘린더</p>
             <div class="my-schedule-wrap">
               <div class="my-schedule">
-                <!-- 반복 요소 -->
-                <div class="my-schedule-list">
-                  <a href="#">
-                    <span>내 일정1 </span>
-                    <div>
-                      돌봄 날짜 : 2024-01-01 <br />
-                      카테고리 : 산책 <br />
-                      시작시간 : 06:00 <br />
-                      종료시간 : 12:00 <br />
-                    </div>
-                  </a>
-                </div>
-                <!-- 반복 요소 -->
-                <div class="my-schedule-list">
-                  <a href="#">
-                    <span>내 일정1 </span>
-                    <div>
-                      시작일 <br />
-                      종료일 <br />
-                      시작시간 <br />
-                      종료시간<br />
-                    </div>
-                  </a>
-                </div>
-                <div class="my-schedule-list">
-                  <a href="#">
-                    <span>내 일정1 </span>
-                    <div>
-                      시작일 : <br />
-                      종료일 <br />
-                      시작시간 <br />
-                      종료시간<br />
-                    </div>
-                  </a>
+                <!-- 스케줄이 있는 경우 -->
+                <th:block th:if="${scheduleList != null} and ${!scheduleList.isEmpty()}">
+                  <div class="my-schedule-list" th:each="schedule : ${scheduleList}"
+                       th:if="${schedule.helpCareDate == today} and ${schedule.usersId != null}">
+                    <a href="#">
+                      <span class="my-schedule-list-top" th:text="${schedule.helpTitle}">내 일정1</span>
+                      <div>
+                        <span th:text="'돌봄 날짜: ' + ${schedule.helpCareDate}">2024-01-01</span><br>
+                        <span th:text="'돌봄 종류: ' + ${schedule.helpCareType}">산책</span><br>
+                        <span th:text="'시작시간: ' + ${schedule.helpStartTime}">06:00</span><br>
+                        <span th:text="'종료시간: ' + ${schedule.helpEndTime}">12:00</span><br>
+                      </div>
+                    </a>
+                  </div>
+                </th:block>
+
+                <!-- 스케줄이 없는 경우 -->
+                <div th:unless="${scheduleList == null} or ${scheduleList.isEmpty()}">
+                  <span>오늘은 스케쥴이 없습니다.</span>
                 </div>
               </div>
             </div>
