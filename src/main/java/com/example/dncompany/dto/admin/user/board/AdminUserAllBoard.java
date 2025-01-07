@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter @Setter @ToString
 public class AdminUserAllBoard {
 
@@ -25,7 +28,11 @@ public class AdminUserAllBoard {
     private String searchName;      // 이름 검색용
     private String searchGender;   // 성별 검색용
     private String searchPhoneNumber; // 폰번호 검색용
-    private String searchSignUpDate;  // 가입일 검색용
+    private String searchSignUpDate;// 가입일 검색용
+
+    private String searchSignStartDate;  // 시작 날짜
+    private String searchSignEndDate;    // 종료 날짜
+
     private String reportStatus;      // 신고여부 검색용
 
 
