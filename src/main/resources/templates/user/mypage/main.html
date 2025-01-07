@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/css/common.css}" />
-    <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_main.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_nav.css}">
 
-
-
-
-    <script  th:src="@{/js/user/mypage/mypage_pet_slide.js}" defer=""></script>
+    <script defer th:src="@{/js/user/mypage/mypage_main_list.js}"></script>
+"
+    <script defer th:src="@{/js/user/mypage/mypage_nav.js}"></script>
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script th:src="@{/js/user/mypage/mypage_pet_slide.js}" defer=""></script>
     <title>Document</title>
 </head>
 <body>
 <!-- 홈페이지 전체 사이즈 -->
 <div class="container">
-    <header> </header>
+    <th:block th:insert="~{fragment/header::header}">
+
+    </th:block>
+    <th:block th:insert="~{user/mypage/mypage_nav::mypage-nav}">
+    </th:block>
+    <div class="mypage_nav"></div>
     <div class="main-wrap">
 
 
@@ -25,7 +34,6 @@
 
 
             <div class="mypage_main">
-
 
 
                 <!--(좌측)회원정보-->
@@ -67,7 +75,8 @@
                                         <p>반려동물 1과 100일째 함께합니다</p>
                                         <div class="mypage_main_pet_content">
                                             <div class="mypage_main_pet_img">
-                                                <img class="mypage_main_pet_image" src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진" />
+                                                <img class="mypage_main_pet_image"
+                                                     src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진"/>
                                             </div>
                                             <ul class="mypage_main_pet_profile">
                                                 <li>이름: 코코</li>
@@ -83,7 +92,8 @@
                                         <p>반려동물 2과 200일째 함께합니다</p>
                                         <div class="mypage_main_pet_content">
                                             <div class="mypage_main_pet_img">
-                                                <img class="mypage_main_pet_image" src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진" />
+                                                <img class="mypage_main_pet_image"
+                                                     src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진"/>
                                             </div>
                                             <ul class="mypage_main_pet_profile">
                                                 <li>이름: 초코</li>
@@ -99,7 +109,8 @@
                                         <p>반려동물 3과 300일째 함께합니다</p>
                                         <div class="mypage_main_pet_content">
                                             <div class="mypage_main_pet_img">
-                                                <img class="mypage_main_pet_image" src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진" />
+                                                <img class="mypage_main_pet_image"
+                                                     src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진"/>
                                             </div>
                                             <ul class="mypage_main_pet_profile">
                                                 <li>이름: 쿠키</li>
@@ -124,7 +135,7 @@
                         <!-- 도와주세요 -->
                         <div class="mypage_main_help_me">
                             <div class="mypage_main_content_title"><p>도와주세요</p>
-                                <button class="mypage_main_content_button"><a th:href="@{/user/mypage/list/helpme-list}"></a></button></div>
+                                <a class="mypage_main_content_button" th:href="@{/mypage/list/helpme}"></a></div>
                             <div class="mypage_main_line"></div>
                             <table class="mypage_main_list_top">
                                 <tr>
@@ -144,8 +155,82 @@
                                     <td>2021.12.12</td>
                                     <td>-</td>
                                     <td>2020-23-12[진행중]</td>
-                                    <td><button class="mypage_review_button">후기</button>
-                                        <button class="mypage_review_button">신고</button></td>
+                                    <td>
+                                        <button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>이런 도움이 필요해요</td>
+                                    <td>매칭 대기중</td>
+                                    <td>2021.12.12</td>
+                                    <td>-</td>
+                                    <td>2020-23-12[진행중]</td>
+                                    <td>
+                                        <button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>이런 도움이 필요해요</td>
+                                    <td>매칭 대기중</td>
+                                    <td>2021.12.12</td>
+                                    <td>-</td>
+                                    <td>2020-23-12[진행중]</td>
+                                    <td>
+                                        <button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>이런 도움이 필요해요</td>
+                                    <td>매칭 대기중</td>
+                                    <td>2021.12.12</td>
+                                    <td>-</td>
+                                    <td>2020-23-12[진행중]</td>
+                                    <td>
+                                        <button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>이런 도움이 필요해요</td>
+                                    <td>매칭 대기중</td>
+                                    <td>2021.12.12</td>
+                                    <td>-</td>
+                                    <td>2020-23-12[진행중]</td>
+                                    <td>
+                                        <button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>이런 도움이 필요해요</td>
+                                    <td>매칭 대기중</td>
+                                    <td>2021.12.12</td>
+                                    <td>-</td>
+                                    <td>2020-23-12[진행중]</td>
+                                    <td>
+                                        <button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>이런 도움이 필요해요</td>
+                                    <td>매칭 대기중</td>
+                                    <td>2021.12.12</td>
+                                    <td>-</td>
+                                    <td>2020-23-12[진행중]</td>
+                                    <td>
+                                        <button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button>
+                                    </td>
                                 </tr>
 
                                 <tr>
@@ -154,8 +239,10 @@
                                     <td>2021.12.12</td>
                                     <td>누구님</td>
                                     <td>2020-33-11[완료]</td>
-                                    <td><button class="mypage_review_button">후기</button>
-                                        <button class="mypage_review_button">신고</button></td>
+                                    <td>
+                                        <button class="mypage_review_button">후기</button>
+                                        <button class="mypage_review_button">신고</button>
+                                    </td>
                                 </tr>
                             </table>
 
@@ -164,8 +251,8 @@
 
                         <!-- 도와드려요 -->
                         <div class="mypage_main_help_you">
-                            <div class="mypage_main_content_title"> <p>도와드려요</p>
-                                <button class="mypage_main_content_button"><a th:href="@{mypage/list/helpyou-list}"></a></button></div>
+                            <div class="mypage_main_content_title"><p>도와드려요</p>
+                                <a class="mypage_main_content_button" th:href="@{/mypage/list/helpyou}"></a></div>
                             <div class="mypage_main_line"></div>
                             <table class="mypage_main_list_top">
                                 <tr>
@@ -183,64 +270,122 @@
                                 <tr>
                                     <td>누구님</td>
                                     <td>2024.12.20</td>
-                                    <td><button class="mypage_review_button">도움완료</button></td>
+                                    <td>
+                                        <button class="mypage_review_button">도움완료</button>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-                    <!-- (게시물) -->
-                    <div class="mypage_main_content">
-                        <div class="mypage_main_content_title"><p>게시물</p>
-                            <button class="mypage_main_content_button"><a th:href="@{mypage/list/content-list}"></a></button></div>
+                    <!-- 댕냥바다 -->
+                    <div class="mypage_main_dn">
+                        <div class="mypage_main_content_title"><p>댕냥바다</p>
+                            <button class="mypage_main_content_button"><a href="http://"></a></button></div>
 
                         <div class="mypage_main_line"></div>
                         <table class="mypage_main_list_top">
-                            <tr>
-                                <th>순번</th>
-                                <th>게시판</th>
-                                <th>제목</th>
-                                <th>작성날짜</th>
+                            <!-- 구입내역 -->
+                            <p>구입내역</p>
+                            <div class="mypage_main_sub_line"></div>
+                            <table class="mypage_main_list_dn">
+                                <tr>
+                                    <th>순번</th>
+                                    <th>제목</th>
+                                    <th>작성날짜</th>
+                                    <th>구입날짜</th>
 
-                                <!-- 게시물 컨텐츠 -->
-                            <tr>
-                                <td>1</td>
-                                <td>QNA</td>
-                                <td>샘플 제목입니다</td>
-                                <td>2024.12.23</td>
-                            </tr>
+
+
+                                <tr>
+                                    <td>1</td>
+                                    <td>이거 팔아요</td>
+                                    <td>2024.12.23</td>
+                                    <td>2024.12.23</td>
+
+                                </tr>
+                                </tr>
+                            </table>
+                            <!-- 판매내역 -->
+                            <p>판매내역</p>
+                            <div class="mypage_main_sub_line"></div>
+                            <table class="mypage_main_list_dn">
+
+                                <tr>
+                                    <th>순번</th>
+                                    <th>제목</th>
+                                    <th>작성날짜</th>
+                                    <th>상태</th>
+
+                                    <!-- 게시물 컨텐츠 -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>이거 팔아요</td>
+                                    <td>2024.12.24</td>
+                                    <td>[거래완료]</td>
+                                </tr>
+                                </tr>
+                            </table>
 
                         </table>
                     </div>
 
-                    <!-- (댓글) -->
-                    <div class="mypage_main_comment">
-                        <div class="mypage_main_content_title"><p>댓글</p>
-                            <button class="mypage_main_content_button"><a th:href="@{mypage/list/comment-list}"></a></button></div>
+                    <!-- 초보zip -->
+                    <div class="mypage_main_dn">
+                        <div class="mypage_main_content_title"><p>초보Zip</p>
+                            <button class="mypage_main_content_button"><a href="http://"></a></button></div>
+
                         <div class="mypage_main_line"></div>
                         <table class="mypage_main_list_top">
-                            <tr>
-                                <th>순번</th>
-                                <th>게시판</th>
-                                <th>원글 제목</th>
-                                <th>작성날짜</th>
-                            </tr>
+                            <p>게시글이력</p>
+                            <div class="mypage_main_sub_line"></div>
+                            <table class="mypage_main_list_dn">
+                                <tr>
+                                    <th>순번</th>
+                                    <th>게시판</th>
+                                    <th>제목</th>
+                                    <th>작성날짜</th>
 
-                            <!-- 댓글 컨텐츠 -->
-                            <tr>
-                                <td>샘플 순번</td>
-                                <td>샘플 게시판</td>
-                                <td>샘플 원글제목</td>
-                                <td>샘플 작성날짜</td>
-                            </tr>
+                                    <!-- 게시물 컨텐츠 -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>QNA</td>
+                                    <td>샘플 제목입니다</td>
+                                    <td>2024.12.23</td>
+                                </tr>
+                                </tr>
+                            </table>
+
+                            <p>댓글이력</p>
+                            <div class="mypage_main_sub_line"></div>
+                            <table class="mypage_main_list_dn">
+
+                                <tr>
+                                    <th>순번</th>
+                                    <th>원글제목</th>
+                                    <th>댓글내용</th>
+                                    <th>작성날짜</th>
+
+                                    <!-- 게시물 컨텐츠 -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>QNA</td>
+                                    <td>샘플 제목입니다</td>
+                                    <td>2024.12.23</td>
+                                </tr>
+                                </tr>
+                            </table>
+
                         </table>
                     </div>
+
+
 
 
                     <div class="mypage_main_work_bottom">
                         <!-- (QnA) -->
                         <div class="mypage_main_qna">
                             <div class="mypage_main_content_title"><p>QnA</p>
-                                <button class="mypage_main_content_button"><a th:href="@{mypage/list/qna-list}"></a></button></div>
+                                <a class="mypage_main_content_button" th:href="@{/mypage/list/qna}"></a></div>
                             <div class="mypage_main_line"></div>
                             <table class="mypage_main_list_bottom">
                                 <tr>
@@ -262,8 +407,8 @@
 
                         <!-- (이벤트) -->
                         <div class="mypage_main_event">
-                            <div class="mypage_main_content_title"> <p>이벤트</p>
-                                <button class="mypage_main_content_button"><a th:href="@{mypage/list/event-list}"></a></button></div>
+                            <div class="mypage_main_content_title"><p>이벤트</p>
+                                <a class="mypage_main_content_button" th:href="@{/mypage/list/event}"></a></div>
                             <div class="mypage_main_line"></div>
                             <table class="mypage_main_list_bottom">
                                 <tr>
@@ -280,16 +425,15 @@
                         </div>
 
 
-
-
-
-
                     </div>
                 </div>
             </div>
         </main>
     </div>
     <footer></footer>
+    <th:block th:insert="~{fragment/footer::footer}">
+
+    </th:block>
 </div>
 </body>
 </html>

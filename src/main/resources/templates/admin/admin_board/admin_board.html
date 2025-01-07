@@ -16,14 +16,14 @@
     <form id="searchForm" method="post" th:action="@{/admin/board/list/reportBoard}">
         <div class="filter">
             <label for="searchInput">작성일:</label>
-            <button>오늘</button>
-            <button>3일</button>
-            <button>7일</button>
-            <button>1개월</button>
+            <button type="button" class="date-btn">오늘</button>
+            <button type="button" class="date-btn">3일</button>
+            <button type="button" class="date-btn">7일</button>
+            <button type="button" class="date-btn">1개월</button>
             <label for="startDate">작성일 (시작):</label>
-            <input id="startDate" type="date" placeholder="시작 날짜 입력">
+            <input id="startDate" name="startDate" type="date">
             <label for="endDate">작성일 (종료):</label>
-            <input id="endDate" type="date" placeholder="종료 날짜 입력">
+            <input id="endDate" name="endDate" type="date">
         </div>
         <div class="filter">
             <label for="boardSelect">게시판 선택:</label>
@@ -37,13 +37,13 @@
         </div>
         <div class="filter">
             <label for="searchType">게시글 찾기:</label>
-            <select id="searchType">
+            <select id="searchType" name="searchType">
                 <option value="title">제목</option>
                 <option value="content">내용</option>
                 <option value="author">작성자</option>
                 <option value="id">아이디</option>
             </select>
-            <input id="searchInput" type="text" placeholder="검색어를 입력하세요"/>
+            <input id="searchInput" name="searchKeyword" type="text" placeholder="검색어를 입력하세요"/>
         </div>
         <div class="filter">
             <button type="submit" class="search-button" id="searchButton">검색</button>
@@ -75,7 +75,7 @@
         </tr>
         </thead>
         <tbody id="postListBody">
-        <tr th:each="post, index : ${reports}">
+        <tr th:each="post, index : ${boardType}">
             <td><input type="checkbox" class="post-checkbox"></td>
             <td th:text="${index.count}"></td>
             <td th:text="${post.category}"></td>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>회원 관리</title>
-  <link th:href="@{/css/admin/admin_board/admin_user_board.css}" rel="stylesheet"/>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>회원 관리</title>
+    <link rel="stylesheet" th:href="@{/css/admin/admin_board/admin_user_board.css}"/>
 </head>
 <body>
 
@@ -12,94 +12,137 @@
 <div id="header-container" th:replace="admin/admin_main/admin_main_header_nav :: admin_main_header_nav"></div>
 
 <div class="member-management">
-  <h3>회원 관리</h3>
-
-  <!-- 아이디 입력 필드 추가 -->
-  <div class="filter">
-    <label for="idInput">아이디:</label>
-    <input id="idInput" placeholder="아이디를 입력하세요" type="text">
-  </div>
-
-  <div class="filter">
-    <label for="nameInput">이름:</label>
-    <input id="nameInput" placeholder="이름을 입력하세요" type="text">
-  </div>
-  <div class="filter">
-    <label for="ageInput">나이:</label>
-    <input id="ageInput" placeholder="나이를 입력하세요" type="text">
-  </div>
-  <div class="filter">
-    <label for="genderSelect">성별:</label>
-    <select id="genderSelect">
-      <option value="all">전체</option>
-      <option value="male">남성</option>
-      <option value="female">여성</option>
-    </select>
-  </div>
-  <div class="filter">
-    <label for="phoneInput">폰번호:</label>
-    <input id="phoneInput" placeholder="폰번호를 입력하세요" type="text">
-  </div>
-  <div class="filter">
-    <label for="joinDate">가입일:</label>
-    <input id="joinDate" type="date" placeholder="가입일을 선택하세요">
-  </div>
-  <div class="filter">
-    <label for="reportStatus">신고 여부:</label>
-    <select id="reportStatus">
-      <option value="all">전체</option>
-      <option value="reported">신고된 회원</option>
-      <option value="notReported">신고되지 않은 회원</option>
-    </select>
-  </div>
-  <div class="filter">
-    <button class="search-button" id="searchButton">검색</button>
-  </div>
+    <h3>회원 관리</h3>
+    <form id="searchForm" method="post" th:action="@{/admin/user/board/list/data}">
+        <div class="filter">
+            <label for="idInput">아이디:</label>
+            <input id="idInput" name="searchLoginId" placeholder="아이디를 입력하세요" type="text">
+        </div>
+        <div class="filter">
+            <label for="nameInput">이름:</label>
+            <input id="nameInput" name="searchName" placeholder="이름을 입력하세요" type="text">
+        </div>
+        <div class="filter">
+            <label for="ageInput">나이:</label>
+            <input id="ageInput" name="age" placeholder="나이를 입력하세요" type="text">
+        </div>
+        <div class="filter">
+            <label for="genderSelect">성별:</label>
+            <select id="genderSelect" name="gender">
+                <option value="all">전체</option>
+                <option value="male">남성</option>
+                <option value="female">여성</option>
+            </select>
+        </div>
+        <div class="filter">
+            <label for="phoneInput">폰번호:</label>
+            <input id="phoneInput" name="phoneNumber" placeholder="폰번호를 입력하세요" type="text">
+        </div>
+        <div class="filter">
+            <label for="joinDate">가입일:</label>
+            <input id="joinDate" name="signUpDate" type="date">
+        </div>
+        <div class="filter">
+            <label for="reportStatus">신고 여부:</label>
+            <select id="reportStatus" name="reportStatus">
+                <option value="all">전체</option>
+                <option value="reported">신고된 회원</option>
+                <option value="notReported">신고되지 않은 회원</option>
+            </select>
+        </div>
+        <div class="filter">
+            <button class="search-button" type="submit">검색</button>
+        </div>
+    </form>
 </div>
 
 <div class="member-list">
-  <div class="member-list-header">
-    <h3>전체 회원 목록</h3>
-    <div class="header-controls">
-      <select id="itemsPerPage">
-        <option value="10">10개씩 보이기</option>
-        <option value="20">20개씩 보이기</option>
-        <option value="50">50개씩 보이기</option>
-      </select>
-      <button class="apply-button" id="applyButton">회원정보 수정 전체적용</button>
+    <div class="member-list-header">
+        <h3>전체 회원 목록</h3>
+        <div class="header-controls">
+            <select id="itemsPerPage">
+                <option value="10">10개씩 보이기</option>
+                <option value="20">20개씩 보이기</option>
+                <option value="50">50개씩 보이기</option>
+            </select>
+            <button class="apply-button" id="applyButton">회원정보 수정 전체적용</button>
+        </div>
     </div>
-  </div>
-  <table>
-    <thead>
-    <tr>
-      <th><input type="checkbox" id="selectAll"></th>
-      <th>번호</th>
-      <th>아이디</th>
-      <th>이름</th>
-      <th>주소</th>
-      <th>폰번호</th>
-      <th>생년월일</th>
-      <th>성별</th>
-      <th>가입일</th>
-      <th>신고 횟수</th>
-      <th>보유 포인트</th>
-      <th>포인트 수정</th>
-      <th>활동 정지</th>
-    </tr>
-    </thead>
-    <tbody id="memberListBody">
-    <!-- 동적으로 데이터 추가될 영역 -->
-    </tbody>
-  </table>
+    <table>
+        <thead>
+        <tr>
+            <th><input id="selectAll" type="checkbox"></th>
+            <th>번호</th>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>주소</th>
+            <th>폰번호</th>
+            <th>생년월일</th>
+            <th>성별</th>
+            <th>가입일</th>
+            <th>신고 횟수</th>
+            <th>보유 포인트</th>
+            <th>포인트 수정</th>
+            <th>활동 정지</th>
+        </tr>
+        </thead>
+        <tbody id="memberListBody">
+        <!-- Thymeleaf가 서버에서 데이터를 렌더링합니다 -->
+        <tr th:each="user : ${userList}">
+            <td><input type="checkbox"></td>
+            <td th:text="${user.userId}"></td>
+            <td th:text="${user.loginId}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.birthDate}"></td>
+            <td th:text="${user.gender}"></td>
+            <td th:text="${user.signUpDate}"></td>
+            <td><a href="#" th:onclick="'openReportModal(\'' + ${user.userId} + '\')'" th:text="${user.reportCount}"></a></td>
+            <td><span class="current-points" th:text="${user.points}"></span></td>
+            <td>
+                <input class="small-input" th:id="'point-' + ${user.userId}" min="1" placeholder="포인트" type="number">
+                <button class="blue-button" th:onclick="'applyCustomPoints(\'' + ${user.userId} + '\')'">적용</button>
+            </td>
+            <td class="activity-buttons">
+                <button class="blue-button" th:onclick="'applyBan(\'' + ${user.userId} + '\', 1)'">1일</button>
+                <button class="blue-button" th:onclick="'applyBan(\'' + ${user.userId} + '\', 3)'">3일</button>
+                <button class="blue-button" th:onclick="'applyBan(\'' + ${user.userId} + '\', 7)'">7일</button>
+                <div class="ban-input">
+                    <input th:id="'ban-' + ${user.userId}" min="1" placeholder="일수" type="number">
+                    <button class="blue-button" th:onclick="'applyCustomBan(\'' + ${user.userId} + '\')'">적용</button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
-<!-- 모달 -->
-<div id="modal" style="display:none;">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p id="modal-text"></p>
-    <button id="confirmButton">확인</button>
-  </div>
+<!-- 신고 상세 내역 모달 -->
+<div class="modal" id="reportModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeReportModal()">&times;</span>
+        <h2>신고 상세 내역</h2>
+        <div id="reportDetails">
+            <table class="report-table">
+                <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>신고일</th>
+                    <th>신고자</th>
+                    <th>신고대상자</th>
+                    <th>처리상태</th>
+                    <th>정지기간</th>
+                </tr>
+                </thead>
+                <tbody id="reportTableBody">
+                <!-- JavaScript로 동적으로 채워질 부분 -->
+                </tbody>
+            </table>
+        </div>
+        <button class="modal-button" onclick="closeReportModal()">확인</button>
+    </div>
 </div>
 
 <script th:src="@{/js/admin/admin_board/admin_user_board.js}"></script>
