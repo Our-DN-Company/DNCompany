@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -25,6 +26,7 @@ public class ScheduleController {
 
         List<ScheduleListDTO> scheduleList = scheduleService.getScheduleList(userId);
         model.addAttribute("scheduleList", scheduleList);
+        model.addAttribute("today", LocalDate.now());
 
 
         return "user/schedule/schedule";
