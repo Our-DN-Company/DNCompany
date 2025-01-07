@@ -1,13 +1,18 @@
 package com.example.dncompany.mapper.user;
 
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -32,7 +37,7 @@ class MypageMapperTest {
     void addPet(){mypageMapper.addPet(addPetDTO);
     }
 
-    @Test
-    void petAgeCalculation() {
-    }
+
+
+
 }

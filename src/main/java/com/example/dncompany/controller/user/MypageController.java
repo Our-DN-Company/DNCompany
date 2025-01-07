@@ -1,7 +1,7 @@
 package com.example.dncompany.controller.user;
 
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
-import com.example.dncompany.dto.user.mypage.PetSlideDTO;
+
 import com.example.dncompany.mapper.user.MypageMapper;
 import com.example.dncompany.service.user.MypageService;
 import jakarta.servlet.http.HttpSession;
@@ -28,13 +28,7 @@ public class MypageController {
         return "user/mypage/main";
     }
 
-    //반려동물 슬라이드 정보 출력
-    @PostMapping("/main")
-    public String petSlide(Model model){
-        List<PetSlideDTO> petslide = mypageService.getPetSlideById();
-        model.addAttribute("petslide", petslide);
-        return "user/mypage/main";
-    }
+
 
     @GetMapping("/add/pet")
         public String mypageAddPet() {

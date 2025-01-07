@@ -73,17 +73,17 @@
                                     <!-- 반려동물 리스트 -->
                                     <div class="mypage_main_pet_list active">
                                         <p>로고가 들어갈 공간</p>
-                                        <div class="mypage_main_pet_content" th:each="silde:${petslide} " th:object="${silde}">
+                                        <div class="mypage_main_pet_content" >
                                             <div class="mypage_main_pet_img">
                                                 <img class="mypage_main_pet_image"
                                                      src="/images/user/mypage/pet-proflie.png" alt="반려동물 사진"/>
                                             </div>
                                             <ul class="mypage_main_pet_profile">
-                                                <li th:text="'이름:'+*{petName}">이름: 코코</li>
-                                                <li th:text="*{petAge}">나이: 2살</li>
-                                                <li th:text="*{petSpecies}">성별: 암컷</li>
-                                                <li th:text="*{petBirthDate}">생일: 2022-01-01</li>
-                                                <li th:text="*{petAdoptionDate}">입양일: 2022-03-01</li>
+                                                <li >이름: 코코</li>
+                                                <li >나이: 2살</li>
+                                                <li >성별: 암컷</li>
+                                                <li >생일: 2022-01-01</li>
+                                                <li>입양일: 2022-03-01</li>
                                             </ul>
                                         </div>
                                     </div>
