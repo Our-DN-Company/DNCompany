@@ -2,6 +2,8 @@ package com.example.dncompany.controller.user;
 
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
 
+import com.example.dncompany.dto.user.mypage.PetSlideDTO;
+import com.example.dncompany.dto.user.mypage.UserProfileDTO;
 import com.example.dncompany.mapper.user.MypageMapper;
 import com.example.dncompany.service.user.MypageService;
 import jakarta.servlet.http.HttpSession;
@@ -12,26 +14,38 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
 public class MypageController {
-    public final MypageMapper mypageMapper;
     public final MypageService mypageService;
 
     @GetMapping("/main")
-    public String mypageMain() {
+    public String mypageMain(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                             Model model) {
+        usersId = 6L;
+
+        if(usersId == null) {
+            return "redirect:/user/login";
+        }
+
+        List<PetSlideDTO> petList = mypageService.getPetSlide(usersId);
+        model.addAttribute("petList", petList);
+        UserProfileDTO userProfile = mypageService.userProfile(usersId);
+        model.addAttribute("userProfile", userProfile);
+
         return "user/mypage/main";
     }
 
 
-
     @GetMapping("/add/pet")
-        public String mypageAddPet() {
+    public String mypageAddPet() {
         return "user/mypage/add-pet";
     }
 
@@ -39,24 +53,25 @@ public class MypageController {
     @PostMapping("/add/pet")
     public String mypageAddPet(AddPetDTO addPetDTO, HttpSession session) {
 
-        Long usersId = (Long)session.getAttribute("usersId");
+        Long usersId = (Long) session.getAttribute("usersId");
         addPetDTO.setUsersId(usersId);
-
-
 
 
         log.debug("addPetDTO: {}", addPetDTO);
 
-        mypageMapper.addPet(addPetDTO);
+        mypageService.addPet(addPetDTO);
 
-          return "redirect:/mypage/main";
+        return "redirect:/mypage/main";
 
 
-    };
+    }
+
+    ;
 
     @GetMapping("/update/pet")
-    public String mypageUpdatePet() {return "user/mypage/update-pet";}
-
+    public String mypageUpdatePet() {
+        return "user/mypage/update-pet";
+    }
 
 
     @GetMapping("/update/profile")

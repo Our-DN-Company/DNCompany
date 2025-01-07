@@ -1,110 +1,110 @@
-<!--<?xml version="1.0" encoding="UTF-8" ?>-->
-<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
-<!--<mapper namespace="com.example.dncompany.mapper.admin.AdminUserMapper">-->
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.admin.AdminUserMapper">
 
-<!--    <select id="selectUserData" resultType="AdminUserAllBoard" parameterType="AdminUserAllBoard">-->
-<!--        SELECT-->
-<!--        u.USERS_ID AS userId,-->
-<!--        u.LOGIN_ID AS loginId,-->
-<!--        u.NAME AS name,-->
-<!--        u.ADDRESS AS address,-->
-<!--        u.PHONE_NUMBER AS phoneNumber,-->
-<!--        TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') AS birthDate,-->
-<!--        u.GENDER AS gender,-->
-<!--        TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') AS signUpDate,-->
-<!--        (-->
-<!--        SELECT COUNT(*)-->
-<!--        FROM HR.REVIEW r-->
-<!--        JOIN HR.HELP_OFFER ho ON r.HELP_YOU_NUMBER = ho.HELP_OFFER_ID-->
-<!--        WHERE r.REVIEW_CHECK_STATUS = '신고'-->
-<!--        AND ho.USERS_ID = u.USERS_ID-->
-<!--        ) AS reportCount,-->
-<!--        u.POINT AS points-->
-<!--        FROM HR.USERS u-->
-<!--        WHERE 1=1-->
-<!--        <if test="searchLoginId != null and searchLoginId != ''">-->
-<!--            AND LOWER(u.LOGIN_ID) LIKE '%' || LOWER(#{searchLoginId}) || '%'-->
-<!--        </if>-->
-<!--        <if test="searchName != null and searchName != ''">-->
-<!--            AND u.NAME LIKE '%' || #{searchName} || '%'-->
-<!--        </if>-->
-<!--        <if test="age != null">-->
-<!--            AND TRUNC(MONTHS_BETWEEN(SYSDATE, u.BIRTH_DATE)/12) = #{age}-->
-<!--        </if>-->
-<!--        <if test="searchGender != null and searchGender != '' and searchGender != 'all'">-->
-<!--            AND u.GENDER = #{searchGender}-->
-<!--        </if>-->
-<!--        <if test="searchPhoneNumber != null and searchPhoneNumber != ''">-->
-<!--            AND u.PHONE_NUMBER LIKE '%' || #{searchPhoneNumber} || '%'-->
-<!--        </if>-->
-<!--        <if test="searchSignUpDate != null and searchSignUpDate != ''">-->
-<!--            AND TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') = #{searchSignUpDate}-->
-<!--        </if>-->
-<!--        <if test="reportStatus != null and reportStatus != '' and reportStatus != 'all'">-->
-<!--            AND EXISTS (-->
-<!--            SELECT 1-->
-<!--            FROM HR.REVIEW r-->
-<!--            JOIN HR.HELP_OFFER ho ON r.HELP_YOU_NUMBER = ho.HELP_OFFER_ID-->
-<!--            WHERE ho.USERS_ID = u.USERS_ID-->
-<!--            AND r.REVIEW_CHECK_STATUS = '신고'-->
-<!--            AND-->
-<!--            <choose>-->
-<!--                <when test="reportStatus == 'reported'">-->
-<!--                    r.REVIEW_CHECK_STATUS = '신고'-->
-<!--                </when>-->
-<!--                <when test="reportStatus == 'notReported'">-->
-<!--                    r.REVIEW_CHECK_STATUS != '신고'-->
-<!--                </when>-->
-<!--            </choose>-->
-<!--            )-->
-<!--        </if>-->
-<!--        ORDER BY u.USERS_ID-->
-<!--    </select>-->
+    <select id="selectUserData" resultType="AdminUserAllBoard" parameterType="AdminUserAllBoard">
+        SELECT
+        u.USERS_ID AS userId,
+        u.LOGIN_ID AS loginId,
+        u.NAME AS name,
+        u.ADDRESS AS address,
+        u.PHONE_NUMBER AS phoneNumber,
+        TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') AS birthDate,
+        u.GENDER AS gender,
+        TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') AS signUpDate,
+        (
+        SELECT COUNT(*)
+        FROM HR.REVIEW r
+        JOIN HR.HELP_OFFER ho ON r.HELP_YOU_NUMBER = ho.HELP_OFFER_ID
+        WHERE r.REVIEW_CHECK_STATUS = '신고'
+        AND ho.USERS_ID = u.USERS_ID
+        ) AS reportCount,
+        u.POINT AS points
+        FROM HR.USERS u
+        WHERE 1=1
+        <if test="searchLoginId != null and searchLoginId != ''">
+            AND LOWER(u.LOGIN_ID) LIKE '%' || LOWER(#{searchLoginId}) || '%'
+        </if>
+        <if test="searchName != null and searchName != ''">
+            AND u.NAME LIKE '%' || #{searchName} || '%'
+        </if>
+        <if test="age != null">
+            AND TRUNC(MONTHS_BETWEEN(SYSDATE, u.BIRTH_DATE)/12) = #{age}
+        </if>
+        <if test="searchGender != null and searchGender != '' and searchGender != 'all'">
+            AND u.GENDER = #{searchGender}
+        </if>
+        <if test="searchPhoneNumber != null and searchPhoneNumber != ''">
+            AND u.PHONE_NUMBER LIKE '%' || #{searchPhoneNumber} || '%'
+        </if>
+        <if test="searchSignUpDate != null and searchSignUpDate != ''">
+            AND TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') = #{searchSignUpDate}
+        </if>
+        <if test="reportStatus != null and reportStatus != '' and reportStatus != 'all'">
+            AND EXISTS (
+            SELECT 1
+            FROM HR.REVIEW r
+            JOIN HR.HELP_OFFER ho ON r.HELP_YOU_NUMBER = ho.HELP_OFFER_ID
+            WHERE ho.USERS_ID = u.USERS_ID
+            AND r.REVIEW_CHECK_STATUS = '신고'
+            AND
+            <choose>
+                <when test="reportStatus == 'reported'">
+                    r.REVIEW_CHECK_STATUS = '신고'
+                </when>
+                <when test="reportStatus == 'notReported'">
+                    r.REVIEW_CHECK_STATUS != '신고'
+                </when>
+            </choose>
+            )
+        </if>
+        ORDER BY u.USERS_ID
+    </select>
 
-<!--    <select id="getReportsByUserId" resultType="AdMInUserReportDTO">-->
-<!--        SELECT-->
-<!--            r.REPORT_ID as reportId,-->
-<!--            r.REPORT_TITLE as reportTitle,-->
-<!--            r.REPORT_CONTENT as reportContent,-->
-<!--            r.HELP_OFFER_ID as helpOfferId,-->
-<!--            r.REPORT_DATE as reportDate,-->
-<!--            r.REPORT_CHECK_STATUS as reportCheckStatus,-->
+    <select id="getReportsByUserId" resultType="AdMInUserReportDTO">
+        SELECT
+            r.REPORT_ID as reportId,
+            r.REPORT_TITLE as reportTitle,
+            r.REPORT_CONTENT as reportContent,
+            r.HELP_OFFER_ID as helpOfferId,
+            r.REPORT_DATE as reportDate,
+            r.REPORT_CHECK_STATUS as reportCheckStatus,
 
-<!--            /* 신고당한 사람 정보 */-->
-<!--            reported.USERS_ID as userId,-->
-<!--            reported.NAME as reportedName,-->
-<!--            reported.LOGIN_ID as reportedLoginId,-->
+            /* 신고당한 사람 정보 */
+            reported.USERS_ID as userId,
+            reported.NAME as reportedName,
+            reported.LOGIN_ID as reportedLoginId,
 
-<!--            /* 신고한 사람 정보 */-->
-<!--            reporter.NAME as reporterName,-->
-<!--            reporter.LOGIN_ID as reporterLoginId,-->
+            /* 신고한 사람 정보 */
+            reporter.NAME as reporterName,
+            reporter.LOGIN_ID as reporterLoginId,
 
-<!--            /* 정지 정보 */-->
-<!--            us.STATUS as status,-->
-<!--            us.USERS_BAN_AT as banStartDate,-->
-<!--            us.USERS_PERMIT_AT as banEndDate-->
-<!--        FROM-->
-<!--            HR.REPORT r-->
-<!--                JOIN HR.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID-->
-<!--                JOIN HR.USERS reported ON ho.USERS_ID = reported.USERS_ID  /* 신고당한 사람 */-->
-<!--                JOIN HR.HELP_BOARD hb ON ho.HELP_ID = hb.HELP_ID-->
-<!--                JOIN HR.USERS reporter ON hb.USERS_ID = reporter.USERS_ID  /* 신고한 사람 */-->
-<!--                LEFT JOIN HR.USERS_STATUS us ON (reported.USERS_ID = us.USERS_ID AND us.REPORT_ID = r.REPORT_ID)-->
-<!--        WHERE-->
-<!--            reported.USERS_ID = #{userId}-->
-<!--        ORDER BY-->
-<!--            r.REPORT_DATE DESC-->
-<!--    </select>-->
+            /* 정지 정보 */
+            us.STATUS as status,
+            us.USERS_BAN_AT as banStartDate,
+            us.USERS_PERMIT_AT as banEndDate
+        FROM
+            HR.REPORT r
+                JOIN HR.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                JOIN HR.USERS reported ON ho.USERS_ID = reported.USERS_ID  /* 신고당한 사람 */
+                JOIN HR.HELP_BOARD hb ON ho.HELP_ID = hb.HELP_ID
+                JOIN HR.USERS reporter ON hb.USERS_ID = reporter.USERS_ID  /* 신고한 사람 */
+                LEFT JOIN HR.USERS_STATUS us ON (reported.USERS_ID = us.USERS_ID AND us.REPORT_ID = r.REPORT_ID)
+        WHERE
+            reported.USERS_ID = #{userId}
+        ORDER BY
+            r.REPORT_DATE DESC
+    </select>
 
-<!--    <update id="updateReportStatus">-->
-<!--        UPDATE REPORT-->
-<!--        SET REPORT_CHECK_STATUS = #{status}-->
-<!--        WHERE REPORT_ID = #{reportId}-->
-<!--    </update>-->
+    <update id="updateReportStatus">
+        UPDATE REPORT
+        SET REPORT_CHECK_STATUS = #{status}
+        WHERE REPORT_ID = #{reportId}
+    </update>
 
-<!--    <update id="updateUserPoints">-->
-<!--        UPDATE HR.USERS-->
-<!--        SET POINT = #{points}-->
-<!--        WHERE USERS_ID = #{userId}-->
-<!--    </update>-->
-<!--</mapper>-->
+    <update id="updateUserPoints">
+        UPDATE HR.USERS
+        SET POINT = #{points}
+        WHERE USERS_ID = #{userId}
+    </update>
+</mapper>
