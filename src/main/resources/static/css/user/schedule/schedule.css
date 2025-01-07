@@ -163,7 +163,7 @@ a {
     color: #fff;
   }
 
-  .my-schedule-list a span {
+  .my-schedule-list-top {
     display: block;
     margin-bottom: 5px;
     border-bottom: 1px solid #fff;
