@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     events: [
       // 일정 데이터 추가 , DB의 event를 가져오려면 JSON 형식으로 변환해 events에 넣어주면된다.
       // 반복 돌려야함
+        // TODO : Json 형식으로 해당 날짜의 일정을 출력해줘야함
       {
         title: "내 일정",
         start: "2025-01-25",
@@ -64,3 +65,5 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   calendar.render();
 });
+
+

@@ -415,3 +415,44 @@ input[name="gender"] {
   background-color: rgb(95, 0, 128);
   font-family: "Pretendard-Regular";
 }
+
+.info__box__in-number {
+  position: relative;
+}
+
+.timer{
+  display: block;
+  position: absolute;
+  left: 86%;
+  top: 11px;
+}
+#authNumberGroup{
+  position: relative;
+}
+.signup__info__number-btn{
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  color: var(--main-color);
+  border: 1px solid rgb(95, 0, 128);
+  width: 120px;
+  height: 44px;
+  margin-left: 8px;
+  border-radius: 3px;
+  .info__number__title {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 12px;
+    font-family: "Pretendard-Regular";
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

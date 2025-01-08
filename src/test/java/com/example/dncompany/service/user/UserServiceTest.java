@@ -45,4 +45,8 @@ class UserServiceTest {
                 .isInstanceOf(UserDuplicateException.class)
                 .hasMessageContaining("이미 사용중인");
     }
+
+    @Test
+    void testAddUser() {
+    }
 }
