@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
-    <link rel="stylesheet" th:href="@{/css/qna/QNAcommunity.css}"/>
+    <link rel="stylesheet" th:href="@{/css/qna/list.css}"/>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
         @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
@@ -16,10 +16,10 @@
 </head>
 <body>
 <!-- 홈페이지 전체 사이즈 -->
-<header class="header" th:include="~{fragment/header::header}">
-</header>
 
 <div class="container">
+    <header class="header" th:include="~{fragment/header::header}">
+    </header>
     <div class="main-wrap">
         <main>
             <!-- 여기에 작업 -->

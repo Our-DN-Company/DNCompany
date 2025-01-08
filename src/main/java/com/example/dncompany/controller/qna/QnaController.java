@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class QnaController {
 
-    @GetMapping("/QNACommunity")
-    public String QNACommunity() {return "qna/QNACommunity";}
+    @GetMapping("/list")
+    public String list() {return "qna/list";}
 
-    @GetMapping("/QNADetail")
-    public String QNADetail() {return "qna/QNADetail";}
+    @GetMapping("/detail")
+    public String detail() {return "qna/detail";}
 
-    @GetMapping("/QNAWrite")
-    public String QNAWrite() {return "qna/QNAWrite";}
+    @GetMapping("/write")
+    public String write() {return "qna/write";}
 }
