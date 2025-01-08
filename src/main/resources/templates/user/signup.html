@@ -13,6 +13,7 @@
   <link rel="stylesheet" th:href="@{/css/user/signup.css}"/>
   <script defer type="module" th:src="@{/js/user/signup.js}"></script>
 
+
   <title>Document</title>
 </head>
 
@@ -195,7 +196,7 @@
                                                                       placeholder="상세주소"
                                                                       required
                                                                       class="info__box__in__content"
-                                                                      disabled>
+                                                              disabled>
                     <div class="testinfomvp">
                       <p class="testmessagenot address__message">상세 주소를 입력해주세요.</p>
                     </div>
@@ -204,8 +205,7 @@
                 <input type="hidden" id="addressExtra" placeholder="참고항목">
 
                 <div class="signup__info__out">
-                  <input class="address_btn" type="button"
-                         onclick="sample6_execDaumPostcode()" value="주소 검색">
+                  <input class="address_btn" type="button" value="주소 검색">
                 </div>
 
               </div>
@@ -217,9 +217,10 @@
                     <!-- 남자 -->
                     <!-- 버튼 -->
                     <div class="signup__gender__box">
+
                       <label class="info__gender" for="gender-man">
+                        <span class="gender__btn__in"></span>
                       </label>
-                      <div class="gender__btn__in"></div>
                       <input data-testid="radio-MALE" id="gender-man" name="gender"
                              type="radio"
                              class="info__gender__input" value="MALE"/>
@@ -229,8 +230,9 @@
                     <!-- 버튼 -->
                     <div class="signup__gender__box">
                       <label class="info__gender" for="gender-woman">
+                        <span class="gender__btn__in"></span>
                       </label>
-                      <div class="gender__btn__in"></div>
+
                       <input data-testid="radio-FEMALE" id="gender-woman" name="gender"
                              type="radio"
                              class="info__gender__input" value="FEMALE"/>
@@ -241,8 +243,9 @@
                     <!-- 버튼 -->
                     <div class="signup__gender__box">
                       <label class="info__gender" for="gender-none">
+                        <span class="gender__btn__in"></span>
                       </label>
-                      <div class="gender__btn__in"></div>
+
 
                       <input data-testid="radio-none" id="gender-none" name="gender"
                              type="radio"

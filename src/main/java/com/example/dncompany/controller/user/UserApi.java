@@ -38,7 +38,7 @@ public class UserApi {
     // 그러나 loginId를 조회하는 것이 아니라 존재 여부를 파악하는 것이므로
     // exists라는 동사를 사용(Restful 조금 위배)
     // 모든 api를 완벽하게 Rest 원칙만으로 만드는 것은 불가능하다.
-    @GetMapping("/v1/members/loginId/exists")
+    @GetMapping("/v1/users/loginId/exists")
     public LoginIdCheckResponse loginIdExists(String loginId) {
         log.info("아이디 중복 검사 : {}", loginId);
 

@@ -15,7 +15,7 @@
     <div id="header__wrap">
       <div id="header">
         <h1>
-          <a th:href="@{/}" class="header__img__box"><img src="/images/fragment/logo_header4.png" alt="로고"
+          <a th:href="@{/}" class="header__img__box"><img src="/images/logo/logo_header.png" alt="로고"
               class="header__logo__img"></a>
         </h1>
         <ul id="gnb" class="">
@@ -55,10 +55,16 @@
           </li>
         </ul>
         <nav>
-          <ul>
+          <ul th:if="${session.userId == null}">
             <li class="nav__item"><a th:href="@{/user/login}">로그인 / 회원가입</a></li>
-            <li class="nav__item"><a th:href="@{mypage/main}">마이페이지</a></li>
+            <li class="nav__item"><a th:href="@{/user/login}">마이페이지</a></li>
+            <li class="nav__item"><a th:href="@{/user/login}">캘린더</a></li>
+          </ul>
+          <ul th:unless="${session.userId == null}">
+            <li class="nav__item"><a th:href="@{/mypage/main}">
+              <span class="nav__user__name" th:text="${session.loginId} + '님의' "></span> 마이페이지</a></li>
             <li class="nav__item"><a th:href="@{/schedule/calender}">캘린더</a></li>
+            <li class="nav__item"><a th:href="@{/user/logout}">로그아웃</a></li>
           </ul>
         </nav>
       </div>
