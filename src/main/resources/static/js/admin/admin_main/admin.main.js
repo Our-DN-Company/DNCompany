@@ -63,28 +63,25 @@ function populatePostStatusTable() {
   const postStatusTableBody = document.querySelector(".post-status-table tbody");
   if (!postStatusTableBody) return;
 
-  const today = new Date();
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(today);
-    date.setDate(today.getDate() - i);
+  // 기존 내용 클리어
+  postStatusTableBody.innerHTML = '';
 
-    const qnaCount = Math.floor(Math.random() * 10);
-    const noticeCount = Math.floor(Math.random() * 10);
-    const eventCount = Math.floor(Math.random() * 10);
-    const reportCount = Math.floor(Math.random() * 10);
-    const helpCount = Math.floor(Math.random() * 10);
 
+
+
+  // boardCounts 데이터로 테이블 채우기
+  boardCounts.forEach(countNumber  => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${date.toISOString().split("T")[0]}</td>
-      <td>${qnaCount}</td>
-      <td>${noticeCount}</td>
-      <td>${eventCount}</td>
-      <td>${reportCount}</td>
-      <td>${helpCount}</td>
-    `;
+            <td>${countNumber.postDate}</td>
+            <td>${countNumber.qnaCount}</td>
+            <td>${countNumber.zipCount}</td>
+            <td>${countNumber.eventCount}</td>
+            <td>${countNumber.reportCount}</td>
+            <td>${countNumber.helpCount}</td>
+        `;
     postStatusTableBody.appendChild(row);
-  }
+  });
 }
 
 // DOMContentLoaded 이벤트
@@ -102,18 +99,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("myChart");
   if (canvas) {
     const ctx = canvas.getContext("2d");
-    const labels = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ];
 
-    const newMembersData = [12, 19, 3, 5, 2, 3, 7];
-    const totalMembersData = [65, 59, 80, 81, 56, 55, 40];
+    // 요일에서 날자로 변경하였음 역순으로 뽑히는걸 뒤집을려고 사용했지맘ㄴ
+    // 애초에 쿼리에 desc를 지우면 해결이라서 쿼리를 수정함
+    // const UserCountsReverse = userCounts.slice().reverse();
+
+    const labels = userCounts.map(countNumber => countNumber.chartDate);
+    const newMembersData = userCounts.map(countNumber => countNumber.newMembers);
+    const totalMembersData = userCounts.map(countNumber => countNumber.totalMembers);
 
     const data = {
       labels: labels,
@@ -154,6 +147,9 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("Canvas element not found");
   }
 
-  populatePostStatusTable();
+  populatePostStatusTable(); // 보드 카운터 이벤트 리스너
   addEventListeners(); // 이벤트 리스너 추가
 });
+
+
+

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dncompany.mapper.admin.AdminBoardMapper">
     <!-- 신고 게시판 조회 -->
+<!--    프로퍼티 설정 때문에 별칭 안해도 되는데 설정 파일을 두고 왔었음-->
     <select id="selectReportBoard" resultType="AdminReportBoardDTO">
         SELECT r.REPORT_ID                             AS reportId,
                '신고'                                    AS category,
@@ -184,4 +185,45 @@
         </if>
         ORDER BY createdAt DESC
     </select>
+
+    <insert id="insertQnaAnswer" parameterType="AdminAnswerDTO">
+        INSERT INTO ADMIN.QNA_ANSWER (QNA_ANSWER_ID, QNA_ANSWER_CONTENT,QNA_ANSWER_CREATED_AT, QNA_ANSWER_UPDATED_AT,QNA_ID)
+        VALUES (   SEQ_QNA_ANSWER.NEXTVAL,#{qnaAnswerContent},SYSDATE,SYSDATE,#{qnaId})
+    </insert>
+
+<!--      프로퍼티 설정 때문에 별칭 안해도 되는데 설정 파일을 두고 왔었음-->
+    <select id="selectQnaAnswersByQnaId" parameterType="Long" resultType="AdminAnswerDTO">
+        SELECT
+            QNA_ANSWER_ID as qnaAnswerId,
+            QNA_ANSWER_CONTENT as qnaAnswerContent,
+            QNA_ANSWER_CREATED_AT as qnaAnswerCreatedAt,
+            QNA_ANSWER_UPDATED_AT as qnaAnswerUpdatedAt,
+            QNA_ID as qnaId
+        FROM ADMIN.QNA_ANSWER
+        WHERE QNA_ID = #{qnaId}
+        ORDER BY QNA_ANSWER_CREATED_AT DESC
+    </select>
+
+
+        <!--  조회내용 가져오기용  -->
+    <select id="selectQnaDetail" parameterType="Long" resultType="map">
+        SELECT
+        QNA_ID as qnaId,
+        QNA_TITLE as title,
+        DBMS_LOB.SUBSTR(QNA_CONTENT, 4000) as content,  <!-- CLOB 데이터 처리해야함 조회시 오류 ㅈㄴ터짐 -->
+        QNA_CHECK_STATUS as status,
+        TO_CHAR(QNA_CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') as createdAt
+        FROM ADMIN.QNA_BOARD
+        WHERE QNA_ID = #{qnaId}
+    </select>
+
+        <!-- 어드민 답변 유무 댓글 수로 할려다가 이게 맞는 것 같음       -->
+        <!--   일반페이지도 아니고 이 쿼리는 어드민만 쓰기 때문에     -->
+    <update id="updateQnaStatus" parameterType="Long">
+        UPDATE ADMIN.QNA_BOARD
+        SET QNA_CHECK_STATUS = 'O'
+        WHERE QNA_ID = #{qnaId}
+    </update>
+
+
 </mapper>

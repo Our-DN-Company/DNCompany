@@ -1,14 +1,17 @@
 package com.example.dncompany.service.admin;
 
-import com.example.dncompany.dto.admin.board.AdminQnABoardDTO;
-import com.example.dncompany.dto.admin.board.AdminReportBoardDTO;
+import com.example.dncompany.dto.admin.board.AdminAnswerDTO;
 import com.example.dncompany.dto.admin.board.BoardSearchDTO;
 import com.example.dncompany.mapper.admin.AdminBoardMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminBoardService {
@@ -53,5 +56,55 @@ public class AdminBoardService {
         // 특정 카테고리 게시판 조회
         return adminBoardMapper.selectBoardByCondition(searchDTO);
     }
+
+
+//    ===============================================================================================================================================================
+
+
+
+    public void addAnswer(AdminAnswerDTO adminAnswerDTO) {
+        // 카테고리에 따라 다른 답변 테이블에 insert
+        switch(adminAnswerDTO.getCategory()) {
+            case "QNA":
+                adminBoardMapper.insertQnaAnswer(adminAnswerDTO);
+                adminBoardMapper.updateQnaStatus(adminAnswerDTO.getQnaId());
+                break;
+//            case "신고":
+//                adminBoardMapper.어쩌고 저쩌고 () 식으로 추가
+//                break;
+            // 다른 카테고리 추가 가능
+        }
+    }
+
+    public List<AdminAnswerDTO> getAnswersByPostId(Long postId, String category) {
+        // 카테고리에 따라 다른 답변 테이블에서 select
+        switch(category) {
+            case "QNA":
+                return adminBoardMapper.selectQnaAnswersByQnaId(postId);
+//            case "신고":
+//                return adminBoardMapper.selectReportAnswers(postId);
+            // 다른 카테고리 추가 가능
+            default:
+                return Collections.emptyList();
+        }
+    }
+
+    public Map<String,Object> selectQnaDetail(Long qnaId) {
+        try {
+            Map<String, Object> qnaDetail = adminBoardMapper.selectQnaDetail(qnaId);
+            if (qnaDetail == null) {
+                // 데이터가 없을 경우 빈 맵 반환
+                return Collections.emptyMap();
+            }
+            return qnaDetail;
+        } catch (Exception e) {
+            // 에러 발생 시 로그 기록 및 빈 맵 반환
+            log.error("QnA 상세 조회 중 오류 발생: {}", e.getMessage());
+            return Collections.emptyMap();
+        }
+    }
+
+
+
 
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.admin.AdminMainMapper">
+
+    <select id="getDailyBoardCounts" parameterType="date"
+            resultType="AdminBoardCountDTO">
+        SELECT TO_CHAR(CREATED_DATE, 'YYYY-MM-DD')                as postDate,
+               COUNT(DISTINCT q.QNA_ID)                           as qnaCount,
+               COUNT(DISTINCT z.ZIP_ID) + COUNT(DISTINCT d.DN_ID) as zipCount, -- 넣을거 없어서 그냥 둘다 합쳐서 카운트하기로함 이름은 그대로 사용할까 고민중임
+               COUNT(DISTINCT e.EVENT_ID)                         as eventCount,
+               COUNT(DISTINCT r.REPORT_ID)                        as reportCount,
+               COUNT(DISTINCT h.HELP_ID)                          as helpCount
+        FROM
+    <![CDATA[
+            (SELECT TRUNC(SYSDATE) - LEVEL + 1 as CREATED_DATE
+              FROM DUAL CONNECT BY LEVEL <= 7) dates]]>
+                 LEFT JOIN ADMIN.QNA_BOARD q ON TRUNC(q.QNA_CREATED_AT) = dates.CREATED_DATE
+                 LEFT JOIN ADMIN.ZIP_BOARD z ON TRUNC(z.ZIP_CREATED_AT) = dates.CREATED_DATE
+                 LEFT JOIN ADMIN.DN_BOARD d ON TRUNC(d.DN_CREATED_AT) = dates.CREATED_DATE
+                 LEFT JOIN ADMIN.EVENT_BOARD e ON TRUNC(e.EVENT_CREATED_AT) = dates.CREATED_DATE
+                 LEFT JOIN ADMIN.REPORT r ON TRUNC(r.REPORT_CREATED_AT) = dates.CREATED_DATE
+                 LEFT JOIN ADMIN.HELP_BOARD h ON TRUNC(h.HELP_CREATED_AT) = dates.CREATED_DATE
+        GROUP BY TO_CHAR(CREATED_DATE, 'YYYY-MM-DD')
+        ORDER BY postDate DESC
+    </select>
+
+
+    <select id="getDailyUserCounts" resultType="AdminUserCountDTO">
+        SELECT
+            TO_CHAR(dates.CREATED_DATE, 'YYYY-MM-DD') as chartDate,
+            COUNT(DISTINCT CASE
+             WHEN TRUNC(u.SIGN_UP_DATE) = dates.CREATED_DATE
+                THEN u.USERS_ID END) as newMembers,
+            COUNT(DISTINCT CASE
+             WHEN TRUNC(u.SIGN_UP_DATE) <![CDATA[<=]]> dates.CREATED_DATE
+                THEN u.USERS_ID  END) as totalMembers
+        FROM
+            (SELECT TRUNC(SYSDATE) - LEVEL + 1 as CREATED_DATE
+             FROM DUAL
+                 CONNECT BY <![CDATA[ LEVEL <= 7 ]]>) dates
+                LEFT JOIN ADMIN.USERS u ON TRUNC(u.SIGN_UP_DATE) <![CDATA[<=]]> dates.CREATED_DATE
+        GROUP BY dates.CREATED_DATE
+        ORDER BY dates.CREATED_DATE
+    </select>
+
+
+</mapper>
