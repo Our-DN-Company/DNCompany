@@ -33,15 +33,15 @@ class ScheduleMapperTest {
         scheduleDTO.setHelpId(1L);
     }
 
-//    @Test
-//    @DisplayName("유저 아이디로 스케쥴 조회하기")
-//    void selectScheduleByUserId() {
-//        //given
-//        // @BeforeEach에서 설정
-//        //when
-//        scheduleMapper.selectScheduleByUserId(scheduleDTO.getUsersId());
-//        //then
-//        // 유저아이디로 조회를 했을 때 유저가 생성한 스케쥴이 모두 잘 들어가는지 확인하면 됨
-//        assertThat(scheduleDTO.getUsersId()).isEqualTo(1L);
-//    }
+    @Test
+    @DisplayName("유저 아이디로 스케쥴 조회하기")
+    void selectScheduleByUserId() {
+        //given
+        // @BeforeEach에서 설정
+        //when
+        scheduleMapper.selectScheduleByUserId(scheduleDTO.getUsersId());
+        //then
+        // 유저아이디로 조회를 했을 때 유저가 생성한 스케쥴이 모두 잘 들어가는지 확인하면 됨
+        assertThat(scheduleDTO.getUsersId()).isEqualTo(1L);
+    }
 }

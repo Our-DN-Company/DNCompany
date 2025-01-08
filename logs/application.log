@@ -2891,3 +2891,99 @@ Caused by: org.springframework.util.PlaceholderResolutionException: Could not re
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509) ~[spring-beans-6.2.1.jar:6.2.1]
 	... 35 common frames omitted
 
+2025-01-07T14:52:38.583+09:00  INFO 16776 --- [DNcompany] [restartedMain] c.e.dncompany.DNcompanyApplication       : Starting DNcompanyApplication using Java 21.0.4 with PID 16776 (D:\0900_gb_ojh\project\DNcompany\build\classes\java\main started by Administrator in D:\0900_gb_ojh\project\DNcompany)
+2025-01-07T14:52:38.584+09:00  INFO 16776 --- [DNcompany] [restartedMain] c.e.dncompany.DNcompanyApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-01-07T14:52:38.611+09:00  INFO 16776 --- [DNcompany] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc11\23.5.0.24.07\6e07003d57be5e280ef0492209e20fa27edec5b6\ojdbc11-23.5.0.24.07.jar referenced one or more files that do not exist: file:/C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc11/23.5.0.24.07/6e07003d57be5e280ef0492209e20fa27edec5b6/oraclepki.jar
+2025-01-07T14:52:38.611+09:00  INFO 16776 --- [DNcompany] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-01-07T14:52:38.611+09:00  INFO 16776 --- [DNcompany] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-07T14:52:38.986+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.b.a.MybatisAutoConfiguration       : Searching for mappers annotated with @Mapper
+2025-01-07T14:52:38.987+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.b.a.MybatisAutoConfiguration       : Using auto-configuration base package 'com.example.dncompany'
+2025-01-07T14:52:39.060+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] org.apache.ibatis.logging.LogFactory     : Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-01-07T14:52:39.067+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [D:\0900_gb_ojh\project\DNcompany\build\classes\java\main\com\example\dncompany\mapper\admin\AdminBoardMapper.class]
+2025-01-07T14:52:39.068+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [D:\0900_gb_ojh\project\DNcompany\build\classes\java\main\com\example\dncompany\mapper\admin\AdminUserMapper.class]
+2025-01-07T14:52:39.068+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [D:\0900_gb_ojh\project\DNcompany\build\classes\java\main\com\example\dncompany\mapper\user\MypageMapper.class]
+2025-01-07T14:52:39.068+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [D:\0900_gb_ojh\project\DNcompany\build\classes\java\main\com\example\dncompany\mapper\user\schedule\ScheduleMapper.class]
+2025-01-07T14:52:39.068+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [D:\0900_gb_ojh\project\DNcompany\build\classes\java\main\com\example\dncompany\mapper\user\UserMapper.class]
+2025-01-07T14:52:39.068+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [D:\0900_gb_ojh\project\DNcompany\build\classes\java\main\com\example\dncompany\mapper\zip\ZipMapper.class]
+2025-01-07T14:52:39.068+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'adminBoardMapper' and 'com.example.dncompany.mapper.admin.AdminBoardMapper' mapperInterface
+2025-01-07T14:52:39.069+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'adminUserMapper' and 'com.example.dncompany.mapper.admin.AdminUserMapper' mapperInterface
+2025-01-07T14:52:39.070+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'mypageMapper' and 'com.example.dncompany.mapper.user.MypageMapper' mapperInterface
+2025-01-07T14:52:39.070+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'scheduleMapper' and 'com.example.dncompany.mapper.user.schedule.ScheduleMapper' mapperInterface
+2025-01-07T14:52:39.071+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'userMapper' and 'com.example.dncompany.mapper.user.UserMapper' mapperInterface
+2025-01-07T14:52:39.071+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'zipMapper' and 'com.example.dncompany.mapper.zip.ZipMapper' mapperInterface
+2025-01-07T14:52:39.276+09:00  INFO 16776 --- [DNcompany] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 10000 (http)
+2025-01-07T14:52:39.290+09:00  INFO 16776 --- [DNcompany] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-07T14:52:39.291+09:00  INFO 16776 --- [DNcompany] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-07T14:52:39.319+09:00  INFO 16776 --- [DNcompany] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-07T14:52:39.319+09:00  INFO 16776 --- [DNcompany] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 708 ms
+2025-01-07T14:52:39.509+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.mybatis.spring.SqlSessionFactoryBean   : Parsed mapper file: 'file [D:\0900_gb_ojh\project\DNcompany\build\resources\main\mappers\admin\AdminBoardMapper.xml]'
+2025-01-07T14:52:39.518+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.mybatis.spring.SqlSessionFactoryBean   : Parsed mapper file: 'file [D:\0900_gb_ojh\project\DNcompany\build\resources\main\mappers\admin\AdminUserMapper.xml]'
+2025-01-07T14:52:39.526+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.mybatis.spring.SqlSessionFactoryBean   : Parsed mapper file: 'file [D:\0900_gb_ojh\project\DNcompany\build\resources\main\mappers\user\MypageMapper.xml]'
+2025-01-07T14:52:39.532+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.mybatis.spring.SqlSessionFactoryBean   : Parsed mapper file: 'file [D:\0900_gb_ojh\project\DNcompany\build\resources\main\mappers\user\schedule\ScheduleMapper.xml]'
+2025-01-07T14:52:39.537+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.mybatis.spring.SqlSessionFactoryBean   : Parsed mapper file: 'file [D:\0900_gb_ojh\project\DNcompany\build\resources\main\mappers\user\UserMapper.xml]'
+2025-01-07T14:52:39.541+09:00 DEBUG 16776 --- [DNcompany] [restartedMain] o.mybatis.spring.SqlSessionFactoryBean   : Parsed mapper file: 'file [D:\0900_gb_ojh\project\DNcompany\build\resources\main\mappers\zip\ZipListMapper.xml]'
+2025-01-07T14:52:39.572+09:00  WARN 16776 --- [DNcompany] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'smsApi' defined in file [D:\0900_gb_ojh\project\DNcompany\build\classes\java\main\com\example\dncompany\controller\sms\SmsApi.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'smsService': Injection of autowired dependencies failed
+2025-01-07T14:52:39.573+09:00  INFO 16776 --- [DNcompany] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-01-07T14:52:39.580+09:00  INFO 16776 --- [DNcompany] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-07T14:52:39.592+09:00 ERROR 16776 --- [DNcompany] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'smsApi' defined in file [D:\0900_gb_ojh\project\DNcompany\build\classes\java\main\com\example\dncompany\controller\sms\SmsApi.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'smsService': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1377) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1214) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987) ~[spring-context-6.2.1.jar:6.2.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.1.jar:6.2.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.4.1.jar:3.4.1]
+	at com.example.dncompany.DNcompanyApplication.main(DNcompanyApplication.java:10) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.4.1.jar:3.4.1]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'smsService': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:515) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1441) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1573) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1519) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.1.jar:6.2.1]
+	... 24 common frames omitted
+Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'coolsms.api.key' in value "${coolsms.api.key}"
+	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81) ~[spring-core-6.2.1.jar:6.2.1]
+	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:416) ~[spring-core-6.2.1.jar:6.2.1]
+	at org.springframework.util.PlaceholderParser.replacePlaceholders(PlaceholderParser.java:128) ~[spring-core-6.2.1.jar:6.2.1]
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:118) ~[spring-core-6.2.1.jar:6.2.1]
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:114) ~[spring-core-6.2.1.jar:6.2.1]
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:255) ~[spring-core-6.2.1.jar:6.2.1]
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:226) ~[spring-core-6.2.1.jar:6.2.1]
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:201) ~[spring-context-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:963) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1541) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1519) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509) ~[spring-beans-6.2.1.jar:6.2.1]
+	... 35 common frames omitted
+
