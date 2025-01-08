@@ -1,3 +1,21 @@
+import * as scheduleListApi from '../modules/scheduleListApi.js';
+
+// 두 함수, 메서드 모두 log 찍어보았으나 이상없이 잘 출력됨
+// console.log(scheduleListApi);
+// console.log(scheduleListApi.scheduleList);
+
+// scheduleListApi.scheduleList(sessionStorage.getItem("usersId"))
+let usersId = 6;
+
+scheduleListApi.scheduleList(usersId,function (data) {
+  if (data) {
+    console.log('데이터 로드 성공!',data);
+  } else {
+    console.error('데이터 로드 실패..')
+  }
+});
+
+
 document.addEventListener("DOMContentLoaded", function () {
   var calendarEl = document.getElementById("calendar");
   var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -8,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     dayMaxEventRows: true,
     // 일정 이벤트
     // info는 캘린더 내부의 전체 정보에 관한 프로퍼티
-    // info.event.title : info내부에 있는 event 객체에서 title을 가져옴
+    // info.event.title : info내부에 있는 event 객체에서  title을 가져옴
     eventClick: function (info) {
       // 이벤트에 있는 title을 출력
       alert("내 일정 " + info.event.title);
@@ -36,10 +54,13 @@ document.addEventListener("DOMContentLoaded", function () {
         domNodes: [],
       };
     },
+
     events: [
+
       // 일정 데이터 추가 , DB의 event를 가져오려면 JSON 형식으로 변환해 events에 넣어주면된다.
       // 반복 돌려야함
         // TODO : Json 형식으로 해당 날짜의 일정을 출력해줘야함
+        // scheduleListApi.scheduleList()
       {
         title: "내 일정",
         start: "2025-01-25",
@@ -62,8 +83,15 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ],
     editable: true, // false로 변경 시 draggable 작동 x
+
   });
   calendar.render();
 });
+
+
+
+
+
+
 
 
