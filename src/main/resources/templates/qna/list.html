@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
-    <link rel="stylesheet" th:href="@{/css/qna/QNAcommunity.css}"/>
+    <link rel="stylesheet" th:href="@{/css/qna/list.css}"/>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
         @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
@@ -16,10 +16,10 @@
 </head>
 <body>
 <!-- 홈페이지 전체 사이즈 -->
-<header class="header" th:include="~{fragment/header::header}">
-</header>
 
 <div class="container">
+    <header class="header" th:include="~{fragment/header::header}">
+    </header>
     <div class="main-wrap">
         <main>
             <!-- 여기에 작업 -->
@@ -82,24 +82,22 @@
                         <div class="community_loungeLeftContent">
                             <div class="community_loungeList">
                                 <!-- 반복요소 -->
-                                <div class="qaList_qaListContainer">
+                                <div class="qaList_qaListContainer" th:each="qna : ${qnaList}">
                                     <div class="qaList_qaListWrapper">
                                         <div>
                                             <div class="qaList_qaListLabelWrapper">
-                                                <div class="qaList_communityType">Q&A</div>
                                                 <div class="qaList_labelListWrapper"></div>
                                             </div>
-                                            <div class="qaList_qaListTitle"></div>
-                                            <div class="qaList_qaListText"></div>
+                                            <div class="qaList_qaListTitle" th:text="${qna.qnaTitle}"></div>
+                                            <div class="qaList_qaListText" th:text="${qna.qnaContent}"></div>
                                         </div>
                                         <div class="qaList_qaListImg"></div>
                                     </div>
                                     <div class="qaList_qaListAbout">
                                         <a class="qaList_qaAuthor" href="">
                                             <img src=""/>
-                                            <div class="qaList_nickname"></div>
+                                            <div class="qaList_nickname" th:text="${qna.nickname}"></div>
                                         </a>
-                                        <div class="qaList_communityType">댓글 : 0</div>
                                         <div>1시간 전</div>
                                     </div>
                                     <div class="qaList_labelWrapper">
