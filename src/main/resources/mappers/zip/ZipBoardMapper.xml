@@ -27,4 +27,15 @@
         SET ZIP_VIEWCOUNT = ZIP_VIEWCOUNT + 1
         WHERE ZIP_ID = #{zipId}
     </update>
+
+    <!--  게시글 상세 정보  -->
+    <select id="selectZipDetailBoard" resultType="ZipBoardListDTO">
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+               U.USERS_ID, U.NICKNAME,
+               (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
+               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+        FROM ZIP_BOARD ZB
+                 JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
+        ORDER BY ZIP_ID DESC
+    </select>
 </mapper>

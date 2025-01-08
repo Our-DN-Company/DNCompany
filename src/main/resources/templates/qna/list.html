@@ -82,24 +82,22 @@
                         <div class="community_loungeLeftContent">
                             <div class="community_loungeList">
                                 <!-- 반복요소 -->
-                                <div class="qaList_qaListContainer">
+                                <div class="qaList_qaListContainer" th:each="qna : ${qnaList}">
                                     <div class="qaList_qaListWrapper">
                                         <div>
                                             <div class="qaList_qaListLabelWrapper">
-                                                <div class="qaList_communityType">Q&A</div>
                                                 <div class="qaList_labelListWrapper"></div>
                                             </div>
-                                            <div class="qaList_qaListTitle"></div>
-                                            <div class="qaList_qaListText"></div>
+                                            <div class="qaList_qaListTitle" th:text="${qna.qnaTitle}"></div>
+                                            <div class="qaList_qaListText" th:text="${qna.qnaContent}"></div>
                                         </div>
                                         <div class="qaList_qaListImg"></div>
                                     </div>
                                     <div class="qaList_qaListAbout">
                                         <a class="qaList_qaAuthor" href="">
                                             <img src=""/>
-                                            <div class="qaList_nickname"></div>
+                                            <div class="qaList_nickname" th:text="${qna.nickname}"></div>
                                         </a>
-                                        <div class="qaList_communityType">댓글 : 0</div>
                                         <div>1시간 전</div>
                                     </div>
                                     <div class="qaList_labelWrapper">

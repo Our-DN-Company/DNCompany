@@ -15,4 +15,7 @@ public interface ZipMapper {
 
     // 게시물 전체 정보
     List<ZipBoardListDTO> selectAllZipBoards();
+
+    // 게시물 조회수
+    void updateViewCount(Long zipId);
 }
