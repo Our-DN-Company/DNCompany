@@ -29,7 +29,7 @@
     </update>
 
     <!--  게시글 상세 정보  -->
-    <select id="selectZipDetailBoard" resultType="ZipBoardListDTO">
+    <select id="selectById" parameterType="long" resultType="ZipBoardDetailDTO">
         SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
                U.USERS_ID, U.NICKNAME,
                (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
@@ -38,4 +38,6 @@
                  JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
         ORDER BY ZIP_ID DESC
     </select>
+
+    <update id="updateZipBoard" parameterType=""
 </mapper>

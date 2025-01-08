@@ -18,4 +18,7 @@ public interface ZipMapper {
 
     // 게시물 조회수
     void updateViewCount(Long zipId);
+
+    // 게시글 상세 페이지 정보
+    Optional<ZipBoardDetailDTO> selectById(Long zipId);
 }

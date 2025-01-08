@@ -1,5 +1,6 @@
 package com.example.dncompany.controller.zip;
 
+import com.example.dncompany.dto.zip.ZipBoardDetailDTO;
 import com.example.dncompany.dto.zip.ZipBoardListDTO;
 import com.example.dncompany.service.zip.ZipService;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,18 @@ public class ZipController {
     }
 
     @GetMapping("/detail")
-    public String detail() {return "zip/detail";}
+    public String detail(Long zipId, Model model) {
+
+        ZipBoardDetailDTO foundZip = zipService.getZipBoardById(zipId);
+        model.addAttribute("board", foundZip);
+
+        return "zip/detail";
+    }
 
     @GetMapping("/write")
-    public String write() {return "zip/write";}
+    public String write() {
+        return "zip/write";
+    }
 
 }
 
