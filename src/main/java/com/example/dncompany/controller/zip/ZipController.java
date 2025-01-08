@@ -17,6 +17,7 @@ import java.util.List;
 public class ZipController {
     private final ZipService zipService;
 
+    // 전체글
     @GetMapping("/community")
     public String community(Model model) {
         List<ZipBoardListDTO> boardList = zipService.getAllZipBoards();
@@ -24,6 +25,7 @@ public class ZipController {
         return "zip/community";
     }
 
+    // 상세글
     @GetMapping("/detail")
     public String detail(Long zipId, Model model) {
 
@@ -33,9 +35,23 @@ public class ZipController {
         return "zip/detail";
     }
 
+    // 게시글 작성
     @GetMapping("/write")
     public String write() {
         return "zip/write";
+    }
+
+    // 게시글 수정
+    @GetMapping("/modify")
+    public String modify() {
+        return "zip/modify";
+    }
+
+    // 게시글 삭제
+    @GetMapping("/delete")
+    public String delete(Long zipId) {
+        zipService.removeZipBoard(zipId);
+        return "redirect:zip/community";
     }
 
 }

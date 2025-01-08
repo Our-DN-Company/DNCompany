@@ -39,5 +39,16 @@
         ORDER BY ZIP_ID DESC
     </select>
 
-    <update id="updateZipBoard" parameterType=""
+    <!--  게시글 수정  -->
+    <update id="updateZipBoard" parameterType="ZipBoardModifyDTO">
+        UPDATE ZIP_BOARD
+        SET ZIP_CATEGORY = #{zipCategory}, ZIP_PET_CATEGORY = #{zipPetCategory}, ZIP_TITLE = #{zipTitle}, ZIP_CONTENT = #{zipContent}
+        WHERE ZIP_ID = #{zipId}
+    </update>
+
+    <!--  게시글 삭제  -->
+    <delete id="deleteZipBoard" parameterType="long">
+        DELETE  FROM ZIP_BOARD
+        WHERE ZIP_ID = #{zipId}
+    </delete>
 </mapper>

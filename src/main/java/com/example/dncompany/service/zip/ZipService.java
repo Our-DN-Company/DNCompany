@@ -2,6 +2,7 @@ package com.example.dncompany.service.zip;
 
 import com.example.dncompany.dto.zip.ZipBoardDetailDTO;
 import com.example.dncompany.dto.zip.ZipBoardListDTO;
+import com.example.dncompany.dto.zip.ZipBoardModifyDTO;
 import com.example.dncompany.dto.zip.ZipBoardWriteDTO;
 import com.example.dncompany.exception.zip.ZipNotFoundException;
 import com.example.dncompany.mapper.zip.ZipMapper;
@@ -17,11 +18,6 @@ import java.util.List;
 public class ZipService {
     private final ZipMapper zipMapper;
 
-    // 게시물 삽입
-    public void addZipBoard(ZipBoardWriteDTO zipWriteBoard){
-        zipMapper.insertZipBoard(zipWriteBoard);
-    }
-
     // 게시물 전체 정보
     public List<ZipBoardListDTO> getAllZipBoards(){
         return zipMapper.selectAllZipBoards();
@@ -35,7 +31,20 @@ public class ZipService {
                 .orElseThrow(() -> new ZipNotFoundException("게시글을 찾을 수 없음, ID : " + zipId));
     }
 
+    // 게시물 삽입
+    public void addZipBoard(ZipBoardWriteDTO zipWriteBoard){
+        zipMapper.insertZipBoard(zipWriteBoard);
+    }
 
+    // 게시글 수정
+    public void modifyZipBoard(ZipBoardModifyDTO zipBoardModifyDTO){
+        zipMapper.updateZipBoard(zipBoardModifyDTO);
+    }
+
+    // 게시글 삭제
+    public void removeZipBoard(Long zipId) {
+        zipMapper.deleteZipBoard(zipId);
+    }
 }
 
 
