@@ -1,4 +1,4 @@
-package com.example.dncompany.controller.user;
+package com.example.dncompany.controller.user.schdule;
 
 import com.example.dncompany.dto.user.schedule.ScheduleListDTO;
 import com.example.dncompany.service.user.schedule.ScheduleService;
@@ -27,7 +27,6 @@ public class ScheduleController {
         List<ScheduleListDTO> scheduleList = scheduleService.getScheduleList(userId);
         model.addAttribute("scheduleList", scheduleList);
         model.addAttribute("today", LocalDate.now());
-
 
         return "user/schedule/schedule";
     }
