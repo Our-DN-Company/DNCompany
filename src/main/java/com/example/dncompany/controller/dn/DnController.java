@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class DnController {
 
-    @GetMapping("/marketboard")
-    public String marketboard() {return "dn/marketboard";}
+    @GetMapping("/market")
+    public String market() {return "dn/market";}
 
     @GetMapping("/detail")
     public String detail() {return "dn/detail";}
