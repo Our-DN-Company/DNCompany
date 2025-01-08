@@ -30,31 +30,19 @@
         <table>
             <tr>
                 <th>제목</th>
-                <th>매칭상태</th>
-                <th>작성날짜</th>
-                <th>매칭 시어터</th>
+                <th>신청유형</th>
+                <th>시작날짜</th>
                 <th>신청날짜</th>
                 <th>후기</th>
 
             </tr>
 
 
-            <tr>
-                <td>이런 도움이 필요해요</td>
-                <td>매칭 대기중</td>
-                <td>2021.12.12</td>
-                <td>-</td>
-                <td>2020-23-12[진행중]</td>
-                <!-- <td><button class="mypage_review_button">후기</button>
-                <button class="mypage_review_button">신고</button></td> -->
-            </tr>
-
-            <tr>
-                <td>이런 도움이 필요해요</td>
-                <td>매칭 완료</td>
-                <td>2021.12.12</td>
-                <td>누구님</td>
-                <td>2020-33-11[완료]</td>
+            <tr  th:each="helpMe :${helpMeList}" th:object="${helpMe}">
+                <td th:text="*{helpTitle}"></td>
+                <td th:text="*{helpCareType}"></td>
+                <td th:text="*{helpCreatedAt}"></td>
+                <td th:text="*{helpCareDate}"></td>
                 <td><button class="mypage_review_button">후기</button>
                     <button class="mypage_review_button">신고</button></td>
             </tr>

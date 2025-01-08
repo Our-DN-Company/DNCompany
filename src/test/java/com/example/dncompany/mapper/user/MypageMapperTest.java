@@ -2,6 +2,7 @@ package com.example.dncompany.mapper.user;
 
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
 
+import com.example.dncompany.dto.user.mypage.HelpMeListDTO;
 import com.example.dncompany.dto.user.mypage.PetSlideDTO;
 import com.example.dncompany.dto.user.mypage.UserProfileDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,6 +58,16 @@ class MypageMapperTest {
     void userProfile() {
         Optional<UserProfileDTO> userProfile = mypageMapper.userProfile(21L);
 
+
+    }
+
+    @Test
+    void helpMeListById() {
+
+        List<HelpMeListDTO> helpMeList = mypageMapper.helpMeListById(6L);
+
+        assertThat(helpMeList)
+                .isNotEmpty();
 
     }
 }
