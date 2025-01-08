@@ -16,7 +16,7 @@
  * });
  */
 export function checkLoginId(loginId, callback) {
-    fetch(`/api/v1/members/loginId/exists?loginId=${loginId}`)
+    fetch(`/api/v1/users/loginId/exists?loginId=${loginId}`)
         .then(resp => {
             if (resp.ok) {
                 return resp.json()

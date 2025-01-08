@@ -37,11 +37,16 @@ a {
 }
 
 #header h1 {
-  height: 90px;
-  width: 180px;
+  height: 80px;
+  width: 160px;
+  display: flex;
+  align-items: center;
   .header__logo__img {
-    height: 90px;
-    width: 180px;
+    height: 80px;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -123,5 +128,17 @@ nav {
     li:hover {
       color: rgb(95, 0, 128);
     }
+  }
+}
+
+.nav__user__name{
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(34, 34, 34);
+
+  white-space: nowrap;
+  overflow: hidden;
+  :hover{
+    color: rgb(95, 0, 128);
   }
 }

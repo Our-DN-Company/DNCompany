@@ -1,28 +1,40 @@
 import * as smsApi from './modules/smsApi.js';
-import * as userApi from './modules/userApi.js';
+import * as  userApi from './modules/userApi.js';
 
 
 // 입력 필드와 메시지 DOM 요소 가져오기
 // 아이디
+
 const elInputId = document.querySelector("#userId");
 const elFailureMessageOneId = document.querySelector(".id__notmessage1");
 const elFailureMessageTwoId = document.querySelector(".id__notmessage2");
 const elSuccessMessageId = document.querySelector(".id__okmessage");
 
 // 이미 존재하는 아이디 목록 (예시)
-const existingIds = ["test123", "user456", "admin789"];
+const existingIds = ["existingUser1", "existingUser2", "existingUser3"]; // 예시 데이터
 
-
+// 아이디 유효성 검사 정규식: 영문 시작, 6~16자, 숫자 포함 가능
+const regexId = /^[A-Za-z][A-Za-z0-9]{5,15}$/;
 
 // 유효성 검사 함수
-function validateUsername(userid) {
-  const regexid = /^[A-Za-z][A-Za-z0-9]{5,15}$/;
-  // 영문 시작, 6~16자, 숫자 포함 가능
-  return regexid.test(userid);
+function validateUsername(userId) {
+  return regexId.test(userId);
+}
+
+// UI 갱신 함수
+function toggleValidationUI(element, isValid) {
+  // 유효하지 않으면 'invalid' 클래스 추가, 유효하면 'invalid' 클래스 제거
+  if (!isValid) {
+    element.classList.add('invalid');
+    element.classList.remove('valid');
+  } else {
+    element.classList.add('valid');
+    element.classList.remove('invalid');
+  }
 }
 
 // 입력 이벤트 핸들러
-elInputId.addEventListener("keyup", function () {
+elInputId.addEventListener("input", function () {
   const value = elInputId.value;
 
   // 모든 메시지 숨김 초기화
@@ -32,22 +44,50 @@ elInputId.addEventListener("keyup", function () {
 
   // 입력값이 없는 경우
   if (!value) {
+    toggleValidationUI(elInputId, false);
     return;
   }
 
-  // 입력값이 이미 존재하는 아이디인 경우
+  // 1. 이미 존재하는 아이디인 경우
   if (existingIds.includes(value)) {
+    toggleValidationUI(elInputId, false);
     elFailureMessageTwoId.classList.add("active");
   }
-  // 아무 단어라도 입력했을 때
+  // 2. 유효성 검사 통과하지 못한 경우
   else if (!validateUsername(value)) {
+    toggleValidationUI(elInputId, false);
     elFailureMessageOneId.classList.add("active");
   }
-  // 유효성 검사를 통과하고, 중복되지 않은 경우
+  // 3. 유효성 검사 통과하고, 중복되지 않은 경우
   else {
+    toggleValidationUI(elInputId, true);
     elSuccessMessageId.classList.add("active");
   }
 });
+
+// 아이디 중복 검사 (change 이벤트)
+elInputId.addEventListener("change", function () {
+  const value = elInputId.value;
+
+  // 유효성 검사에 적합하지 않으면 중복 검사 진행 안 함
+  if (!validateUsername(value)) {
+    return;
+  }
+
+  // 중복 검사 API 호출 (기존 코드 유지)
+  userApi.checkLoginId(value, function (data) {
+    if (data.exists) {
+      toggleValidationUI(elInputId, false);
+      elFailureMessageTwoId.classList.add("active");
+    } else {
+      toggleValidationUI(elInputId, true);
+      elSuccessMessageId.classList.add("active");
+    }
+  });
+});
+
+
+
 
 // 비밀번호
 // 비밀번호 입력 필드와 메시지 DOM 요소 가져오기
@@ -55,12 +95,12 @@ const elInputPassword = document.querySelector("#password");
 const elFailureMessageOnePw = document.querySelector(".pw__notmessage1");
 const elFailureMessageTwoPw = document.querySelector(".pw__notmessage2");
 
-
+const regexpw = /^[a-zA-Z0-9!@#$%^&*()?_~]{10,}$/;
 
 // 비밀번호 유효성 검사 함수
 function validateUserpassword(password) {
   // 최소 10자 이상
-  const regexpw = /^[a-zA-Z0-9!@#$%^&*()?_~]{10,}$/;
+
   return regexpw.test(password);
 }
 
@@ -385,6 +425,8 @@ function resetAuthState() {
   $authTimer.textContent = "";
 }
 
+
+
 $authNumber.addEventListener("input", function (e) {
   const currentValue = e.target.value;
 
@@ -408,17 +450,22 @@ $authNumber.addEventListener("input", function (e) {
 // 주소 api
 // 주소 검색 버튼 클릭 시 실행되는 함수
 
+const $addressBtn = document.querySelector(".address_btn");
+
+$addressBtn.addEventListener("click", function () {
+  sample6_execDaumPostcode(); // 버튼 클릭 시 함수 실행
+});
+
 function sample6_execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function(data) {
-      // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+      // 팝업에서 검색결과 항목을 클릭했을 때 실행할 코드를 작성하는 부분.
 
       // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-      // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
       var addr = ''; // 주소 변수
       var extraAddr = ''; // 참고항목 변수
 
-      //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+      // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
       if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
         addr = data.roadAddress;
       } else { // 사용자가 지번 주소를 선택했을 경우(J)
@@ -426,21 +473,16 @@ function sample6_execDaumPostcode() {
       }
 
       // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-      if(data.userSelectedType === 'R'){
-        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+      if (data.userSelectedType === 'R'){
         if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
           extraAddr += data.bname;
         }
-        // 건물명이 있고, 공동주택일 경우 추가한다.
         if(data.buildingName !== '' && data.apartment === 'Y'){
           extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
         }
-        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
         if(extraAddr !== ''){
           extraAddr = ' (' + extraAddr + ')';
         }
-        // 조합된 참고항목을 해당 필드에 넣는다.
         document.getElementById("addressExtra").value = extraAddr;
 
       } else {
@@ -450,11 +492,17 @@ function sample6_execDaumPostcode() {
       // 우편번호와 주소 정보를 해당 필드에 넣는다.
       document.getElementById('zipCode').value = data.zonecode;
       document.getElementById("address").value = addr;
-      // 커서를 상세주소 필드로 이동한다.
-      document.getElementById("addressDetail").focus();
+
+      // 상세주소 입력 필드 활성화
+      const addressDetail = document.getElementById("addressDetail");
+      addressDetail.disabled = false;  // 비활성화 상태일 경우 활성화
+      addressDetail.focus();  // 포커스를 해당 필드로 이동
     }
   }).open();
 }
+
+
+
 
 
 
@@ -497,6 +545,20 @@ function allowNumbersOnly(event) {
   }
 }
 
+// 입력값 검사 함수 (범위 제한)
+function limitValue(inputField, min, max) {
+    let value = parseInt(inputField.value, 10);
+    if (value < min) {
+        inputField.value = min
+            .toString()
+            .padStart(inputField.placeholder.length, "0"); // 최소값으로 설정
+    } else if (value > max) {
+        inputField.value = max
+            .toString()
+            .padStart(inputField.placeholder.length, "0"); // 최대값으로 설정
+    }
+}
+
 // 각 입력 필드에 keydown 이벤트 리스너 추가
 [elInputYear, elInputMonth, elInputDay].forEach((inputField) => {
   inputField.addEventListener("keydown", allowNumbersOnly);
@@ -535,3 +597,42 @@ function allowNumbersOnly(event) {
     }
   });
 });
+
+const $form = document.querySelector(".signup__input__box");
+
+// 폼 제출 처리
+{
+  $form.addEventListener('submit', function (e) {
+    // 아이디 검사
+    if (!regexid.test(elInputId.value)) {
+      e.preventDefault();
+      alert('아이디는 영문, 숫자 조합 6~12자로 입력해주세요.');
+      elInputId.focus();
+      return;
+    }
+
+    // 비밀번호 검사
+    if (!regexpw.test(elInputPassword.value)) {
+      e.preventDefault();
+      alert('비밀번호는 영문, 숫자, 특수문자 조합 8~16자로 입력해주세요.');
+      elInputPassword.focus();
+      return;
+    }
+
+    // 비밀번호 확인 검사
+    if (elInputPassword.value !== elInputPwConfirm.value) {
+      e.preventDefault();
+      alert('비밀번호가 일치하지 않습니다.');
+      elInputPwConfirm.focus();
+      return;
+    }
+
+    // 휴대폰 인증 검사
+    if (!isPhoneVerified) {
+      e.preventDefault();
+      alert('휴대폰 인증이 필요합니다.');
+      return;
+    }
+
+  });
+}
