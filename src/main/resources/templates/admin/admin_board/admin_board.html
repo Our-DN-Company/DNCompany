@@ -75,7 +75,9 @@
         </tr>
         </thead>
         <tbody id="postListBody">
-        <tr th:each="post, index : ${boardType}">
+        <tr th:each="post, index : ${boardType}"
+            th:data-post-id="${post.id}"
+            th:data-category="${post.category}">
             <td><input type="checkbox" class="post-checkbox"></td>
             <td th:text="${index.count}"></td>
             <td th:text="${post.category}"></td>
@@ -89,6 +91,47 @@
         </tbody>
     </table>
     <button class="delete-button">삭제</button>
+</div>
+
+
+<!-- 게시글 상세 모달 -->
+<div id="postDetailModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <span id="modalPostCategory" class="category"></span>
+            <h2 id="modalPostTitle">게시글 제목</h2>
+        </div>
+
+        <!-- 게시글 기본 정보 -->
+        <div class="modal-meta-info">
+            <div class="writer-info">
+                <div>
+                    <strong>작성자:</strong> <span id="modalPostWriter"></span>
+                </div>
+            </div>
+            <div class="date-info">
+                <strong>작성일:</strong> <span id="modalPostDate"></span>
+            </div>
+        </div>
+
+        <!-- 게시글 내용 -->
+        <div class="modal-content-section">
+            <h3>내용</h3>
+            <p id="modalPostContent"></p>
+        </div>
+
+        <!-- 댓글/답변 섹션 -->
+        <div class="reply-section">
+            <h3>댓글/답변</h3>
+            <div id="existingReplies">
+                <!-- 기존 댓글들 -->
+            </div>
+
+            <textarea id="replyTextarea" placeholder="답변을 입력하세요"></textarea>
+            <button id="submitReplyBtn">답변 등록</button>
+        </div>
+    </div>
 </div>
 
 <script th:src="@{/js/admin/admin_board/admin_board.js}"></script>
