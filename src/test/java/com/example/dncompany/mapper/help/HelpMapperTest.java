@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,14 +30,14 @@ class HelpMapperTest {
 
     @BeforeEach
     void setUp() {
-        helpRequestDTO=new HelpRequestDTO();
+        helpRequestDTO = new HelpRequestDTO();
         helpRequestDTO.setHelpTitle("test");
         helpRequestDTO.setHelpAddress("test");
         // helpRequestDTO.setHelpAddressDetail("test");
         helpRequestDTO.setHelpPoint(2000);
         helpRequestDTO.setHelpPrice(40000);
         helpRequestDTO.setHelpSpecies("test");
-        helpRequestDTO.setHelpStartTime(LocalDateTime.of(2025, 1,1,16,30));
+        helpRequestDTO.setHelpStartTime(LocalDateTime.of(2025, 1, 1, 16, 30));
         helpRequestDTO.setHelpEndTime(LocalDateTime.of(2025, 1, 1, 20, 20));
         helpRequestDTO.setHelpCareDate(LocalDate.of(2025, 1, 1));
         helpRequestDTO.setHelpCareType("test");
@@ -50,7 +52,7 @@ class HelpMapperTest {
 
         // when
         helpMapper.insertHelp(helpRequestDTO); // 게시글 등록
-        HelpResponseDTO findHelp=helpMapper.selectHelpDetail(helpRequestDTO.getHelpId());
+        HelpResponseDTO findHelp = helpMapper.selectHelpDetail(helpRequestDTO.getHelpId());
 
         // then
         assertThat(findHelp)
@@ -74,34 +76,39 @@ class HelpMapperTest {
         assertThat(findHelp.getHelpCareDate()).isEqualTo(helpRequestDTO.getHelpCareDate());
     }
 
-//
-//    @Test
-//    @DisplayName("게시글 목록 조회 테스트")
-//    void selectHelpList() {
-//        // given
-//        helpMapper.insertHelp(helpRequestDTO);
-//
-//        // when
-//        List<HelpListResponseDTO> helpList = helpMapper.selectHelpList();
-//
-//        // then
-//        assertThat(helpList).isNotEmpty();
-//
-//        assertThat(helpList)
-//                .filteredOn(help->help.getHelpId().equals(helpRequestDTO.getHelpId()))
-//                .hasSize(1)
-//                .first()
-//                .extracting(
-//                        "helpTitle", "helpCareType",
-//                        "helpAddress", "helpPoint", "helpCareDate"
-//                )
-//                .containsExactly(
-//                        helpRequestDTO.getHelpTitle(),
-//                        helpRequestDTO.getHelpSpecies(),
-//                        helpRequestDTO.getHelpCareType(),
-//                        helpRequestDTO.getHelpAddress(),
-//                        helpRequestDTO.getHelpPoint(),
-//                        helpRequestDTO.getHelpCareDate()
-//                );
+
+    @Test
+    @DisplayName("게시글 목록 조회 테스트")
+    void selectHelpList() {
+        // given
+        helpRequestDTO.setUsersId(21L); // 이미 있는 사용자 ID 사용
+        helpMapper.insertHelp(helpRequestDTO);
+
+        // when
+        List<HelpListResponseDTO> helpList = helpMapper.selectHelpList();
+        Optional<HelpListResponseDTO> firstHelp = helpList.stream().findFirst();
+
+        // then
+        assertThat(firstHelp)
+                .isPresent()
+                .map(helpBoard -> helpBoard.getHelpTitle())
+                .contains(helpRequestDTO.getHelpTitle());
+
+        assertThat(firstHelp.get())
+                .extracting(
+                        "helpTitle",
+                        "helpCareType",
+                        "helpAddress",
+                        "helpPoint",
+                        "helpCareDate"
+                )
+                .containsExactly(
+                        helpRequestDTO.getHelpTitle(),
+                        helpRequestDTO.getHelpCareType(),
+                        helpRequestDTO.getHelpAddress(),
+                        helpRequestDTO.getHelpPoint(),
+                        helpRequestDTO.getHelpCareDate()
+                );
     }
+}
 
