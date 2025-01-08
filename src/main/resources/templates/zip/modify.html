@@ -8,25 +8,71 @@
     <link rel="stylesheet" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
-    <link rel="stylesheet" th:href="@{/css/qna/QNAwrite.css}"/>
+    <link rel="stylesheet" th:href="@{/css/zip/modify.css}"/>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
         @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
     </style>
 </head>
 <body>
-<header class="header" th:include="~{fragment/header::header}">
-</header>
 <div class="container">
+    <header class="header" th:include="~{fragment/header::header}">
+    </header>
     <div class="main-wrap">
         <main>
             <!-- 여기에 작업 -->
             <div class="question_questionContainer">
                 <div class="question_questionContent">
+                    <!-- 카테고리 선택 -->
+                    <span class="question_questionCategory">반려동물 카테고리</span>
+                    <span class="question_questionMark">*</span>
+                    <div class="question_radioWrap">
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="question"
+                                    id="강아지"
+                                    value="강아지"
+                                    checked
+                            />
+                            <label for="강아지">강아지</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="question"
+                                    id="고양이"
+                                    value="고양이"
+                                    checked
+                            />
+                            <label for="고양이">고양이</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="question"
+                                    id="소동물"
+                                    value="소동물"
+                                    checked
+                            />
+                            <label for="소동물">소동물</label>
+                        </div>
+                        <div>
+                            <input
+                                    type="radio"
+                                    name="question"
+                                    id="기타"
+                                    value="기타"
+                                    checked
+                            />
+                            <label for="기타">기타</label>
+                        </div>
+                    </div>
+
                     <!-- 제목 입력 박스 -->
                     <div>
                         <div>
-                            <span class="question_questionCategory">Q&A 글 작성</span>
+                            <span class="question_questionCategory">라운지 글 작성</span>
                             <span class="question_questionMark">*</span>
                         </div>
                         <input
@@ -74,7 +120,7 @@
                     </form>
 
                     <!-- 등록 버튼 -->
-                    <button class="question_nosubmitBtn" disabled>글 등록</button>
+                    <button class="question_nosubmitBtn" disabled>글 수정</button>
                 </div>
             </div>
         </main>

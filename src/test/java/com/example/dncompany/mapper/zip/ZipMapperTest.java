@@ -42,4 +42,5 @@ class ZipMapperTest {
                 .extracting("zipTitle")
                 .contains("test title");
     }
+
 }

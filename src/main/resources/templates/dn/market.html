@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/dn/market.css}"/>
+    <style>
+        @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
+        @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header" th:include="~{fragment/header::header}">
+    </header>
+    <div class="main-wrap">
+        <main>
+            <!-- 게시판 영역 -->
+            <div class="shopLayout_shoppingContainer">
+                <div class="shopLayout_shoppingContents">
+                    <!-- 쇼핑/검색창 -->
+                    <div class="shopLayout_shoppingTopArea">
+                        <!-- 검색창 -->
+                        <div class="shopSearch_inputContainer">
+                            <div class="shopLayout_shoppingTopArea">
+                                <input
+                                        type="text"
+                                        class="shopSearch_searchInput"
+                                        placeholder="검색"
+                                        enterkeyhint="search"
+                                        value
+                                />
+                                <img
+                                        class="shopSearch_searchIcon"
+                                        src="https://bemypet.kr/_next/static/media/ICON-24px-Search.318147fc.svg"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- 동물 분류 -->
+                        <div class="shopLayout_animalLabelContainer">
+                            <input
+                                    type="radio"
+                                    id="강아지"
+                                    name="animalFilter"
+                                    class="animalLabel_radioInput"
+                                    checked
+                            />
+                            <label for="강아지" class="animalLabel_animalLabelBtn">
+                                <div>강아지</div>
+                            </label>
+
+                            <input
+                                    type="radio"
+                                    id="고양이"
+                                    name="animalFilter"
+                                    class="animalLabel_radioInput"
+                            />
+                            <label for="고양이" class="animalLabel_animalLabelBtn">
+                                <div>고양이</div>
+                            </label>
+
+                            <input
+                                    type="radio"
+                                    id="소동물"
+                                    name="animalFilter"
+                                    class="animalLabel_radioInput"
+                            />
+                            <label for="소동물" class="animalLabel_animalLabelBtn">
+                                <div>소동물</div>
+                            </label>
+
+                            <input
+                                    type="radio"
+                                    id="기타"
+                                    name="animalFilter"
+                                    class="animalLabel_radioInput"
+                            />
+                            <label for="기타" class="animalLabel_animalLabelBtn">
+                                <div>기타</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 물품 종류 카테고리 -->
+                    <nav class="categoryHeader_contentHeaderWrapper">
+                        <div class="categoryHeader_contentHeaderBox">
+                            <ul class="categoryHeader_contentHeaderList">
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">간식</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">매트</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">사료</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">식기</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">영양제</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">위생</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">이동장</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">장난감</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">집/하우스</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">패션</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">펫가전</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">하네스/줄</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu">해충방지용품</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <!-- 전체 물품 -->
+                    <div class="shopping_shoppingContents">
+                        <!-- 정렬 -->
+                        <div class="shopping_productFilterContainer">
+          <span class="shopping_productFilterList">
+            <input
+                    class="radio_myRadio"
+                    type="radio"
+                    id="인기순"
+                    name="productFilter"
+                    value="인기순"
+                    checked
+            />
+            <label for="인기순">인기순</label>
+          </span>
+                            <span class="shopping_productFilterList">
+            <input
+                    class="radio_myRadio"
+                    type="radio"
+                    id="최신순"
+                    name="productFilter"
+                    value="최신순"
+                    checked
+            />
+            <label for="최신순">최신순</label>
+          </span>
+                            <span class="shopping_productFilterList">
+            <input
+                    class="radio_myRadio"
+                    type="radio"
+                    id="낮은 가격순"
+                    name="productFilter"
+                    value="낮은 가격순"
+                    checked
+            />
+            <label for="낮은 가격순">낮은 가격순</label>
+          </span>
+                            <span class="shopping_productFilterList">
+            <input
+                    class="radio_myRadio"
+                    type="radio"
+                    id="높은 가격순"
+                    name="productFilter"
+                    value="높은 가격순"
+                    checked
+            />
+            <label for="높은 가격순">높은 가격순</label>
+          </span>
+                        </div>
+
+                        <!-- 글쓰기 버튼 -->
+                        <div class="write_Btn">
+                            <button class="write_Btn_item" tabindex="0" type="button">
+                                글쓰기
+                            </button>
+                        </div>
+
+                        <!-- 물품 목록 -->
+                        <div class="shopping_productList">
+                            <!-- 반복 구간 -->
+                            <div class="productCard_productCardContainer">
+                                <!-- 사진 영역 -->
+                                <div class="productCard_cardImgContainer">
+                                    <!--              <span-->
+                                    <!--                      style="-->
+                                    <!--                  box-sizing: border-box;-->
+                                    <!--                  display: block;-->
+                                    <!--                  overflow: hidden;-->
+                                    <!--                  width: initial;-->
+                                    <!--                  height: initial;-->
+                                    <!--                  background: none;-->
+                                    <!--                  opacity: 1;-->
+                                    <!--                  border: 0px;-->
+                                    <!--                  margin: 0px;-->
+                                    <!--                  padding: 0px;-->
+                                    <!--                  position: absolute;-->
+                                    <!--                  inset: 0px;-->
+                                    <!--                "-->
+                                    <!--              ><img-->
+                                    <!--                      alt="card_image"-->
+                                    <!--                      sizes="100vw"-->
+                                    <!--                      srcset="640w, 750w, 828w, 1080w, 1200w, 1920w, 2048w, 3840w"-->
+                                    <!--                      src=""-->
+                                    <!--                      decoding="async"-->
+                                    <!--                      data-nimg="fill"-->
+                                    <!--                      style="-->
+                                    <!--                    position: absolute;-->
+                                    <!--                    inset: 0px;-->
+                                    <!--                    box-sizing: border-box;-->
+                                    <!--                    padding: 0px;-->
+                                    <!--                    border: none;-->
+                                    <!--                    margin: auto;-->
+                                    <!--                    display: block;-->
+                                    <!--                    width: 0px;-->
+                                    <!--                    height: 0px;-->
+                                    <!--                    min-width: 100%;-->
+                                    <!--                    max-width: 100%;-->
+                                    <!--                    min-height: 100%;-->
+                                    <!--                    max-height: 100%;-->
+                                    <!--                    object-fit: cover;-->
+                                    <!--                    object-position: center center;-->
+                                    <!--                    filter: none;-->
+                                    <!--                    background-size: cover;-->
+                                    <!--                    background-image: none;-->
+                                    <!--                    background-position: center center;-->
+                                    <!--                  "/><noscript></noscript-->
+                                    <!--              ></span>-->
+                                </div>
+
+                                <!-- 물품 정보 -->
+                                <div class="productCard_productInfo">
+                                    <div class="productCard_productBrand">물품명</div>
+                                    <div class="productCard_productName">물품 상세 정보</div>
+                                </div>
+
+                                <!-- 경계선 -->
+                                <hr class="productCard_productDivider"/>
+
+                                <!-- 물품 가격 -->
+                                <div class="productCard_productInfo">
+                                    <div class="productCard_priceWrapper">
+                                        <div class="productCard_productPrice">10,000</div>
+                                        <span class="productCard_wonPrice">원</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 반복 구간 -->
+                        </div>
+                    </div>
+
+                    <!-- 페이지 영역 -->
+                    <ul class="pagination">
+                        <li class>
+                            <a class href="#" aria-label="Go to first page">‹</a>
+                        </li>
+                        <li class>
+                            <a class href="#" aria-label="Go to page number 1">1</a>
+                        </li>
+                        <li class>
+                            <a class href="#" aria-label="Go to page number 2">2</a>
+                        </li>
+                        <li class="active">
+                            <a class href="#" aria-label="Go to page number 3">3</a>
+                        </li>
+                        <li class>
+                            <a class href="#" aria-label="Go to page number 4">4</a>
+                        </li>
+                        <li class>
+                            <a class href="#" aria-label="Go to page number 5">5</a>
+                        </li>
+                        <li class>
+                            <a class href="#" aria-label="Go to last page">›</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+</div>
+
+
+</body>
+</html>

@@ -15,10 +15,10 @@
     </style>
 </head>
 <body>
-<header class="header" th:include="~{fragment/header::header}">
-</header>
 <!-- 홈페이지 전체 사이즈 -->
 <div class="container">
+    <header class="header" th:include="~{fragment/header::header}">
+    </header>
     <div class="main-wrap">
         <main>
             <!-- 여기에 작업 -->
@@ -136,7 +136,9 @@
                                             />
                                             <div class="qaList_nickname" th:text="${board.nickname}">삼색이짱짱</div>
                                         </a>
-                                        <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 : 0</div>
+                                        <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 :
+                                            0
+                                        </div>
                                         <div>1시간 전</div>
                                     </div>
                                     <div class="qaList_labelWrapper">

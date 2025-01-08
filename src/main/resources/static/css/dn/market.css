@@ -1,18 +1,12 @@
-body {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  position: relative;
-  margin-bottom: 20px;
-  padding-bottom: 50px;
+.shopLayout_shoppingContainer {
+  margin: 100px 0;
+  width: 100%;
 }
 
-.shopLayout_shoppingContainer {
-  margin-top: 160px;
-  width: 100%;
-  max-width: 808px;
-  position: relative;
+.shopLayout_shoppingContents {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 27px;
 }
 
 /* 검색창 */
@@ -111,6 +105,8 @@ body {
   gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
+  flex-direction: row;
+
 }
 
 .categoryHeader_defaultMenu {

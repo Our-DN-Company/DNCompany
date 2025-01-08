@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/event")
 @RequiredArgsConstructor
-public class EventBoard {
+public class EventController {
 
-    @GetMapping("/eventlist")
-    public String eventlist () { return "event/eventlist"; }
+    @GetMapping("/list")
+    public String list () { return "event/list"; }
 
 }
