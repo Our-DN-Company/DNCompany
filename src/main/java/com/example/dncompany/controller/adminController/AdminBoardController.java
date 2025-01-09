@@ -1,15 +1,18 @@
 package com.example.dncompany.controller.adminController;
 
-import com.example.dncompany.dto.admin.board.AdminReportBoardDTO;
+import com.example.dncompany.dto.admin.board.AdminAnswerDTO;
 import com.example.dncompany.dto.admin.board.BoardSearchDTO;
 import com.example.dncompany.service.admin.AdminBoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.Map;
+@Slf4j
 @RequestMapping("/admin/board")
 @Controller
 @RequiredArgsConstructor
@@ -39,4 +42,65 @@ public class AdminBoardController {
         model.addAttribute("boardType", boards);
         return "admin/admin_board/admin_board :: #postListBody";
     }
+
+    @ResponseBody
+    @PostMapping("/reply")
+    public ResponseEntity<?> addAnswer(@RequestBody Map<String, Object> boardList) {
+        log.info("받은 데이터: {}", boardList); // 로그 추가
+        try {
+            // null 체크 추가
+            if (boardList.get("qnaId") == null ||
+                    boardList.get("qnaAnswerContent") == null ||
+                    boardList.get("category") == null) {
+                return ResponseEntity.badRequest()
+                        .body(Map.of("error", "필수 데이터가 누락되었습니다."));
+            }
+
+            AdminAnswerDTO adminAnswerDTO = new AdminAnswerDTO();
+            String category = boardList.get("category").toString();
+
+            if ("QNA".equals(category)) {
+                // 명시적 형변환
+                adminAnswerDTO.setQnaId(Long.parseLong(boardList.get("qnaId").toString()));
+                adminAnswerDTO.setQnaAnswerContent(boardList.get("qnaAnswerContent").toString());
+                adminAnswerDTO.setCategory(category);
+
+                adminBoardService.addAnswer(adminAnswerDTO);
+                return ResponseEntity.ok().body(Map.of("message", "답변이 성공적으로 등록되었습니다."));
+            }
+
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "QnA 게시글만 답변 등록이 가능합니다."));
+        } catch (Exception e) {
+            e.printStackTrace(); // 디버깅을 위한 로그
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "답변 등록 실패: " + e.getMessage()));
+        }
+    }
+
+    @GetMapping("/replies")
+    public ResponseEntity<List<AdminAnswerDTO>> getAnswers(
+            @RequestParam Long postId,
+            @RequestParam String category
+    ) {
+        List<AdminAnswerDTO> replies = adminBoardService.getAnswersByPostId(postId, category);
+        return ResponseEntity.ok(replies);
+    }
+
+    @GetMapping("/qna/detail")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getQnaDetail(@RequestParam Long qnaId) {
+        try {
+            Map<String, Object> detail = adminBoardService.selectQnaDetail(qnaId);
+            if (detail == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(detail);
+        } catch (Exception e) {
+            log.error("QnA 상세 조회 실패: ", e);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+
 }

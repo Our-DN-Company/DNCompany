@@ -5,6 +5,7 @@ import com.example.dncompany.dto.admin.board.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface AdminBoardMapper {
@@ -25,5 +26,17 @@ public interface AdminBoardMapper {
 
     // 검색 조건을 포함한 게시판 조회
     List<AdminAllBoardDTO> selectBoardByCondition(BoardSearchDTO searchDTO);
+
+
+    // 답변
+    void insertQnaAnswer(AdminAnswerDTO adminAnswerDTO);
+    List<AdminAnswerDTO> selectQnaAnswersByQnaId(Long qnaId);
+
+    // 답변작성 시 모달 오픈 오픈 시 상세 내용
+    Map<String, Object> selectQnaDetail(Long qnaId);
+
+    // 답변 유무 처리
+    void updateQnaStatus(Long qnaId);
+
 
 }

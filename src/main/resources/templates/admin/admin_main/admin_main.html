@@ -9,14 +9,26 @@
 </head>
 <body>
 <!-- 헤더 네비 -->
-<div id="header-container" th:replace="admin/admin_main/admin_main_header_nav :: admin_main_header_nav"></div>
+<div id="header-container" th:replace="~{admin/admin_main/admin_main_header_nav :: admin_main_header_nav}"></div>
 
 <!-- 메인 컨텐츠 메뉴 -->
-<div id="content-container" th:replace="admin/admin_main/admin_main_content :: admin_main_content"></div>
+<div id="content-container" th:replace="~{admin/admin_main/admin_main_content :: admin_main_content}"></div>
 
 <script>
 
 </script>
+
+<!-- js에 데이터 보내기 위한 타임리프 -->
+<!--content에 넣었는데 정상작동하지면 로드가 안됨 -->
+<!-- 아마 스크립트 순서로 인해 그런 것 같음-->
+<script th:inline="javascript">
+  const boardCounts = /*[[${boardCounts}]]*/ [];
+</script>
+<script th:inline="javascript">
+  const userCounts = /*[[${userCounts}]]*/ [];
+</script>
+
+
 <!-- 차트 라이브러리 로드 코드 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:src="@{/js/admin/admin_main/admin.main.js}"></script>

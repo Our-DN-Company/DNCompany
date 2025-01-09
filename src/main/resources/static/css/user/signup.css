@@ -321,6 +321,7 @@ input[name="gender"] {
 .gender__btn__in {
   width: 8px;
   height: 8px;
+  display: block;
   position: absolute;
   left: 50%;
   top: 50%;
