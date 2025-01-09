@@ -12,11 +12,11 @@
 
     <!--  게시글 댓글 조회  -->
     <select id="selectListByZipId" parameterType="long" resultType="ZipAnswerDTO">
-        SELECT ZA.ZIP_ID, ZA.ZIP_ID, ZIP_ANSWER_CONTENT, ZA.ZIP_ANSWER_CREATED_AT, ZA.ZIP_ANSWER_UPDATED_AT,
+        SELECT ZA.ZIP_ID, ZIP_ANSWER_CONTENT, ZA.ZIP_ANSWER_CREATED_AT, ZA.ZIP_ANSWER_UPDATED_AT,
                U.USERS_ID, U.NICKNAME
         FROM ZIP_ANSWER ZA
                  JOIN USERS U ON ZA.USERS_ID = U.USERS_ID
-        WHERE ZIP_ANSWER_ID = #{zipAnswerId}
+        WHERE ZIP_ID = #{zipId}
         ORDER BY ZA.ZIP_ANSWER_ID DESC
     </select>
 
@@ -24,19 +24,19 @@
     <select id="selectTotalByZipId" parameterType="long" resultType="_int">
         SELECT COUNT(*)
         FROM ZIP_ANSWER
-        WHERE ZIP_ANSWER_ID = #{zipAnswerId}
+        WHERE ZIP_ID = #{zipId}
     </select>
 
     <!--  댓글 수정  -->
     <update id="updateAnswer" parameterType="ZipAnswerModifyDTO">
         UPDATE ZIP_ANSWER
         SET ZIP_ANSWER_CONTENT = #{zipAnswerContent}, ZIP_ANSWER_UPDATED_AT = SYSDATE
-        WHERE ZIP_ANSWER_ID = #{zipAnswerId}
+        WHERE ZIP_ANSWER_ID = #{zipAnswerId} AND USERS_ID = #{userId}
     </update>
-    
+
     <!--  댓글 삭제  -->
     <delete id="deleteByAnswer" parameterType="long">
         DELETE FROM ZIP_ANSWER
-        WHERE ZIP_ANSWER_ID = #{zipAnswerId}
+        WHERE ZIP_ANSWER_ID = #{zipAnswerId} AND USERS_ID = #{userId}
     </delete>
 </mapper>
