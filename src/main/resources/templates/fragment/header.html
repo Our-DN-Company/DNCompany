@@ -32,14 +32,14 @@
             <a href="#">TALK</a>
             <div class="snb">
               <ul>
-                <li><a href="#">댕냥바다</a></li>
-                <li><a href="#">초보Zip</a></li>
-                <li><a href="#">우리들의 이벤트</a></li>
+                <li><a th:href="@{/dn/market}">댕냥바다</a></li>
+                <li><a th:href="@{/zip/community}">초보Zip</a></li>
+                <li><a th:href="@{/event/list}">우리들의 이벤트</a></li>
               </ul>
             </div>
           </li>
           <li>
-            <a href="#">WHERE</a>
+            <a th:href="@{/map/hospital}">WHERE</a>
             <div class="snb">
               <ul>
                 <li><a th:href="@{/map/hospital}">동물 병원 정보</a></li>
@@ -48,19 +48,19 @@
             </div>
           </li>
           <li>
-            <a href="#">Q&A</a>
+            <a th:href="@{/qna/list}">Q&A</a>
             <div class="snb">
               <ul></ul>
             </div>
           </li>
         </ul>
         <nav>
-          <ul th:if="${session.userId == null}">
+          <ul th:if="${session.usersId == null}">
             <li class="nav__item"><a th:href="@{/user/login}">로그인 / 회원가입</a></li>
             <li class="nav__item"><a th:href="@{/mypage/main}">마이페이지</a></li>
             <li class="nav__item"><a th:href="@{/user/login}">캘린더</a></li>
           </ul>
-          <ul th:unless="${session.userId == null}">
+          <ul th:unless="${session.usersId == null}">
             <li class="nav__item"><a th:href="@{/mypage/main}">
               <span class="nav__user__name" th:text="${session.loginId} + '님의' "></span> 마이페이지</a></li>
             <li class="nav__item"><a th:href="@{/schedule/calender}">캘린더</a></li>

@@ -1,12 +1,19 @@
+@media (max-width: 1350px) {
+  .shopLayout_shoppingContainer {
+    width: 90%;
+  }
+}
+
 .shopLayout_shoppingContainer {
-  margin: 100px 0;
+  padding-top: 40px;
   width: 100%;
 }
 
 .shopLayout_shoppingContents {
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 0 27px;
+  min-width: 1050px;
+  margin-top: 90px;
+  margin-bottom: 60px;
+  padding: 70px 60px;
 }
 
 /* 검색창 */
