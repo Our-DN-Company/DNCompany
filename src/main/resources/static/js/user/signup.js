@@ -217,10 +217,10 @@ function enableEditing() {
   emailTxt.disabled = false;
   domainListEl.classList.remove("active1");
 }
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 // 유효성 검사 함수
 function isValidEmail(email) {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email.trim());
 }
 
@@ -443,11 +443,13 @@ const $addressBtn = document.querySelector(".address_btn");
     address_execDaumPostcode();
   });
 
+var addr = ""; // 주소 변수
+var extraAddr = ""; // 참고항목 변수
+
 function address_execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
-      var addr = ""; // 주소 변수
-      var extraAddr = ""; // 참고항목 변수
+
 
       // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
       if (data.userSelectedType === "R") {
@@ -487,14 +489,14 @@ function address_execDaumPostcode() {
           .classList.remove("disabled"); // 비활성화 클래스 제거
 
       // 주소 입력 필드는 계속 비활성화
-      document.getElementById("address").disabled = true;
+      document.getElementById("address").readOnly = true;
     },
   }).open();
 }
 
 // 상세주소 입력 이벤트 리스너
 document
-    .getElementById("detailAddress")
+    .getElementById("addressDetail")
     .addEventListener("input", function () {
       // 상세주소 입력을 시작하면 메시지 숨기기
       if (this.value.trim() !== "") {
@@ -509,7 +511,7 @@ document
 
 // 상세주소가 비어있을 경우 메시지 보여주기
 document
-    .getElementById("address_detailAddress")
+    .getElementById("addressDetail")
     .addEventListener("blur", function () {
       if (this.value.trim() === "") {
         document.querySelector(".address__message").style.display = "block";
@@ -518,25 +520,31 @@ document
 
 
 
-
-
-// 성별
 const $radios = document.querySelectorAll(".info__gender");
+
 $radios.forEach(($radio) => {
   $radio.addEventListener("click", function () {
     removeActive();
 
+    // 클릭된 항목에 active 클래스를 추가
     this.classList.add("active");
-    const $inner = this.querySelector(".gender__btn__in");
 
+    // 내부 span 요소에 active 클래스를 추가
+    const $inner = this.querySelector(".gender__btn__in");
     $inner.classList.add("active");
   });
 });
 
 function removeActive() {
   $radios.forEach(($r) => {
+    // 모든 항목에서 active 클래스 제거
     $r.classList.remove("active");
-    $r.querySelector(".gender__btn__in").classList.remove("active");
+
+    // 내부 span 요소에서도 active 클래스 제거
+    const $inner = $r.querySelector(".gender__btn__in");
+    if ($inner) {
+      $inner.classList.remove("active");
+    }
   });
 }
 
@@ -561,16 +569,12 @@ function allowNumbersOnly(event) {
 
 // 입력값 검사 함수 (범위 제한)
 function limitValue(inputField, min, max) {
-    let value = parseInt(inputField.value, 10);
-    if (value < min) {
-        inputField.value = min
-            .toString()
-            .padStart(inputField.placeholder.length, "0"); // 최소값으로 설정
-    } else if (value > max) {
-        inputField.value = max
-            .toString()
-            .padStart(inputField.placeholder.length, "0"); // 최대값으로 설정
-    }
+  let value = parseInt(inputField.value, 10);
+  if (value < min) {
+    inputField.value = min.toString().padStart(inputField.placeholder.length, "0"); // 최소값으로 설정
+  } else if (value > max) {
+    inputField.value = max.toString().padStart(inputField.placeholder.length, "0"); // 최대값으로 설정
+  }
 }
 
 // 각 입력 필드에 keydown 이벤트 리스너 추가
@@ -633,13 +637,17 @@ document.getElementById("birthYear").addEventListener("input", updateBirthDate);
 document.getElementById("birthMonth").addEventListener("input", updateBirthDate);
 document.getElementById("birthDay").addEventListener("input", updateBirthDate);
 
+
 const $form = document.querySelector(".signup__input__box");
 
 // 폼 제출 처리
 {
   $form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    console.log("submit@@@@@")
     // 아이디 검사
-    if (!regexid.test(elInputId.value)) {
+    if (!regexId.test(elInputId.value)) {
       e.preventDefault();
       alert('아이디는 영문, 숫자 조합 6~12자로 입력해주세요.');
       elInputId.focus();
@@ -661,13 +669,38 @@ const $form = document.querySelector(".signup__input__box");
       elInputPwConfirm.focus();
       return;
     }
+    // 이름
+    if (!elInputName.value.trim()) {
+      e.preventDefault();
+      console.log("들어왔다")
+      alert('이름을 입력해주세요.');
+      elInputName.focus(); // 입력 필드에 포커스 맞추기
+      return;
+    }
+    // 아이디 검사
+    if (!emailRegex.test(emailField.value)) {
+      e.preventDefault();
+      alert('이메일 형식을 확인해보세요.');
+      emailField.focus();
+      return;
+    }
 
     // 휴대폰 인증 검사
     if (!isPhoneVerified) {
       e.preventDefault();
       alert('휴대폰 인증이 필요합니다.');
+      elInputPwConfirm.focus();
       return;
     }
 
+    if (!addr.trim()) {
+      e.preventDefault();
+      alert("주소를 입력해주세요.");
+      address_execDaumPostcode();
+      return; // 주소가 없으면 추가 작업을 멈추고 리턴
+    }
+
+    this.submit();
+    alert("회원가입 완료!")
   });
 }

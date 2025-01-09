@@ -187,7 +187,7 @@
                   <label class="info__title">주소<span class="required">*</span></label>
                 </div>
 
-                <input type="hidden" id="zipCode" name="zipCode">
+                <input type="hidden" required id="zipCode" name="zipCode">
                 <input type="hidden" id="addressExtra" name="addressExtra">
 
                 <div class="signup__info__box">
@@ -198,12 +198,13 @@
                                                         placeholder="주소"
                                                         required
                                                         class="info__box__in__content"
-                                                        disabled>
+                                                        readonly>
 
                     <label for="addressDetail"></label><input type="text"
                                                               id="addressDetail"
                                                               name="addressDetail"
                                                               placeholder="상세주소"
+                                                              required
                                                               disabled
                                                               class="info__box__in__content">
 
@@ -273,7 +274,7 @@
                 <div class="signup__info__box__date">
                   <div class="info__date__box">
                     <div height="40" class="info__date__box__in">
-                      <input type="hidden" id="birthDate" name="birthdate" value="">
+                      <input type="hidden" id="birthDate" name="birthDate" value="">
                       <label for="birthYear"></label><input data-testid="input-box"
                                                             id="birthYear"
                                                             name="birthYear"

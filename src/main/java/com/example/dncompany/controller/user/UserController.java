@@ -58,7 +58,7 @@ public class UserController {
                         RedirectAttributes redirectAttributes) {
         try {
             UserSessionDTO loginInfo = userService.getLoginInfo(userLoginDTO);
-            session.setAttribute("userId", loginInfo.getUsersId());
+            session.setAttribute("usersId", loginInfo.getUsersId());
             session.setAttribute("loginId", loginInfo.getLoginId());
             session.setAttribute("role", loginInfo.getRole());
 
