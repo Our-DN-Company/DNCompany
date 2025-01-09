@@ -30,11 +30,11 @@
                             <div class="qaDetail_labelListWrapper">
                                 <button class="mylabel_activeLabel" >강아지</button>
                             </div>
-                            <h1 class="qaDetail_qaDetailTop" th:text="*{zipTitle}">
+                            <h1 class="qaDetail_qaDetailTop" th:text="${board.zipTitle}">
                                 4개월 마티즈 파보장염에 대해 궁굼한게 있어요
                             </h1>
                         </div>
-                        <div class="qaDetail_qaDetailText" th:text="${zipContent}">
+                        <div class="qaDetail_qaDetailText" th:text="${board.zipContent}">
                             강아지 공장에서 구출된 4개월 남아를 이틀전에 입양했는데요
                             입양한첫날밤부터 변을 보는데 설사가좀섞여서 나오더니
                             다음날부터 설사를 심하게 해서 병원에 갔더니
@@ -94,7 +94,7 @@
                                     <img
                                             src="https://bff-images.bemypet.kr/media/medias/profile_image/927-image_picker4881577713905119062.jpg"
                                     />
-                                    <div class="qaDetail_qaDetailUser" >삼색이짱짱</div>
+                                    <div class="qaDetail_qaDetailUser" th:text="${board.nickname}">삼색이짱짱</div>
                                     <div class="qaDetail_qaDetailDate">2024.12.17</div>
                                 </a>
                             </div>
@@ -106,7 +106,7 @@
 
                     <!-- 댓글 -->
                     <div class="qaDetail_qaDetailAnswerWrapper">
-                        <div class="qaDetail_qaDetailTotal" >댓글 0</div>
+                        <div class="qaDetail_qaDetailTotal" th:text="'댓글 : ' + ${board.answerCount}">댓글 0</div>
                         <div class="qaDetail_qaDetailComment">
                             <div class="answer_qaAnswerInputWrapper">
                                 <textarea placeholder="댓글을 입력해주세요"></textarea>

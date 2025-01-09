@@ -25,14 +25,14 @@
             <div class="qaDetail_qaDetailContainer">
                 <div class="qaDetail_qaDetailContent">
                     <!-- 작성글 박스 -->
-                    <div class="qaDetail_qaDetailQuestion">
+                    <div class="qaDetail_qaDetailQuestion" >
                         <div class="qaDetail_qaDetailTitle">
-                            <div class="qaDetail_labelListWrapper"></div>
-                            <h1 class="qaDetail_qaDetailTop">
+                            <div class="qaDetail_labelListWrapper" ></div>
+                            <h1 class="qaDetail_qaDetailTop" th:text="${qna.qnaTitle}">
                                 4개월 마티즈 파보장염에대해궁굼한게있어요
                             </h1>
                         </div>
-                        <div class="qaDetail_qaDetailText">
+                        <div class="qaDetail_qaDetailText" th:text="${qna.qnaContent}">
                             강아지 공장에서 구출된 4개월 남아를 이틀전에 입양했는데요
                             입양한첫날밤부터 변을 보는데 설사가좀섞여서 나오더니
                             다음날부터 설사를 심하게 해서 병원에 갔더니
@@ -65,8 +65,8 @@
                             <div>
                                 <a href="" class="qaDetail_infoWrapper">
                                     <img src=""/>
-                                    <div class="qaDetail_qaDetailUser">닉네임</div>
-                                    <div class="qaDetail_qaDetailDate">작성 날짜</div>
+                                    <div class="qaDetail_qaDetailUser" th:text="${qna.nickname}">닉네임</div>
+                                    <div class="qaDetail_qaDetailDate" th:text="${qna.qnaUpdateAt}">작성 날짜</div>
                                 </a>
                             </div>
                         </div>

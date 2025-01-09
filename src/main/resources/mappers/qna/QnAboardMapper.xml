@@ -18,4 +18,26 @@
                  JOIN USERS U ON QB.USERS_ID = U.USERS_ID
         ORDER BY QNA_ID DESC
     </select>
+
+    <!--  게시글 상세 정보  -->
+    <select id="QnASelectById" parameterType="long" resultType="QnADetailDTO">
+        SELECT QB.QNA_ID, QB.QNA_TITLE, QB.QNA_CONTENT, QB.QNA_UPDATE_AT,
+               U.USERS_ID, U.NICKNAME
+        FROM QNA_BOARD QB
+                 JOIN USERS U ON QB.USERS_ID = U.USERS_ID
+        WHERE QB.QNA_ID = #{qnaId}
+    </select>
+
+    <!--  게시글 수정  -->
+    <update id="updateQnABoard" parameterType="QnAModifyDTO">
+        UPDATE QNA_BOARD
+        SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}, QNA_UPDATE_AT = SYSDATE
+        WHERE QNA_ID = #{qnaId}
+    </update>
+
+    <!--  게시글 삭제  -->
+    <delete id="deleteQnABoard" parameterType="long">
+        DELETE FROM QNA_BOARD
+        WHERE QNA_ID = #{qnaId}
+    </delete>
 </mapper>
