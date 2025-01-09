@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter @Setter @ToString
 public class ZipBoardDetailDTO {
@@ -12,8 +12,8 @@ public class ZipBoardDetailDTO {
     private String zipPetCategory;
     private String zipTitle;
     private String zipContent;
-    private LocalDate zipCreatedAt;
-    private LocalDate zipUpdatedAt;
+    private LocalDateTime zipCreatedAt;
+    private LocalDateTime zipUpdatedAt;
     private int zipViewCount;
     private int answerCount;
     private Long userId;
