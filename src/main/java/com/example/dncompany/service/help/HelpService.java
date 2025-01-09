@@ -1,6 +1,6 @@
 package com.example.dncompany.service.help;
 
-import com.example.dncompany.dto.help.HelpListResponseDTO;
+import com.example.dncompany.dto.help.HelpListDTO;
 import com.example.dncompany.dto.help.HelpRequestDTO;
 import com.example.dncompany.dto.help.HelpResponseDTO;
 import com.example.dncompany.exception.help.HelpNotFoundException;
@@ -24,7 +24,7 @@ public class HelpService {
     }
 
     // 게시글 목록 조회
-    public List<HelpListResponseDTO> getHelpList() {
+    public List<HelpListDTO> getHelpList() {
         return helpMapper.selectHelpList();
     }
 
