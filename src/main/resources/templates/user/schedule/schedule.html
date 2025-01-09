@@ -43,12 +43,12 @@
                       <div>
                         <span th:text="'돌봄 날짜: ' + ${schedule.helpCareDate}">2024-01-01</span><br>
                         <span th:text="'돌봄 종류: ' + ${schedule.helpCareType}">산책</span><br>
-                        <span th:text="'돌봄 시간: ' + ${schedule.helpStartTime}">06:00</span><br>
+                        <span th:text="'시작 시간: ' + ${schedule.helpStartTime}">06:00</span><br>
                         <span th:text="'종료 시간: ' + ${schedule.helpEndTime}">12:00</span><br>
                       </div>
                     </a>
                   </div>
-                  <div th:unless="${scheduleList != null} or ${scheduleList.isEmpty()}">
+                  <div class="no-schedule" th:unless="${scheduleList != null} or ${scheduleList.isEmpty()}">
                     <span>오늘은 스케쥴이 없습니다.</span>
                   </div>
                 </th:block>

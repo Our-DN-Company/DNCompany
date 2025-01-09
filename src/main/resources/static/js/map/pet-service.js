@@ -302,3 +302,8 @@ function removeAllChildNods(el) {
 // $searchBefore.addEventListener("click", (e) => {
 //   e.style.display = "hidden";
 // });
+
+
+import * as mapApi from './modules/mapApi.js';
+
+mapApi.petServiceMapApi();
