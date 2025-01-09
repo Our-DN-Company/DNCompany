@@ -1,4 +1,5 @@
 import * as scheduleListApi from '../modules/scheduleListApi.js';
+import { fetchEventsForDate } from '../modules/scheduleListApi.js';
 
 // 두 함수, 메서드 모두 log 찍어보았으나 이상없이 잘 출력됨
 // console.log(scheduleListApi);
@@ -72,10 +73,62 @@ function insertSchedule(data) {
                 domNodes: [],
             };
         },
-
         events:scheList,
-        editable: true, // false로 변경 시 draggable 작동 x
+        editable: false, // false로 변경 시 draggable 작동 x
+
+        // 날짜 클릭 시 호출될 함수 정의
+        dateClick: function(info) {
+            // 클릭한 날짜의 이벤트를 가져오는 함수 호출
+            fetchEventsForDate(info.dateStr)
+                .then(events => {
+                    // 가져온 이벤트 목록을 화면에 표시하는 함수 호출
+                    displayEventList(events);
+                })
+                .catch(error => {
+                    // 오류 발생 시 처리 로직 (예: 사용자에게 알림)
+                    console.error('Error fetching events:', error);
+                });
+        }
 
     });
     calendar.render();
+}
+
+// 이벤트 목록을 표시하는 함수 정의
+function displayEventList(events) {
+    // 스케줄 목록을 표시할 요소 선택
+    var scheduleContainer = document.querySelector('.my-schedule');
+
+    // 기존 스케줄 목록 초기화
+    scheduleContainer.innerHTML = '';
+
+    if (events.length > 0) {
+        // 이벤트가 있는 경우
+        events.forEach(event => {
+            // 새로운 스케줄 아이템 생성
+            var scheduleItem = document.createElement('div');
+            scheduleItem.classList.add('my-schedule-list');
+
+            // 스케줄 내용 설정
+            scheduleItem.innerHTML = `
+            <a href="#">
+              <span class="my-schedule-list-top">${event.title}</span>
+              <div>
+                <span>돌봄 날짜: ${event.date}</span><br>
+                <span>돌봄 종류: ${event.type}</span><br>
+                <span>돌봄 시간: ${event.startTime}</span><br>
+                <span>종료 시간: ${event.endTime}</span><br>
+              </div>
+            </a>
+          `;
+
+            // 스케줄 컨테이너에 아이템 추가
+            scheduleContainer.appendChild(scheduleItem);
+        });
+    } else {
+        // 이벤트가 없는 경우
+        var noScheduleMessage = document.createElement('span');
+        noScheduleMessage.textContent = '오늘은 스케줄이 없습니다.';
+        scheduleContainer.appendChild(noScheduleMessage);
+    }
 }

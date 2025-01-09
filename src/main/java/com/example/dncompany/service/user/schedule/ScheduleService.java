@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -20,6 +21,11 @@ public class ScheduleService {
 
     public List<ScheduleListDTO> getScheduleList(Long userId) {
 
+        return scheduleMapper.selectScheduleByUserId(userId);
+    }
+
+    public List<ScheduleListDTO> getScheduleDayList(LocalDate helpCareDate,
+                                                    Long userId) {
 
         return scheduleMapper.selectScheduleByUserId(userId);
     }

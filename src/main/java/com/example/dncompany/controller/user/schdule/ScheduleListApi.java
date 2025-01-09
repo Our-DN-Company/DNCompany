@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -23,5 +24,13 @@ public class ScheduleListApi {
 //        usersId = userSessionId;
         return scheduleService.getScheduleList(usersId);
     }
+
+    @GetMapping("/v1/users/schedules/dates/{dateStr}")
+    public List<ScheduleListDTO> getDayUserSchedules(@PathVariable("dateStr") LocalDate dateStr,
+                                                     @SessionAttribute(value = "usersId", required = false) Long usersId){
+        usersId = 6L;
+        return scheduleService.getScheduleDayList(dateStr, usersId);
+    }
+
 
 }
