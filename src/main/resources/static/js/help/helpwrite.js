@@ -1,23 +1,25 @@
 function confirmSubmit(event) {
     event.preventDefault(); // 폼 제출 기본 동작 중지
 
+    console.log('click!')
+
     if(confirm('등록하시겠습니까?')) {
+        console.log("등록~~~")
         document.getElementById('petForm').submit(); // 사용자가 '확인'을 클릭하면 폼 제출
     }
-    return false;
 }
 
-document.getElementById('end-date').addEventListener('change', function() {
-    const startDate = document.getElementById('start-date').value;
-    const endDate = this.value;
-
-    if(startDate && endDate) {
-        if(new Date(endDate) < new Date(startDate)) {
-            alert('종료일은 시작일보다 빠를 수 없습니다.');
-            this.value = '';
-        }
-    }
-});
+// document.getElementById('end-date').addEventListener('change', function() {
+//     const startDate = document.getElementById('start-date').value;
+//     const endDate = this.value;
+//
+//     if(startDate && endDate) {
+//         if(new Date(endDate) < new Date(startDate)) {
+//             alert('종료일은 시작일보다 빠를 수 없습니다.');
+//             this.value = '';
+//         }
+//     }
+// });
 
 const elZonecode = document.querySelector("#zonecode");
 const elRoadAddress = document.querySelector("#roadAddress");
@@ -48,9 +50,9 @@ const register = () => {
 document.querySelector("#search-btn").addEventListener("click", () => {
     onClickSearch();
 });
-document.querySelector("#register-btn").addEventListener("click", () => {
-    register();
-});
+// document.querySelector("#register-btn").addEventListener("click", () => {
+//     register();
+// });
 elRoadAddressDetail.addEventListener("change", (e) => {
     elRoadAddressDetail.setAttribute("value", e.target.value);
 });

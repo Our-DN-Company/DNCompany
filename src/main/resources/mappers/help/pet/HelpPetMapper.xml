@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.help.pet.HelpPetMapper">
+    <select id="selectByUsersId" parameterType="long" resultType="HelpPetListDTO">
+        SELECT PET_ID, PET_SPECIES, PET_NAME, PET_AGE, PET_GENDER, PET_BIRTH_DATE, ADOPTION_DATE, USERS_ID
+        FROM PET
+        WHERE USERS_ID = #{usersId}
+    </select>
+
+</mapper>
