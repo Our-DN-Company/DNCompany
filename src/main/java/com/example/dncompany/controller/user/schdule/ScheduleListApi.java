@@ -16,9 +16,9 @@ public class ScheduleListApi {
     private final ScheduleService scheduleService;
 
     @GetMapping("/v1/users/schedules/{usersId}")
-    public List<ScheduleListDTO> getUserSchedules(@PathVariable("usersId") Long usersId,
-                                                  @SessionAttribute(value = "usersId", required = false) Long userSessionId
+    public List<ScheduleListDTO> getUserSchedules(@PathVariable("usersId") Long usersId
                                                   ) {
+//        @SessionAttribute(value = "usersId", required = false) Long userSessionId
         usersId = 6L;
 //        usersId = userSessionId;
         return scheduleService.getScheduleList(usersId);
