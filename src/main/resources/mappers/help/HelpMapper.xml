@@ -7,8 +7,8 @@
         <selectKey keyProperty="helpId" resultType="long" order="BEFORE">
             SELECT SEQ_HELP_BOARD.nextval FROM DUAL
         </selectKey>
-        INSERT INTO HELP_BOARD(HELP_ID, HELP_TITLE, HELP_SPECIES, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_START_TIME, HELP_END_TIME, HELP_ADDRESS, HELP_ADDRESS_DETAIL, HELP_PRICE, HELP_POINT, USERS_ID)
-        VALUES (#{helpId, jdbcType=NUMERIC}, #{helpTitle, jdbcType=VARCHAR}, #{helpSpecies, jdbcType=VARCHAR}, #{helpCareType, jdbcType=VARCHAR}, #{helpCareDate, jdbcType=DATE}, #{helpStartTime, jdbcType=TIMESTAMP}, #{helpEndTime, jdbcType=TIMESTAMP}, #{helpAddress, jdbcType=VARCHAR}, #{helpAddressDetail, jdbcType=VARCHAR}, #{helpPrice, jdbcType=NUMERIC}, #{helpPoint, jdbcType=NUMERIC}, #{usersId, jdbcType=NUMERIC})
+        INSERT INTO HELP_BOARD(HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_START_TIME, HELP_END_TIME, HELP_ADDRESS, HELP_ADDRESS_DETAIL, HELP_PRICE, HELP_POINT, USERS_ID, PET_ID, HELP_SPECIAL_NOTE)
+        VALUES (#{helpId}, #{helpTitle}, #{helpCareType}, #{helpCareDate}, #{helpStartTime}, #{helpEndTime}, #{helpAddress}, #{helpAddressDetail}, #{helpPrice}, #{helpPoint}, #{usersId}, #{petId}, #{helpSpecialNote})
     </insert>
 
     <!-- 도와주세요 게시글 목록 조회 -->
@@ -20,7 +20,7 @@
 
     <!-- 도와주세요 게시글 상세 조회 -->
     <select id="selectHelpDetail" resultType="HelpResponseDTO">
-        SELECT HELP_ID, HELP_TITLE, HELP_SPECIES, HELP_CARE_TYPE, HELP_CARE_DATE,
+        SELECT HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE,
             HELP_START_TIME, HELP_END_TIME, HELP_ADDRESS, HELP_ADDRESS_DETAIL, HELP_PRICE, HELP_POINT,
             USERS_ID, HELP_CREATED_AT
         FROM HELP_BOARD

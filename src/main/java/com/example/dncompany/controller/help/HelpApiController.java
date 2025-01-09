@@ -15,9 +15,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelpApiController {
     private final HelpService helpService;
 
-    @PostMapping
-    public ResponseEntity<Void> registerHelp(@RequestBody HelpRequestDTO helpRequestDTO) {
-        helpService.registerHelp(helpRequestDTO);
-        return ResponseEntity.ok().build();
-    }
+
 }

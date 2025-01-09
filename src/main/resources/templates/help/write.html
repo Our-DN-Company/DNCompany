@@ -23,7 +23,7 @@
         <main>
 
             <!-- 글쓰기 폼 -->
-            <form class="pet-form" id="petForm">
+            <form class="pet-form" id="petForm" th:action="@{/help/write}" method="post">
                 <h1 class="form-title">펫시팅 신청 기본정보</h1>
 
                 <!-- 기본 정보 섹션 -->
@@ -34,7 +34,7 @@
                             제목
                             <span class="required">*</span>
                         </label>
-                        <input type="text" placeholder="예) 우리 댕댕이 산책 도와주실 분 구해요" required>
+                        <input name="helpTitle" type="text" placeholder="예) 우리 댕댕이 산책 도와주실 분 구해요" required>
                     </div>
 
                 </div>
@@ -47,7 +47,7 @@
                             돌봄 유형
                             <span class="required">*</span>
                         </label>
-                        <select required>
+                        <select name="helpCareType" required>
                             <option value="">선택해주세요</option>
                             <option value="walk">산책</option>
                             <option value="care">돌봄</option>
@@ -62,7 +62,7 @@
                         <div class="date-range">
                             <div class="date-input">
                                 <label class="sub-label">돌봄일</label>
-                                <input type="date" id="start-date" required>
+                                <input type="date" id="start-date" name="helpCareDate" required>
                             </div>
                         </div>
                     </div>
@@ -71,12 +71,12 @@
                             희망 시간
                             <span class="required">*</span>
                         </label>
-                        <select required>
+                        <select name="helpTime" required>
                             <option value="">선택해주세요</option>
-                            <option>오전 (06:00-12:00)</option>
-                            <option>오후 (12:00-18:00)</option>
-                            <option>저녁 (18:00-24:00)</option>
-                            <option>종일 돌봄</option>
+                            <option value="06-12">오전 (06:00-12:00)</option>
+                            <option value="12-18">오후 (12:00-18:00)</option>
+                            <option value="18-24">저녁 (18:00-24:00)</option>
+                            <option value="00-24">종일 돌봄</option>
                         </select>
                     </div>
                     <!-- 포인트 입력 -->
@@ -86,6 +86,7 @@
                             <span class="required">*</span>
                         </label>
                         <input type="number"
+                               name="helpPoint"
                                placeholder="1000~4000 포인트 범위 내"
                                min="1000"
                                max="4000"
@@ -99,8 +100,10 @@
                             <span class="required">*</span>
                         </label>
                         <input type="number"
+                               name="helpPrice"
                                placeholder="희망 가격을 입력해주세요"
                                required>
+                    </div>
                 </div>
 
                 <!-- 반려동물 정보 섹션 -->
@@ -108,90 +111,20 @@
                     <h2>반려동물 정보</h2>
                     <div class="form-group">
                         <label>
-                            동물 종류
+                            반려동물 선택
                             <span class="required">*</span>
                         </label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="pet-type" value="dog" required>
-                                <span>강아지</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="pet-type" value="cat">
-                                <span>고양이</span>
-                            </label>
-                        </div>
+                        <select name="petId" required>
+                            <option value="">선택해주세요</option>
+                            <option th:each="pet : ${petList}" th:text="${pet.petName}" th:value="${pet.petId}">바둑이</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label>
-                            성별
-                            <span class="required">*</span>
-                        </label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="pet-gender" value="female" required>
-                                <span>여자아이</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="pet-gender" value="male">
-                                <span>남자아이</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            나이
-                            <span class="required">*</span>
-                        </label>
-                        <div class="checkbox-group">
-                            <label class="radio-label">
-                                <input type="radio" name="age" value="12">
-                                <span>12개월 미만</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="age" value="1-2">
-                                <span>1-2살</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="age" value="3-5">
-                                <span>3-5살</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="age" value="6-7">
-                                <span>6-7살</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="age" value="8">
-                                <span>8살 이상</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            품종
-                            <span class="required">*</span>
-                        </label>
-                        <input type="text" placeholder="예) 말티즈" required>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            중성화 여부
-                            <span class="required">*</span>
-                        </label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="yes/no" id="yes">
-                                <span>했어요</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="yes/no" id="no">
-                                <span>안했어요</span>
-                            </label>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label>특이사항</label>
-                        <textarea placeholder="반려동물의 특이사항을 입력해주세요" rows="3"></textarea>
+                        <textarea placeholder="반려동물 및 돌봄 특이사항을 입력해주세요(품종, 중성화 여부, 정확한 시간 등)"
+                                  rows="3"
+                                  name="helpSpecialNote"></textarea>
                     </div>
                 </div>
 
@@ -203,40 +136,42 @@
                                 type="text"
                                 class="el_input hp_txt-center"
                                 placeholder=""
-                                disabled
+                                readonly
                                 id="zonecode"
                         />
-                        <button class="el_btn el_btn--outline hp_shrink-0" id="search-btn">
-                            우편번호 찾기
+                        <button type="button" class="el_btn el_btn--outline hp_shrink-0" id="search-btn">
+                            주소 찾기
                         </button>
                     </div>
                     <input
                             type="text"
+                            name="helpAddress"
                             class="el_input"
                             placeholder=""
-                            disabled
+                            readonly
                             id="roadAddress"
                     />
                     <input
                             type="text"
+                            name="helpAddressDetail"
                             class="el_input"
                             placeholder="상세주소를 입력해주세요."
                             id="roadAddressDetail"
                     />
-                    <button class="el_btn" id="register-btn">주소 등록하기</button>
+<!--                    <button class="el_btn" id="register-btn" type="button">주소 등록하기</button>-->
                 </div>
-                <div class="bl_stack">
-                    <div class="el_ttl">주소 입력 결과</div>
-                    <div class="el_ttl">우편번호</div>
-                    <div class="el_result"></div>
-                    <div class="el_ttl">주소</div>
-                    <div class="el_result"></div>
-                    <div class="el_ttl">상세주소</div>
-                    <div class="el_result"></div>
-                </div>
+<!--                <div class="bl_stack">-->
+<!--                    <div class="el_ttl">주소 입력 결과</div>-->
+<!--                    <div class="el_ttl">우편번호</div>-->
+<!--                    <div class="el_result"></div>-->
+<!--                    <div class="el_ttl">주소</div>-->
+<!--                    <div class="el_result"></div>-->
+<!--                    <div class="el_ttl">상세주소</div>-->
+<!--                    <div class="el_result"></div>-->
+<!--                </div>-->
 
                 <!-- 제출 버튼 -->
-                <button type="submit" class="submit-button" onclick="return confirmSubmit(event)">등록하기</button>
+                <button type="button" class="submit-button" onclick="confirmSubmit(event)">등록하기</button>
             </form>
 
         </main>
