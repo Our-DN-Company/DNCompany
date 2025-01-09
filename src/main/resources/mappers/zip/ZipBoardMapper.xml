@@ -42,7 +42,7 @@
     <!--  게시글 수정  -->
     <update id="updateZipBoard" parameterType="ZipBoardModifyDTO">
         UPDATE ZIP_BOARD
-        SET ZIP_CATEGORY = #{zipCategory}, ZIP_PET_CATEGORY = #{zipPetCategory}, ZIP_TITLE = #{zipTitle}, ZIP_CONTENT = #{zipContent}
+        SET ZIP_CATEGORY = #{zipCategory}, ZIP_PET_CATEGORY = #{zipPetCategory}, ZIP_TITLE = #{zipTitle}, ZIP_CONTENT = #{zipContent}, ZIP_UPDATE_AT = SYSDATE
         WHERE ZIP_ID = #{zipId}
     </update>
 
