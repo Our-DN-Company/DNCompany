@@ -4,15 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDate;
-
 @Getter @Setter @ToString
-public class ZipAnswerDTO {
+public class ZipAnswerWriteDTO {
     private Long zipAnswerId;
     private String zipAnswerContent;
-    private LocalDate zipAnswerCreatedAt;
-    private LocalDate zipAnswerUpdatedAt;
     private Long zipId;
     private Long userId;
-    private String nickname;
 }

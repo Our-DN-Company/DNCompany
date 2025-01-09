@@ -1,0 +1,124 @@
+.question_questionContainer {
+  margin: 100px 0;
+  width: 100%;
+}
+
+.question_questionContent {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+.question_questionMark {
+  color: red;
+}
+
+.question_radioWrap {
+  margin: 20px 0 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+/* 제목 박스 */
+.question_questionCategory {
+  font-family: Pretendard-Regular;
+  letter-spacing: 3px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.question_titleInput {
+  margin: 10px 0;
+  padding: 0 10px;
+  width: 100%;
+  height: 55px;
+  border: 1px solid #e4e4e6;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+/* 제목 박스 여백 */
+.question_alertText {
+  padding-left: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: red;
+}
+
+/* 내용 입력 박스 */
+.question_questionInputWrapper {
+  margin-bottom: 58px;
+}
+
+.question_questionInput {
+  margin-bottom: 10px;
+  padding: 20px 10px;
+  width: 100%;
+  height: 300px;
+  resize: none;
+  border: 1px solid #e4e4e6;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+/* 업로드 영역 */
+.question_fileInputWrapper {
+  margin: 50px 0;
+}
+
+/* 사진 업로드 박스 */
+.question_questionImgContainer {
+  height: 112px;
+  margin: 16px 0 20px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 1px dashed #868688;
+  border-radius: 15px;
+  text-align: center;
+  color: #f24147;
+}
+
+.question_inputFileBtn {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  position: relative;
+  padding: 8px 20px;
+  background-color: #f6f6f9;
+  border-radius: 21px;
+  color: black;
+  font-weight: 700;
+}
+
+.question_imgDesc {
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  color: lightgray;
+}
+
+.question_inputFileText {
+  font-size: 12px;
+}
+
+.question_thumbnailText {
+  color: lightgray;
+}
+
+.question_nosubmitBtn {
+  width: 240px;
+  height: 40px;
+  background-color: #e4e4e6;
+  color: black;
+  border-radius: 21px;
+  border: none;
+  margin: 60px auto 100px;
+  display: block;
+  cursor: pointer;
+  font-weight: 700;
+}

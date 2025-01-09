@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter @Setter @ToString
 public class ZipBoardListDTO {
@@ -13,11 +14,20 @@ public class ZipBoardListDTO {
     private String zipCategory; // zip 카테고리 X, 댕냥바다에 추가 해야할거 같음
     private String zipTitle;
     private String zipContent;
-    private LocalDate zipCreatedAt;
-    private LocalDate zipUpdatedAt;
+    private LocalDateTime zipCreatedAt;
+    private LocalDateTime zipUpdatedAt;
     private int zipViewCount;
     private int zipLikeCount;
     private int answerCount;
     private Long userId;
     private String nickname;
+
+    public String getCreatedAt () {
+        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    public String getUpdatedAt () {
+        return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
 }
