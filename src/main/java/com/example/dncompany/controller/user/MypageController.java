@@ -2,6 +2,7 @@ package com.example.dncompany.controller.user;
 
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
 
+import com.example.dncompany.dto.user.mypage.HelpMeListDTO;
 import com.example.dncompany.dto.user.mypage.PetSlideDTO;
 import com.example.dncompany.dto.user.mypage.UserProfileDTO;
 import com.example.dncompany.mapper.user.MypageMapper;
@@ -70,6 +71,8 @@ public class MypageController {
 
     @GetMapping("/update/pet")
     public String mypageUpdatePet() {
+
+
         return "user/mypage/update-pet";
     }
 
@@ -95,7 +98,14 @@ public class MypageController {
     }
 
     @GetMapping("/list/helpme")
-    public String mypageListHelpme() {
+    public String mypageListHelpme(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                   Model model) {
+
+        usersId=6L;
+
+
+        List<HelpMeListDTO> helpMeListById = mypageService.helpMeListById(usersId);
+        model.addAttribute("helpMeList", helpMeListById);
         return "user/mypage/work-list/helpme-list";
     }
 

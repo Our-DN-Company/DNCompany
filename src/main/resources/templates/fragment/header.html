@@ -57,7 +57,7 @@
         <nav>
           <ul th:if="${session.userId == null}">
             <li class="nav__item"><a th:href="@{/user/login}">로그인 / 회원가입</a></li>
-            <li class="nav__item"><a th:href="@{/user/login}">마이페이지</a></li>
+            <li class="nav__item"><a th:href="@{/mypage/main}">마이페이지</a></li>
             <li class="nav__item"><a th:href="@{/user/login}">캘린더</a></li>
           </ul>
           <ul th:unless="${session.userId == null}">
