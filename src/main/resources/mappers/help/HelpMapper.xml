@@ -12,8 +12,8 @@
     </insert>
 
     <!-- 도와주세요 게시글 목록 조회 -->
-    <select id="selectHelpList" resultType="HelpListResponseDTO">
-        SELECT HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS, HELP_POINT, HELP_CARE_DATE, HELP_CREATED_AT
+    <select id="selectHelpList" resultType="HelpListDTO">
+        SELECT HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS, HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT
         FROM HELP_BOARD
         ORDER BY HELP_CREATED_AT DESC
     </select>

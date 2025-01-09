@@ -1,6 +1,6 @@
 package com.example.dncompany.service.help;
 
-import com.example.dncompany.dto.help.HelpListResponseDTO;
+import com.example.dncompany.dto.help.HelpListDTO;
 import com.example.dncompany.dto.help.HelpRequestDTO;
 import com.example.dncompany.dto.help.HelpResponseDTO;
 import com.example.dncompany.exception.help.HelpNotFoundException;
@@ -13,11 +13,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,11 +44,11 @@ class HelpServiceTest {
     @DisplayName("게시글 목록 조회 테스트")
     void getHelpList() {
         // given
-        List<HelpListResponseDTO> mockList = List.of(new HelpListResponseDTO());
+        List<HelpListDTO> mockList = List.of(new HelpListDTO());
         when(helpMapper.selectHelpList()).thenReturn(mockList);
 
         // when
-        List<HelpListResponseDTO> result = helpService.getHelpList();
+        List<HelpListDTO> result = helpService.getHelpList();
 
         // then
         assertThat(result).isEqualTo(mockList);
