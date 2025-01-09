@@ -29,25 +29,28 @@
           <div class="login__kit">
             <h2>로그인</h2>
           </div>
-          <form class="login__input">
+          <form class="login__input" th:action="@{/user/login}" method="post">
+            <div th:if="${hasError}" class="alert-danger">
+              <p th:text="${message}"></p>
+            </div>
               <div class="login__input__box">
-                <label>
-                  <input type="text" name="id" placeholder="아이디를 입력해주세요"  value="" />
-                </label>
-                <label>
-                  <input type="text" name="password" placeholder="비밀번호를 입력해주세요" autocomplete="off"
+                <label for="loginId"></label>
+                  <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력해주세요" required value="" />
+
+                <label for="password"></label>
+                  <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" required autocomplete="off"
                     value="" />
-                </label>
+
               </div>
               <div class="login___id___chk__find">
                 <div class="login__id__chk">
                   <div class="login___id___chk__box">
-                    <input type="checkbox" id="saveId" name="saveId" value="y" checked="" />
+                    <input type="checkbox" id="saveId" name="saveId" />
                     <label for="saveId">아이디 저장</label>
                   </div>
                 </div>
                 <div class="login__find">
-                  <a>아이디 찾기</a><span></span><a>비밀번호 찾기</a>
+                  <a href="#">아이디 찾기</a><span></span><a href="#">비밀번호 찾기</a>
                 </div>
               </div>
               <div class="login__btn__box">
