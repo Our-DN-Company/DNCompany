@@ -78,11 +78,24 @@ function insertSchedule(data) {
 
         // 날짜 클릭 시 호출될 함수 정의
         dateClick: function(info) {
+            var scheduleContainer = document.querySelector('.my-schedule');
+            scheduleContainer.innerHTML = '';
+
             // 클릭한 날짜의 이벤트를 가져오는 함수 호출
             fetchEventsForDate(info.dateStr)
                 .then(events => {
-                    // 가져온 이벤트 목록을 화면에 표시하는 함수 호출
-                    displayEventList(events);
+                    let filteredEvents = events.filter(event => info.dateStr === event.helpCareDate);
+
+                    if (filteredEvents.length > 0) {
+                        displayEventList(filteredEvents); // 필터링된 이벤트 배열 전달
+                    } else {
+
+                        var noScheduleMessage = document.createElement('span');
+                        noScheduleMessage.classList.add('noScheduleMessage');
+                        noScheduleMessage.textContent = '해당 날짜엔 스케줄이 없습니다.';
+                        scheduleContainer.appendChild(noScheduleMessage);
+                        console.log("해당 날짜에 이벤트가 없습니다.");
+                    }
                 })
                 .catch(error => {
                     // 오류 발생 시 처리 로직 (예: 사용자에게 알림)
@@ -102,22 +115,27 @@ function displayEventList(events) {
     // 기존 스케줄 목록 초기화
     scheduleContainer.innerHTML = '';
 
+
     if (events.length > 0) {
         // 이벤트가 있는 경우
         events.forEach(event => {
             // 새로운 스케줄 아이템 생성
             var scheduleItem = document.createElement('div');
             scheduleItem.classList.add('my-schedule-list');
+            // console.log(event);
 
             // 스케줄 내용 설정
+            /* TODO : 스케쥴 목록은 다 조회가 되나 나중에 해당 게시물로 이동하는 링크 연결 필요
+                event.helpId로 조회하여 해당 게시글로 이동처리만 하면 됨
+            */
             scheduleItem.innerHTML = `
             <a href="#">
-              <span class="my-schedule-list-top">${event.title}</span>
+              <span class="my-schedule-list-top">${event.helpTitle}</span>
               <div>
-                <span>돌봄 날짜: ${event.date}</span><br>
-                <span>돌봄 종류: ${event.type}</span><br>
-                <span>돌봄 시간: ${event.startTime}</span><br>
-                <span>종료 시간: ${event.endTime}</span><br>
+                <span>돌봄 날짜: ${event.helpCareDate}</span><br>
+                <span>돌봄 종류: ${event.helpCareType}</span><br>
+                <span>시작 시간: ${event.helpStartTime}</span><br>
+                <span>종료 시간: ${event.helpEndTime}</span><br>
               </div>
             </a>
           `;
@@ -125,9 +143,11 @@ function displayEventList(events) {
             // 스케줄 컨테이너에 아이템 추가
             scheduleContainer.appendChild(scheduleItem);
         });
+
     } else {
         // 이벤트가 없는 경우
         var noScheduleMessage = document.createElement('span');
+        noScheduleMessage.classList.add('noScheduleMessage');
         noScheduleMessage.textContent = '오늘은 스케줄이 없습니다.';
         scheduleContainer.appendChild(noScheduleMessage);
     }
