@@ -21,7 +21,6 @@
     <script type="module" th:src="@{/js/user/schedule/schedule.js}"></script>
     <script th:src="@{/js/fragment/header.js}"></script>
     <script th:src="@{/js/fragment/footer.js}"></script>
-    <!--    <script src="/js/common.js"></script>-->
   </head>
   <body>
     <!-- 홈페이지 전체 사이즈 -->
@@ -46,7 +45,7 @@
                         <span th:text="'돌봄 날짜: ' + ${schedule.helpCareDate}">2024-01-01</span><br>
                         <span th:text="'돌봄 종류: ' + ${schedule.helpCareType}">산책</span><br>
                         <span th:text="'돌봄 시간: ' + ${schedule.helpStartTime}">06:00</span><br>
-<!--                        <span th:text="'종료 시간: ' + ${schedule.helpEndTime}">12:00</span><br>-->
+                        <span th:text="'종료 시간: ' + ${schedule.helpEndTime}">12:00</span><br>
                       </div>
                     </a>
                   </div>
