@@ -1,18 +1,17 @@
 package com.example.dncompany.controller.help;
 
 import com.example.dncompany.dto.help.HelpListDTO;
+import com.example.dncompany.dto.help.HelpResponseDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.dto.help.pet.HelpPetListDTO;
+import com.example.dncompany.exception.help.HelpNotFoundException;
 import com.example.dncompany.service.help.HelpService;
 import com.example.dncompany.service.help.pet.HelpPetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -54,9 +53,12 @@ public class HelpController {
     }
 
     @GetMapping("/detail")
-    public String helpDetail(){
+    public String helpDetail(@RequestParam Long helpId, Model model){
+        HelpResponseDTO helpDetail=helpService.getHelpDetail(helpId);
+                model.addAttribute("helpDetail", helpDetail);
         return "help/detail";
     }
+
 }
 
 

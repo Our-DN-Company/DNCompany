@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script defer th:src="@{/js/help/list.js}"></script>
     <title>Document</title>
 </head>
 <body>
@@ -45,7 +46,7 @@
             <!-- 게시글 목록 -->
             <div class="post-list">
                 <!-- 게시글 카드 1 -->
-                <div class="post-card" th:each="help : ${helpList}">
+                <div class="post-card" th:each="help : ${helpList}" th:data-help-id="${help.helpId}">
                     <div class="post-content">
                         <div class="post-tags">
                             <span class="tag tag-purple" th:text="${help.helpCareType}">산책</span>
