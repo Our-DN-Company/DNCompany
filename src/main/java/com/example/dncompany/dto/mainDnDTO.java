@@ -7,9 +7,8 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 public class mainDnDTO {
-    String dnTitle;
-    long productImgId;
-    long dnLikeId;
-    long dnId;
-    long productId;
+    private String dnTitle;
+    private String productImg;
+    private int likeCount;
+    private long dnId;
 }
