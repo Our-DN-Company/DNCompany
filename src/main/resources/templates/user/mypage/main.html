@@ -8,11 +8,9 @@
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_main.css}">
-    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_nav.css}">
 
-    <script defer th:src="@{/js/user/mypage/mypage_main_list.js}"></script>
-"
-    <script defer th:src="@{/js/user/mypage/mypage_nav.js}"></script>
+
+
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <script th:src="@{/js/user/mypage/mypage_pet_slide.js}" defer=""></script>
     <title>Document</title>
@@ -21,16 +19,14 @@
 <!-- 홈페이지 전체 사이즈 -->
 <div class="container">
     <th:block th:insert="~{fragment/header::header}">
+    </th:block>
 
-    </th:block>
-    <th:block th:insert="~{user/mypage/mypage_nav::mypage-nav}">
-    </th:block>
-    <div class="mypage_nav"></div>
     <div class="main-wrap">
 
 
         <main>
             <!--마이페이지 메인-->
+                                <h3 class="mypage_main_title">마이페이지</h3>
 
 
             <div class="mypage_main">
@@ -41,7 +37,6 @@
                 <div class="mypage_main_left">
 
                     <div class="mypage_main_top">
-
                         <div class="mypage_main_member_proflie">
 
                             <div class="mypage_main_member_name" ><span th:text="${userProfile.getNickName()}" >$$</span>님</div>
@@ -72,7 +67,8 @@
 
                                     <!-- 반려동물 리스트 -->
                                     <div class="mypage_main_pet_list" th:each="pet : ${petList}" th:object="${pet}">
-                                        <p>로고가 들어갈 공간</p>
+                                        <p class="mypage_pet_list_title">반려동물 정보</p>
+
                                         <div class="mypage_main_pet_content" >
                                             <div class="mypage_main_pet_img">
                                                 <img class="mypage_main_pet_image"
@@ -86,6 +82,9 @@
                                                 <li th:text="'입양일: ' + *{adoptionDate}"> 2022-03-01</li>
                                             </ul>
                                         </div>
+
+                                        <a th:href="@{/mypage/add/pet}">등록</a>
+                                        <a th:href="@{/mypage/update/pet}">수정</a>
                                     </div>
 
 
@@ -331,6 +330,7 @@
     <th:block th:insert="~{fragment/footer::footer}">
 
     </th:block>
+
 </div>
 </body>
 </html>

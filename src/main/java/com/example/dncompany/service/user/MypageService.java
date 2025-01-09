@@ -2,6 +2,7 @@ package com.example.dncompany.service.user;
 
 
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
+import com.example.dncompany.dto.user.mypage.HelpMeListDTO;
 import com.example.dncompany.dto.user.mypage.PetSlideDTO;
 import com.example.dncompany.dto.user.mypage.UserProfileDTO;
 import com.example.dncompany.exception.user.UserNotFoundException;
@@ -32,4 +33,12 @@ public class MypageService {
        return  mypageMapper.userProfile(usersId)
               .orElseThrow(()->new UserNotFoundException("존재하지 않는 회원 번호 입니다"));
     }
+
+
+//    상세내역 페이지
+
+    public List<HelpMeListDTO> helpMeListById(Long usersId) { return  mypageMapper.helpMeListById(usersId);}
+
+
+
 }

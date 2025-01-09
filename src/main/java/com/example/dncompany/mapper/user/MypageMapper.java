@@ -3,6 +3,7 @@ package com.example.dncompany.mapper.user;
 
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
 
+import com.example.dncompany.dto.user.mypage.HelpMeListDTO;
 import com.example.dncompany.dto.user.mypage.PetSlideDTO;
 import com.example.dncompany.dto.user.mypage.UserProfileDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,5 +21,7 @@ public interface MypageMapper {
     List<PetSlideDTO> selectPetList(Long usersId);
 
     Optional<UserProfileDTO> userProfile(Long usersId);
+
+    List<HelpMeListDTO> helpMeListById(Long usersId);
 
 }
