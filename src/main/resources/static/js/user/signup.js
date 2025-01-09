@@ -5,13 +5,10 @@ import * as  userApi from './modules/userApi.js';
 // 입력 필드와 메시지 DOM 요소 가져오기
 // 아이디
 
-const elInputId = document.querySelector("#userId");
+const elInputId = document.querySelector("#loginId");
 const elFailureMessageOneId = document.querySelector(".id__notmessage1");
 const elFailureMessageTwoId = document.querySelector(".id__notmessage2");
 const elSuccessMessageId = document.querySelector(".id__okmessage");
-
-// 이미 존재하는 아이디 목록 (예시)
-const existingIds = ["existingUser1", "existingUser2", "existingUser3"]; // 예시 데이터
 
 // 아이디 유효성 검사 정규식: 영문 시작, 6~16자, 숫자 포함 가능
 const regexId = /^[A-Za-z][A-Za-z0-9]{5,15}$/;
@@ -33,10 +30,8 @@ function toggleValidationUI(element, isValid) {
   }
 }
 
-// 입력 이벤트 핸들러
-elInputId.addEventListener("input", function () {
-  const value = elInputId.value;
-
+// 아이디 유효성 검사와 중복 검사 동시에 처리
+function handleUsernameValidation(value) {
   // 모든 메시지 숨김 초기화
   elFailureMessageOneId.classList.remove("active");
   elFailureMessageTwoId.classList.remove("active");
@@ -48,33 +43,14 @@ elInputId.addEventListener("input", function () {
     return;
   }
 
-  // 1. 이미 존재하는 아이디인 경우
-  if (existingIds.includes(value)) {
-    toggleValidationUI(elInputId, false);
-    elFailureMessageTwoId.classList.add("active");
-  }
-  // 2. 유효성 검사 통과하지 못한 경우
-  else if (!validateUsername(value)) {
+  // 유효성 검사 통과하지 못한 경우
+  if (!validateUsername(value)) {
     toggleValidationUI(elInputId, false);
     elFailureMessageOneId.classList.add("active");
-  }
-  // 3. 유효성 검사 통과하고, 중복되지 않은 경우
-  else {
-    toggleValidationUI(elInputId, true);
-    elSuccessMessageId.classList.add("active");
-  }
-});
-
-// 아이디 중복 검사 (change 이벤트)
-elInputId.addEventListener("change", function () {
-  const value = elInputId.value;
-
-  // 유효성 검사에 적합하지 않으면 중복 검사 진행 안 함
-  if (!validateUsername(value)) {
     return;
   }
 
-  // 중복 검사 API 호출 (기존 코드 유지)
+  // 중복 검사 API 호출
   userApi.checkLoginId(value, function (data) {
     if (data.exists) {
       toggleValidationUI(elInputId, false);
@@ -84,6 +60,18 @@ elInputId.addEventListener("change", function () {
       elSuccessMessageId.classList.add("active");
     }
   });
+}
+
+// 입력 이벤트 핸들러
+elInputId.addEventListener("input", function () {
+  const value = elInputId.value;
+  handleUsernameValidation(value);
+});
+
+// 아이디 중복 검사 (change 이벤트)
+elInputId.addEventListener("change", function () {
+  const value = elInputId.value;
+  handleUsernameValidation(value);
 });
 
 
@@ -449,58 +437,84 @@ $authNumber.addEventListener("input", function (e) {
 
 // 주소 api
 // 주소 검색 버튼 클릭 시 실행되는 함수
-
 const $addressBtn = document.querySelector(".address_btn");
 
-$addressBtn.addEventListener("click", function () {
-  sample6_execDaumPostcode(); // 버튼 클릭 시 함수 실행
-});
+  $addressBtn.addEventListener("click", function () {
+    address_execDaumPostcode();
+  });
 
-function sample6_execDaumPostcode() {
+function address_execDaumPostcode() {
   new daum.Postcode({
-    oncomplete: function(data) {
-      // 팝업에서 검색결과 항목을 클릭했을 때 실행할 코드를 작성하는 부분.
-
-      // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-      var addr = ''; // 주소 변수
-      var extraAddr = ''; // 참고항목 변수
+    oncomplete: function (data) {
+      var addr = ""; // 주소 변수
+      var extraAddr = ""; // 참고항목 변수
 
       // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-      if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-        addr = data.roadAddress;
-      } else { // 사용자가 지번 주소를 선택했을 경우(J)
-        addr = data.jibunAddress;
+      if (data.userSelectedType === "R") {
+        addr = data.roadAddress; // 도로명 주소
+      } else {
+        addr = data.jibunAddress; // 지번 주소
       }
 
-      // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-      if (data.userSelectedType === 'R'){
-        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+      // 도로명 주소일 경우 참고항목을 추가
+      if (data.userSelectedType === "R") {
+        if (data.bname !== "") {
           extraAddr += data.bname;
         }
-        if(data.buildingName !== '' && data.apartment === 'Y'){
-          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+        if (data.buildingName !== "") {
+          extraAddr +=
+              extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
         }
-        if(extraAddr !== ''){
-          extraAddr = ' (' + extraAddr + ')';
+        if (extraAddr !== "") {
+          extraAddr = " (" + extraAddr + ")";
         }
         document.getElementById("addressExtra").value = extraAddr;
-
       } else {
-        document.getElementById("addressExtra").value = '';
+        document.getElementById("addressExtra").value = "";
       }
 
-      // 우편번호와 주소 정보를 해당 필드에 넣는다.
-      document.getElementById('zipCode').value = data.zonecode;
+      // 우편번호와 주소 입력 필드에 값 넣기
+      document.getElementById("zipCode").value = data.zonecode;
       document.getElementById("address").value = addr;
 
-      // 상세주소 입력 필드 활성화
-      const addressDetail = document.getElementById("addressDetail");
-      addressDetail.disabled = false;  // 비활성화 상태일 경우 활성화
-      addressDetail.focus();  // 포커스를 해당 필드로 이동
-    }
+      // 상세주소 입력 필드로 커서 이동
+      document.getElementById("addressDetail").focus();
+
+      // 상세주소 필드만 활성화
+      document.getElementById("addressDetail").disabled = false;
+      document
+          .getElementById("addressDetail")
+          .classList.remove("disabled"); // 비활성화 클래스 제거
+
+      // 주소 입력 필드는 계속 비활성화
+      document.getElementById("address").disabled = true;
+    },
   }).open();
 }
 
+// 상세주소 입력 이벤트 리스너
+document
+    .getElementById("detailAddress")
+    .addEventListener("input", function () {
+      // 상세주소 입력을 시작하면 메시지 숨기기
+      if (this.value.trim() !== "") {
+        document.querySelector(".address__message").style.display = "none";
+      } else {
+        // 모든 입력이 지워졌을 때 메시지 보이기
+        if (this.value.trim() === "") {
+          document.querySelector(".address__message").style.display = "block";
+        }
+      }
+    });
+
+// 상세주소가 비어있을 경우 메시지 보여주기
+document
+    .getElementById("address_detailAddress")
+    .addEventListener("blur", function () {
+      if (this.value.trim() === "") {
+        document.querySelector(".address__message").style.display = "block";
+      }
+    });
 
 
 
@@ -597,6 +611,27 @@ function limitValue(inputField, min, max) {
     }
   });
 });
+
+function updateBirthDate() {
+  // 각각의 입력 필드에서 값을 가져옴
+  var year = elInputYear.value;
+  var month = elInputMonth.value;
+  var day = elInputDay.value;
+
+  // 각 값이 빈 값이 아닐 경우만 진행
+  if (year && month && day) {
+    // 날짜 포맷을 YYYY-MM-DD로 합침
+    var birthDate = year + "-" + month.padStart(2, '0') + "-" + day.padStart(2, '0');
+
+    // hidden input 필드에 birthDate 값 저장
+    document.getElementById("birthDate").value = birthDate;
+  }
+}
+
+// 각 input 필드에 이벤트 리스너 추가 (값이 변경될 때마다 updateBirthDate 함수 호출)
+document.getElementById("birthYear").addEventListener("input", updateBirthDate);
+document.getElementById("birthMonth").addEventListener("input", updateBirthDate);
+document.getElementById("birthDay").addEventListener("input", updateBirthDate);
 
 const $form = document.querySelector(".signup__input__box");
 

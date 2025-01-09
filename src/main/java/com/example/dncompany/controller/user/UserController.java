@@ -9,6 +9,7 @@ import com.example.dncompany.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
-    private UserService userService;
+
+    private final UserService userService;
 
     @GetMapping("/signup")
     public String signup() {
@@ -32,13 +34,14 @@ public class UserController {
     @PostMapping("/signup")
     public String join(UserJoinDTO userJoinDTO) {
         log.debug("userJoinDTO: {}", userJoinDTO);
+        log.info("userJoinDTO: {}", userJoinDTO);
 
         try {
             userService.addUser(userJoinDTO);
             return "redirect:/user/login";
         } catch (UserDuplicateException e) {
             log.error(e.getMessage());
-            return "redirect:/user/join";
+            return "redirect:/user/signup";
         }
     }
 
@@ -58,6 +61,9 @@ public class UserController {
             session.setAttribute("userId", loginInfo.getUsersId());
             session.setAttribute("loginId", loginInfo.getLoginId());
             session.setAttribute("role", loginInfo.getRole());
+
+            log.info("userLoginDTO: {}", userLoginDTO);
+            log.debug("userLoginDTO: {}", userLoginDTO);
 
             return "redirect:/";
         } catch (LoginFailedException e) {
