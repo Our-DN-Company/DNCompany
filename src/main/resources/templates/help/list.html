@@ -45,38 +45,44 @@
             <!-- 게시글 목록 -->
             <div class="post-list">
                 <!-- 게시글 카드 1 -->
-                <div class="post-card">
+                <div class="post-card" th:each="help : ${helpList}">
                     <div class="post-content">
                         <div class="post-tags">
-                            <span class="tag tag-purple">산책</span>
+                            <span class="tag tag-purple" th:text="${help.helpCareType}">산책</span>
                         </div>
-                        <h3 class="post-title">우리 댕댕이 산책 도와주실 분 구해요</h3>
+                        <h3 class="post-title" th:text="${help.helpTitle}">우리 댕댕이 산책 도와주실 분 구해요</h3>
                         <div class="post-info">
-                            <span class="location">서울시 강남구</span>
-                            <span class="time">12/15 오후 2시-4시</span>
+                            <span class="location" th:text="${help.helpAddress}">서울시 강남구</span>
+                            <span class="time"
+                                  >12/15 오후 2시-4시</span>
                         </div>
                     </div>
                     <div class="post-side">
-                        <div class="point">2,000P</div>
+                        <div class="point" th:text="${help.helpPoint}+'p'">2,000P</div>
+                        <div class="price" th:text="${help.helpPrice}+'원'">40000원</div>
+
                     </div>
                 </div>
 
                 <!-- 게시글 카드 2 -->
-                <div class="post-card">
-                    <div class="post-content">
-                        <div class="post-tags">
-                            <span class="tag tag-purple">돌봄</span>
-                        </div>
-                        <h3 class="post-title">주말 2일 케어 가능하신 분 찾습니다</h3>
-                        <div class="post-info">
-                            <span class="location">서울시 서초구</span>
-                            <span class="time">12/16-17 종일</span>
-                        </div>
-                    </div>
-                    <div class="post-side">
-                        <div class="point">3,000P</div>
-                    </div>
-                </div>
+<!--                <div class="post-card" th:each="help : ${helpList}">-->
+<!--                    <div class="post-content">-->
+<!--                        <div class="post-tags">-->
+<!--                            <span class="tag tag-purple" th:text="${help.helpCareType}">돌봄</span>-->
+<!--                        </div>-->
+<!--                        <h3 class="post-title" th:text="${help.helpTitle}">주말 2일 케어 가능하신 분 찾습니다</h3>-->
+<!--                        <div class="post-info">-->
+<!--                            <span class="location" th:text="${help.helpAddress}">서울시 서초구</span>-->
+<!--                            <span class="time"-->
+<!--                                  th:text="">12/16-17 오후 1시-3시</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="post-side">-->
+<!--                        <div class="point">3,000P</div>-->
+<!--                        <div class="price">40000원</div>-->
+
+<!--                    </div>-->
+<!--                </div>-->
             </div>
 
             <!-- 페이지네이션 -->

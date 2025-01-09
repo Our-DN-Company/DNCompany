@@ -139,7 +139,7 @@
                                         <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 :
                                             0
                                         </div>
-                                        <div>1시간 전</div>
+                                        <div th:text="${board.zipCreatedAt}">1시간 전</div>
                                     </div>
                                     <div class="qaList_labelWrapper">
                                         <div class="qaList_desktopLabelContainer"></div>

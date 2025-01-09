@@ -200,9 +200,12 @@
 }
 
 .qaDetail_qaDetailTotal {
-  font-size: 22px;
+  font-family: Pretendard-Regular;
+  letter-spacing: 2px;
+  font-size: 20px;
   margin-bottom: 25px;
 }
+
 
 /* 작성 박스 */
 .answer_qaAnswerInputWrapper {
@@ -325,7 +328,7 @@
 /* 댓글 내용 */
 .comment_qaComment {
   white-space: pre-wrap;
-  margin-bottom: 26px;
+  margin: 20px 0;
   word-wrap: break-word;
   line-height: 140%;
 }

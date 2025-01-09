@@ -1,16 +1,28 @@
 package com.example.dncompany.mapper.qna;
 
 import com.example.dncompany.dto.qna.QnADTO;
+import com.example.dncompany.dto.qna.QnADetailDTO;
+import com.example.dncompany.dto.qna.QnAModifyDTO;
 import com.example.dncompany.dto.qna.QnAWriteDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface QnaMapper {
-    // 게시글 삽입
+    // QnA 게시글 삽입
     void insertQnABoard(QnAWriteDTO qnaWriteDTO);
 
-    // 게시글 전체 정보
+    // QnA 게시글 전체 정보
     List<QnADTO> selectAllQnABoards();
+
+    // QnA 게시글 상페 페이지 정보
+    Optional<QnADetailDTO> QnASelectById(Long QnAId);
+
+    // QnA 게시글 수정
+    void updateQnABoard (QnAModifyDTO qnaModifyDTO);
+
+    // QnA 게시글 삭제
+    void deleteQnABoard(Long QnAId);
 }

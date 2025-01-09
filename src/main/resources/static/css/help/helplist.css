@@ -225,6 +225,12 @@ nav {
     font-weight: 600;
     color: rgb(95, 0, 128);
 }
+.price {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(95, 0, 128);
+    margin-top: 8px;
+}
 
 /* 페이지네이션 컨테이너 */
 .pagination {
