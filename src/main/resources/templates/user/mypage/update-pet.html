@@ -29,20 +29,23 @@
             <div class="mypage_pet_add_box">
                 <p>반려동물 정보 수정</p>
 
-                <form th:action="@{/mypage/update/pet}" method="post">
+                <form th:action="@{/mypage/update/pet}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="petId" th:value="${petDetailDTO.petId}">
                     <div>
-                        <label for="">사진등록</label>
+                        <label for="mypage_add_pet_img">사진등록</label>
                         <div id="mypage_add_pet_img_preview"></div>
-                        <input id="mypage_add_pet_img" type="file" accept="img/*" />
+                        <input id="mypage_add_pet_img" name="petImg" type="file" accept="img/*" />
                     </div>
                     <div>
                         <label for="petSpecies">반려동물 분류</label>
                         <div class="updatePetSpeciesBox">
                             <input
                                     type="text"
+                                    id="petSpecies"
                                     name="petSpecies"
                                     class="petSpecies"
                                     placeholder="입력해주세요"
+                                    th:value="${petDetailDTO.petSpecies}"
                                     required
                             />
 
@@ -50,7 +53,7 @@
                     </div>
                     <div>
                         <label for="petName">이름 </label>
-                        <input type="text" name="petName" required />
+                        <input type="text" name="petName" id="petName" th:value="${petDetailDTO.petName}" required />
                     </div>
 
                     <div class="pet_gender">
@@ -58,40 +61,45 @@
                         <div>
                             <input
                                     type="radio"
-                                    id="petGender"
+                                    id="petGender--F"
                                     name="petGender"
                                     value="F"
+                                    th:checked="${petDetailDTO.petGender == 'F'}"
                                     required
                             />
-                            <label for="petGender">암컷</label>
+                            <label for="petGender--F">암컷</label>
 
                             <input
                                     type="radio"
-                                    id="petGender"
+                                    id="petGender--M"
                                     name="petGender"
+                                    th:checked="${petDetailDTO.petGender == 'M'}"
                                     value="M"
                             />
-                            <label for="petGender">수컷</label>
+                            <label for="petGender--M">수컷</label>
 
                             <input
                                     type="radio"
-                                    id="petGender"
+                                    id="petGender--N"
                                     name="petGender"
+                                    th:checked="${petDetailDTO.petGender == 'N'}"
                                     value="N"
                             />
-                            <label for="petGender">중성화</label>
+                            <label for="petGender--N">중성화</label>
                         </div>
                     </div>
 
 
                     <div>
                         <label for="petBrithDate">생일 </label>
-                        <input type="date" name="petBrithDate" id="petBrithDate" />
+                        <input type="date" name="petBirthDate" id="petBrithDate"
+                               th:value="${petDetailDTO.petBirthDate}"/>
                     </div>
 
                     <div>
                         <label for="adoptionDate">입양일 </label>
-                        <input type="date" name="adoptionDate" />
+                        <input type="date" name="adoptionDate" id="adoptionDate"
+                               th:value="${petDetailDTO.adoptionDate}"/>
                     </div>
 
                     <button type="submit">완료</button>

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -33,7 +34,8 @@ public class MypageService {
     private String uploadPath;
 
     public void addPet(AddPetDTO addPetDTO,
-           Long usersId , MultipartFile multipartFile) throws IOException {
+                       Long usersId,
+                       MultipartFile multipartFile) throws IOException {
 
         addPetDTO.setUsersId(usersId);
         mypageMapper.insertPet(addPetDTO);
@@ -55,7 +57,7 @@ public class MypageService {
         petImageDTO.setPetImagePath(datePath);
         petImageDTO.setPetId(addPetDTO.getPetId());
 
-        log.debug("petImagDTO:{}" , petImageDTO);
+        log.debug("petImagDTO:{}", petImageDTO);
 
 
         File uploadDir = new File(savePath);
@@ -64,16 +66,15 @@ public class MypageService {
 
             uploadDir.mkdirs();
         }
-            //실제 저장할 파일의 이름을 uuid로 사용
-            String fileSystemName = uuid + extension;
+        //실제 저장할 파일의 이름을 uuid로 사용
+        String fileSystemName = uuid + extension;
 //        fileSystemName : 서버의 저장할 파일 이름, uuid.확장자
-            String fileFullPath = savePath + "/" + fileSystemName;
-            //fileFullPath:파일 전체 경로(이름포함), C:/upload/free/yyyy/MM/dd/파일명.확장자
-            File file = new File(fileFullPath);
+        String fileFullPath = savePath + "/" + fileSystemName;
+        //fileFullPath:파일 전체 경로(이름포함), C:/upload/free/yyyy/MM/dd/파일명.확장자
+        File file = new File(fileFullPath);
 
-            //실제 파일 저장하기(실제 저장처리는 이 한줄이 끝)
-            multipartFile.transferTo(file);
-
+        //실제 파일 저장하기(실제 저장처리는 이 한줄이 끝)
+        multipartFile.transferTo(file);
 
 
         mypagePetImageMapper.insertPetImg(petImageDTO);
@@ -87,6 +88,12 @@ public class MypageService {
         return mypageMapper.selectPetList(usersId);
     }
 
+    // 수정페이지 진입시 조회
+    public PetDetailDTO getPetInfoByPetId(Long petId){
+        return mypageMapper.selectByPetId(petId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 펫ID"));
+    }
+
 
     public UserProfileDTO userProfile(Long usersId) {
         return mypageMapper.userProfile(usersId)
@@ -96,7 +103,7 @@ public class MypageService {
 
     //상세내역 요약
     public List<HelpMeListDTO> MyPageMainHelpMeListById(Long usersId) {
-        log.debug("ServiceMyPageMainHelpMeListById:{}" , usersId);
+        log.debug("ServiceMyPageMainHelpMeListById:{}", usersId);
 
         return mypageMapper.MyPageMainHelpMeListById(usersId);
 
@@ -135,5 +142,72 @@ public class MypageService {
     public List<MypageDnSellListDTO> MypageDnSellListById(Long usersId) {
         return mypageMapper.MypageDnSellListById(usersId);
     }
+
+    //    정보 수정
+    //    반려동물 수정
+    public void modifyPetInfo(PetModifyDTO petModifyDTO, MultipartFile multipartFile) throws IOException {
+        mypageMapper.updatePetInfo(petModifyDTO);
+
+        //===============
+        if (multipartFile == null || multipartFile.isEmpty()) {
+            return;
+        }
+
+        mypagePetImageMapper.deleteByPetId(petModifyDTO.getPetId());
+
+        String OriginalImageName = multipartFile.getOriginalFilename();
+        String extension = OriginalImageName.substring(OriginalImageName.lastIndexOf("."));
+        String uuid = UUID.randomUUID().toString();
+        String datePath = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        String savePath = this.uploadPath + "/" + datePath;
+
+        PetImageDTO petImageDTO = new PetImageDTO();
+        petImageDTO.setPetUuid(uuid);
+        petImageDTO.setPetOriginalImageName(OriginalImageName);
+        petImageDTO.setPetExtension(extension);
+        petImageDTO.setPetImagePath(datePath);
+        petImageDTO.setPetId(petModifyDTO.getPetId());
+
+        log.debug("petImagDTO:{}", petImageDTO);
+
+
+        File uploadDir = new File(savePath);
+
+        if (!uploadDir.exists()) {
+
+            uploadDir.mkdirs();
+        }
+        //실제 저장할 파일의 이름을 uuid로 사용
+        String fileSystemName = uuid + extension;
+//        fileSystemName : 서버의 저장할 파일 이름, uuid.확장자
+        String fileFullPath = savePath + "/" + fileSystemName;
+        //fileFullPath:파일 전체 경로(이름포함), C:/upload/free/yyyy/MM/dd/파일명.확장자
+        File file = new File(fileFullPath);
+
+        //실제 파일 저장하기(실제 저장처리는 이 한줄이 끝)
+        multipartFile.transferTo(file);
+
+
+        mypagePetImageMapper.insertPetImg(petImageDTO);
+    }
+
+
+    //    반려동물 삭제
+    public void removePetByPetId(Long petId){
+        mypageMapper.deletePetByPetId(petId);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
