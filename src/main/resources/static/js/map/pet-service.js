@@ -1,3 +1,7 @@
+import * as mapApi from './modules/mapApi.js';
+
+mapApi.petServiceMapApi();
+
 // 마커를 담을 배열입니다
 var markers = [];
 
@@ -302,8 +306,3 @@ function removeAllChildNods(el) {
 // $searchBefore.addEventListener("click", (e) => {
 //   e.style.display = "hidden";
 // });
-
-
-import * as mapApi from './modules/mapApi.js';
-
-mapApi.petServiceMapApi();
