@@ -1,6 +1,7 @@
 package com.example.dncompany.mapper;
 
 import com.example.dncompany.dto.MainDnDTO;
+import com.example.dncompany.dto.MainEventDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,5 +31,11 @@ class MainpageMapperTest {
         assertThat(maindnDTOList).isNotEmpty()
                 .extracting("dnTitle")
                 .contains("장난감 팝니다");
+    }
+
+    @Test
+    void selectMainpageEventboard2Post() {
+        List<MainEventDTO> maineventDTOList = mainpageMapper.selectMainpageEventboard2Post();
+        assertThat(maineventDTOList).isNotEmpty();
     }
 }
