@@ -12,7 +12,7 @@
     <link rel="stylesheet" th:href="@{/css/map/pet-service.css}" />
 
     <!-- js -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ede54e3725e1cc3bd6d5cf466cb852dc&libraries=services"></script>
+    <script type="text/javascript" th:src="@{//dapi.kakao.com/v2/maps/sdk.js?appkey=ede54e3725e1cc3bd6d5cf466cb852dc&libraries=services}"></script>
     <script defer type="module" th:src="@{/js/map/pet-service.js}"></script>
     <title>Document</title>
   </head>
@@ -30,7 +30,7 @@
             <div id="map"></div>
             <div id="menu_wrap" class="bg_white">
               <div class="option-wrap">
-                <form onsubmit="searchPlaces(); return false;">
+                <form onsubmit="searchPlaces(map); return false;">
                   <div class="option">
                     <input
                       type="text"
