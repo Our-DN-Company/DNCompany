@@ -28,19 +28,17 @@
             <div class="mypage_list_title">
                 <p>도와드려요</p>
                 <div class="mypage_list_line"></div></div>
-            <table>
+            <table th:each="helpYou : ${helpYouList}" th:object="${helpYou}">
                 <tr>
-                    <th>신청자</th>
-                    <th>신청날짜</th>
-                    <th>상태</th>
+                    <td>순번</td>
+                    <td>신청날짜</td>
+                    <td>상태</td>
                 </tr>
-
                 <tr>
-                    <td>누구님</td>
-                    <td>2024.13.20</td>
-                    <td>도움 주기 전입니다</td>
+                    <td th:text="*{rnum}">순번</td>
+                    <td th:text="*{helpOfferEnrollDate}">신청날짜</td>
+                    <td th:text="*{ helpOfferStatus}">상태</td>
                 </tr>
-
                 <tr>
                     <td>누구님</td>
                     <td>2024.12.20</td>
@@ -48,7 +46,7 @@
                 </tr>
             </table>
         </div>
-     </main>
+    </main>
 </div>
 <th:block th:insert="~{fragment/footer::footer}">
 

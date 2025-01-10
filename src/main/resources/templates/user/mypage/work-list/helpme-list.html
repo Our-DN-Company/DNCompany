@@ -18,38 +18,40 @@
 </head>
 <body>
 <div class="container">
-<!-- 홈페이지 전체 사이즈 -->
-<th:block th:insert="~{fragment/header::header}">
-</th:block>
+    <!-- 홈페이지 전체 사이즈 -->
+    <th:block th:insert="~{fragment/header::header}">
+    </th:block>
 
-<main>
-    <div class="mypage_list">
-        <div class="mypage_list_title">
-            <p>도와주세요</p>
-            <div class="mypage_list_line"></div></div>
-        <table>
-            <tr>
-                <th>제목</th>
-                <th>신청유형</th>
-                <th>시작날짜</th>
-                <th>신청날짜</th>
-                <th>후기</th>
+    <main>
+        <div class="mypage_list">
+            <div class="mypage_list_title">
+                <p>도와주세요</p>
+                <div class="mypage_list_line"></div></div>
+            <table>
+                <tr>
+                    <th>순번</th>
+                    <th>제목</th>
+                    <th>신청유형</th>
+                    <th>시작날짜</th>
+                    <th>신청날짜</th>
+                    <th>후기</th>
 
-            </tr>
+                </tr>
 
 
-            <tr  th:each="helpMe :${helpMeList}" th:object="${helpMe}">
-                <td th:text="*{helpTitle}"></td>
-                <td th:text="*{helpCareType}"></td>
-                <td th:text="*{helpCreatedAt}"></td>
-                <td th:text="*{helpCareDate}"></td>
-                <td><button class="mypage_review_button">후기</button>
-                    <button class="mypage_review_button">신고</button></td>
-            </tr>
-        </table>
+                <tr  th:each="helpMe :${helpMeList}" th:object="${helpMe}">
+                    <td th:text="*{rnum}"></td>
+                    <td th:text="*{helpTitle}"></td>
+                    <td th:text="*{helpCareType}"></td>
+                    <td th:text="*{helpCreatedAt}"></td>
+                    <td th:text="*{helpCareDate}"></td>
+                    <td><button class="mypage_review_button">후기</button>
+                        <button class="mypage_review_button">신고</button></td>
+                </tr>
+            </table>
 
-    </div>
-</main>
+        </div>
+    </main>
 </div>
 <th:block th:insert="~{fragment/footer::footer}">
 
