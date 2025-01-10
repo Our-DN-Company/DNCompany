@@ -6,6 +6,8 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Getter @Setter @ToString
 public class ZipBoardListDTO {
@@ -19,7 +21,7 @@ public class ZipBoardListDTO {
     private int zipViewCount;
     private int zipLikeCount;
     private int answerCount;
-    private Long userId;
+    private Long usersId;
     private String nickname;
 
     public String getCreatedAt () {
@@ -30,4 +32,8 @@ public class ZipBoardListDTO {
         return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
+    public String getZipContent() {
+        String regEx = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
+        return this.zipContent.replaceAll(regEx, "");
+    }
 }

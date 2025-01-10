@@ -1,12 +1,12 @@
 package com.example.dncompany.mapper.help;
 
 import com.example.dncompany.dto.help.HelpListDTO;
-import com.example.dncompany.dto.help.HelpRequestDTO;
-import com.example.dncompany.dto.help.HelpResponseDTO;
+import com.example.dncompany.dto.help.HelpDetailDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface HelpMapper {
@@ -17,5 +17,5 @@ public interface HelpMapper {
     List<HelpListDTO> selectHelpList();
 
     // 게시글 상세 조회
-    HelpResponseDTO selectHelpDetail(Long helpId);
+    Optional<HelpDetailDTO> selectHelpDetail(Long helpId);
 }

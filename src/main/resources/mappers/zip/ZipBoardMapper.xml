@@ -6,8 +6,8 @@
         <selectKey resultType="long" keyProperty="zipId" order="BEFORE">
             SELECT SEQ_ZIP_BOARD.nextval FROM DUAL
         </selectKey>
-        INSERT INTO ZIP_BOARD (ZIP_ID, USERS_ID, ZIP_PET_CATEGORY, ZIP_CATEGORY, ZIP_TITLE, ZIP_CONTENT)
-        VALUES (#{zipId}, #{userId}, #{zipPetCategory}, #{zipCategory}, #{zipTitle}, #{zipContent})
+        INSERT INTO ZIP_BOARD (ZIP_ID, USERS_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT)
+        VALUES (#{zipId}, #{usersId}, #{zipPetCategory}, #{zipTitle}, #{zipContent})
     </insert>
 
     <!--  게시글 전체 정보  -->
@@ -36,13 +36,13 @@
                (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
         FROM ZIP_BOARD ZB
                  JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
-        ORDER BY ZIP_ID DESC
+        WHERE ZIP_ID = #{zipId}
     </select>
 
     <!--  게시글 수정  -->
     <update id="updateZipBoard" parameterType="ZipBoardModifyDTO">
         UPDATE ZIP_BOARD
-        SET ZIP_CATEGORY = #{zipCategory}, ZIP_PET_CATEGORY = #{zipPetCategory}, ZIP_TITLE = #{zipTitle}, ZIP_CONTENT = #{zipContent}, ZIP_UPDATE_AT = SYSDATE
+        SET ZIP_PET_CATEGORY = #{zipPetCategory}, ZIP_TITLE = #{zipTitle}, ZIP_CONTENT = #{zipContent}, ZIP_UPDATE_AT = SYSDATE
         WHERE ZIP_ID = #{zipId}
     </update>
 
