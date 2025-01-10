@@ -88,7 +88,7 @@ public class AdminUserBoardController {
     public ResponseEntity<Map<String, Object>> updatePoints(
             @PathVariable Long userId,
             @RequestBody Map<String, Integer> request) {
-
+        log.info("Received Update Points: {}", request);
 
 
         Integer points = request.get("points");

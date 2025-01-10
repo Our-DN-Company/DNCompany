@@ -7,7 +7,7 @@
             SELECT SEQ_QNA_BOARD.nextval FROM DUAL
         </selectKey>
         INSERT INTO QNA_BOARD (QNA_ID, USERS_ID, QNA_TITLE, QNA_CONTENT)
-        VALUES (#{qnaId}, #{userId}, #{qnaTitle}, #{qnaContent})
+        VALUES (#{qnaId}, #{usersId}, #{qnaTitle}, #{qnaContent})
     </insert>
 
     <!--  게시글 전체 정보  -->

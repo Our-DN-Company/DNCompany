@@ -22,7 +22,7 @@ public interface ZipAnswerMapper {
     void updateAnswer(ZipAnswerModifyDTO zipAnswerModifyDTO);
 
     // 댓글 삭제
-    void deleteAnswer(Long zipAnswerId);
+    void deleteByAnswerId(Long zipAnswerId);
 
 
 }

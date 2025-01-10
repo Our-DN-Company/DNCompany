@@ -11,5 +11,5 @@ public class ZipBoardModifyDTO {
     private String zipCategory;
     private String zipPetCategory;
     private String zipContent;
-    private Long userId;
+    private Long usersId;
 }

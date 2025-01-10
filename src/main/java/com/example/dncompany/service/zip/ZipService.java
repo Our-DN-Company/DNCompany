@@ -7,6 +7,7 @@ import com.example.dncompany.dto.zip.ZipBoardWriteDTO;
 import com.example.dncompany.exception.zip.ZipNotFoundException;
 import com.example.dncompany.mapper.zip.ZipMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,8 @@ public class ZipService {
     }
 
     // 게시물 삽입
-    public void addZipBoard(ZipBoardWriteDTO zipWriteBoard){
+    public void addZipBoard(ZipBoardWriteDTO zipWriteBoard, Long usersId){
+        zipWriteBoard.setUsersId(usersId);
         zipMapper.insertZipBoard(zipWriteBoard);
     }
 
@@ -46,6 +48,19 @@ public class ZipService {
         zipMapper.deleteZipBoard(zipId);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

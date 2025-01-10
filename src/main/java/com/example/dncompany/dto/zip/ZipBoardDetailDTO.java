@@ -16,6 +16,6 @@ public class ZipBoardDetailDTO {
     private LocalDateTime zipUpdatedAt;
     private int zipViewCount;
     private int answerCount;
-    private Long userId;
+    private Long usersId;
     private String nickname;
 }

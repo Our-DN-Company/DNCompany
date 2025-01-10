@@ -1,8 +1,7 @@
 package com.example.dncompany.service.help;
 
 import com.example.dncompany.dto.help.HelpListDTO;
-import com.example.dncompany.dto.help.HelpRequestDTO;
-import com.example.dncompany.dto.help.HelpResponseDTO;
+import com.example.dncompany.dto.help.HelpDetailDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.exception.help.HelpNotFoundException;
 import com.example.dncompany.mapper.help.HelpMapper;
@@ -14,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -60,11 +60,11 @@ class HelpServiceTest {
     void getHelpDetail() {
         // given
         Long helpId = 1L;
-        HelpResponseDTO expectedResponse = new HelpResponseDTO();
-        when(helpMapper.selectHelpDetail(helpId)).thenReturn(expectedResponse);
+        HelpDetailDTO expectedResponse = new HelpDetailDTO();
+        when(helpMapper.selectHelpDetail(helpId)).thenReturn(Optional.of(expectedResponse));
 
         // when
-        HelpResponseDTO result = helpService.getHelpDetail(helpId);
+        HelpDetailDTO result = helpService.getHelpDetail(helpId);
 
         // then
         assertThat(result).isNotNull();
