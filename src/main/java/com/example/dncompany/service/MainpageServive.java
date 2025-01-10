@@ -1,6 +1,7 @@
 package com.example.dncompany.service;
 
 import com.example.dncompany.dto.MainDnDTO;
+import com.example.dncompany.dto.MainEventDTO;
 import com.example.dncompany.mapper.MainpageMapper;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,6 @@ public class MainpageServive {
     public List<MainDnDTO> addSelectDnBoard(){
         return mainpageMapper.selectMainpageDnboard4Post();
     }
+    public List<MainEventDTO> addSelectEventBoard(){ return mainpageMapper.selectMainpageEventboard2Post(); }
 
 }
