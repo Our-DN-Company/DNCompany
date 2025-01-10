@@ -38,5 +38,5 @@ public interface AdminBoardMapper {
     // 답변 유무 처리
     void updateQnaStatus(Long qnaId);
 
-
+    void insertEventBoard (AdminEventWriteDTO adminEventWriteDTO);
 }

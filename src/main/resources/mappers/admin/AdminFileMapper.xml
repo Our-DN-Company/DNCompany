@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.admin.AdminFIleMapper">
+    <insert id="insertEventFIle" parameterType="AdminFIleDTO">
+        <selectKey resultType="long" keyProperty="eventFIleId" order="BEFORE">
+            SELECT SEQ_EVENT_IMG.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO EVENT_IMG(EVENT_IMG_ID, EVENT_ID, EVENT_ORIGINAL_FILENAME, EVENT_UUID, EVENT_PATH, EVENT_EXTENSION)
+        VALUES (#{eventImgId},#{eventId},#{eventOriginalFilename},#{eventUuid},#{eventPath},#{eventExtension})
+    </insert>
+
+
+
+
+
+
+</mapper>

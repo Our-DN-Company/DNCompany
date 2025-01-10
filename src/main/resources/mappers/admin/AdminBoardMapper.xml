@@ -224,6 +224,24 @@
         SET QNA_CHECK_STATUS = 'O'
         WHERE QNA_ID = #{qnaId}
     </update>
+    
+    <insert id="insertEventBoard" parameterType="AdminEventWriteDTO">
+
+        <selectKey resultType="long" keyProperty="freeBoardId" order="BEFORE">
+            SELECT SEQ_EVENT_BOARD.nextval FROM DUAL
+        </selectKey>
+
+        INSERT INTO ADMIN.EVENT_BOARD (
+            EVENT_ID,
+            EVENT_TITLE,
+            EVENT_CONTENT,
+            USERS_ID )
+        VALUES (SEQ_EVENT_BOARD.nextval,
+                 #{eventTitle},
+                 #{eventContent},
+                 #{usersId} )
+    </insert>
+    
 
 
 </mapper>
