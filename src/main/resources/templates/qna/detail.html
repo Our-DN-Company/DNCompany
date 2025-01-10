@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
     <link rel="stylesheet" th:href="@{/css/qna/detail.css}"/>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
@@ -63,11 +64,8 @@
                         <!-- 작성자 정보 -->
                         <div class="qaDetail_qaDetailInfo">
                             <div>
-                                <a href="" class="qaDetail_infoWrapper">
-                                    <img src=""/>
                                     <div class="qaDetail_qaDetailUser" th:text="${qna.nickname}">닉네임</div>
                                     <div class="qaDetail_qaDetailDate" th:text="${qna.qnaUpdateAt}">작성 날짜</div>
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -95,12 +93,7 @@
                                         </form>
 
                                         <div>
-                                            <label for="uploadFile" class="answer_photoBtn">
-                                                <img
-                                                        src="https://bemypet.kr/icons/ICON_Camera.png"
-                                                />
-                                                사진첨부
-                                            </label>
+
                                             <button class="answer_submitBtn">등록</button>
                                         </div>
                                     </div>
@@ -113,10 +106,7 @@
                             <!-- 반복요소 -->
                             <div class="comment_qaDetailComment">
                                 <div class="comment_qaCommentIdWrapper">
-                                    <a class="comment_qaCommentAuthor" href="#">
-                                        <img src=""/>
                                         <div class="comment_qaCommentId">닉네임</div>
-                                    </a>
 
                                     <div class="comment_edit_delete">
                                         <!-- 삭제 아이콘 -->

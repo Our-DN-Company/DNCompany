@@ -26,10 +26,10 @@ export function scheduleList(usersId, callback) {
 }
 
 export function fetchEventsForDate(dateStr) {
-    console.log(`요청할 날짜: ${dateStr}`); // 요청하려는 날짜를 출력
+    // console.log(`요청할 날짜: ${dateStr}`); // 요청하려는 날짜를 출력
 
-    const url = `/api/v1/users/schedules/dates/${dateStr}`;
-    console.log(`요청 URL: ${url}`); // 요청 URL을 출력
+    // const url = `/api/v1/users/schedules/dates/${dateStr}`;
+    // console.log(`요청 URL: ${url}`); // 요청 URL을 출력
     return fetch(`/api/v1/users/schedules/dates/${dateStr}`)
         .then(response => {
             console.log(`응답 상태: ${response.status} ${response.statusText}`); // 응답 상태 코드와 상태 메시지를 출력
@@ -39,7 +39,7 @@ export function fetchEventsForDate(dateStr) {
             return response.json();
         })
         .then(data => {
-            console.log('받은 데이터:', data); // 서버에서 받은 데이터를 출력
+            // console.log('받은 데이터:', data); // 서버에서 받은 데이터를 출력
             return data;
         })
         .catch(error => {

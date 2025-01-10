@@ -23,8 +23,8 @@
             <a th:href="@{/help/helpwrite}">CARE</a><img src="/images/feet.png" alt="고양이발" class="header__item__foot" />
             <div class="snb">
               <ul>
-                <li><a th:href="@{/help/helpwrite}">Help me</a></li>
-                <li><a th:href="@{/help/helplist}">Help you</a></li>
+                <li><a th:href="@{/help/write}">Help me</a></li>
+                <li><a th:href="@{/help/list}">Help you</a></li>
               </ul>
             </div>
           </li>
@@ -61,10 +61,11 @@
             <li class="nav__item"><a th:href="@{/user/login}">캘린더</a></li>
           </ul>
           <ul th:unless="${session.usersId == null}">
-            <li class="nav__item"><a th:href="@{/mypage/main}">
-              <span class="nav__user__name" th:text="${session.loginId} + '님의' "></span> 마이페이지</a></li>
+            <li class="nav__item">
+              <a th:href="@{/mypage/main}" th:text="${session.loginId} + '님'">로그인 / 회원가입</a>
+              <span></span><a class="nav__logout" th:href="@{/user/logout}">로그아웃</a> </li>
+            <li class="nav__item"><a th:href="@{/mypage/main}">마이페이지</a></li>
             <li class="nav__item"><a th:href="@{/schedule/calender}">캘린더</a></li>
-            <li class="nav__item"><a th:href="@{/user/logout}">로그아웃</a></li>
           </ul>
         </nav>
       </div>

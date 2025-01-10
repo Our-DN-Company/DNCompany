@@ -13,6 +13,6 @@ public class ZipAnswerDTO {
     private LocalDate zipAnswerCreatedAt;
     private LocalDate zipAnswerUpdatedAt;
     private Long zipId;
-    private Long userId;
+    private Long usersId;
     private String nickname;
 }

@@ -13,5 +13,5 @@ public class EventBoardDTO {
     String eventContent;
     LocalDateTime eventCreatedAt;
     LocalDateTime eventUpdatedAt;
-    Long userId;
+    Long usersId;
 }

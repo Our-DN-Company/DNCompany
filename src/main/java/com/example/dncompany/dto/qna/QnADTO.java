@@ -14,6 +14,6 @@ public class QnADTO {
     private LocalDateTime qnaCreatedAt;
     private LocalDateTime qnaUpdatedAt;
     private String qnaCheckStatus;
-    private Long userId;
+    private Long usersId;
     private String nickname;
 }

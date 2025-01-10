@@ -9,5 +9,5 @@ public class ZipAnswerWriteDTO {
     private Long zipAnswerId;
     private String zipAnswerContent;
     private Long zipId;
-    private Long userId;
+    private Long usersId;
 }
