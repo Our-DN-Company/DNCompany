@@ -20,6 +20,7 @@ public class HelpDetailDTO {
     private Integer helpPrice;
     private Integer helpPoint;
     private Long usersId;
+    private String loginId;
     private LocalDateTime helpCreatedAt;
     private String helpSpecialNote;
 

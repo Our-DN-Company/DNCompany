@@ -28,12 +28,13 @@
 <!--    </select>-->
 
     <select id="selectHelpDetail" resultType="HelpDetailDTO" parameterType="long">
-        SELECT h.HELP_ID, h.HELP_TITLE, h.HELP_CARE_TYPE, h.HELP_CARE_DATE,
+        SELECT u.LOGIN_ID, h.HELP_ID, h.HELP_TITLE, h.HELP_CARE_TYPE, h.HELP_CARE_DATE,
                h.HELP_START_TIME, h.HELP_END_TIME, h.HELP_ADDRESS, h.HELP_ADDRESS_DETAIL,
                h.HELP_PRICE, h.HELP_POINT, h.USERS_ID, h.HELP_CREATED_AT,
                h.HELP_SPECIAL_NOTE,
                p.PET_ID, p.PET_NAME, p.PET_AGE, p.PET_SPECIES, p.PET_GENDER
-        FROM HELP_BOARD h
+        FROM USERS u
+            JOIN HELP_BOARD h ON u.USERS_ID = h.USERS_ID
                  JOIN PET p ON h.PET_ID = p.PET_ID
         WHERE h.HELP_ID = #{helpId}
     </select>

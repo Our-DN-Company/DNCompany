@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" th:href="@{/css/help/common.css}" />
-  <link rel="stylesheet" th:href="@{/css/help/helpdetail.css}" />
+
   <link rel="stylesheet" th:href="@{/css/help/font.css}" />
   <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
   <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
   <script defer th:src="@{/js/fragment/header.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/help/helpdetail.css}" />
   <title>Document</title>
 </head>
 <body>
@@ -30,7 +31,7 @@
             <h1 th:text="${helpDetail.helpTitle}">우리 댕댕이 산책 도와주실 분 구해요</h1>
             <div class="header-info">
               <div class="writer-info">
-                <span class="writer-name" th:text="${helpDetail.usersId}">김철수</span>
+                <span class="writer-name" th:text="'' + ${helpDetail.loginId}">김철수</span>
               </div>
               <div class="post-info">
                 <span th:text="'작성일: ' + ${#temporals.format(helpDetail.helpCreatedAt, 'yyyy.MM.dd')}">작성일: 2024.12.13</span>
