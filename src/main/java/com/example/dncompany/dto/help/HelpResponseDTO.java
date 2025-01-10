@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 public class HelpResponseDTO {
     private Long helpId;
     private String helpTitle;
-    private String helpSpecies;
     private String helpCareType;
     private LocalDate helpCareDate;
     private LocalDateTime helpStartTime;
