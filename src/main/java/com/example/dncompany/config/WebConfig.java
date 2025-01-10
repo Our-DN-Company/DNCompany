@@ -14,6 +14,8 @@ public class WebConfig implements WebMvcConfigurer {
     private String dnUploadPath;
     @Value("${pet.file.upload-path}")
     private String petUploadPath;
+    @Value("${event.file.upload-path}")
+    private String eventUploadPath;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -29,5 +31,8 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/upload/pet/**")
                 .addResourceLocations("file:" + petUploadPath + "/");
+
+        registry.addResourceHandler("/upload/event/**")
+                .addResourceLocations("file:" + eventUploadPath + "/");
     }
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/user/message.css}" />
+
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <th:block th:insert="~{fragment/header::header}">
+    </th:block>
+    <div class="container">
+        <div class="main-wrap">
+            <main class="main-wrap">
+                <div class="content_box">
+                    <div class="signup-wrap">
+                        <div class="signup__kit">
+                            <h2>쪽지</h2>
+                        </div>
+                        <div class="signup__input">
+                            <div class="signup__upbar"><span>받은 메세지</span></div>
+                            <!-- 가입 박스 -->
+                            <div class="signup__input__box" th:action="@{/user/signup}" method="post">
+                                <!-- 가입 시작 -->
+                                <!-- 아이디 -->
+
+                                    <div class="signup__info__title">
+                                        <p class="info__title">보낸 사람</p>
+                                        <p class="info__title">내용</p>
+                                        <p class="info__title">삭제</p>
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="signup__input">
+                            <div class="signup__upbar"><span>보낸 메세지</span></div>
+                            <!-- 가입 박스 -->
+                            <div class="signup__input__box" th:action="@{/user/signup}" method="post">
+                                <!-- 가입 시작 -->
+                                <!-- 아이디 -->
+
+                                <div class="signup__info__title">
+                                    <p class="info__title">받은 사람</p>
+                                    <p class="info__title">내용</p>
+                                    <p class="info__title">삭제</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<th:block th:insert="~{fragment/footer::footer}">
+
+</th:block>
+</body>
+
+
+
+</html>
