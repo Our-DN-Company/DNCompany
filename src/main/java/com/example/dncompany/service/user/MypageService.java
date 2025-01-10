@@ -29,7 +29,7 @@ public class MypageService {
     private final MypageMapper mypageMapper;
     private final MypagePetImageMapper mypagePetImageMapper;
 
-    @Value("${upload.pet-img}")
+    @Value("${pet.file.upload-path}")
     private String uploadPath;
 
     public void addPet(AddPetDTO addPetDTO,
