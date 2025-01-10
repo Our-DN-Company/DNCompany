@@ -21,7 +21,7 @@ public class ZipBoardListDTO {
     private int zipViewCount;
     private int zipLikeCount;
     private int answerCount;
-    private Long userId;
+    private Long usersId;
     private String nickname;
 
     public String getCreatedAt () {
