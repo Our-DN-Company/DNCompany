@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}"/>
+
+
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script defer th:src="@{/js/common.js}"></script>
+
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <th:block th:insert="~{fragment/header::header}">
+    </th:block>
+
+    <main>
+        <!-- 게시물리스트 페이지 -->
+        <div class="mypage_list">
+            <div class="mypage_list_title">
+                <p>댕냥바다</p>
+                <div class="mypage_list_line"></div>
+            </div>
+
+
+            <p>판매내역</p>
+            <div class="mypage_list_sub_line"></div>
+            <table>
+
+                <tr>
+                    <th>순번</th>
+                    <th>분류</th>
+                    <th>제목</th>
+
+                </tr>
+
+                <!-- 댓글 컨텐츠 -->
+                <tr th:each="DnBoardList :${MypageDnBoardList} " th:object="${DnBoardList}">
+                    <td th:text="*{rnum}">샘플 순번</td>
+                    <td th:text="*{dnProductCategory}">샘플 제목</td>
+                    <td th:text="*{dnTitle}">샘플 작성날짜</td>
+                </tr>
+            </table>
+
+            <p>구매내역</p>
+            <div class="mypage_list_sub_line"></div>
+            <table>
+                <tr>
+                    <th>순번</th>
+                    <th>물품</th>
+                    <th>가격</th>
+
+
+                    <!-- 게시물 컨텐츠 -->
+                <tr th:each="DnSellList : ${MypageDnSellList}" th:object="${DnSellList}">
+                    <td th:text="*{rnum}">샘플 순번</td>
+                    <td th:text="*{productName}">샘플 게시판</td>
+                    <td th:text="*{productPrice}">샘플 제목</td>
+
+                </tr>
+            </table>
+        </div>
+    </main>
+</div>
+<th:block th:insert="~{fragment/footer::footer}">
+
+</th:block>
+</div>
+</body>
+</html>

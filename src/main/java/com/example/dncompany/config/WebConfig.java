@@ -11,7 +11,9 @@ public class WebConfig implements WebMvcConfigurer {
     // WebMvcConfigurer는 SpringMVC의 설정을 Java코드로 커스텀할 수 있도록 도와주는 인터페이스
     // 우리는 특정 URL경로로 요청이 들어왔을 때 실제 서버 PC의 특정 파일의 위치와 연결지을 것이다.
     @Value("${dn.file.upload-path}")
-    private String uploadPath;
+    private String dnUploadPath;
+    @Value("${pet.file.upload-path}")
+    private String petUploadPath;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -20,9 +22,12 @@ public class WebConfig implements WebMvcConfigurer {
 
         // 프로젝트 내부의 경로를 나타낼 때 classpath: 를 사용하듯
         // 로컬 파일 경로는 file: 을 붙여야 함
-        String resourceLocation = "file:" + uploadPath + "/";
+        String resourceLocation = "file:" + dnUploadPath + "/";
 
         registry.addResourceHandler(resourceUrlPath)
                 .addResourceLocations(resourceLocation);
+
+        registry.addResourceHandler("/upload/pet/**")
+                .addResourceLocations("file:" + petUploadPath + "/");
     }
 }

@@ -32,11 +32,11 @@
             <div class="mypage_pet_add_box">
                 <p>반려동물 정보 등록</p>
 
-                <form th:action="@{/mypage/add/pet}" method="post">
+                <form th:action="@{/mypage/add/pet}" method="post" enctype="multipart/form-data">
                     <div>
                         <label for="">사진등록</label>
                         <div id="mypage_add_pet_img_preview"></div>
-                        <input id="mypage_add_pet_img" type="file" accept="img/*" />
+                        <input id="mypage_add_pet_img" name="petImg" type="file" accept="img/*"   />
                     </div>
                     <div>
                         <label for="petSpecies">반려동물 분류</label>
