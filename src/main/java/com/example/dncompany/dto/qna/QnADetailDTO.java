@@ -14,7 +14,7 @@ public class QnADetailDTO {
     private String qnaContent;
     private LocalDateTime qnaCreateAt;
     private LocalDateTime qnaUpdateAt;
-    private Long userId;
+    private Long usersId;
     private String nickname;
 
     public String getQnaCreateAt() {

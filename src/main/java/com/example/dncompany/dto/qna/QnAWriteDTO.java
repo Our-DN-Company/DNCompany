@@ -9,5 +9,5 @@ public class QnAWriteDTO {
     private Long qnaId;
     private String qnaTitle;
     private String qnaContent;
-    private Long userId;
+    private Long usersId;
 }

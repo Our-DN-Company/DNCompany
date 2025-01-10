@@ -7,12 +7,12 @@
             SELECT SEQ_ZIP_ANSWER.nextval FROM DUAL
         </selectKey>
         INSERT INTO ZIP_ANSWER (ZIP_ANSWER_ID, ZIP_ANSWER_CONTENT, USERS_ID, ZIP_ID)
-        VALUES (#{zipAnswerId}, #{zipAnswerContent}, #{userId}, #{zipId})
+        VALUES (#{zipAnswerId}, #{zipAnswerContent}, #{usersId}, #{zipId})
     </insert>
 
     <!--  게시글 댓글 조회  -->
     <select id="selectListByZipId" parameterType="long" resultType="ZipAnswerDTO">
-        SELECT ZA.ZIP_ID, ZIP_ANSWER_CONTENT, ZA.ZIP_ANSWER_CREATED_AT, ZA.ZIP_ANSWER_UPDATED_AT,
+        SELECT ZA.ZIP_ANSWER_ID, ZIP_ANSWER_CONTENT, ZA.ZIP_ANSWER_CREATED_AT, ZA.ZIP_ANSWER_UPDATED_AT, ZA.ZIP_ID,
                U.USERS_ID, U.NICKNAME
         FROM ZIP_ANSWER ZA
                  JOIN USERS U ON ZA.USERS_ID = U.USERS_ID
@@ -31,12 +31,12 @@
     <update id="updateAnswer" parameterType="ZipAnswerModifyDTO">
         UPDATE ZIP_ANSWER
         SET ZIP_ANSWER_CONTENT = #{zipAnswerContent}, ZIP_ANSWER_UPDATED_AT = SYSDATE
-        WHERE ZIP_ANSWER_ID = #{zipAnswerId} AND USERS_ID = #{userId}
+        WHERE ZIP_ANSWER_ID = #{zipAnswerId}
     </update>
 
     <!--  댓글 삭제  -->
-    <delete id="deleteByAnswer" parameterType="long">
+    <delete id="deleteByAnswerId" parameterType="long">
         DELETE FROM ZIP_ANSWER
-        WHERE ZIP_ANSWER_ID = #{zipAnswerId} AND USERS_ID = #{userId}
+        WHERE ZIP_ANSWER_ID = #{zipAnswerId}
     </delete>
 </mapper>
