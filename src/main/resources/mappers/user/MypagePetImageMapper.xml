@@ -17,5 +17,22 @@
 <!--        FROM PET_IMG-->
 <!--        WHERE PET_ID = #{petId}-->
 <!--    </select>-->
-
+    <delete id="deleteByPetId" parameterType="long">
+        DELETE FROM PET_IMG
+        WHERE PET_ID = #{petId}
+    </delete>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
