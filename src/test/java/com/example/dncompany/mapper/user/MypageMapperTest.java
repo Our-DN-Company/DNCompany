@@ -3,7 +3,7 @@ package com.example.dncompany.mapper.user;
 import com.example.dncompany.dto.user.mypage.AddPetDTO;
 
 import com.example.dncompany.dto.user.mypage.HelpMeListDTO;
-import com.example.dncompany.dto.user.mypage.PetSlideDTO;
+import com.example.dncompany.dto.user.mypage.PetListDTO;
 import com.example.dncompany.dto.user.mypage.UserProfileDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ class MypageMapperTest {
     void insertPet(){
         mypageMapper.insertPet(addPetDTO);
 
-        List<PetSlideDTO> petList = mypageMapper.selectPetList(6L);
+        List<PetListDTO> petList = mypageMapper.selectPetList(6L);
 
         assertThat(petList)
                 .isNotEmpty()
@@ -69,5 +69,14 @@ class MypageMapperTest {
         assertThat(helpMeList)
                 .isNotEmpty();
 
+    }
+
+    @Test
+    void mypageMainList(){
+
+        List<HelpMeListDTO> helpMeList = mypageMapper.MyPageMainHelpMeListById(6L);
+
+        assertThat(helpMeList)
+                .isNotEmpty();
     }
 }

@@ -7,7 +7,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 
 @Getter @Setter @ToString
-public class PetSlideDTO {
+public class PetListDTO {
     private Long petId;
     private String petSpecies;
     private String petName;

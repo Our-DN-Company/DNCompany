@@ -1,11 +1,8 @@
 package com.example.dncompany.mapper.user;
 
 
-import com.example.dncompany.dto.user.mypage.AddPetDTO;
+import com.example.dncompany.dto.user.mypage.*;
 
-import com.example.dncompany.dto.user.mypage.HelpMeListDTO;
-import com.example.dncompany.dto.user.mypage.PetSlideDTO;
-import com.example.dncompany.dto.user.mypage.UserProfileDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 
@@ -18,10 +15,40 @@ public interface MypageMapper {
 
     void insertPet(AddPetDTO addPetDTO);
 
-    List<PetSlideDTO> selectPetList(Long usersId);
+    //마이페이지 메인
+
+    //정보출력
+    List<PetListDTO> selectPetList(Long usersId);
 
     Optional<UserProfileDTO> userProfile(Long usersId);
 
+   //게시글 요약
+
+    List<HelpMeListDTO> MyPageMainHelpMeListById(Long usersId);
+
+
+
+
+
+
+
+
+
+//   상세내역 자세히보기
+
     List<HelpMeListDTO> helpMeListById(Long usersId);
 
+    List<HelpYouListDTO> helpYouListById(Long usersId);
+
+    List<QnaListDTO> qnaListById(Long usersId);
+
+    List<MypageZipBoardListDTO> MypageZipBoardListById(Long usersId);
+
+    List<MypageZipAnswerListDTO> MypageZipAnswerListById(Long usersId);
+
+    List<MypageReviewListDTO> MypageReviewListById(Long usersId);
+
+    List<MypageDnBoardListDTO> MypageDnBoardListById(Long usersId);
+
+    List<MypageDnSellListDTO> MypageDnSellListById(Long usersId);
 }
