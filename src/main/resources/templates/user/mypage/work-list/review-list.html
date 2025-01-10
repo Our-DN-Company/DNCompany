@@ -19,37 +19,33 @@
 <body>
 <!-- 홈페이지 전체 사이즈 -->
 <div class="container">
+
     <th:block th:insert="~{fragment/header::header}">
     </th:block>
 
-
     <main>
-
         <div class="mypage_list">
             <div class="mypage_list_title">
-                <p>댓글이력</p>
+                <p>받은 리뷰</p>
                 <div class="mypage_list_line"></div></div>
 
             <table>
                 <tr>
                     <th>순번</th>
-                    <th>게시판</th>
-                    <th>원글 제목</th>
-                    <th>작성날짜</th>
-                    <th>내용</th>
+                    <th>제목</th>
+                    <th>작성일</th>
                 </tr>
-
-                <!-- 댓글 컨텐츠 -->
-                <tr>
-                    <td>샘플 순번</td>
-                    <td>샘플 게시판</td>
-                    <td>샘플 원글제목</td>
-                    <td>샘플 작성날짜</td>
-                    <td>샘플 내용</td>
+                <!-- 쪽지 컨텐츠 -->
+                <tr th:each="mypageReviewList:${MypageReviewList}" th:object="${mypageReviewList}">
+                    <td th:text="*{rnum}">샘플 작성날짜</td>
+                    <td th:text="*{reviewTitle}">샘플 읽음여부</td>
+                    <td th:text="*{reviewCreatedAt}"></td>
                 </tr>
             </table>
+
         </div>
-     </main>
+    </main>
+
 </div>
 <th:block th:insert="~{fragment/footer::footer}">
 

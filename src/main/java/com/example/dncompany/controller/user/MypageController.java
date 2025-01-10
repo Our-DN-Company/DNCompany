@@ -1,24 +1,17 @@
 package com.example.dncompany.controller.user;
 
-import com.example.dncompany.dto.user.mypage.AddPetDTO;
+import com.example.dncompany.dto.user.mypage.*;
 
-import com.example.dncompany.dto.user.mypage.HelpMeListDTO;
-import com.example.dncompany.dto.user.mypage.PetSlideDTO;
-import com.example.dncompany.dto.user.mypage.UserProfileDTO;
-import com.example.dncompany.mapper.user.MypageMapper;
 import com.example.dncompany.service.user.MypageService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -35,12 +28,17 @@ public class MypageController {
         if(usersId == null) {
             return "redirect:/user/login";
         }
-
-        List<PetSlideDTO> petList = mypageService.getPetSlide(usersId);
+        //정보출력
+        List<PetListDTO> petList = mypageService.selectPetList(usersId);
         model.addAttribute("petList", petList);
         UserProfileDTO userProfile = mypageService.userProfile(usersId);
         model.addAttribute("userProfile", userProfile);
 
+        //상세내역 요약
+
+        List<HelpMeListDTO> MypageMainHelpMeList = mypageService.MyPageMainHelpMeListById(usersId);
+        model.addAttribute("mainHelpMeList", MypageMainHelpMeList);
+            log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
         return "user/mypage/main";
     }
 
@@ -52,15 +50,22 @@ public class MypageController {
 
     //반려동물 정보 등록 처리
     @PostMapping("/add/pet")
-    public String mypageAddPet(AddPetDTO addPetDTO, HttpSession session) {
+    public String mypageAddPet(AddPetDTO addPetDTO,
+                               @SessionAttribute(value = "usersId",required = false) Long usersId,
+                               @RequestParam(value = "petImg",required = false) MultipartFile multipartFile) {
 
-        Long usersId = (Long) session.getAttribute("usersId");
-        addPetDTO.setUsersId(usersId);
 
-
+            usersId = 6L;
         log.debug("addPetDTO: {}", addPetDTO);
+        log.debug("imgFile={}",multipartFile.isEmpty());
 
-        mypageService.addPet(addPetDTO);
+        try {
+            mypageService.addPet(addPetDTO,usersId,multipartFile);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+
+
 
         return "redirect:/mypage/main";
 
@@ -70,7 +75,13 @@ public class MypageController {
     ;
 
     @GetMapping("/update/pet")
-    public String mypageUpdatePet() {
+    public String mypageUpdatePet(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                  AddPetDTO addPetDTO,Model modal) {
+        addPetDTO.setUsersId(usersId);
+        log.debug("addPetDTO: {}", addPetDTO);
+        modal.addAttribute("petProfile", addPetDTO);
+
+
 
 
         return "user/mypage/update-pet";
@@ -82,26 +93,43 @@ public class MypageController {
         return "user/mypage/update-profile";
     }
 
-    @GetMapping("/list/comment")
-    public String mypageListComment() {
-        return "user/mypage/work-list/comment-list";
+    @GetMapping("/list/zip")
+    public String mypageListZip(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                    Model model) {
+
+        usersId = 6L;
+    List<MypageZipBoardListDTO>  MypageZipBoardListById = mypageService.MypageZipBoardListById(usersId);
+                model.addAttribute("MypageZipBoardListById", MypageZipBoardListById);
+                List<MypageZipAnswerListDTO> MypageZipAnswerListById = mypageService.MypageZipAnswerListById(usersId);
+                model.addAttribute("MypageZipAnswerListById", MypageZipAnswerListById);
+        return "user/mypage/work-list/mypage-zip-list";
     }
 
-    @GetMapping("/list/content")
-    public String mypageListContent() {
-        return "user/mypage/work-list/content-list";
+    @GetMapping("/list/dn")
+    public String mypageListContent(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                    Model model) {
+        usersId=6L;
+        List<MypageDnBoardListDTO> mypageDnBoardList = mypageService.MypageDnBoardListById(usersId);
+        model.addAttribute("MypageDnBoardList", mypageDnBoardList);
+        List<MypageDnSellListDTO> mypageDnSellList = mypageService.MypageDnSellListById(usersId);
+        model.addAttribute("MypageDnSellList", mypageDnSellList);
+        return "user/mypage/work-list/dn-list";
     }
 
-    @GetMapping("/list/event")
-    public String mypageListEvent() {
-        return "user/mypage/work-list/event-list";
+    @GetMapping("/list/review")
+    public String mypageListEvent(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                  Model model) {
+         usersId = 21L;
+        List<MypageReviewListDTO> mypageReviewList = mypageService.MypageReviewListById(usersId);
+        model.addAttribute("MypageReviewList", mypageReviewList);
+        return "user/mypage/work-list/review-list";
     }
 
     @GetMapping("/list/helpme")
     public String mypageListHelpme(@SessionAttribute(value = "usersId", required = false) Long usersId,
                                    Model model) {
 
-        usersId=6L;
+        usersId=21L;
 
 
         List<HelpMeListDTO> helpMeListById = mypageService.helpMeListById(usersId);
@@ -110,12 +138,23 @@ public class MypageController {
     }
 
     @GetMapping("/list/helpyou")
-    public String mypageListHelpyou() {
+    public String mypageListHelpyou(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                    Model model) {
+        usersId=21L;
+
+        List<HelpYouListDTO> helpYouListById = mypageService.helpYouListById(usersId);
+        model.addAttribute("helpYouList", helpYouListById);
+
         return "user/mypage/work-list/helpyou-list";
     }
 
     @GetMapping("/list/qna")
-    public String mypageListQna() {
+    public String mypageListQna(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                Model model) {
+
+        usersId=6L;
+        List<QnaListDTO> qnaListById = mypageService.qnaListById(usersId);
+        model.addAttribute("qnaList", qnaListById);
         return "user/mypage/work-list/qna-list";
     }
 }
