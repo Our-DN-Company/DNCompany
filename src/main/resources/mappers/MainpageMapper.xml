@@ -2,4 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dncompany.mapper.MainpageMapper">
 
+<!--    <select id="selectMainpageDnboardPost" resultType="MainDnDTO">-->
+<!--        SELECT DB.DN_ID, DB.DN_TITLE, PI.PRODUCT_UUID, PI.PRODUCT_PATH, PI.PRODUCT_EXTENSION,-->
+<!--               (SELECT COUNT(*) FROM DN_LIKE DL WHERE DB.DN_ID = DL.DN_ID) AS LIKE_COUNT-->
+<!--        FROM DN_BOARD DB-->
+<!--                 JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID-->
+<!--                 JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID-->
+<!--                 LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID-->
+<!--        ORDER BY LIKE_COUNT-->
+<!--    </select>-->
+
+    <select id="selectMainpageDnboard4Post" resultType="MainDnDTO">
+        SELECT ROWNUM, DN_ID, DN_TITLE, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION, LIKE_COUNT
+        FROM (
+        SELECT DB.DN_ID, DB.DN_TITLE, PI.PRODUCT_UUID, PI.PRODUCT_PATH, PI.PRODUCT_EXTENSION,
+        (SELECT COUNT(*) FROM DN_LIKE DL WHERE DB.DN_ID = DL.DN_ID) AS LIKE_COUNT
+        FROM DN_BOARD DB
+        JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
+        JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
+        LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID
+        ORDER BY LIKE_COUNT DESC  -- Ensure the order is applied before ROWNUM
+        )
+        WHERE <![CDATA[ ROWNUM <= 4 ]]>
+    </select>
 </mapper>
