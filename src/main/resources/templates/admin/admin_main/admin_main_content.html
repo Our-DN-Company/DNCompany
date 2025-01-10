@@ -32,7 +32,7 @@
       <a th:href="@{/admin/board/list?category=신고}">신고</a>
     </div>
     <div class="menu-box help">
-      <a href="#help">도와주세요</a>
+      <a th:href="@{/admin/board/list?category=help}">도와주세요</a>
     </div>
   </div>
 
@@ -42,40 +42,48 @@
       <i class="fas fa-users"></i>
       <div class="card-content">
         <h3>전체 회원수</h3>
-        <p class="number">1,234</p>
-        <p class="change">+12% from last week</p>
+        <p class="number" th:text="${cardCounts.getCardTotalMembers()}">1,234</p>
+        <p class="change"
+           th:text="${(#numbers.formatDecimal((cardLastWeekCounts.getLastWeekTotalMembers()/cardCounts.getCardTotalMembers())*100,1,2))}
+        +'% from last week' "> </p>
       </div>
     </div>
     <div class="stat-card">
       <i class="fas fa-file-alt"></i>
       <div class="card-content">
         <h3>총 게시글</h3>
-        <p class="number">856</p>
-        <p class="change">+5% from last week</p>
+        <p class="number" th:text="${cardCounts.getCardTotalBoards()}">856</p>
+        <p class="change"
+           th:text="${(#numbers.formatDecimal((cardLastWeekCounts.getLastWeekTotalBoards()/cardCounts.getCardTotalBoards())*100,1,2))}
+        +'% from last week' "
+        ></p>
       </div>
     </div>
     <div class="stat-card">
       <i class="fas fa-comments"></i>
       <div class="card-content">
         <h3>금일 댓글</h3>
-        <p class="number">89</p>
-        <p class="change">+15% from yesterday</p>
+        <p class="number" th:text="${cardCounts.getCardTotalAnswers()}" >89</p>
+        <p class="change"
+           th:text="${(#numbers.formatDecimal((cardLastWeekCounts.getLastWeekTotalAnswers()/cardCounts.getCardTotalAnswers())*100,1,2))}
+        +'% from last week' "
+        ></p>
       </div>
     </div>
     <div class="stat-card">
       <i class="fas fa-exclamation-circle"></i>
       <div class="card-content">
         <h3>미처리 신고</h3>
-        <p class="number">7</p>
+        <p class="number" th:text="${cardCounts.getCardReports()}" >7</p>
         <p class="change urgent">처리 필요</p>
       </div>
     </div>
     <div class="stat-card">
       <i class="fas fa-question-circle"></i>
       <div class="card-content">
-        <h3>QnA 문의수</h3>
-        <p class="number">23</p>
-        <p class="change">+8% from last week</p>
+        <h3>미처리 QnA</h3>
+        <p class="number" th:text="${cardCounts.getCardQnAs()}" >23</p>
+        <p class="change urgent">처리 필요</p>
       </div>
     </div>
   </div>
