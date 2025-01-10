@@ -26,7 +26,7 @@ class ZipMapperTest {
     void setUp() {
         zipBoardWriteDTO = new ZipBoardWriteDTO();
         zipBoardWriteDTO.setZipTitle("test title");
-        zipBoardWriteDTO.setUserId(21L);
+//        zipBoardWriteDTO.setUserId(21L);
     }
 
 

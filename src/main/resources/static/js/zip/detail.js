@@ -1,4 +1,49 @@
 import * as answerApi from './modules/answerApi.js'
+import * as likeApi from './modules/likeApi.js'
+
+{
+    const $thumbBtn = document.querySelector('.thumb-button-container');
+
+    {
+        likeApi.checkLike(zipId, function (data) {
+            console.log(data);
+
+            const $likeCount = document.querySelector('.like-count');
+            $likeCount.textContent = data.likeCount;
+
+            if (data.liked) {
+                $thumbBtn.classList.add('active');
+            } else  {
+                $thumbBtn.classList.remove('active');
+            }
+        });
+    }
+
+    $thumbBtn.addEventListener('click', function () {
+
+        const $likeCount = this.querySelector('.like-count');
+
+        likeApi.toggleLike(zipId, function (data) {
+            console.log(data);
+            if (!data.success) {
+                alert(data.message);
+                return;
+            }
+
+            if (data.liked) {
+                $thumbBtn.classList.add('active');
+            } else  {
+                $thumbBtn.classList.remove('active');
+            }
+
+            $likeCount.textContent = data.likeCount;
+
+        });
+
+    });
+}
+
+
 
 const zipId = getZipId();
 

@@ -51,11 +51,11 @@
                         <!--                            />-->
                         <!--                        </div>-->
 
-                        <!-- 추천 버튼 -->
+                        <!-- 추천 -->
                         <div class="qaDetail_qaDetailThumbBtnWrapper">
                             <div class="thumbButton_thumbButtonWrapper">
-                                <!-- 추천 -->
-                                <div class="thumbButton_thumbButtonContainer">
+                                <!-- 추천 버튼 -->
+                                <button type="button" class="thumbButton_thumbButtonContainer">
                                     <svg
                                             class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-1k33q06"
                                             focusable="false"
@@ -67,8 +67,8 @@
                                                 d="m13.11 5.72-.57 2.89c-.12.59.04 1.2.42 1.66.38.46.94.73 1.54.73H20v1.08L17.43 18H9.34c-.18 0-.34-.16-.34-.34V9.82l4.11-4.1M14 2 7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.83C7 18.95 8.05 20 9.34 20h8.1c.71 0 1.36-.37 1.72-.97l2.67-6.15c.11-.25.17-.52.17-.8V11c0-1.1-.9-2-2-2h-5.5l.92-4.65c.05-.22.02-.46-.08-.66-.23-.45-.52-.86-.88-1.22L14 2zM4 9H2v11h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1z"
                                         ></path>
                                     </svg>
-                                    <div class="thumbButton_defaultLabel">0</div>
-                                </div>
+                                    <div class="thumbButton_defaultLabel" >0</div>
+                                </button>
 
                             </div>
                         </div>
@@ -91,8 +91,8 @@
                         <!-- 작성자 정보 -->
                         <div class="qaDetail_qaDetailInfo">
                             <div>
-                                    <div class="qaDetail_qaDetailUser" th:text="${board.nickname}">삼색이짱짱</div>
-                                    <div class="qaDetail_qaDetailDate">2024.12.17</div>
+                                <div class="qaDetail_qaDetailUser" th:text="${board.nickname}">삼색이짱짱</div>
+                                <div class="qaDetail_qaDetailDate">2024.12.17</div>
                             </div>
                         </div>
                     </div>
@@ -134,30 +134,30 @@
 
                         <!-- 댓글 리스트 -->
                         <div class="qaDetail_qaDetailAnswer" id="answers">
-<!--                            <div class="comment_qaDetailComment">-->
+                            <!--                            <div class="comment_qaDetailComment">-->
 
-<!--                                <div class="comment_qaCommentIdWrapper">-->
-<!--                                    <div class="comment_qaCommentId">닉네임</div>-->
+                            <!--                                <div class="comment_qaCommentIdWrapper">-->
+                            <!--                                    <div class="comment_qaCommentId">닉네임</div>-->
 
-<!--                                    <div class="comment_edit_delete">-->
-<!--                                        &lt;!&ndash; 삭제 아이콘 &ndash;&gt;-->
-<!--                                        <div class="comment_delete">-->
-<!--                                            <img-->
-<!--                                                    th:src="@{/images/zip/icon-delete.png}"-->
-<!--                                            />-->
-<!--                                        </div>-->
-<!--                                        &lt;!&ndash; 수정 아이콘 &ndash;&gt;-->
-<!--                                        <div class="comment_edit">-->
-<!--                                            <img th:src="@{/images/zip/icon-pencil.png}"/>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="comment_qaCommentDate">날짜</div>-->
-<!--                                </div>-->
+                            <!--                                    <div class="comment_edit_delete">-->
+                            <!--                                        &lt;!&ndash; 삭제 아이콘 &ndash;&gt;-->
+                            <!--                                        <div class="comment_delete">-->
+                            <!--                                            <img-->
+                            <!--                                                    th:src="@{/images/zip/icon-delete.png}"-->
+                            <!--                                            />-->
+                            <!--                                        </div>-->
+                            <!--                                        &lt;!&ndash; 수정 아이콘 &ndash;&gt;-->
+                            <!--                                        <div class="comment_edit">-->
+                            <!--                                            <img th:src="@{/images/zip/icon-pencil.png}"/>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="comment_qaCommentDate">날짜</div>-->
+                            <!--                                </div>-->
 
-<!--                                <div class="comment_qaDetailImgNone"></div>-->
-<!--                                <div class="comment_qaComment">내용</div>-->
+                            <!--                                <div class="comment_qaDetailImgNone"></div>-->
+                            <!--                                <div class="comment_qaComment">내용</div>-->
 
-<!--                            </div>-->
+                            <!--                            </div>-->
 
                         </div>
                     </div>

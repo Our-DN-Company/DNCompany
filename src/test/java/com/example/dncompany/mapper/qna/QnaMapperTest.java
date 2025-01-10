@@ -25,7 +25,7 @@ class QnaMapperTest {
     void setUp() {
         qnaWriteDTO = new QnAWriteDTO();
         qnaWriteDTO.setQnaTitle("장기 돌봄 시 주의사항");
-        qnaWriteDTO.setUserId(23L);
+//        qnaWriteDTO.setUserId(23L);
     }
 
     @Test
