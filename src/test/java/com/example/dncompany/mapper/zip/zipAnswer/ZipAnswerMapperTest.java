@@ -3,7 +3,6 @@ package com.example.dncompany.mapper.zip.zipAnswer;
 import com.example.dncompany.dto.zip.zipAnswer.ZipAnswerDTO;
 import com.example.dncompany.dto.zip.zipAnswer.ZipAnswerModifyDTO;
 import com.example.dncompany.dto.zip.zipAnswer.ZipAnswerWriteDTO;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -28,7 +26,7 @@ class ZipAnswerMapperTest {
     void setUp() {
         zipAnswerWriteDTO = new ZipAnswerWriteDTO();
         zipAnswerWriteDTO.setZipAnswerContent("게시글 확인 완료");
-        zipAnswerWriteDTO.setUserId(21L);
+        zipAnswerWriteDTO.setUsersId(21L);
         zipAnswerWriteDTO.setZipId(4L);
 
         zipAnswerMapper.insertAnswer(zipAnswerWriteDTO);
@@ -41,7 +39,7 @@ class ZipAnswerMapperTest {
     void insertAnswer() {
         ZipAnswerWriteDTO newAnswer = new ZipAnswerWriteDTO();
         newAnswer.setZipAnswerContent("새 댓글");
-        newAnswer.setUserId(22L);
+        newAnswer.setUsersId(22L);
         newAnswer.setZipId(4L);
 
         zipAnswerMapper.insertAnswer(newAnswer);
@@ -85,8 +83,8 @@ class ZipAnswerMapperTest {
     }
 
     @Test
-    void deleteAnswer() {
-        zipAnswerMapper.deleteAnswer(zipAnswerDTO.getZipAnswerId());
+    void deleteByAnswerId() {
+        zipAnswerMapper.deleteByAnswerId(zipAnswerDTO.getZipAnswerId());
 
         List<ZipAnswerDTO> remainingAnswers = zipAnswerMapper.selectListByZipId(zipAnswerWriteDTO.getZipId());
         assertThat(remainingAnswers).isEmpty();

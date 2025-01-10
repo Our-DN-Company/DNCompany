@@ -120,22 +120,22 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="qaList_qaListTitle" th:text="${board.zipTitle}">리리 팬아트!!</div>
+                                            <div class="qaList_qaListTitle">
+                                                <a th:href="@{/zip/detail(zipId=${board.zipId})}" th:text="${board.zipTitle}">리리 팬아트!!</a>
+                                            </div>
                                             <div class="qaList_qaListText" th:text="${board.zipContent}">
                                                 지난번에 리리도 팬아트 만들어달라고 했는데.. 그림은
                                                 준비되었는데 색이없어 어쩔수없이 편집의 힘을 빌려
                                                 완성한 팬아트... (리리 사토루)
                                             </div>
                                         </div>
-                                        <div class="qaList_qaListImg"></div>
+<!--                                        <div class="qaList_qaListImg">-->
+<!--                                        </div>-->
                                     </div>
                                     <div class="qaList_qaListAbout">
-                                        <a class="qaList_qaAuthor" href="">
-                                            <img
-                                                    src="https://bff-images.bemypet.kr/media/medias/profile_image/927-image_picker4881577713905119062.jpg"
-                                            />
+
                                             <div class="qaList_nickname" th:text="${board.nickname}">삼색이짱짱</div>
-                                        </a>
+
                                         <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 :
                                             0
                                         </div>
