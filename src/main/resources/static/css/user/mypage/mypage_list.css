@@ -44,3 +44,9 @@ td {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.mypage_list_sub_line{
+  border: 1px solid var(--sub-color);
+  opacity: 0.5;
+  margin: 10px 0;
+}

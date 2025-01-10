@@ -44,33 +44,38 @@
       </div>
       <div class="main__contents">
         <h3><span>댕냥바다</span> 오늘의 Hot item!</h3>
-        <div class="main__hot__box">
-          <div class="main__hot__item">
-            <div class="main__hot__item__in"></div>
-            <div class="main__hot__title">
-              <p>1</p>
-            </div>
-          </div>
-          <div class="main__hot__item">
-            <div class="main__hot__item__in"></div>
-            <div class="main__hot__title">
-              <p>2</p>
-            </div>
-          </div>
-          <div class="main__hot__item">
-            <div class="main__hot__item__in"></div>
-            <div class="main__hot__title">
-              <p>3</p>
+          <div class="main__hot__box">
+            <div class="main__hot__item"th:each="board : ${maindnDTOList}">
+              <div class="main__hot__item__in">
+                <img th:src="@{/image/logo/logoheader3.png}" alt="게시글 썸네일" th:if="${board.productUuid == null}"/>
+                <img th:src="@{'/upload/dn/' + ${board.productUuid} + '/th_' + ${board.productUuid} + ${board.productExtension}}" alt="게시글 썸네일" th:unless="${board.productUuid == null}"/>
+              </div>
+              <div class="main__hot__title">
+                <p th:text="${board.dnTitle}">1</p>  <!-- dnTitle을 출력 -->
+              </div>
             </div>
           </div>
 
-          <div class="main__hot__item">
-            <div class="main__hot__item__in"></div>
-            <div class="main__hot__title">
-              <p>4</p>
-            </div>
-          </div>
-        </div>
+<!--          <div class="main__hot__item">-->
+<!--            <div class="main__hot__item__in"></div>-->
+<!--            <div class="main__hot__title">-->
+<!--              <p>2</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="main__hot__item">-->
+<!--            <div class="main__hot__item__in"></div>-->
+<!--            <div class="main__hot__title">-->
+<!--              <p>3</p>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="main__hot__item">-->
+<!--            <div class="main__hot__item__in"></div>-->
+<!--            <div class="main__hot__title">-->
+<!--              <p>4</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
 
         <h3>요즘 시즌 <span>festival</span> 정보!</h3>
         <div class="main__festival__box">

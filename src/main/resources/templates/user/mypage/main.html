@@ -104,43 +104,31 @@
                             <div class="mypage_main_content_title"><p>도와주세요</p>
                                 <a class="mypage_main_content_button" th:href="@{/mypage/list/helpme}"></a></div>
                             <div class="mypage_main_line"></div>
-                            <table class="mypage_main_list_top">
-                                <tr>
-                                    <th>제목</th>
-                                    <th>매칭상태</th>
-                                    <th>작성날짜</th>
-                                    <th>매칭 시어터</th>
-                                    <th>신청날짜</th>
-                                    <th>후기</th>
+                            <div class="mypage_main_list_top">
+                                <table>
+                                    <tr>
+                                        <th>순번</th>
+                                        <th>제목</th>
+                                        <th>신청유형</th>
+                                        <th>시작날짜</th>
+                                        <th>신청날짜</th>
+                                        <th>후기</th>
 
-                                </tr>
-
-
-                                <tr>
-                                    <td>이런 도움이 필요해요</td>
-                                    <td>매칭 대기중</td>
-                                    <td>2021.12.12</td>
-                                    <td>-</td>
-                                    <td>2020-23-12[진행중]</td>
-                                    <td>
-                                        <button class="mypage_review_button">후기</button>
-                                        <button class="mypage_review_button">신고</button>
-                                    </td>
-                                </tr>
+                                    </tr>
 
 
-                                <tr>
-                                    <td>이런 도움이 필요해요</td>
-                                    <td>매칭 완료</td>
-                                    <td>2021.12.12</td>
-                                    <td>누구님</td>
-                                    <td>2020-33-11[완료]</td>
-                                    <td>
-                                        <button class="mypage_review_button">후기</button>
-                                        <button class="mypage_review_button">신고</button>
-                                    </td>
-                                </tr>
-                            </table>
+                                    <tr  th:each="help:${mainHelpMeList}" th:object="${help}">
+                                        <td th:text="*{rnum}"></td>
+                                        <td th:text="*{helpTitle}"></td>
+                                        <td th:text="*{helpCareType}"></td>
+                                        <td th:text="*{helpCreatedAt}"></td>
+                                        <td th:text="*{helpCareDate}"></td>
+                                        <td><button class="mypage_review_button">후기</button>
+                                            <button class="mypage_review_button">신고</button></td>
+                                    </tr>
+
+
+                                </table>
 
 
                         </div>
@@ -176,7 +164,7 @@
                     <!-- 댕냥바다 -->
                     <div class="mypage_main_dn">
                         <div class="mypage_main_content_title"><p>댕냥바다</p>
-                            <button class="mypage_main_content_button"><a href="http://"></a></button></div>
+                            <a class="mypage_main_content_button" th:href="@{/mypage/list/dn}"></a></div>
 
                         <div class="mypage_main_line"></div>
                         <table class="mypage_main_list_top">
@@ -228,7 +216,7 @@
                     <!-- 초보zip -->
                     <div class="mypage_main_dn">
                         <div class="mypage_main_content_title"><p>초보Zip</p>
-                            <button class="mypage_main_content_button"><a href="http://"></a></button></div>
+                           <a class="mypage_main_content_button" th:href="@{/mypage/list/zip}"></a></div>
 
                         <div class="mypage_main_line"></div>
                         <table class="mypage_main_list_top">
@@ -303,8 +291,8 @@
 
                         <!-- (이벤트) -->
                         <div class="mypage_main_event">
-                            <div class="mypage_main_content_title"><p>이벤트</p>
-                                <a class="mypage_main_content_button" th:href="@{/mypage/list/event}"></a></div>
+                            <div class="mypage_main_content_title"><p>받은리뷰</p>
+                                <a class="mypage_main_content_button" th:href="@{/mypage/list/review}"></a></div>
                             <div class="mypage_main_line"></div>
                             <table class="mypage_main_list_bottom">
                                 <tr>

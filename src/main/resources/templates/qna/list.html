@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
     <link rel="stylesheet" th:href="@{/css/qna/list.css}"/>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
@@ -91,14 +92,10 @@
                                             <div class="qaList_qaListTitle" th:text="${qna.qnaTitle}"></div>
                                             <div class="qaList_qaListText" th:text="${qna.qnaContent}"></div>
                                         </div>
-                                        <div class="qaList_qaListImg"></div>
                                     </div>
                                     <div class="qaList_qaListAbout">
-                                        <a class="qaList_qaAuthor" href="">
-                                            <img src=""/>
                                             <div class="qaList_nickname" th:text="${qna.nickname}"></div>
-                                        </a>
-                                        <div>1시간 전</div>
+                                        <div th:text="${qna.qnaUpdatedAt}">1시간 전</div>
                                     </div>
                                     <div class="qaList_labelWrapper">
                                         <div class="qaList_desktopLabelContainer"></div>

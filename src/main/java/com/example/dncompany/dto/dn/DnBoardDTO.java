@@ -12,5 +12,5 @@ public class DnBoardDTO {
     String dnCategory;
     LocalDateTime dnCreatedAt;
     LocalDateTime dnUpdatedAt;
-    Long userId;
+    Long usersId;
 }

@@ -8,10 +8,11 @@ import java.time.LocalDate;
 
 @Getter @Setter @ToString
 public class HelpMeListDTO {
-    Long helpId;
-    String helpTitle;
-    String helpCareType;
-    LocalDate helpCareDate;
-    LocalDate helpCreatedAt;
-    Long userId;
+  private  int rnum;
+  private  Long helpId;
+  private  String helpTitle;
+  private  String helpCareType;
+  private  LocalDate helpCareDate;
+  private  LocalDate helpCreatedAt;
+  private  Long userId;
 }

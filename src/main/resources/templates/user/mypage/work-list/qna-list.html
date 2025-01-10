@@ -29,19 +29,25 @@
                 <div class="mypage_list_line"></div></div>
             <table>
                 <tr>
+                    <th>순번</th>
                     <th>제목</th>
                     <th>작성날짜</th>
                     <th>답변</th>
                 </tr>
 
                 <!-- QnA 컨텐츠 -->
-                <tr>
-                    <td>샘플 제목</td>
-                    <td>샘플 작성날짜</td>
-                    <td>샘플 답변</td>
+
+                <tr th:each="qnaList:${qnaList}" th:object="${qnaList}">
+
+                    <td th:text="*{rnum}">순번</td>
+                    <td><a th:text="*{qnaTitle}"></a></td>
+                    <td th:text="*{qnaCreateAt}" >샘플 작성날짜</td>
+                    <td th:text="*{qnaAnswerCount}">샘플 답변</td>
                 </tr>
+
             </table>
 
+        </div>
     </main>
 </div>
 <th:block th:insert="~{fragment/footer::footer}">
