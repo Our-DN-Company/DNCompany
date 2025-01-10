@@ -5,11 +5,11 @@ export function checkLike(zipId, callback) {
                 return resp.json();
             }
         })
-        .then(data => callback(date));
+        .then(data => callback(data));
 }
 
 export function toggleLike(zipId, callback) {
-    fetch(`/api/v1/zips/${zipId}/likes/like`, {
+    fetch(`/api/v1/zips/${zipId}/likes`, {
         method: 'PUT'
     })
         .then(resp => {
@@ -17,5 +17,5 @@ export function toggleLike(zipId, callback) {
                 return resp.json();
             }
         })
-        .then(data => callback(date));
+        .then(data => callback(data));
 }

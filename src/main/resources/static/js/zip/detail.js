@@ -1,14 +1,15 @@
 import * as answerApi from './modules/answerApi.js'
 import * as likeApi from './modules/likeApi.js'
+const zipId = getZipId();
 
 {
-    const $thumbBtn = document.querySelector('.thumb-button-container');
+    const $thumbBtn = document.querySelector('.thumbButton_thumbButtonContainer');
 
     {
         likeApi.checkLike(zipId, function (data) {
             console.log(data);
 
-            const $likeCount = document.querySelector('.like-count');
+            const $likeCount = document.querySelector('.thumbButton_defaultLabel');
             $likeCount.textContent = data.likeCount;
 
             if (data.liked) {
@@ -20,6 +21,8 @@ import * as likeApi from './modules/likeApi.js'
     }
 
     $thumbBtn.addEventListener('click', function () {
+
+        console.log("clicked");
 
         const $likeCount = this.querySelector('.like-count');
 
@@ -45,7 +48,7 @@ import * as likeApi from './modules/likeApi.js'
 
 
 
-const zipId = getZipId();
+
 
 {   // 댓글 처리
     const $answerWriteBtn = document.querySelector('#answerWriteBtn');
