@@ -10,4 +10,6 @@ public interface MypagePetImageMapper {
 
     void insertPetImg(PetImageDTO petImageDTO);
 
+    void deleteByPetId(Long petId);
+
 }
