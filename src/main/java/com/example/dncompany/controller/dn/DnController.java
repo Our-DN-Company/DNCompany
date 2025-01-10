@@ -19,4 +19,9 @@ public class DnController {
     @GetMapping("/write")
     public String write() {return "dn/write";}
 
+    @GetMapping("/modify")
+    public String modify(){
+        return "dn/modify";
+    }
+
 }
