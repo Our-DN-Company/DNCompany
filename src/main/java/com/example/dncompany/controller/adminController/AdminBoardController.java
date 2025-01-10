@@ -43,6 +43,10 @@ public class AdminBoardController {
         return "admin/admin_board/admin_board :: #postListBody";
     }
 
+
+    // 답변 추가
+    // 처음에는 여러 게시글을 답변할려고 했지만
+    // QnA 답변만 필요하다고 이야기나와서 현재 QnA만 받는중
     @ResponseBody
     @PostMapping("/reply")
     public ResponseEntity<?> addAnswer(@RequestBody Map<String, Object> boardList) {
@@ -60,7 +64,7 @@ public class AdminBoardController {
             String category = boardList.get("category").toString();
 
             if ("QNA".equals(category)) {
-                // 명시적 형변환
+                // 형변환
                 adminAnswerDTO.setQnaId(Long.parseLong(boardList.get("qnaId").toString()));
                 adminAnswerDTO.setQnaAnswerContent(boardList.get("qnaAnswerContent").toString());
                 adminAnswerDTO.setCategory(category);
@@ -77,6 +81,8 @@ public class AdminBoardController {
                     .body(Map.of("error", "답변 등록 실패: " + e.getMessage()));
         }
     }
+
+
 
     @GetMapping("/replies")
     public ResponseEntity<List<AdminAnswerDTO>> getAnswers(
