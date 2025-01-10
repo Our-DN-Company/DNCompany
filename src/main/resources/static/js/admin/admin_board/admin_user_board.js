@@ -136,6 +136,7 @@ window.processReport = function(reportId, banDays) {
 window.applyCustomPoints = function(userId) {
     const pointInput = document.getElementById(`point-${userId}`);
     const points = parseInt(pointInput.value, 10);
+    console.log(userId);
     if (isNaN(points)) {
         alert('포인트 값을 입력해주세요.');
         return;

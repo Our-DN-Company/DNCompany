@@ -43,5 +43,71 @@
         ORDER BY dates.CREATED_DATE
     </select>
 
+    <!-- 대시보드 통계 조회 -->
+    <select id="getCardBoardCounts" resultType="AdminCardCountDTO">
+        SELECT
+                (SELECT COUNT(*) FROM ADMIN.USERS) AS cardTotalMembers,
+                (
+                    SELECT
+                        (SELECT COUNT(*) FROM ADMIN.ZIP_BOARD) +
+                        (SELECT COUNT(*) FROM ADMIN.QNA_BOARD) +
+                        (SELECT COUNT(*) FROM ADMIN.HELP_BOARD) +
+                        (SELECT COUNT(*) FROM ADMIN.DN_BOARD) +
+                        (SELECT COUNT(*) FROM ADMIN.EVENT_BOARD)
+                    FROM DUAL
+                ) AS cardTotalBoards,
+                (
+                    SELECT
+                        (SELECT COUNT(*) FROM ADMIN.ZIP_ANSWER) +
+                        (SELECT COUNT(*) FROM ADMIN.QNA_ANSWER)
+                    FROM DUAL
+                ) AS cardTotalAnswers,
+                (SELECT COUNT(*) FROM ADMIN.REPORT WHERE REPORT_CHECK_STATUS = 'X') AS cardReports,
+                (SELECT COUNT(*) FROM ADMIN.QNA_BOARD WHERE QNA_CHECK_STATUS = 'X') AS cardQnAs
+        FROM DUAL
+    </select>
+
+    <select id="getLastWeekCardBoardCounts" resultType="AdminCardLastWeekDTO">
+        SELECT
+            (SELECT COUNT(*)
+        FROM ADMIN.ZIP_ANSWER
+            WHERE ZIP_ANSWER_CREATED_AT <![CDATA[<]]> TRUNC(SYSDATE) - 7) +
+        -- 일주일 전 총 댓글 수 (QNA_ANSWER)
+        (SELECT COUNT(*)
+        FROM ADMIN.QNA_ANSWER
+            WHERE QNA_ANSWER_CREATED_AT <![CDATA[<]]> TRUNC(SYSDATE) - 7) as lastWeekTotalAnswers,
+        -- 일주일 전 총 게시글 수
+        (SELECT COUNT(*)
+        FROM ADMIN.ZIP_BOARD
+            WHERE ZIP_CREATED_AT <![CDATA[<]]> TRUNC(SYSDATE) - 7) +
+        (SELECT COUNT(*)
+        FROM ADMIN.QNA_BOARD
+            WHERE QNA_CREATED_AT <![CDATA[<]]> TRUNC(SYSDATE) - 7) +
+        (SELECT COUNT(*)
+        FROM ADMIN.HELP_BOARD
+            WHERE HELP_CREATED_AT <![CDATA[<]]> TRUNC(SYSDATE) - 7) +
+        (SELECT COUNT(*)
+        FROM ADMIN.DN_BOARD
+            WHERE DN_CREATED_AT <![CDATA[<]]> TRUNC(SYSDATE) - 7) +
+        (SELECT COUNT(*)
+        FROM ADMIN.EVENT_BOARD
+            WHERE EVENT_CREATED_AT <![CDATA[<]]> TRUNC(SYSDATE) - 7) as lastWeekTotalBoards,
+        -- 일주일 전 총 회원 수
+        (SELECT COUNT(*)
+        FROM ADMIN.USERS
+            WHERE SIGN_UP_DATE <![CDATA[<]]> TRUNC(SYSDATE) - 7) as lastWeekTotalMembers
+        FROM DUAL
+    </select>
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>
