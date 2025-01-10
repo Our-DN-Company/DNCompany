@@ -8,7 +8,6 @@ import com.example.dncompany.mapper.admin.AdminBoardMapper;
 import com.example.dncompany.mapper.admin.AdminFIleMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -131,13 +130,21 @@ public class AdminBoardService {
     public void addAdminEventBoardWithFIle(AdminEventWriteDTO adminEventWriteDTO,
                                            Long userId,
                                            MultipartFile multipartFile) throws IOException {
+
+        log.debug("====== Event Write Service Start ======");
+
         // 1. 게시글 저장 처리
 
-        adminEventWriteDTO.setUserId(userId);
+        adminEventWriteDTO.setUsersId(userId);
+        log.debug("Before Insert - AdminEventWriteDTO: {}", adminEventWriteDTO);
+
         adminBoardMapper.insertEventBoard(adminEventWriteDTO);
+        log.debug("After Insert - Event Board ID: {}", adminEventWriteDTO.getEventBoardId());
 
         // 파일 존재 여부 검사
         if (multipartFile == null || multipartFile.isEmpty()) {
+            log.debug("No File Uploaded");
+
             return;
         }
 
@@ -151,6 +158,11 @@ public class AdminBoardService {
         String datePath = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         String savePath = this.uploadPath + "/" + datePath +  datePath;
 
+        log.debug("File Info - Original Name: {}", eventOriginalFilename);
+        log.debug("File Info - Extension: {}", eventExtension);
+        log.debug("File Info - UUID: {}", eventUuid);
+        log.debug("File Info - Save Path: {}", savePath);
+
 
         AdminFIleDTO adminFIleDTO = new AdminFIleDTO();
         adminFIleDTO.setEventOriginalFilename(eventOriginalFilename);
@@ -163,12 +175,16 @@ public class AdminBoardService {
 
         // 3-1 서버 컴퓨터에 실제 파일 저장 처리 (파일 입출력 활용)
         File uploadDir = new File(savePath); // 저장할려는 경로 디렉토리만 포함되어있다.
+        log.debug("Creating Directory: {}", savePath);
+        log.error("Failed to create directory");
+
 
 
         //예외 처리
         if(!uploadDir.exists()){
             // 경로까지 필요한 디렉토리를 만들어라
             uploadDir.mkdirs(); // makedirectories의 약자다
+
         }
 
         // 실제 저장할 파일의 이름을 eventUuid + evnetExtension(확장자) 사용

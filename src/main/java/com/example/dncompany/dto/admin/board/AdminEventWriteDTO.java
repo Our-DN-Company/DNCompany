@@ -15,7 +15,7 @@ public class AdminEventWriteDTO {
    private String eventContent;
    private LocalDateTime eventCreatedAt;
    private LocalDateTime eventUpdatedAt;
-   private long userId;
+   private long usersId;
 
 
 }

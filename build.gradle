@@ -46,7 +46,7 @@ dependencies {
     implementation 'com.oracle.database.security:osdt_core:21.16.0.0'
     // thumbnailator
     implementation 'net.coobird:thumbnailator:0.4.20'
-    
+
 }
 
 tasks.named('test') {
