@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 public class ZipLikeDTO {
-    Long zipLikeId;
     Long usersId;
     Long zipId;
 }
