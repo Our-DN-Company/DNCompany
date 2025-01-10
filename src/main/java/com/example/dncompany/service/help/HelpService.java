@@ -1,8 +1,7 @@
 package com.example.dncompany.service.help;
 
 import com.example.dncompany.dto.help.HelpListDTO;
-import com.example.dncompany.dto.help.HelpRequestDTO;
-import com.example.dncompany.dto.help.HelpResponseDTO;
+import com.example.dncompany.dto.help.HelpDetailDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.exception.help.HelpNotFoundException;
 import com.example.dncompany.mapper.help.HelpMapper;
@@ -10,11 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -50,8 +47,8 @@ public class HelpService {
 
 
     // 게시글 상세 조회
-    public HelpResponseDTO getHelpDetail(Long helpId) {
-        return Optional.ofNullable(helpMapper.selectHelpDetail(helpId))
+    public HelpDetailDTO getHelpDetail(Long helpId) {
+        return helpMapper.selectHelpDetail(helpId)
                 .orElseThrow(() -> new HelpNotFoundException("게시글을 찾을 수 없습니다."));
     }
 

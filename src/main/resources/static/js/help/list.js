@@ -6,3 +6,8 @@ $postList.forEach(post => {
         location.href=`/help/detail?helpId=${helpId}`;
     });
 })
+function goToDetail(helpId) {
+    if(helpId) {
+        location.href = `/help/detail?helpId=${helpId}`;
+    }
+}

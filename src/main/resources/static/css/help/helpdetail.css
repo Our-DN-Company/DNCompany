@@ -122,8 +122,20 @@
     text-align: center;
     margin-bottom: 20px;
 }
+.care-price {
+    background: rgb(189, 118, 255);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 .point-amount {
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(95, 0, 128);
+}
+.price-amount {
     font-size: 24px;
     font-weight: 600;
     color: rgb(95, 0, 128);

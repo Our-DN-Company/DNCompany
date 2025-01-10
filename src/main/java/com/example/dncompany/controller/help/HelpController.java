@@ -1,10 +1,9 @@
 package com.example.dncompany.controller.help;
 
 import com.example.dncompany.dto.help.HelpListDTO;
-import com.example.dncompany.dto.help.HelpResponseDTO;
+import com.example.dncompany.dto.help.HelpDetailDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.dto.help.pet.HelpPetListDTO;
-import com.example.dncompany.exception.help.HelpNotFoundException;
 import com.example.dncompany.service.help.HelpService;
 import com.example.dncompany.service.help.pet.HelpPetService;
 import lombok.RequiredArgsConstructor;
@@ -54,10 +53,12 @@ public class HelpController {
 
     @GetMapping("/detail")
     public String helpDetail(@RequestParam Long helpId, Model model){
-        HelpResponseDTO helpDetail=helpService.getHelpDetail(helpId);
+        HelpDetailDTO helpDetail=helpService.getHelpDetail(helpId);
+        log.info("helpDetail: {}", helpDetail);
                 model.addAttribute("helpDetail", helpDetail);
         return "help/detail";
     }
+
 
 }
 
