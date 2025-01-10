@@ -27,14 +27,13 @@
             <div class="tags">
               <span class="tag status">모집중</span>
             </div>
-            <h1>우리 댕댕이 산책 도와주실 분 구해요</h1>
+            <h1 th:text="${helpDetail.helpTitle}">우리 댕댕이 산책 도와주실 분 구해요</h1>
             <div class="header-info">
               <div class="writer-info">
-                <span class="writer-name">김철수</span>
+                <span class="writer-name" th:text="${helpDetail.usersId}">김철수</span>
               </div>
               <div class="post-info">
-                <span>작성일: 2024.12.13</span>
-                <span>조회 42</span>
+                <span th:text="'작성일: ' + ${#temporals.format(helpDetail.helpCreatedAt, 'yyyy.MM.dd')}">작성일: 2024.12.13</span>
               </div>
             </div>
           </header>
@@ -46,13 +45,13 @@
               <div class="pet-details">
                 <dl>
                   <dt>이름</dt>
-                  <dd>코코</dd>
+                  <dd th:text="${helpDetail.petName}">코코</dd>
                   <dt>나이</dt>
-                  <dd>2살</dd>
+                  <dd th:text="${helpDetail.petAge}">2살</dd>
                   <dt>종류</dt>
-                  <dd>강아지 / 말티즈</dd>
+                  <dd th:text="${helpDetail.petSpecies}">강아지 / 말티즈</dd>
                   <dt>성별</dt>
-                  <dd>남자아이 (중성화 완료)</dd>
+                  <dd th:text="${helpDetail.petGender}">남자아이 (중성화 완료)</dd>
                 </dl>
               </div>
             </div>
@@ -63,18 +62,22 @@
             <h2>📅 돌봄 정보</h2>
             <div class="care-details">
               <div class="care-point">
-                <span class="point-amount">2,000P</span>
+                <span class="point-amount" th:text="${helpDetail.helpPoint + 'P'}">2,000P</span>
                 <span class="point-text">포인트 제공</span>
+              </div>
+              <div class="care-price">
+              <span class="price-amount" th:text="${helpDetail.helpPrice + '원'}">60000원</span>
+              <span class="price-text">지급</span>
               </div>
               <dl>
                 <dt>돌봄 유형</dt>
-                <dd><span class="tag care-type">산책</span></dd>
+                <dd><span class="tag care-type" th:text="${helpDetail.helpCareType}">산책</span></dd>
                 <dt>돌봄 날짜</dt>
-                <dd>2024년 12월 15일</dd>
+                <dd th:text="${#temporals.format(helpDetail.helpCareDate, 'yyyy년 MM월 dd일')}">2024년 12월 15일</dd>
                 <dt>돌봄 시간</dt>
-                <dd>오후 2시 - 4시</dd>
+                <dd th:text="${#temporals.format(helpDetail.helpStartTime, 'a h시')} + ' - ' + ${#temporals.format(helpDetail.helpEndTime, 'a h시')}">오후 2시 - 4시</dd>
                 <dt>돌봄 장소</dt>
-                <dd>서울시 강남구 삼성동</dd>
+                <dd th:text="${helpDetail.helpAddress + ' ' + helpDetail.helpAddressDetail}">서울시 강남구 삼성동</dd>
               </dl>
             </div>
           </section>
@@ -82,7 +85,7 @@
           <!-- 특이사항 -->
           <section class="info-section note-info">
             <h2>📝 특이사항</h2>
-            <p class="note-text">
+            <p class="note-text" th:text="${helpDetail.helpSpecialNote}">
               사람을 좋아하는 아이입니다.
               산책을 매우 좋아하며 다른 강아지들과도 잘 어울립니다.
               간식은 알러지가 있어서 주시면 안됩니다.
@@ -96,10 +99,31 @@
         </article>
       </div>
 
+<!--      <script>-->
+<!--        function applyForCare() {-->
+<!--          if(confirm('돌봄을 신청하시겠습니까?')) {-->
+<!--            alert('신청이 완료되었습니다.');-->
+<!--          }-->
+<!--        }-->
+<!--      </script>-->
       <script>
-        function applyForCare() {
+        function applyForCare(helpId) {
           if(confirm('돌봄을 신청하시겠습니까?')) {
-            alert('신청이 완료되었습니다.');
+            fetch(`/help/offer/${helpId}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+                    .then(response => response.text())
+                    .then(message => {
+                      alert("신청이 완료되었습니다.");  // "신청이 완료되었습니다." 메시지 표시
+                      // 필요하다면 페이지 새로고침이나 다른 처리
+                    })
+                    .catch(error => {
+                      console.error('신청 실패:', error);
+                      alert('신청 처리 중 오류가 발생했습니다.');
+                    });
           }
         }
       </script>

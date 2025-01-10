@@ -8,10 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter@Setter@ToString
-public class HelpResponseDTO {
+public class HelpDetailDTO {
     private Long helpId;
     private String helpTitle;
-    private String helpSpecies;
     private String helpCareType;
     private LocalDate helpCareDate;
     private LocalDateTime helpStartTime;
@@ -22,6 +21,14 @@ public class HelpResponseDTO {
     private Integer helpPoint;
     private Long usersId;
     private LocalDateTime helpCreatedAt;
+    private String helpSpecialNote;
 
+
+    // 펫 정보 추가
+    private Long petId;
+    private String petName;
+    private Integer petAge;
+    private String petSpecies;
+    private String petGender;
 
 }

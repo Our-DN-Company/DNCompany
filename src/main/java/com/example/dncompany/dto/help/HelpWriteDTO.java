@@ -8,6 +8,7 @@ import org.springframework.cglib.core.Local;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+// 도와주세요 DTO
 @Getter @Setter @ToString
 public class HelpWriteDTO {
     private Long helpId;

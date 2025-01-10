@@ -7,6 +7,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+// Help 목록 조회용 DTO
 @Getter@Setter@ToString
 public class HelpListDTO {
     private Long helpId;
