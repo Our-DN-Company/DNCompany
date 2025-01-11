@@ -40,6 +40,11 @@ public class MypageController {
         List<HelpMeListDTO> MypageMainHelpMeList = mypageService.MyPageMainHelpMeListById(usersId);
         model.addAttribute("mainHelpMeList", MypageMainHelpMeList);
         log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
+
+        List<HelpYouListDTO> MypageMainHelpYouList = mypageService.MyPageMainHelpYouListById(usersId);
+        model.addAttribute("mainHelpYouList", MypageMainHelpYouList);
+        log.info("MypageMainHelpYouList: {}", MypageMainHelpYouList);
+
         return "user/mypage/main";
     }
 

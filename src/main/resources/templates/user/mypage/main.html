@@ -54,19 +54,38 @@
                                 <li>보유 포인트: <span th:text="${userProfile.getPoint()}"></span> p</li>
 
                             </ul>
+                            <div class="profile_btn_box">
+                                <a class="profile_btn" th:href="@{/mypage/update/profile}">정보수정</a>
+                            </div>
+                            <p class="mypage_main_content_title">활동내역 상세보기</p>
+                            <div class="mypage_main_sub_line"></div>
 
+
+                            <div class="mypage_main_content">
+                                <div class="mypage_main_content_button_list">
+                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/zip}">초보zip</a>
+                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/dn}">댕냥바다</a>
+                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/qna}">QnA</a>
+                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/review}">받은후기</a>
+                                </div>
+                            </div>
                         </div>
                         <!-- (우측) -->
                         <div class="mypage_main_rigth">
                             <!--  반려동물정보 -->
+                            <p class="mypage_pet_list_title">반려동물 정보</p>
                             <div class="mypage_main_pet">
+                                <div class="pet-btn-box">
+                                    <a class="pet-btn" th:href="@{/mypage/add/pet}"></a>
+                                </div>
                                 <div class="mypage_main_pet_box">
+
                                     <!-- 이전 버튼 -->
                                     <button class="mypage_main_pet_button_left"></button>
 
                                     <!-- 반려동물 리스트 -->
                                     <div class="mypage_main_pet_list" th:each="pet : ${petList}" th:object="${pet}">
-                                        <p class="mypage_pet_list_title">반려동물 정보</p>
+
 
                                         <div class="mypage_main_pet_content">
                                             <div class="mypage_main_pet_img">
@@ -82,7 +101,7 @@
                                                 <li th:text="'입양일: ' + *{adoptionDate}"> 2022-03-01</li>
                                             </ul>
                                         </div>
-                                        <div>
+                                        <div class="pet-add-delete-btn">
                                             <a th:href="@{/mypage/update/pet(petId=*{petId})}">수정</a>
                                             <a th:href="@{/mypage/delete/pet(petId=*{petId})}">삭제</a>
                                         </div>
@@ -92,13 +111,12 @@
                                     <!-- 다음 버튼 -->
                                     <button class="mypage_main_pet_button_right"></button>
                                 </div>
-                                <div class="pet-btn-box">
-                                    <a class="pet-btn" th:href="@{/mypage/add/pet}">등록</a>
-                                </div>
+
                             </div>
                         </div>
 
                     </div>
+
 
                     <div class="mypage_main_work">
 
@@ -138,42 +156,24 @@
                             <!-- 도와드려요 -->
                             <div class="mypage_main_help_you">
                                 <div class="mypage_main_content_title"><p>도와드려요</p>
-                                    <a class="mypage_main_content_button_top" th:href="@{/mypage/list/helpyou}"></a></div>
+                                    <a class="mypage_main_content_button_top" th:href="@{/mypage/list/helpyou}"></a>
+                                </div>
                                 <div class="mypage_main_line"></div>
-                                <table class="mypage_main_list_top">
+                                <table class="mypage_main_list_top" >
                                     <tr>
-                                        <th>신청자</th>
-                                        <th>신청날짜</th>
-                                        <th>상태</th>
+                                        <td>순번</td>
+                                        <td>신청날짜</td>
+                                        <td>상태</td>
+                                    </tr>
+                                    <tr th:each="helpYou : ${mainHelpYouList}" th:object="${helpYou}">
+                                        <td th:text="*{rnum}">순번</td>
+                                        <td th:text="*{helpOfferEnrollDate}">신청날짜</td>
+                                        <td th:text="*{helpOfferStatus}">상태</td>
                                     </tr>
 
-                                    <tr>
-                                        <td>누구님</td>
-                                        <td>2024.13.20</td>
-                                        <td>도움 주기 전입니다</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>누구님</td>
-                                        <td>2024.12.20</td>
-                                        <td>
-                                            <button class="mypage_review_button">도움완료</button>
-                                        </td>
-                                    </tr>
                                 </table>
                             </div>
 
-                            <div class="mypage_main_content">
-                                <p class="mypage_main_content_title">활동내역 상세보기</p>
-                                <div class="mypage_main_line"></div>
-                            </div>
-
-                            <div class="mypage_main_content_button_list">
-                                <a class="mypage_main_content_button">초보zip</a>
-                                <a class="mypage_main_content_button">댕냥바다</a>
-                                <a class="mypage_main_content_button">QnA</a>
-                                <a class="mypage_main_content_button">받은후기</a>
-                            </div>
 
                         </div>
                     </div>
@@ -181,12 +181,12 @@
             </div>
 
 
-</main>
-</div>
-<footer></footer>
-<th:block th:insert="~{fragment/footer::footer}">
+        </main>
+    </div>
+    <footer></footer>
+    <th:block th:insert="~{fragment/footer::footer}">
 
-</th:block>
+    </th:block>
 
 </div>
 </body>

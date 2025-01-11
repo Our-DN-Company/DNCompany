@@ -111,6 +111,17 @@ public class MypageService {
 
     }
 
+    public List<HelpYouListDTO> MyPageMainHelpYouListById(Long usersId) {
+        log.debug("ServiceMyPageMainHelpMeListById:{}", usersId);
+
+        return mypageMapper.MyPageMainHelpYouListById(usersId);
+
+    }
+
+
+
+
+
 //    상세내역 페이지
 
     public List<HelpMeListDTO> helpMeListById(Long usersId) {
