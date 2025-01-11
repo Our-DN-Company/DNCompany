@@ -95,7 +95,7 @@
 
           <!-- 신청하기 버튼 -->
           <div class="action-buttons">
-            <button class="apply-button" onclick="applyForCare()">돌봄 신청하기</button>
+            <button class="apply-button" th:onclick="|applyForCare(${helpDetail.helpId})|">돌봄 신청하기</button>
           </div>
         </article>
       </div>
@@ -107,6 +107,7 @@
 <!--          }-->
 <!--        }-->
 <!--      </script>-->
+
       <script>
         function applyForCare(helpId) {
           if(confirm('돌봄을 신청하시겠습니까?')) {
@@ -118,8 +119,9 @@
             })
                     .then(response => response.text())
                     .then(message => {
-                      alert("신청이 완료되었습니다.");  // "신청이 완료되었습니다." 메시지 표시
-                      // 필요하다면 페이지 새로고침이나 다른 처리
+                      alert(message);
+                      // 성공 시 페이지 새로고침 또는 다른 처리
+                      location.reload();
                     })
                     .catch(error => {
                       console.error('신청 실패:', error);

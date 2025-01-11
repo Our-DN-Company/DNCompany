@@ -6,9 +6,8 @@
         <selectKey keyProperty="helpOfferId" resultType="long" order="BEFORE">
             SELECT SEQ_HELP_OFFER.nextval FROM DUAL
         </selectKey>
-        INSERT INTO HELP_OFFER (HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID,)
-        VALUES (#{helpOfferId}, 'REJECT', SYSDATE, #{helpId}, #{usersId})
+        INSERT INTO HELP_OFFER (HELP_OFFER_ID, HELP_ID, USERS_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE)
+        VALUES (#{helpOfferId}, #{helpId}, #{usersId}, 'ACCEPT', SYSDATE)
     </insert>
-
 
 </mapper>
