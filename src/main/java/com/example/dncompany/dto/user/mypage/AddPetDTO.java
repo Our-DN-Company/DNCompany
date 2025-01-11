@@ -17,7 +17,4 @@ public class AddPetDTO {
    private LocalDate petBirthDate;
    private LocalDate adoptionDate;
    private Long usersId;
-
-
-
 }

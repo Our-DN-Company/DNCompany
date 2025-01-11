@@ -20,6 +20,9 @@ public interface MypageMapper {
     //정보출력
     List<PetListDTO> selectPetList(Long usersId);
 
+    // 수정페이지 진입시 조회
+    Optional<PetDetailDTO> selectByPetId(Long petId);
+
     Optional<UserProfileDTO> userProfile(Long usersId);
 
    //게시글 요약
@@ -51,4 +54,30 @@ public interface MypageMapper {
     List<MypageDnBoardListDTO> MypageDnBoardListById(Long usersId);
 
     List<MypageDnSellListDTO> MypageDnSellListById(Long usersId);
+
+
+//    정보 수정
+//    반려동물 수정
+    void updatePetInfo(PetModifyDTO petModifyDTO);
+
+//    반려동물 삭제
+    void deletePetByPetId(Long petId);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

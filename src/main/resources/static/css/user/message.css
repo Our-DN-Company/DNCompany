@@ -1,0 +1,269 @@
+@media (max-width: 1350px) {
+    .content_box {
+        width: 90%;
+    }
+}
+
+.content_box {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-wrap {
+    padding: 70px 60px;
+    min-width: 1050px;
+    margin-top: 90px;
+    margin-bottom: 60px;
+    border: 1px solid #dbdbdb;
+}
+
+.message__kit {
+    text-align: center;
+    font-family: "Pretendard-Regular";
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 35px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    color: rgb(51, 51, 51);
+}
+.message__content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
+}
+.message__btn{
+    display: block;
+    padding: 0 10px;
+    text-align: center;
+    overflow: hidden;
+    width: 200px;
+    height: 54px;
+    border-radius: 5px;
+    color: rgb(95, 0, 128);
+    background-color: #fff;
+    border: 1px solid rgb(95, 0, 128);
+    &:hover{
+        color: #fff;
+        background-color: rgb(95, 0, 128);
+    }
+}
+
+.message__form{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.message__input {
+    width: 540px;
+
+    padding-bottom: 50px;
+}
+
+.message__upbar {
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgb(51, 51, 51);
+    font-size: 25px;
+    color: rgb(102, 102, 102);
+    line-height: 17px;
+    text-align: center;
+    span{
+        font-family: "Ownglyph_ParkDaHyun";
+        font-size: 20px;
+    }
+
+}
+.message__input__box {
+    padding: 0px;
+
+}
+
+.message__info__title {
+    width: 100%;
+    font-family: "Pretendard-Regular";
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 10px 30px;
+    :nth-child(2){
+        padding: 0 70px;
+    }
+}
+
+.info__title {
+    font-weight: 500;
+    color: rgb(51, 51, 51);
+    line-height: 10px;
+}
+.message__info__title__user{
+    width: 100%;
+    padding: 10px 20px 0 20px;
+    font-family: "Pretendard-Regular";
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    :first-child{
+        width: 100px;
+        padding-left: 3px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    :nth-child(2){
+        width: 290px;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+
+}
+
+.title__delete__btn{
+    color: rgb(95, 0, 128);
+    background-color: #fff;
+    border: 1px solid rgb(95, 0, 128);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover{
+        color: #fff;
+        background-color: rgb(95, 0, 128);
+    }
+}
+.info__title__user{
+    font-weight: 500;
+    color: rgb(51, 51, 51);
+    line-height: 15px;
+
+}
+
+.message__info__box {
+    flex: 1 1 0%;
+}
+
+/* 모달창 css*/
+
+.message_modal_box {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    border-radius: 12px;
+    background-color: #fff;
+    padding: 40px 30px;
+    border: 1px solid rgb(95, 0, 128);
+}
+
+
+.message__top {
+    font-size: 20px;
+    font-family: "Pretendard-Regular";
+    padding-bottom: 10px;
+
+    span {
+        font-family: "Ownglyph_ParkDaHyun";
+        color: var(--main-color);
+        font-size: 30px;
+    }
+    &:first-child{
+        margin-bottom: 10px;
+    }
+
+}
+
+#userTo {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    background: #F3F4F8;
+    border: 0;
+    border-radius: 10px;
+    resize: none;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-family: sans-serif;
+}
+
+
+.message__content_box {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    background: #F3F4F8;
+    border: 0;
+    border-radius: 10px;
+    height: 100px;
+    resize: none;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-family: sans-serif;
+}
+
+.message__botton {
+    width: 100%;
+    border-top: 1px solid rgb(247, 247, 247);
+    -webkit-box-pack: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+
+    .message_btn{
+        display: flex;
+        padding-top: 30px;
+        gap: 10px;
+
+
+        .message_btn_send {
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: center;
+            border: 1px solid rgb(95, 0, 128);
+            padding: 10px 15px 10px 15px;
+            border-radius: 3px;
+            font-size: 16px;
+            font-weight: 600;
+            color: rgb(95, 0, 128);
+            background: transparent;
+            &:hover{
+                color: #fff;
+                background-color: rgb(95, 0, 128);
+            }
+        }
+        .message_btn_close {
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: center;
+            border: 1px solid rgb(95, 0, 128);
+            padding: 10px 15px 10px 15px;
+            border-radius: 3px;
+            font-size: 16px;
+            font-weight: 600;
+            color: rgb(95, 0, 128);
+            background: transparent;
+
+            &:hover {
+                color: #fff;
+                background-color: rgb(95, 0, 128);
+            }
+        }
+    }
+}
+
