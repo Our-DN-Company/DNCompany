@@ -47,6 +47,9 @@ dependencies {
     // thumbnailator
     implementation 'net.coobird:thumbnailator:0.4.20'
 
+    // thumbnailator
+    implementation 'net.coobird:thumbnailator:0.4.20'
+
 }
 
 tasks.named('test') {

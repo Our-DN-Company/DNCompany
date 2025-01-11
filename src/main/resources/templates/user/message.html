@@ -8,10 +8,10 @@
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <script defer th:src="@{/js/fragment/header.js}"></script>
-
     <link rel="stylesheet" th:href="@{/css/user/message.css}" />
-
+    <script defer th:src="@{/js/user/message.js}"></script>
     <title>Document</title>
+
 </head>
 <body>
 <!-- 홈페이지 전체 사이즈 -->
@@ -22,42 +22,90 @@
         <div class="main-wrap">
             <main class="main-wrap">
                 <div class="content_box">
-                    <div class="signup-wrap">
-                        <div class="signup__kit">
+                    <div class="message-wrap">
+                        <div class="message__kit">
                             <h2>쪽지</h2>
                         </div>
-                        <div class="signup__input">
-                            <div class="signup__upbar"><span>받은 메세지</span></div>
+                        <div class="message__content">
+                        <button class="message__btn">
+                            쪽지 보내기
+                        </button>
+                        </div>
+                        <div class="message__form">
+                        <div class="message__input">
+                            <div class="message__upbar"><span>받은 메세지</span></div>
                             <!-- 가입 박스 -->
-                            <div class="signup__input__box" th:action="@{/user/signup}" method="post">
+                            <div class="message__input__box" th:action="@{/user/message}">
                                 <!-- 가입 시작 -->
                                 <!-- 아이디 -->
 
-                                    <div class="signup__info__title">
+                                    <div class="message__info__title" >
                                         <p class="info__title">보낸 사람</p>
-                                        <p class="info__title">내용</p>
+                                        <p class="info__title" >내용</p>
                                         <p class="info__title">삭제</p>
                                     </div>
+                                    <!-- 반복 요소 -->
+                                    <div class="message__info__title__user" th:each="board: ${messagePageDTOList}">
+                                        <p class="info__title__user" th:text="${board.loginId}">aaa123님!!!!!!!!!!!!!!!</p>
+                                        <p class="info__title__user" th:text="${board.msContent}">도움 위치가 햇갈려서 쪽지 드립니다! !!!!!!!!!!!!!!!!!!!!!!!!</p>
+                                        <button class="title__delete__btn">삭제</button>
+                                    </div>
+<!--                                    <div class="message__info__title__user">-->
+<!--                                        <p class="info__title__user">bbb1234님</p>-->
+<!--                                        <p class="info__title__user">사료 구매하고 싶습니다</p>-->
+<!--                                        <button class="title__delete__btn">삭제</button>-->
+<!--                                    </div>-->
                             </div>
                         </div>
 
-                        <div class="signup__input">
-                            <div class="signup__upbar"><span>보낸 메세지</span></div>
+                        <div class="message__input">
+                            <div class="message__upbar"><span>보낸 메세지</span></div>
                             <!-- 가입 박스 -->
-                            <div class="signup__input__box" th:action="@{/user/signup}" method="post">
+                            <div class="message__input__box">
                                 <!-- 가입 시작 -->
                                 <!-- 아이디 -->
 
-                                <div class="signup__info__title">
-                                    <p class="info__title">받은 사람</p>
-                                    <p class="info__title">내용</p>
+                                <div class="message__info__title" >
+                                    <p class="info__title" >받은 사람</p>
+                                    <p class="info__title" >내용</p>
                                     <p class="info__title">삭제</p>
                                 </div>
+<!--                                <div class="message__info__title__user">-->
+<!--                                    <p class="info__title__user">ccc1234님</p>-->
+<!--                                    <p class="info__title__user">이번에 뜬 펫페어 같이 가실래요?</p>-->
+<!--                                    <button class="title__delete__btn">삭제</button>-->
+<!--                                </div>-->
+                            </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
+                <!--모달창-->
+                <div class="message_modal_box">
+                    <form class="message_form">
+                        <div class="message__top">
+                            <p><span>쪽지</span> 보내기</p>
+                        </div>
+                        <div class="message__top">
+                            <p>쪽지 받을 사람 &nbsp;</p>
+                            <label for="userTo"></label>
+                            <input type="text" id="userTo" name="userTo" placeholder="아이디를 입력해주세요.">
+                        </div>
+                        <div class="message__top">
+                            <p>쪽지 내용</p>
+                            <label for="msContent"></label>
+                            <textarea class="message__content_box" id="msContent" name="msContent" placeholder="쪽지의 내용을 작성해주세요."></textarea>
+                        </div>
+                    </form>
+                    <div class="message__botton">
+                        <div class="message_btn">
+                            <button class="message_btn_send">확인</button>
+                            <button class="message_btn_close">취소</button>
+                        </div>
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>
