@@ -71,11 +71,6 @@ public class AdminMainController {
         return adminMainService.getDailyBoardCounts();
     }
 
-    // 비슷한 코드끼리 묶기 위해 자리 옴김
-    @GetMapping("/login")
-    public String adminlogin() {
-        return "admin/admin_login/login";
-    }
 
 
 }

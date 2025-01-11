@@ -6,7 +6,7 @@
   <link rel="stylesheet" th:href="@{/css/admin/admin_login/common.css}" />
   <link rel="stylesheet" th:href="@{/css/admin/admin_login/login.css}" />
   <link rel="stylesheet" th:href="@{/css/admin/admin_login/font.css}" />
-  <script defer th:src="@{/js/admin/admin_login/login.js}"></script>
+  <script defer th:src="@{/js/admin/admin_login/adminLogin.js}"></script>
   <title>관리자 페이지 로그인</title>
 </head>
 
@@ -25,11 +25,13 @@
           <h2>관리자 페이지 로그인</h2>
         </div>
         <div class="login__input">
-          <form>
+          <form class="login__input" th:action="@{/admin/login}" method="post">
+            <div th:if="${hasError}" class="alert-danger"></div>
+            <p th:text="${messages}"></p>
             <div class="login__input__box">
               <input
                       type="text"
-                      name="id"
+                      name="loginId"
                       placeholder="아이디를 입력해주세요"
                       value=""
               />
@@ -72,14 +74,15 @@
               </div>
               <div class="login__SNS__input">
                 <a href="#" class="login__SNS__input__tool">
-                  <img src="../../../../static/admin_page/image/login_image/naver-logo_v2.png" alt="네이버" />
+                  <img th:src="@{/images/user/naver-logo_v2.png}" alt="네이버" />
                 </a>
                 <a href="#" class="login__SNS__input__tool">
-                  <img src="../../../../static/admin_page/image/login_image/kakao-logo_v2.png" alt="카카오톡" />
+                  <img th:src="@{/images/user/kakao-logo_v2.png}" alt="카카오톡" />
                 </a>
                 <a href="#" class="login__SNS__input__tool">
-                  <img src="../../../../static/admin_page/image/login_image/google-logo_v2.png" alt="구글" />
+                  <img th:src="@{/images/user/google-logo_v2.png}" alt="구글" />
                 </a>
+
               </div>
             </div>
           </form>
@@ -89,5 +92,6 @@
   </main>
   <footer></footer>
 </div>
+<script th:src="@{/js/admin/admin_login/login.js}"></script>
 </body>
 </html>

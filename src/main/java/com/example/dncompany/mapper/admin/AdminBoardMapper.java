@@ -38,5 +38,10 @@ public interface AdminBoardMapper {
     // 답변 유무 처리
     void updateQnaStatus(Long qnaId);
 
+    void insertEventBoard (AdminEventWriteDTO adminEventWriteDTO);
 
+
+
+    //테스트 이벤트 게시판 조회용
+    List<AdminEventWriteDTO> selectAllEvents();
 }

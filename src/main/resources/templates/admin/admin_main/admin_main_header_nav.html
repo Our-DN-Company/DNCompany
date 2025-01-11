@@ -24,12 +24,22 @@
   <div class="user-menu">
     <img src="https://via.placeholder.com/40" alt="User Image" id="userImage" />
     <div class="modal" id="userModal">
-      <p><strong>Username</strong></p>
-      <p class="subtext">운영자님</p>
+      <p><strong th:text="${session.loginId}">Username</strong></p>
+      <p class="subtext" th:text="${session.loginId + ' 운영자님'}">운영자님</p>
       <hr />
       <button id="myPageButton" class="link-button">내정보</button>
       <hr />
-      <button id="logoutButton">로그아웃</button>
+      <form th:action="@{/admin/logout}" method="get" id="logoutForm">
+        <button type="button" id="logoutButton" onclick="confirmLogout()">로그아웃</button>
+      </form>
+
+      <script>
+        function confirmLogout() {
+          if(confirm('로그아웃 하시겠습니까?')) {
+            document.getElementById('logoutForm').submit();
+          }
+        }
+      </script>
     </div>
   </div>
 </header>
