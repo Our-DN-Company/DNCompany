@@ -19,5 +19,5 @@ public class UserProfileDTO {
     private int hoCount;
 
     private int point;
-    private LocalDate pointExpirationAt;
+
 }

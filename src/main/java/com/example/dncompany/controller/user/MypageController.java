@@ -39,7 +39,12 @@ public class MypageController {
 
         List<HelpMeListDTO> MypageMainHelpMeList = mypageService.MyPageMainHelpMeListById(usersId);
         model.addAttribute("mainHelpMeList", MypageMainHelpMeList);
-            log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
+        log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
+
+        List<HelpYouListDTO> MypageMainHelpYouList = mypageService.MyPageMainHelpYouListById(usersId);
+        model.addAttribute("mainHelpYouList", MypageMainHelpYouList);
+        log.info("MypageMainHelpYouList: {}", MypageMainHelpYouList);
+
         return "user/mypage/main";
     }
 
@@ -105,13 +110,13 @@ public class MypageController {
 
     @GetMapping("/list/zip")
     public String mypageListZip(@SessionAttribute(value = "usersId", required = false) Long usersId,
-                                    Model model) {
+                                Model model) {
 
 //        usersId = 6L;
-    List<MypageZipBoardListDTO>  MypageZipBoardListById = mypageService.MypageZipBoardListById(usersId);
-                model.addAttribute("MypageZipBoardListById", MypageZipBoardListById);
-                List<MypageZipAnswerListDTO> MypageZipAnswerListById = mypageService.MypageZipAnswerListById(usersId);
-                model.addAttribute("MypageZipAnswerListById", MypageZipAnswerListById);
+        List<MypageZipBoardListDTO>  MypageZipBoardListById = mypageService.MypageZipBoardListById(usersId);
+        model.addAttribute("MypageZipBoardListById", MypageZipBoardListById);
+        List<MypageZipAnswerListDTO> MypageZipAnswerListById = mypageService.MypageZipAnswerListById(usersId);
+        model.addAttribute("MypageZipAnswerListById", MypageZipAnswerListById);
         return "user/mypage/work-list/mypage-zip-list";
     }
 
@@ -168,7 +173,7 @@ public class MypageController {
         return "user/mypage/work-list/qna-list";
     }
 
-//    삭제 처리
+    //    삭제 처리
     @GetMapping("/delete/pet")
     public String mypageDeletePet(Long petId) {
         mypageService.removePetByPetId(petId);

@@ -100,6 +100,8 @@ public class MypageService {
                 .orElseThrow(() -> new UserNotFoundException("존재하지 않는 회원 번호 입니다"));
     }
 
+    //사진 입력
+
 
     //상세내역 요약
     public List<HelpMeListDTO> MyPageMainHelpMeListById(Long usersId) {
@@ -108,6 +110,17 @@ public class MypageService {
         return mypageMapper.MyPageMainHelpMeListById(usersId);
 
     }
+
+    public List<HelpYouListDTO> MyPageMainHelpYouListById(Long usersId) {
+        log.debug("ServiceMyPageMainHelpMeListById:{}", usersId);
+
+        return mypageMapper.MyPageMainHelpYouListById(usersId);
+
+    }
+
+
+
+
 
 //    상세내역 페이지
 
