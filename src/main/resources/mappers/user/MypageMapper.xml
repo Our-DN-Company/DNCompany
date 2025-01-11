@@ -7,30 +7,30 @@
         <selectKey resultType="long" keyProperty="petId" order="BEFORE">
             SELECT SEQ_PET.NEXTVAL FROM DUAL
         </selectKey>
-        INSERT INTO PET(PET_ID, PET_SPECIES, PET_NAME,PET_AGE,PET_GENDER, PET_BIRTH_DATE, ADOPTION_DATE)
+        INSERT INTO PET(PET_ID, PET_SPECIES, PET_NAME,PET_AGE,PET_GENDER, PET_BIRTH_DATE, ADOPTION_DATE, USERS_ID)
         VALUES (#{petId}, #{petSpecies}, #{petName},
         (EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM #{petBirthDate}) + 1),
-        #{petGender}, #{petBirthDate, jdbcType=DATE}, #{adoptionDate, jdbcType=DATE})
+        #{petGender}, #{petBirthDate, jdbcType=DATE}, #{adoptionDate, jdbcType=DATE}, #{usersId})
     </insert>
     <!--미이페이지 메인-->
     <!--반려동물 정보-->
     <select id="selectPetList" parameterType="long" resultType="PetListDTO">
-        SELECT P.PET_ID,
-               p.PET_SPECIES,
-               p.PET_NAME,
-               p.PET_AGE,
-               p.PET_GENDER,
-               p.PET_BIRTH_DATE,
-               p.ADOPTION_DATE,
-               p.USERS_ID,
-               PI.PET_ORIGINAL_IMAGE_NAME,
-               PI.PET_UUID,
-               PI.PET_IMAGE_PATH,
-               PI.PET_EXTENSION,
-               PI.PET_REG_DATE
-        FROM PET P  LEFT JOIN PET_IMG PI ON P.PET_ID = PI.PET_ID
+        SELECT P.PET_ID, P.PET_SPECIES, P.PET_NAME, P.PET_AGE, P.PET_GENDER, P.PET_BIRTH_DATE, P.ADOPTION_DATE, P.USERS_ID,
+               PI.PET_IMG_ID, PI.PET_ORIGINAL_IMAGE_NAME, PI.PET_IMAGE_PATH, PI.PET_UUID, PI.PET_EXTENSION
+        FROM PET P
+                 LEFT JOIN PET_IMG PI ON P.PET_ID = PI.PET_ID
         WHERE P.USERS_ID = #{usersId}
     </select>
+
+    <!--반려동물 단건 조회-->
+    <select id="selectByPetId" parameterType="long" resultType="PetDetailDTO">
+        SELECT P.PET_ID, P.PET_SPECIES, P.PET_NAME, P.PET_GENDER, P.PET_BIRTH_DATE, P.ADOPTION_DATE, P.USERS_ID,
+               PI.PET_IMG_ID, PI.PET_ORIGINAL_IMAGE_NAME, PI.PET_IMAGE_PATH, PI.PET_UUID, PI.PET_EXTENSION
+        FROM PET P
+                 LEFT JOIN PET_IMG PI ON P.PET_ID = PI.PET_ID
+        WHERE P.PET_ID = #{petId}
+    </select>
+
     <!--회원정보-->
     <select id="userProfile" parameterType="long" resultType="userProfileDTO">
         SELECT U.USERS_ID,
@@ -58,14 +58,9 @@
         <![CDATA[
         WHERE RNUM <=3
         ]]>
-        ORDER BY HELP_CREATED_AT
 
     </select>
 
-    <!--도와드려요-->
-
-
-    <!--QNA-->
 
 
 
@@ -152,5 +147,35 @@
 
 
     <!--정보수정-->
+    <!-- 반려동물 수정 -->
+    <update id="updatePetInfo" parameterType="PetModifyDTO">
+        UPDATE PET
+        SET PET_SPECIES = #{petSpecies}, PET_NAME = #{petName}, PET_GENDER = #{petGender}, PET_BIRTH_DATE = #{petBirthDate}, ADOPTION_DATE = #{adoptionDate},
+            PET_AGE = (EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM #{petBirthDate}) + 1)
+        WHERE PET_ID = #{petId}
+    </update>
 
+    <!--정보 삭제-->
+    <!--반려동물 삭제-->
+    <delete id="deletePetByPetId" parameterType="long">
+        DELETE FROM PET
+        WHERE PET_ID = #{petId}
+    </delete>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Getter @Setter @ToString
 public class DnBoardDTO {
     Long dnId;
-    String dnCategory;
-    LocalDateTime dnCreatedAt;
-    LocalDateTime dnUpdatedAt;
     Long usersId;
+    String dnPetCategory;
+    String dnTitle;
+    String dnContent;
 }

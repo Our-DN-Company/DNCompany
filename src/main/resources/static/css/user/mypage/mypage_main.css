@@ -44,7 +44,7 @@ td {
 
 .mypage_main_top {
   display: flex;
-
+  justify-content: space-between;
 }
 .mypage_main_member_proflie {
   display: flex;
@@ -90,11 +90,12 @@ td {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
   padding: 50px;
   border: 2px solid #f0f0f0 ;
-  width: 60vw;
-  right: 40%;
-  top: 30%;
+  width: 80%;
+  /*right: 40%;*/
+  /*top: 30%;*/
 
   p {
     padding-left: 20px;
@@ -232,3 +233,40 @@ td {
 p {
   margin-top: 20px;
 }
+
+.pet-btn-box {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+
+  .pet-btn {
+    display: block;
+    margin : 2px;
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid #dbdbdb;
+    cursor: pointer;
+  }
+
+  .pet-btn:hover{
+    background-color: #dbdbdb;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

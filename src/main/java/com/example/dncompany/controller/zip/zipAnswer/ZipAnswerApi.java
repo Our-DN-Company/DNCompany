@@ -1,10 +1,9 @@
-package com.example.dncompany.controller.zip.answer;
+package com.example.dncompany.controller.zip.zipAnswer;
 
 import com.example.dncompany.dto.zip.zipAnswer.ZipAnswerDTO;
 import com.example.dncompany.dto.zip.zipAnswer.ZipAnswerModifyDTO;
 import com.example.dncompany.dto.zip.zipAnswer.ZipAnswerWriteDTO;
 import com.example.dncompany.service.zip.zipAnswer.ZipAnswerService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

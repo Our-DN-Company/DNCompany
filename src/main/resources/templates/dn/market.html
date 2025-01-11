@@ -150,7 +150,7 @@
             />
             <label for="인기순">인기순</label>
           </span>
-                            <span class="shopping_productFilterList">
+                <span class="shopping_productFilterList">
             <input
                     class="radio_myRadio"
                     type="radio"
@@ -161,7 +161,7 @@
             />
             <label for="최신순">최신순</label>
           </span>
-                            <span class="shopping_productFilterList">
+                <span class="shopping_productFilterList">
             <input
                     class="radio_myRadio"
                     type="radio"
@@ -172,7 +172,7 @@
             />
             <label for="낮은 가격순">낮은 가격순</label>
           </span>
-                            <span class="shopping_productFilterList">
+                <span class="shopping_productFilterList">
             <input
                     class="radio_myRadio"
                     type="radio"
@@ -183,19 +183,22 @@
             />
             <label for="높은 가격순">높은 가격순</label>
           </span>
-                        </div>
-
+                    </div>
                         <!-- 글쓰기 버튼 -->
+                        <a th:href="@{/dn/write}">
                         <div class="write_Btn">
                             <button class="write_Btn_item" tabindex="0" type="button">
                                 글쓰기
                             </button>
                         </div>
-
+                        </a>
                         <!-- 물품 목록 -->
+
                         <div class="shopping_productList">
                             <!-- 반복 구간 -->
+
                             <div class="productCard_productCardContainer">
+                                <a th:href="@{/dn/detail}">
                                 <!-- 사진 영역 -->
                                 <div class="productCard_cardImgContainer">
                                     <!--              <span-->
@@ -260,9 +263,12 @@
                                         <span class="productCard_wonPrice">원</span>
                                     </div>
                                 </div>
+                                </a>
                             </div>
+
                             <!-- 반복 구간 -->
                         </div>
+
                     </div>
 
                     <!-- 페이지 영역 -->
