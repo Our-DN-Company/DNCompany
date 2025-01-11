@@ -14,8 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HelpOfferService {
 
+    // 도움 신청하기
     private final HelpOfferMapper helpOfferMapper;
 
-    // 도움 신청하기
+
 
 }

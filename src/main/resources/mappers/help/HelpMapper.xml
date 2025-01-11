@@ -38,5 +38,4 @@
                  JOIN PET p ON h.PET_ID = p.PET_ID
         WHERE h.HELP_ID = #{helpId}
     </select>
-
 </mapper>

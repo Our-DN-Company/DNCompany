@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface HelpOfferMapper {
-    // 도움 신청하기
+    // 도움 신청 완료
     void insertHelpOffer(HelpOfferListDTO helpOfferListDTO);
 
 
