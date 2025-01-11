@@ -16,14 +16,19 @@
     <!--반려동물 정보-->
     <select id="selectPetList" parameterType="long" resultType="PetListDTO">
         SELECT P.PET_ID,
-               PET_SPECIES,
-               PET_NAME,
-               PET_AGE,
-               PET_GENDER,
-               PET_BIRTH_DATE,
-               ADOPTION_DATE,
-               USERS_ID
-        FROM PET P
+               p.PET_SPECIES,
+               p.PET_NAME,
+               p.PET_AGE,
+               p.PET_GENDER,
+               p.PET_BIRTH_DATE,
+               p.ADOPTION_DATE,
+               p.USERS_ID,
+               PI.PET_ORIGINAL_IMAGE_NAME,
+               PI.PET_UUID,
+               PI.PET_IMAGE_PATH,
+               PI.PET_EXTENSION,
+               PI.PET_REG_DATE
+        FROM PET P  LEFT JOIN PET_IMG PI ON P.PET_ID = PI.PET_ID
         WHERE P.USERS_ID = #{usersId}
     </select>
     <!--회원정보-->
@@ -35,10 +40,8 @@
                U.PHONE_NUMBER,
                (SELECT COUNT(*) FROM HELP_BOARD HB WHERE HB.USERS_ID = U.USERS_ID) AS HB_COUNT,
                (SELECT COUNT(*) FROM HELP_OFFER HO WHERE HO.USERS_ID = U.USERS_ID) AS HO_COUNT,
-               P.POINT,
-               P.POINT_EXPIRATION_AT
+               U.POINT
         FROM USERS U
-                 JOIN POINT P ON U.USERS_ID = P.USERS_ID
         WHERE U.USERS_ID = #{usersId}
     </select>
 
@@ -55,9 +58,14 @@
         <![CDATA[
         WHERE RNUM <=3
         ]]>
+        ORDER BY HELP_CREATED_AT
 
     </select>
 
+    <!--도와드려요-->
+
+
+    <!--QNA-->
 
 
 

@@ -22,6 +22,9 @@ public interface MypageMapper {
 
     Optional<UserProfileDTO> userProfile(Long usersId);
 
+    //사진 처리
+
+
    //게시글 요약
 
     List<HelpMeListDTO> MyPageMainHelpMeListById(Long usersId);

@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface MypagePetImageMapper {
 
     void insertPetImg(PetImageDTO petImageDTO);
-
+    Optional<PetImageDTO> selectPetImage(Long petId);
 }
