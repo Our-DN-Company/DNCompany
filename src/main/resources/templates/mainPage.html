@@ -82,7 +82,7 @@
           <div class="main__festival__item" th:each="board : ${maineventDTOList}">
             <div class="main__festival__item__in">
               <img th:src="@{/images/logo/logo_header3.png}" alt="게시글 썸네일" th:if="${board.eventUuid == null}"/>
-              <img th:src="@{'/upload/event/' + ${board.eventUuid} + '/th_' + ${board.eventUuid} + ${board.eventExtension}}" alt="게시글 썸네일" th:unless="${board.eventUuid == null}"/>
+              <img th:src="@{'/upload/event/' + ${board.eventPath} + '/th_' + ${board.eventUuid} + ${board.eventExtension}}" alt="게시글 썸네일" th:unless="${board.eventUuid == null}"/>
             </div>
             <div class="main__festival__title" th:text="${board.eventTitle}">
               <p>1</p>
