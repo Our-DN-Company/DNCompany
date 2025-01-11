@@ -1,219 +1,136 @@
-document.getElementById('contentArea').addEventListener('paste', function (event) {
-    event.preventDefault();
+// 폼 유효성 검사
+const form = document.querySelector('form');
+form.addEventListener('submit', function (e) {
+    const title = document.querySelector('input[name="eventTitle"]');
+    const content = document.querySelector('textarea[name="eventContent"]');
 
-    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
-    for (const item of items) {
-        if (item.type.startsWith('image/')) {
-            const file = item.getAsFile();
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const contentArea = document.getElementById('contentArea');
+    if (title.value.trim().length === 0) {
+        e.preventDefault();
+        alert('제목을 입력해주세요.');
+        title.focus();
+        return;
+    }
 
-                // 이미지 래퍼 생성
-                const imageWrapper = document.createElement('div');
-                imageWrapper.classList.add('image-wrapper');
-
-                // 이미지 컨테이너 생성
-                const resizableDiv = document.createElement('div');
-                resizableDiv.classList.add('resizable');
-
-                // 이미지 추가
-                const img = document.createElement('img');
-                img.src = e.target.result;
-
-                // 드래그 핸들 추가
-                const handle = document.createElement('div');
-                handle.classList.add('resize-handle');
-
-                // DOM 구성
-                resizableDiv.appendChild(img);
-                resizableDiv.appendChild(handle);
-                imageWrapper.appendChild(resizableDiv);
-
-                // 이미지 위와 아래에 새 줄 추가
-                const brBefore = document.createElement('br');
-                const brAfter = document.createElement('br');
-                contentArea.appendChild(brBefore);
-                contentArea.appendChild(imageWrapper);
-                contentArea.appendChild(brAfter);
-
-                // 이미지 리사이즈 이벤트 적용
-                applyResizeEvent(resizableDiv);
-
-                // 이미지 아래로 커서 이동
-                const range = document.createRange();
-                const selection = window.getSelection();
-                range.setStartAfter(brAfter);
-                range.collapse(true);
-                selection.removeAllRanges();
-                selection.addRange(range);
-            };
-            reader.readAsDataURL(file);
-        } else if (item.kind === 'string') {
-            item.getAsString(function (text) {
-                document.execCommand('insertText', false, text);
-            });
-        }
+    if (content.value.trim().length === 0) {
+        e.preventDefault();
+        alert('내용을 입력해주세요.');
+        content.focus();
+        return;
     }
 });
 
-function applyResizeEvent(container) {
-    const img = container.querySelector('img');
-    const handle = container.querySelector('.resize-handle');
+// 이미지 업로드 및 미리보기
+const uploadFile = document.getElementById('uploadFile');
+const imagePreview = document.getElementById('imagePreview');
+const imgContainer = document.querySelector('.admin_event_imgContainer');
 
-    const controlsArea = document.createElement('div');
-    controlsArea.classList.add('controls-area');
-    container.appendChild(controlsArea);
+uploadFile.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxWidth = '200px';
+            img.style.maxHeight = '200px';
+            imagePreview.innerHTML = '';
+            imagePreview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    }
+});
 
-    const alignmentControls = document.createElement('div');
-    alignmentControls.classList.add('alignment-controls');
-    alignmentControls.contentEditable = false;
+// 드래그 앤 드롭
+imgContainer.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    this.style.borderColor = '#007bff';
+    this.style.backgroundColor = '#f8f9fa';
+});
 
-    const fineLeftBtn = document.createElement('button');
-    fineLeftBtn.innerHTML = '←';
-    fineLeftBtn.title = '10px 왼쪽으로';
-    fineLeftBtn.contentEditable = false;
-    fineLeftBtn.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const currentMargin = parseInt(container.parentElement.style.marginLeft || '0');
-        container.parentElement.style.marginLeft = `${currentMargin - 10}px`;
-    };
+imgContainer.addEventListener('dragleave', function (e) {
+    e.preventDefault();
+    this.style.borderColor = '#868688';
+    this.style.backgroundColor = '#fff';
+});
 
-    const leftBtn = document.createElement('button');
-    leftBtn.innerHTML = '◀';
-    leftBtn.title = '왼쪽 정렬';
-    leftBtn.contentEditable = false;
-    leftBtn.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        container.parentElement.style.justifyContent = 'flex-start';
-        container.parentElement.style.marginLeft = '0';
-    };
+imgContainer.addEventListener('drop', function (e) {
+    e.preventDefault();
+    this.style.borderColor = '#868688';
+    this.style.backgroundColor = '#fff';
 
-    const centerBtn = document.createElement('button');
-    centerBtn.innerHTML = '•';
-    centerBtn.title = '가운데 정렬';
-    centerBtn.contentEditable = false;
-    centerBtn.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        container.parentElement.style.justifyContent = 'center';
-        container.parentElement.style.marginLeft = '0';
-    };
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+        uploadFile.files = e.dataTransfer.files;
+        const event = new Event('change');
+        uploadFile.dispatchEvent(event);
+    }
+});
 
-    const rightBtn = document.createElement('button');
-    rightBtn.innerHTML = '▶';
-    rightBtn.title = '오른쪽 정렬';
-    rightBtn.contentEditable = false;
-    rightBtn.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        container.parentElement.style.justifyContent = 'flex-end';
-        container.parentElement.style.marginLeft = '0';
-    };
 
-    const fineRightBtn = document.createElement('button');
-    fineRightBtn.innerHTML = '→';
-    fineRightBtn.title = '10px 오른쪽으로';
-    fineRightBtn.contentEditable = false;
-    fineRightBtn.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const currentMargin = parseInt(container.parentElement.style.marginLeft || '0');
-        container.parentElement.style.marginLeft = `${currentMargin + 10}px`;
-    };
 
-    alignmentControls.appendChild(fineLeftBtn);
-    alignmentControls.appendChild(leftBtn);
-    alignmentControls.appendChild(centerBtn);
-    alignmentControls.appendChild(rightBtn);
-    alignmentControls.appendChild(fineRightBtn);
-    controlsArea.appendChild(alignmentControls);
 
-    let isOverControls = false;
-    let isOverImage = false;
-    let hideTimeout;
 
-    const showControls = () => {
-        clearTimeout(hideTimeout);
-        alignmentControls.style.display = 'flex';
-    };
-
-    const hideControls = () => {
-        if (!isOverControls && !isOverImage) {
-            hideTimeout = setTimeout(() => {
-                alignmentControls.style.display = 'none';
-            }, 200);
-        }
-    };
-
-    img.addEventListener('mouseenter', () => {
-        isOverImage = true;
-        showControls();
-    });
-
-    img.addEventListener('mouseleave', () => {
-        isOverImage = false;
-        hideControls();
-    });
-
-    alignmentControls.addEventListener('mouseenter', () => {
-        isOverControls = true;
-        showControls();
-    });
-
-    alignmentControls.addEventListener('mouseleave', () => {
-        isOverControls = false;
-        hideControls();
-    });
-
-    controlsArea.addEventListener('mouseenter', () => {
-        isOverImage = true;
-        showControls();
-    });
-
-    controlsArea.addEventListener('mouseleave', () => {
-        isOverImage = false;
-        hideControls();
-    });
-
-    let originalWidth, originalHeight, originalX, originalY;
-
-    handle.addEventListener('mousedown', function (event) {
-        event.preventDefault();
-        originalWidth = img.offsetWidth;
-        originalHeight = img.offsetHeight;
-        originalX = event.pageX;
-        originalY = event.pageY;
-
-        function resize(event) {
-            const deltaX = event.pageX - originalX;
-            const newWidth = originalWidth + deltaX;
-            const newHeight = (originalHeight / originalWidth) * newWidth;
-            img.style.width = `${newWidth}px`;
-            img.style.height = `${newHeight}px`;
-        }
-
-        function stopResize() {
-            window.removeEventListener('mousemove', resize);
-            window.removeEventListener('mouseup', stopResize);
-        }
-
-        window.addEventListener('mousemove', resize);
-        window.addEventListener('mouseup', stopResize);
-    });
-}
-
-document.getElementById('contentArea').addEventListener('keydown', function(e) {
-    if (e.key === 'Backspace' || e.key === 'Delete') {
-        const selection = window.getSelection();
-        const alignmentControls = document.querySelectorAll('.alignment-controls');
-        alignmentControls.forEach(control => {
-            if (control === e.target || control.contains(e.target)) {
-                e.preventDefault();
-                return;
+// 서머노트 설정
+$('#contentArea').summernote({
+    placeholder: '5자 이상의 글 내용을 입력해주세요.',
+    height: 300,
+    tabsize: 2,
+    toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture']],
+        ['view', ['fullscreen', 'codeview', 'help']]
+    ],
+    callbacks: {
+        onImageUpload: function(files) {
+            for(let file of files) {
+                uploadSummernoteImage(file, this);
             }
-        });
-    }
+        },
+        onPaste: function (e) {
+            var clipboardData = e.originalEvent.clipboardData;
+            if (clipboardData && clipboardData.items && clipboardData.items.length) {
+                var item = clipboardData.items[0];
+                if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                    e.preventDefault();
+                }
+            }
+        }
+    },
+    disableDragAndDrop: true,
+    codeviewFilter: true,
+    codeviewIframeFilter: true
 });
+
+function uploadSummernoteImage(file, editor) {
+    console.log('Uploading image:', file.name);  // 파일 정보 로그
+    const formData = new FormData();
+    formData.append("file", file);
+
+    fetch('/admin/api/upload/summernote', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            console.log('Upload response status:', response.status);  // 응답 상태 로그
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Upload success:', data);  // 성공 데이터 로그
+            const imageUrl = data.url;
+            $(editor).summernote('insertImage', imageUrl, function ($image) {
+                $image.css('max-width', '100%');
+            });
+        })
+        .catch(error => {
+            console.error('Upload error:', error);  // 에러 로그
+            console.error('이미지 업로드 실패:', error);
+            alert('이미지 업로드에 실패했습니다.');
+        });
+}
