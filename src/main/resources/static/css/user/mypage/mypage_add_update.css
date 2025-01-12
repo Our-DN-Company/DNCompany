@@ -1,7 +1,9 @@
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 
 li {
@@ -20,22 +22,29 @@ td {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 300px 0;
+  margin: 100px 0;
 
   p {
     font-size: 20px;
     padding-bottom: 20px;
+    font-family: "Pretendard-Regular";
+    text-align: center;
   }
 }
 
 form {
   border: 1px solid #f0f0f0;
   padding: 100px;
-
+  font-family: "Pretendard-Regular";
   div {
     display: flex;
 
   }
+}
+
+.pet_line{
+  border: 1px solid var(--sub-font-color);
+  margin-bottom: 10px;
 }
 
 input {
@@ -57,13 +66,13 @@ label {
 
   margin-top: 50px;
 
-  width: 200px;
+  width: 250px;
 }
 
 button {
   position: relative;
 
- left: 250px;
+ left: 200px;
   margin-top: 20px;
 
   color: white;

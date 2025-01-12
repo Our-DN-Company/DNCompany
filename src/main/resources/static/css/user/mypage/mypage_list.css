@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Pretendard-Regular";
 }
 
 li {
@@ -25,7 +26,7 @@ td {
   align-items: stretch;
   justify-content: center;
 
-  margin: 300px auto;
+  margin: 100px auto;
   p {
     font-size: 25px;
   }

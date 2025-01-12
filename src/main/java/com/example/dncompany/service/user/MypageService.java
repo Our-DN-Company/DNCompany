@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -208,6 +207,27 @@ public class MypageService {
     //    반려동물 삭제
     public void removePetByPetId(Long petId){
         mypageMapper.deletePetByPetId(petId);
+    }
+
+    //회원정보
+    //회원정보 출력
+
+    public UpdateUserProfileDTO selectUserProfileById(Long usersId){
+        return mypageMapper.selectUserProfileById(usersId)
+                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원번호입니다"));
+    }
+
+    public void updateUserProfile(UpdateUserProfileDTO updateUserProfile){
+
+        if (updateUserProfile.getAddressDetail() == null) {
+            updateUserProfile.setAddressDetail(""); // 기본값 설정
+        }
+        if (updateUserProfile.getZipCode() == null) {
+            updateUserProfile.setZipCode(""); // 기본값 설정
+        }
+
+       mypageMapper.updateUserProfile(updateUserProfile);
+
     }
 }
 
