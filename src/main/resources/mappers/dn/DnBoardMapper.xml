@@ -6,9 +6,26 @@
             SELECT SEQ_DN_BOARD.nextval FROM DUAL
         </selectKey>
         INSERT INTO DN_BOARD (DN_ID, USERS_ID, DN_PET_CATEGORY, DN_TITLE, DN_CONTENT)
-        VALUES (#{dnId}, #{usersId}, #{dnPetCategory},#{dnTitle}, #{dnContent});
+        VALUES (#{dnId}, #{usersId}, #{dnPetCategory},#{dnTitle}, #{dnContent})
     </insert>
-<!--    <select id="selectById" parameterType="Long" resultType=""-->
+    <select id="selectDnBoardById" parameterType="Long" resultType="DnBoardDetailDTO">
+        SELECT DB.DN_ID, DB.DN_UPDATED_AT, DB.DN_PET_CATEGORY, DB.DN_TITLE, DB.DN_CONTENT,
+               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID
+        FROM DN_BOARD DB
+                 LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
+                 LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
+                 LEFT JOIN USERS U ON DB.USERS_ID = U.USERS_ID
+        WHERE DB.DN_ID = #{dnId}
+    </select>
+    <select id="selectAllDnBoardList" resultType="DnBoardListDTO">
+        SELECT DB.DN_ID, DB.DN_CREATED_AT, DB.DN_UPDATED_AT, DB.DN_PET_CATEGORY, DB.DN_TITLE,
+               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID
+        FROM DN_BOARD DB
+                 LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
+                 LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
+                 LEFT JOIN USERS U ON DB.USERS_ID = U.USERS_ID
+        ORDER BY P.PRODUCT_PRICE
+    </select>
 
 
 </mapper>
