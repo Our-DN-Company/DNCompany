@@ -40,17 +40,33 @@ public class AdminUserBoardController {
      * @param model 뷰에 전달할 데이터 모델
      * @return 회원 목록 테이블 부분 뷰
      */
+
     @PostMapping("/list/data")
-    public String listData(@ModelAttribute AdminUserAllBoard searchCriteria, Model model) {
+    public String listData(@ModelAttribute AdminUserAllBoard searchCriteria,
+                           @RequestParam(defaultValue = "1") int page,
+                           @RequestParam(defaultValue = "10") int size,
+                           Model model) {
+        // 페이지 정보 설정
+        searchCriteria.setPage(page);
+        searchCriteria.setSize(size);
 
-
-        log.info("Received Search Criteria: {}", searchCriteria);
-        log.info("Search Sign Start Date: {}", searchCriteria.getSearchSignStartDate());
-        log.info("Search Sign End Date: {}", searchCriteria.getSearchSignEndDate());
-
-
+        // 전체 데이터 수와 페이징된 데이터 가져오기
+        int totalCount = adminUserService.getTotalUserCount(searchCriteria);
         List<AdminUserAllBoard> userList = adminUserService.getAllUserData(searchCriteria);
+
+        // 페이징 정보 계산
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
         model.addAttribute("userList", userList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("totalCount", totalCount);
+
+        log.info("totalPages: {}", totalPages);
+        log.info("currentPage: {}", page);
+        log.info("totalCount: {}", totalCount);
+
         return "admin/admin_board/admin_user_board :: #memberListBody";
     }
 

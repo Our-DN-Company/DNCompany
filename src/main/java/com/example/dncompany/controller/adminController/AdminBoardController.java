@@ -38,14 +38,32 @@ public class AdminBoardController {
     // 게시판 데이터 검색 및 조회
     // 위에 코드 기반으로 개조 테스트 후 문제 없으면 위에 코드 삭제 예정
     @PostMapping("/list/reportBoard")
-    public String adminBoardList(@ModelAttribute BoardSearchDTO searchDTO, Model model, HttpSession session) {
-
+    public String adminBoardList(@ModelAttribute BoardSearchDTO searchDTO,
+                                 @RequestParam(defaultValue = "1") int page,
+                                 @RequestParam(defaultValue = "10") int size,
+                                 Model model, HttpSession session) {
         if(session.getAttribute("loginId") == null || !"ROLE_ADMIN".equals(session.getAttribute("role"))) {
             return "redirect:/admin/login";
         }
 
+        // 페이지 정보 설정
+        searchDTO.setPage(page);
+        searchDTO.setSize(size);
+        searchDTO.setOffset((page - 1) * size);
+
+        // 전체 데이터 수와 페이징된 데이터 가져오기
+        int totalCount = adminBoardService.getTotalBoardCount(searchDTO);
         List<?> boards = adminBoardService.getBoardBySearchCondition(searchDTO);
+
+        // 페이징 정보 계산
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
         model.addAttribute("boardType", boards);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("totalCount", totalCount);
+
         return "admin/admin_board/admin_board :: #postListBody";
     }
 
