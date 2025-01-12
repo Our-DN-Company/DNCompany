@@ -26,6 +26,8 @@ public class HomeController {
         List<MainEventDTO> maineventDTOList = mainpageServive.addSelectEventBoard();
         model.addAttribute("maindnDTOList", maindnDTOList);
         model.addAttribute("maineventDTOList", maineventDTOList);
+        log.debug("이벤트 리스트: {}", maineventDTOList); // 로그 추가
+
 
         return "mainPage";
     }
