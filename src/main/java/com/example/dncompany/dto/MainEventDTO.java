@@ -12,7 +12,7 @@ public class MainEventDTO {
     //    이미지 파일 불러오기
     private Long eventImgId;
     private String eventUuid;
-    private String eventPath;
+    private String eventFilePath;
     private String eventExtension;
 
 }

@@ -1,14 +1,14 @@
-
-.mypage_user_profile,
-.mypage_user_now,
-.mypage_main_pet_profile,
-.mypage_main_help_me,
-.mypage_main_help_you,
-.mypage_main_content
-{
-  font-family: "Pretendard-Regular";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+
+
+li {
+  list-style-type: none;
+}
 
 table {
   width: 100%;
@@ -35,11 +35,17 @@ td {
 
 }
 
+.mypage_main_title {
+  margin-top: 20px;
+  font-size: 30px;
+
+
+}
+
 .mypage_main_top {
   display: flex;
   justify-content: space-between;
 }
-
 .mypage_main_member_proflie {
   display: flex;
   flex-direction: column;
@@ -47,16 +53,13 @@ td {
   align-items: center;
   margin-right: 20px;
 
-
-
+  /* margin-top: 200px; */
 }
-
 .mypage_main_member_name {
   margin-left: 20px;
   margin-top: 50px;
 
   color: var(--main-color);
-  font-family: "Pretendard-Regular";
   span {
     font-size: 30px;
   }
@@ -67,7 +70,11 @@ td {
   margin: 10px 0;
 }
 
-
+.mypage_main_sub_line {
+  border: 1px solid var(--sub-color);
+  opacity: 0.5;
+  margin: 10px 0;
+}
 
 .mypage_main_member_line {
   border: 1px solid #f0f0f0;
@@ -83,14 +90,17 @@ td {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   position: relative;
   padding: 50px;
   border: 2px solid #f0f0f0 ;
   width: 80%;
+  /*right: 40%;*/
+  /*top: 30%;*/
 
-
-
+  p {
+    padding-left: 20px;
+    font-size: 30px;
+  }
 }
 
 .mypage_main_pet_box {
@@ -106,16 +116,11 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Ownglyph_ParkDaHyun";
-  margin-bottom: 30px;
-    font-size: 30px;
-  margin-right: 20%;
-
+  font-family: "Ownglyph_ParkDaHyun"
 
 }
 .mypage_main_pet_list {
   display: flex;
-
 }
 
 .mypage_main_pet_content {
@@ -142,7 +147,7 @@ td {
 }
 
 .mypage_main_pet_profile {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .mypage_main_pet_button_left {
@@ -188,8 +193,7 @@ td {
   }
 }
 
-.mypage_main_content_button_top,
-.pet-btn{
+.mypage_main_content_button {
   background-image: url(/images/user/mypage/+button.png);
   background-color: transparent;
   background-repeat: no-repeat;
@@ -211,7 +215,6 @@ td {
   border: none;
   padding: 10px;
   border-radius: 5px;
-  font-family:"Pretendard-Regular" ;
   cursor: pointer;
 }
 .mypage_main_pet_list {
@@ -227,86 +230,41 @@ td {
   margin-bottom: 50px;
 }
 
-
-.mypage_main_content_button_list{
-  display: flex;
-  flex-direction: column;
+p {
+  margin-top: 20px;
 }
 
 .pet-btn-box {
   position: absolute;
   bottom: 0;
-  right: 20px;
+  right: 0;
   display: flex;
-  top: 20px;
-}
 
-
-
-.mypage_main_content_button{
-
-  background-color: var(--main-color);
-  color: white;
-  text-align: center;
-
-  font-family:"Pretendard-Regular";
-  border-radius: 5px;
-  padding: 10px 40px;
-  margin: 5px 20px;
-  cursor: pointer;
-
-}
-
-.mypage_main_content{
-
-  margin: 10px 0;
-
-}
-.mypage_main_content_title{
-  font-size: 20px;
-  font-family: "Ownglyph_ParkDaHyun";
-
-}
-
-
-
-.pet-add-delete-btn{
-  position: absolute;
-
-  right: 10%;
-
-
-  a{
-    color: white;
-    background-color: var(--main-color);
-    border: none;
-    font-family: "Pretendard-Regular";
-    padding: 5px;
-    border-radius: 5px;
-    font-family:"Pretendard-Regular" ;
+  .pet-btn {
+    display: block;
+    margin : 2px;
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid #dbdbdb;
     cursor: pointer;
   }
+
+  .pet-btn:hover{
+    background-color: #dbdbdb;
+  }
+
 }
 
 
-.mypage_main_member_proflie{
-  position: relative;
-}
 
-.profile_btn_box{
-  position: absolute;
-  margin-bottom: 30px;
-  right: 0;
-}
-.profile_btn{
-  background-color: #f0f0f0;
-  text-align: center;
-  font-family: "Pretendard-Regular";
-  border-radius: 5px;
-  padding: 5px;
-  cursor: pointer;
-  font-size: 15px;
-}
+
+
+
+
+
+
+
+
 
 
 
