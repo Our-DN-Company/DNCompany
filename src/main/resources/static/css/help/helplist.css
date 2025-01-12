@@ -123,41 +123,129 @@ nav {
 
 
 /* 필터 섹션 */
+/*.filter-section {*/
+/*    background-color: white;*/
+/*    border-radius: 8px;*/
+/*    padding: 16px;*/
+/*    margin-bottom: 24px;*/
+/*    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); !* 그림자 효과 *!*/
+/*}*/
+
+/*!* 필터 옵션 레이아웃 *!*/
+/*.filter-options {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(3, 1fr);*/
+/*    gap: 16px;*/
+/*    margin-bottom: 16px;*/
+/*}*/
+
+/*!* 필터 선택박스와 날짜 입력 스타일 *!*/
+/*.filter-select, .filter-date {*/
+/*    width: 100%;*/
+/*    padding: 8px;*/
+/*    border: 1px solid #e2e8f0;*/
+/*    border-radius: 6px;*/
+/*}*/
+
+/*!* 검색창 컨테이너 *!*/
+/*.search-box {*/
+/*    position: relative;*/
+/*}*/
+
+/*!* 검색 입력창 스타일 *!*/
+/*.search-box input {*/
+/*    width: 100%;*/
+/*    padding: 8px 8px 8px 10px;*/
+/*    border: 1px solid #e2e8f0;*/
+/*    border-radius: 6px;*/
+/*}*/
+/* 필터 섹션 전체 */
 .filter-section {
     background-color: white;
     border-radius: 8px;
-    padding: 16px;
+    padding: 20px;
     margin-bottom: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* 필터 옵션 레이아웃 */
+/* 검색 폼 */
+#searchForm {
+    width: 100%;
+}
+
+/* 필터 옵션 컨테이너 */
 .filter-options {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     margin-bottom: 16px;
 }
 
-/* 필터 선택박스와 날짜 입력 스타일 */
-.filter-select, .filter-date {
-    width: 100%;
-    padding: 8px;
+/* 시/도, 구/군 선택 박스 */
+.filter-select {
+    min-width: 150px;
+    padding: 10px;
     border: 1px solid #e2e8f0;
     border-radius: 6px;
+    background-color: white;
+    font-size: 14px;
+}
+
+/* 날짜 선택 */
+.filter-date {
+    min-width: 150px;
+    padding: 9px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background-color: white;
 }
 
 /* 검색창 컨테이너 */
 .search-box {
-    position: relative;
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
 }
 
-/* 검색 입력창 스타일 */
+/* 검색어 입력창 */
 .search-box input {
-    width: 100%;
-    padding: 8px 8px 8px 10px;
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
     border: 1px solid #e2e8f0;
     border-radius: 6px;
+}
+
+/* 검색 버튼 */
+.search-box button {
+    padding: 10px 20px;
+    background-color: rgb(95, 0, 128);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.search-box button:hover {
+    background-color: rgb(85, 0, 115);
+}
+
+/* 선택박스 호버 효과 */
+.filter-select:hover,
+.filter-date:hover,
+.search-box input:hover {
+    border-color: rgb(95, 0, 128);
+}
+
+/* 선택박스 포커스 효과 */
+.filter-select:focus,
+.filter-date:focus,
+.search-box input:focus {
+    outline: none;
+    border-color: rgb(95, 0, 128);
+    box-shadow: 0 0 0 2px rgba(95, 0, 128, 0.1);
 }
 
 /* 게시글 목록 컨테이너 */
