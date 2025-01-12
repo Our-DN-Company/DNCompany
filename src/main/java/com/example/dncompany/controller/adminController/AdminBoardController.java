@@ -3,6 +3,7 @@ package com.example.dncompany.controller.adminController;
 import com.example.dncompany.dto.admin.board.AdminAnswerDTO;
 import com.example.dncompany.dto.admin.board.BoardSearchDTO;
 import com.example.dncompany.service.admin.AdminBoardService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,12 @@ public class AdminBoardController {
     // 게시판 데이터 검색 및 조회
     // 위에 코드 기반으로 개조 테스트 후 문제 없으면 위에 코드 삭제 예정
     @PostMapping("/list/reportBoard")
-    public String adminBoardList(@ModelAttribute BoardSearchDTO searchDTO, Model model) {
+    public String adminBoardList(@ModelAttribute BoardSearchDTO searchDTO, Model model, HttpSession session) {
+
+        if(session.getAttribute("loginId") == null || !"ROLE_ADMIN".equals(session.getAttribute("role"))) {
+            return "redirect:/admin/login";
+        }
+
         List<?> boards = adminBoardService.getBoardBySearchCondition(searchDTO);
         model.addAttribute("boardType", boards);
         return "admin/admin_board/admin_board :: #postListBody";
