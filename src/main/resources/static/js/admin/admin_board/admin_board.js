@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+
     // userImage 클릭 이벤트
     const userImage = document.getElementById("userImage");
     if (userImage) {
