@@ -38,4 +38,31 @@
                  JOIN PET p ON h.PET_ID = p.PET_ID
         WHERE h.HELP_ID = #{helpId}
     </select>
+
+    <select id="searchHelpList" parameterType="HelpSearchDTO" resultType="HelpListDTO">
+        /* 검색 쿼리 실행 */
+        SELECT
+        HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
+        HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT
+        FROM HELP_BOARD
+        <where>
+            <if test="sido != null and sido != ''">
+                AND HELP_ADDRESS LIKE '%' || #{sido} || '%'
+                <if test="gugun != null and gugun != ''">
+                    AND HELP_ADDRESS LIKE '%' || #{gugun} || '%'
+                </if>
+            </if>
+            <if test="careDate != null">
+                AND HELP_CARE_DATE = #{careDate}
+            </if>
+            <if test="careType != null and careType != ''">
+                AND HELP_CARE_TYPE = #{careType}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (HELP_TITLE LIKE '%' || #{keyword} || '%'
+                OR HELP_SPECIAL_NOTE LIKE '%' || #{keyword} || '%')
+            </if>
+        </where>
+        ORDER BY HELP_CREATED_AT DESC
+    </select>
 </mapper>

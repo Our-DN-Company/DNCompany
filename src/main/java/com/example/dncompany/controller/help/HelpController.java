@@ -2,6 +2,7 @@ package com.example.dncompany.controller.help;
 
 import com.example.dncompany.dto.help.HelpListDTO;
 import com.example.dncompany.dto.help.HelpDetailDTO;
+import com.example.dncompany.dto.help.HelpSearchDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.dto.help.pet.HelpPetListDTO;
 import com.example.dncompany.service.help.HelpService;
@@ -59,6 +60,17 @@ public class HelpController {
         return "help/detail";
 
 
+    }
+    @GetMapping("/search")
+    public String searchHelp(@ModelAttribute HelpSearchDTO searchDTO, Model model) {
+        log.info("검색 요청 DTO: {}", searchDTO); // 검색 조건 로그
+
+        List<HelpListDTO> searchResult = helpService.searchHelpList(searchDTO);
+        log.info("검색 결과 개수: {}", searchResult.size()); // 결과 개수 로그
+
+        model.addAttribute("helpList", searchResult);
+        model.addAttribute("searchDTO", searchDTO);
+        return "help/list";
     }
 }
 
