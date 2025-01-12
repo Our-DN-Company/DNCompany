@@ -11,4 +11,9 @@ public class BoardSearchDTO {
     private String searchKeyword; // 검색어
     private String startDate;     // 시작 날짜
     private String endDate;       // 종료 날짜
+
+
+    private int page = 1;        // 현재 페이지
+    private int size = 10;       // 페이지당 데이터 수
+    private int offset;          // OFFSET 계산을 위한 필드
 }

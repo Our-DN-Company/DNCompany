@@ -21,24 +21,19 @@ public class AdminUserService {
     private final AdminUserMapper adminUserMapper;
 
     public List<AdminUserAllBoard> getAllUserData(AdminUserAllBoard searchCriteria) {
-        // 검색 조건 전처리가 필요한 경우 여기서 처리
-//        if (searchCriteria.getSearchPhoneNumber() != null) {
-//            String phoneNumber = searchCriteria.getSearchPhoneNumber();
-//            // 전화번호에서 하이픈 제거
-//            searchCriteria.setSearchPhoneNumber(
-//                    searchCriteria.getSearchPhoneNumber().replaceAll("-", "")
-//            );
-//            searchCriteria.setSearchPhoneNumber(phoneNumber);
-//        }
-
-
-        log.info("Search Criteria: {}", searchCriteria);
-        log.info("Search Sign Start Date: {}", searchCriteria.getSearchSignStartDate());
-        log.info("Search Sign End Date: {}", searchCriteria.getSearchSignEndDate());
-
+        // 오프셋 계산
+        int offset = (searchCriteria.getPage() - 1) * searchCriteria.getSize();
+        searchCriteria.setOffset(offset);
 
         return adminUserMapper.selectUserData(searchCriteria);
     }
+
+    public int getTotalUserCount(AdminUserAllBoard searchCriteria) {
+        return adminUserMapper.countUserData(searchCriteria);
+    }
+
+
+
 
     public List<AdmInUserReportDTO> getReportsByUserId(Long userId) {
         return adminUserMapper.getReportsByUserId(userId);

@@ -39,11 +39,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 게시물 데이터 조회
-    async function fetchPosts(category) {
+    // 게시물 데이터 조회 함수 수정
+    async function fetchPosts(category, page = 1) {
         try {
             const form = new FormData();
             form.append('category', category);
+            form.append('page', page);
+            form.append('size', document.getElementById('itemsPerPage').value);
 
             const response = await fetch("/admin/board/list/reportBoard", {
                 method: "POST",
@@ -55,25 +57,26 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const html = await response.text();
-            document.getElementById("postListBody").innerHTML = html;
+            // 임시 div를 만들어 HTML 파싱
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+
+            // postListBody 영역 전체를 교체
+            const postListBody = document.getElementById('postListBody');
+            if (postListBody) {
+                postListBody.innerHTML = tempDiv.querySelector('#postListBody').innerHTML;
+            }
         } catch (error) {
             console.error('Error:', error);
         }
     }
 
-    // 검색 버튼 클릭 이벤트
-    // const searchButton = document.getElementById("searchButton");
-    // searchButton.addEventListener("click", function (e) {
-    //     e.preventDefault();
-    //     const searchCategory = document.getElementById("boardSelect").value;
-    //     fetchPosts(searchCategory);
-    // });
-
-    // 검색 폼 제출 처리
-    const searchForm = document.getElementById("searchForm");
+    // 검색 폼 제출 처리도 위와 같은 방식으로 수정
     searchForm.addEventListener("submit", async function(e) {
         e.preventDefault();
-        const formData = new FormData(searchForm);
+        const formData = new FormData(this);
+        formData.append('page', '1');
+        formData.append('size', document.getElementById('itemsPerPage').value);
 
         try {
             const response = await fetch("/admin/board/list/reportBoard", {
@@ -84,11 +87,45 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) throw new Error('검색 실패');
 
             const html = await response.text();
-            document.getElementById("postListBody").innerHTML = html;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+
+            const postListBody = document.getElementById('postListBody');
+            if (postListBody) {
+                postListBody.innerHTML = tempDiv.querySelector('#postListBody').innerHTML;
+            }
         } catch (error) {
             console.error('Error:', error);
         }
     });
+
+    // 페이지 변경 함수
+    window.changePage = function(page) {
+        const formData = new FormData(document.getElementById('searchForm'));
+        formData.append('page', page);
+        formData.append('size', document.getElementById('itemsPerPage').value);
+
+        fetch("/admin/board/list/reportBoard", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.text();
+            })
+            .then(html => {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+
+                const postListBody = document.getElementById('postListBody');
+                if (postListBody) {
+                    postListBody.innerHTML = tempDiv.querySelector('#postListBody').innerHTML;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
 
     // 날짜 버튼 클릭 처리
     const dateButtons = document.querySelectorAll('.date-btn');
@@ -119,19 +156,35 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-
-
-    // 페이지당 게시물 수 변경 이벤트
+    // 페이지당 게시물 수 변경 이벤트 수정
     const itemsPerPageSelect = document.getElementById("itemsPerPage");
     itemsPerPageSelect.addEventListener("change", function () {
-        const searchCategory = document.getElementById("boardSelect").value;
-        fetchPosts(searchCategory);
+        const formData = new FormData(document.getElementById('searchForm'));
+        formData.append('page', '1');  // 페이지 1로 리셋
+        formData.append('size', this.value);
+
+        fetch("/admin/board/list/reportBoard", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById("postListBody").innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     });
 
     // 초기 데이터 로드
-    fetchPosts(category || "all");
+    fetchPosts(category || "all", 1);
 });
 
+
+// ==========================================================================================================================
 // 모달 코드
 
 document.addEventListener('DOMContentLoaded', function() {

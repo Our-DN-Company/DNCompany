@@ -36,5 +36,10 @@ public class AdminUserAllBoard {
     private String reportStatus;      // 신고여부 검색용
 
 
+    private int page = 1;        // 현재 페이지 (기본값 1)
+    private int size = 10;       // 페이지당 데이터 수 (기본값 10)
+    private int offset;          // OFFSET 계산을 위한 필드
+
+
 
 }
