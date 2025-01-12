@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dncompany.mapper.admin.AdminUserMapper">
 
+    <!-- 기존 selectUserData 쿼리 수정 - 맨 아래 ORDER BY 뒤에 페이징 구문 추가 -->
     <select id="selectUserData" resultType="AdminUserAllBoard" parameterType="AdminUserAllBoard">
         SELECT
         u.USERS_ID AS userId,
@@ -37,7 +38,7 @@
             AND u.PHONE_NUMBER LIKE '%' || #{searchPhoneNumber} || '%'
         </if>
         <if test="searchSignStartDate != null and searchSignEndDate != null
-        and searchSignStartDate != '' and searchSignEndDate != ''">
+    and searchSignStartDate != '' and searchSignEndDate != ''">
             AND u.SIGN_UP_DATE >= TO_DATE(#{searchSignStartDate}, 'YYYY-MM-DD')
             AND u.SIGN_UP_DATE <![CDATA[<=]]> TO_DATE(#{searchSignEndDate}, 'YYYY-MM-DD')
         </if>
@@ -62,6 +63,7 @@
             </choose>
         </if>
         ORDER BY u.USERS_ID
+        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
     </select>
 
     <select id="getReportsByUserId" resultType="AdMInUserReportDTO">
@@ -117,5 +119,52 @@
         SELECT POINT
             FROM USERS
         WHERE USERS_ID = #{userId}
+    </select>
+
+    <!-- 페이징 처리를 위한 전체 카운트 쿼리 추가 -->
+    <select id="countUserData" resultType="int" parameterType="AdminUserAllBoard">
+        SELECT COUNT(*)
+        FROM ADMIN.USERS u
+        WHERE 1=1
+        <if test="searchLoginId != null and searchLoginId != ''">
+            AND LOWER(u.LOGIN_ID) LIKE '%' || LOWER(#{searchLoginId}) || '%'
+        </if>
+        <if test="searchName != null and searchName != ''">
+            AND u.NAME LIKE '%' || #{searchName} || '%'
+        </if>
+        <if test="age != null">
+            AND TRUNC(MONTHS_BETWEEN(SYSDATE, u.BIRTH_DATE)/12) = #{age}
+        </if>
+        <if test="searchGender != null and searchGender != '' and searchGender != 'all'">
+            AND u.GENDER = #{searchGender}
+        </if>
+        <if test="searchPhoneNumber != null and searchPhoneNumber != ''">
+            AND u.PHONE_NUMBER LIKE '%' || #{searchPhoneNumber} || '%'
+        </if>
+        <if test="searchSignStartDate != null and searchSignEndDate != null
+    and searchSignStartDate != '' and searchSignEndDate != ''">
+            AND u.SIGN_UP_DATE >= TO_DATE(#{searchSignStartDate}, 'YYYY-MM-DD')
+            AND u.SIGN_UP_DATE <![CDATA[<=]]> TO_DATE(#{searchSignEndDate}, 'YYYY-MM-DD')
+        </if>
+        <if test="reportStatus != null and reportStatus != '' and reportStatus != 'all'">
+            <choose>
+                <when test="reportStatus == 'reported'">
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) > 0
+                </when>
+                <when test="reportStatus == 'notReported'">
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) = 0
+                </when>
+            </choose>
+        </if>
     </select>
 </mapper>

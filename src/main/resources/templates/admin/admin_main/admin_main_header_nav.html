@@ -22,7 +22,10 @@
     </ul>
   </nav>
   <div class="user-menu">
-    <img src="https://via.placeholder.com/40" alt="User Image" id="userImage" />
+    <img th:src="@{/images/admin/admin_images/header_image/adminZZang2.jpg}" alt="User Image" id="userImage"
+         width="40px"
+         />
+
     <div class="modal" id="userModal">
       <p><strong th:text="${session.loginId}">Username</strong></p>
       <p class="subtext" th:text="${session.loginId + ' 운영자님'}">운영자님</p>

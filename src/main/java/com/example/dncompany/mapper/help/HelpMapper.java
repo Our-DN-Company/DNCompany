@@ -2,6 +2,7 @@ package com.example.dncompany.mapper.help;
 
 import com.example.dncompany.dto.help.HelpListDTO;
 import com.example.dncompany.dto.help.HelpDetailDTO;
+import com.example.dncompany.dto.help.HelpSearchDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,4 +19,7 @@ public interface HelpMapper {
 
     // 게시글 상세 조회
     Optional<HelpDetailDTO> selectHelpDetail(Long helpId);
+
+    // 검색 기능 추가
+    List<HelpListDTO> searchHelpList(HelpSearchDTO searchDTO);
 }

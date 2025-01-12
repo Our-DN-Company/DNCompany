@@ -2,6 +2,7 @@ package com.example.dncompany.controller.help;
 
 import com.example.dncompany.dto.help.HelpListDTO;
 import com.example.dncompany.dto.help.HelpDetailDTO;
+import com.example.dncompany.dto.help.HelpSearchDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.dto.help.pet.HelpPetListDTO;
 import com.example.dncompany.service.help.HelpService;
@@ -35,9 +36,9 @@ public class HelpController {
 
     @PostMapping("/write")
     public String helpWrite(@SessionAttribute(value = "usersId", required = false) Long usersId,
-                            HelpWriteDTO helpWriteDTO){
+                            HelpWriteDTO helpWriteDTO) {
         log.info("helpWriteDTO: {}", helpWriteDTO);
-        usersId = 6L; // 임시 처리
+      //  usersId = 6L; // 임시 처리
 
         helpService.registerHelp(helpWriteDTO, usersId);
 
@@ -45,22 +46,37 @@ public class HelpController {
     }
 
     @GetMapping("/list")
-    public String helpList(Model model){
+    public String helpList(Model model) {
         List<HelpListDTO> helpList = helpService.getHelpList();
         model.addAttribute("helpList", helpList);
         return "help/list";
     }
 
     @GetMapping("/detail")
-    public String helpDetail(@RequestParam Long helpId, Model model){
-        HelpDetailDTO helpDetail=helpService.getHelpDetail(helpId);
+    public String helpDetail(@RequestParam Long helpId, Model model) {
+        HelpDetailDTO helpDetail = helpService.getHelpDetail(helpId);
         log.info("helpDetail: {}", helpDetail);
-                model.addAttribute("helpDetail", helpDetail);
+        model.addAttribute("helpDetail", helpDetail);
         return "help/detail";
+
+
     }
+    @GetMapping("/search")
+    public String searchHelp(@ModelAttribute HelpSearchDTO searchDTO, Model model) {
+        log.info("검색 요청 DTO: {}", searchDTO); // 검색 조건 로그
 
+        List<HelpListDTO> searchResult = helpService.searchHelpList(searchDTO);
+        log.info("검색 결과 개수: {}", searchResult.size()); // 결과 개수 로그
 
+        model.addAttribute("helpList", searchResult);
+        model.addAttribute("searchDTO", searchDTO);
+        return "help/list";
+    }
 }
+
+
+
+
 
 
 

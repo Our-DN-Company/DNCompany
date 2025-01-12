@@ -9,18 +9,6 @@ function confirmSubmit(event) {
     }
 }
 
-// document.getElementById('end-date').addEventListener('change', function() {
-//     const startDate = document.getElementById('start-date').value;
-//     const endDate = this.value;
-//
-//     if(startDate && endDate) {
-//         if(new Date(endDate) < new Date(startDate)) {
-//             alert('종료일은 시작일보다 빠를 수 없습니다.');
-//             this.value = '';
-//         }
-//     }
-// });
-
 const elZonecode = document.querySelector("#zonecode");
 const elRoadAddress = document.querySelector("#roadAddress");
 const elRoadAddressDetail = document.querySelector("#roadAddressDetail");

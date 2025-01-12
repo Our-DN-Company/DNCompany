@@ -78,6 +78,10 @@ public class AdminBoardService {
     }
 
 
+    public int getTotalBoardCount(BoardSearchDTO searchDTO) {
+        return adminBoardMapper.countTotalBoards(searchDTO);
+    }
+
 //    ===============================================================================================================================================================
 
 

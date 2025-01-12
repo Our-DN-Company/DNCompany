@@ -104,8 +104,20 @@ public class MypageController {
 
 
     @GetMapping("/update/profile")
-    public String mypageUpdateProfile() {
+    public String mypageUpdateProfile(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                      Model model) {
+        UpdateUserProfileDTO selectUserProfileById = mypageService.selectUserProfileById(usersId);
+        model.addAttribute("userProfile", selectUserProfileById);
         return "user/mypage/update-profile";
+    }
+
+    @PostMapping("/update/profile")
+    public String mypageUpdateProfile(UpdateUserProfileDTO updateUserProfileDTO){
+        log.debug("updateUserProfileDTO: {}", updateUserProfileDTO);
+
+        mypageService.updateUserProfile(updateUserProfileDTO);
+        log.debug("updateUserProfileDTO: {}", updateUserProfileDTO);
+        return "redirect:/mypage/main";
     }
 
     @GetMapping("/list/zip")

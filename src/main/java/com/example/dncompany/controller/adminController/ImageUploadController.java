@@ -3,6 +3,7 @@ package com.example.dncompany.controller.adminController;
 import com.example.dncompany.dto.admin.board.file.AdminFIleDTO;
 import com.example.dncompany.mapper.admin.AdminFIleMapper;
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -102,6 +104,13 @@ public class ImageUploadController {
             File saveFile = new File(savePath + "/" + saveFileName);
             file.transferTo(saveFile);
 
+            String contentType = Files.probeContentType(saveFile.toPath());
+            if (contentType != null && contentType.startsWith("image")) {
+                Thumbnails.of(saveFile)
+                        .size(300, 200)
+                        .toFile(new File(savePath + "/th_" + saveFileName));
+            }
+
             // EVENT_IMG 테이블에 저장
             AdminFIleDTO adminFIleDTO = new AdminFIleDTO();
             adminFIleDTO.setEventOriginalFilename(originalFilename);
@@ -110,7 +119,7 @@ public class ImageUploadController {
             adminFIleDTO.setEventExtension(extension);
 
             log.debug("Saving to EVENT_IMG - AdminFIleDTO: {}", adminFIleDTO);
-            adminFIleMapper.insertEventBoard(adminFIleDTO);
+//            adminFIleMapper.insertEventBoard(adminFIleDTO);
 
             // 3. URL 생성 및 반환
             String imageUrl = "/upload/event/" + datePath + "/" + saveFileName;

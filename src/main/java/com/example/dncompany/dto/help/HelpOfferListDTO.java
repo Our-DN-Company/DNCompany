@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Getter@Setter@ToString
 public class HelpOfferListDTO {
     private Long helpOfferId;
-    private Long helpId;
     private String helpOfferStatus;
-    private LocalDateTime helpEnrollDate;
+    private LocalDateTime helpOfferEnrollDate;
+    private Long helpId;
     private Long usersId;
 }

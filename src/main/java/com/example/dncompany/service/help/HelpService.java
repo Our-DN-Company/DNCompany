@@ -2,6 +2,7 @@ package com.example.dncompany.service.help;
 
 import com.example.dncompany.dto.help.HelpListDTO;
 import com.example.dncompany.dto.help.HelpDetailDTO;
+import com.example.dncompany.dto.help.HelpSearchDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.exception.help.HelpNotFoundException;
 import com.example.dncompany.mapper.help.HelpMapper;
@@ -50,6 +51,13 @@ public class HelpService {
     public HelpDetailDTO getHelpDetail(Long helpId) {
         return helpMapper.selectHelpDetail(helpId)
                 .orElseThrow(() -> new HelpNotFoundException("게시글을 찾을 수 없습니다."));
+    }
+    // 검색
+    public List<HelpListDTO> searchHelpList(HelpSearchDTO searchDTO) {
+        log.info("검색 서비스 호출 - 검색조건: {}", searchDTO);
+        List<HelpListDTO> result = helpMapper.searchHelpList(searchDTO);
+        log.info("검색 결과: {}", result);
+        return result;
     }
 
 }
