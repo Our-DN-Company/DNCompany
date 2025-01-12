@@ -3,23 +3,25 @@
 <mapper namespace="com.example.dncompany.mapper.admin.AdminFIleMapper">
 
     <insert id="insertEventBoard" parameterType="AdminFIleDTO">
-    <selectKey keyProperty="eventImgId" resultType="long" order="BEFORE">
-        SELECT SEQ_EVENT_IMG.nextval FROM DUAL
-    </selectKey>
-    INSERT INTO ADMIN.EVENT_IMG (
-    EVENT_IMG_ID,
-    EVENT_ORIGINAL_FILENAME,
-    EVENT_UUID,
-    EVENT_PATH,
-    EVENT_EXTENSION
-    ) VALUES (
-    #{eventImgId},
-    #{eventOriginalFilename},
-    #{eventUuid},
-    #{eventPath},
-    #{eventExtension}
-    )
-</insert>
+        <selectKey keyProperty="eventImgId" resultType="long" order="BEFORE">
+            SELECT SEQ_EVENT_IMG.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO ADMIN.EVENT_IMG (
+        EVENT_IMG_ID,
+        EVENT_ORIGINAL_FILENAME,
+        EVENT_UUID,
+        EVENT_PATH,
+        EVENT_EXTENSION,
+        EVENT_ID        <!-- 추가된 컬럼 -->
+        ) VALUES (
+        #{eventImgId},
+        #{eventOriginalFilename},
+        #{eventUuid},
+        #{eventPath},
+        #{eventExtension},
+        #{eventBoardId} <!-- 추가된 값 -->
+        )
+    </insert>
 
 
 
