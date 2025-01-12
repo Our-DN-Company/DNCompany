@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>관리자 페이지</title>
-    <link th:href="@{/css/admin/admin_main/admin_header.css}" rel="stylesheet"/>
+<!--    <link th:href="@{/css/admin/admin_main/admin_header.css}" rel="stylesheet"/>-->
     <link th:href="@{/css/admin/admin_board/admin_board.css}" rel="stylesheet"/>
 </head>
 <body>
@@ -74,23 +74,49 @@
             <th>작성일</th>
         </tr>
         </thead>
-        <tbody id="postListBody">
-        <tr th:each="post, index : ${boardType}"
-            th:data-post-id="${post.id}"
-            th:data-category="${post.category}">
-            <td><input type="checkbox" class="post-checkbox"></td>
-            <td th:text="${index.count}"></td>
-            <td th:text="${post.category}"></td>
-            <td th:text="${post.title}"></td>
-            <td th:text="${post.status}"></td>
-            <td th:text="${post.writer}"></td>
-            <td th:text="${post.email}"></td>
-            <td th:text="${post.phoneNumber}"></td>
-            <td th:text="${post.createdAt}"></td>
-        </tr>
-        </tbody>
     </table>
-    <button class="delete-button">삭제</button>
+
+
+    <div id="postListBody">
+        <table>
+            <tbody>
+            <tr th:each="post, index : ${boardType}"
+                th:data-post-id="${post.id}"
+                th:data-category="${post.category}">
+                <td><input type="checkbox" class="post-checkbox"></td>
+                <td th:text="${index.count}"></td>
+                <td th:text="${post.category}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.status}"></td>
+                <td th:text="${post.writer}"></td>
+                <td th:text="${post.email}"></td>
+                <td th:text="${post.phoneNumber}"></td>
+                <td th:text="${post.createdAt}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="delete-button">삭제</button>
+        <div th:if="${totalPages > 0}" class="pagination-container">
+            <div class="pagination-info">
+                전체 <span th:text="${totalCount}"></span>건 중
+                <span th:text="${(currentPage-1) * pageSize + 1}"></span>-
+                <span th:text="${currentPage * pageSize > totalCount ? totalCount : currentPage * pageSize}"></span>건
+            </div>
+            <div class="pagination">
+                <button th:onclick="'changePage(1)'" th:disabled="${currentPage == 1}" class="page-button">&lt;&lt;</button>
+                <button th:onclick="'changePage(' + ${currentPage - 1} + ')'" th:disabled="${currentPage == 1}" class="page-button">&lt;</button>
+                <th:block th:with="start=${(currentPage-2) > 0 ? currentPage-2 : 1},
+                                   end=${(start + 4) < totalPages ? (start + 4) : totalPages}">
+                    <th:block th:each="pageNum : ${#numbers.sequence(start, end)}">
+                        <button th:text="${pageNum}" th:onclick="'changePage(' + ${pageNum} + ')'"
+                                th:class="${pageNum == currentPage ? 'page-button active' : 'page-button'}"></button>
+                    </th:block>
+                </th:block>
+                <button th:onclick="'changePage(' + ${currentPage + 1} + ')'" th:disabled="${currentPage == totalPages}" class="page-button">&gt;</button>
+                <button th:onclick="'changePage(' + ${totalPages} + ')'" th:disabled="${currentPage == totalPages}" class="page-button">&gt;&gt;</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 

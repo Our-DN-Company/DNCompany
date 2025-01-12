@@ -11,9 +11,13 @@ import java.util.List;
 public interface AdminUserMapper {
     // 회원 목록 조회 - 검색 조건 파라미터 추가
     List<AdminUserAllBoard> selectUserData(AdminUserAllBoard searchCriteria);
-
+    //  페이징처리를 위한 카운트 메서드
+    int countUserData(AdminUserAllBoard searchCriteria);
     // 특정 회원의 신고 내역 조회
     List<AdmInUserReportDTO> getReportsByUserId(Long userId);
+
+
+
 
     // 신고 상태 업데이트
     int updateReportStatus(@Param("reportId") Long reportId, @Param("status") String status);

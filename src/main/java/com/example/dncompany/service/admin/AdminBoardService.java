@@ -78,7 +78,13 @@ public class AdminBoardService {
     }
 
 
+    public int getTotalBoardCount(BoardSearchDTO searchDTO) {
+        return adminBoardMapper.countTotalBoards(searchDTO);
+    }
+
 //    ===============================================================================================================================================================
+
+
 
 
 
@@ -125,7 +131,29 @@ public class AdminBoardService {
     }
 
     // 이벤트 입력 with 파일 입력
+    /**
+     * 이벤트 게시글 서비스 클래스
+     * 실제 비즈니스 로직을 처리
+     */
 
+    /**
+     * 이벤트 게시글 저장 및 파일 처리
+     * 1. 게시글 정보 저장
+     * 2. EVENT_ID 생성
+     * 3. 본문 이미지 URL 추출 및 DB 저장
+     * 4. 첨부 이미지 처리
+     *    - 파일 시스템에 저장
+     *    - 썸네일 생성
+     *    - DB에 정보 저장
+     *
+     * 처리 순서가 중요:
+     * - 게시글 먼저 저장하여 EVENT_ID 확보
+     * - 이미지 정보 저장 시 EVENT_ID 참조
+     *
+     * @param adminEventWriteDTO 게시글 정보
+     * @param userId 작성자 ID
+     * @param multipartFile 첨부 이미지
+     */
     public void addAdminEventBoardWithFIle(AdminEventWriteDTO adminEventWriteDTO,
                                            Long userId,
                                            MultipartFile multipartFile) throws IOException {

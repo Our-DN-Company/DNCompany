@@ -70,58 +70,77 @@
             <button class="apply-button" id="applyButton">회원정보 수정 전체적용</button>
         </div>
     </div>
-    <table>
-        <thead>
-        <tr>
-            <th><input id="selectAll" type="checkbox"></th>
-            <th>번호</th>
-            <th>아이디</th>
-            <th>이름</th>
-            <th>주소</th>
-            <th>폰번호</th>
-            <th>생년월일</th>
-            <th>성별</th>
-            <th>가입일</th>
-            <th>신고 횟수</th>
-            <th>보유 포인트</th>
-            <th>포인트 수정</th>
-            <th>활동 정지</th>
-        </tr>
-        </thead>
-        <tbody id="memberListBody">
-        <!--  Thymeleaf가 서버에서 데이터를 렌더링한다. -->
-        <!--  이부분은 지금 :admin_user_board :: #memberListBody 뿌리고 있으며   -->
-        <!--  전체페이지가 아닌 이 영역만 새로고침이 된다   -->
-        <!--   modal 로 userList를 뿌리고 있다(post방식)      -->
-        <tr th:each="user : ${userList}">
-            <td><input type="checkbox"></td>
-            <td th:text="${user.userId}"></td>
-            <td th:text="${user.loginId}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.address}"></td>
-            <td th:text="${user.phoneNumber}"></td>
-            <td th:text="${user.birthDate}"></td>
-            <td th:text="${user.gender}"></td>
-            <td th:text="${user.signUpDate}"></td>
-            <td><a href="#" th:onclick="'openReportModal(\'' + ${user.userId} + '\')'" th:text="${user.reportCount}"></a></td>
-            <td><span class="current-points" th:text="${user.points}"></span></td>
-            <td>
-                <input class="small-input" th:id="'point-' + ${user.userId}" placeholder="포인트"
-                       min="-100000"  max="100000"     type="number">
-                <button class="blue-button" th:onclick="'applyCustomPoints(\'' + ${user.userId} + '\')'">적용</button>
-            </td>
-            <td class="activity-buttons">
-                <button class="blue-button" th:onclick="'applyBan(\'' + ${user.userId} + '\', 1)'">1일</button>
-                <button class="blue-button" th:onclick="'applyBan(\'' + ${user.userId} + '\', 3)'">3일</button>
-                <button class="blue-button" th:onclick="'applyBan(\'' + ${user.userId} + '\', 7)'">7일</button>
-                <div class="ban-input">
-                    <input th:id="'ban-' + ${user.userId}" min="1" placeholder="일수" type="number">
-                    <button class="blue-button" th:onclick="'applyCustomBan(\'' + ${user.userId} + '\')'">적용</button>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- 여기서부터 id="memberListBody" 영역 시작 -->
+    <div id="memberListBody">
+        <table>
+            <thead>
+            <tr>
+                <th><input id="selectAll" type="checkbox"></th>
+                <th>번호</th>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>주소</th>
+                <th>폰번호</th>
+                <th>생년월일</th>
+                <th>성별</th>
+                <th>가입일</th>
+                <th>신고 횟수</th>
+                <th>보유 포인트</th>
+                <th>포인트 수정</th>
+                <th>활동 정지</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userList}">
+                <td><input type="checkbox"></td>
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.loginId}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.address}"></td>
+                <td th:text="${user.phoneNumber}"></td>
+                <td th:text="${user.birthDate}"></td>
+                <td th:text="${user.gender}"></td>
+                <td th:text="${user.signUpDate}"></td>
+                <td><a href="#" th:onclick="'openReportModal(\'' + ${user.userId} + '\')'" th:text="${user.reportCount}"></a></td>
+                <td><span class="current-points" th:text="${user.points}"></span></td>
+                <td>
+                    <input class="small-input" th:id="'point-' + ${user.userId}" placeholder="포인트"
+                           min="-100000"  max="100000"     type="number">
+                    <button class="blue-button" th:onclick="'applyCustomPoints(\'' + ${user.userId} + '\')'">적용</button>
+                </td>
+                <td class="activity-buttons">
+                    <button class="blue-button" th:onclick="'applyBan(\'' + ${user.userId} + '\', 1)'">1일</button>
+                    <button class="blue-button" th:onclick="'applyBan(\'' + ${user.userId} + '\', 3)'">3일</button>
+                    <button class="blue-button" th:onclick="'applyBan(\'' + ${user.userId} + '\', 7)'">7일</button>
+                    <div class="ban-input">
+                        <input th:id="'ban-' + ${user.userId}" min="1" placeholder="일수" type="number">
+                        <button class="blue-button" th:onclick="'applyCustomBan(\'' + ${user.userId} + '\')'">적용</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- 페이징 부분도 memberListBody 안에 포함 -->
+        <div th:if="${totalPages > 0}" class="pagination-container">
+            <div class="pagination-info">
+                전체 <span th:text="${totalCount}"></span>건 중
+                <span th:text="${(currentPage-1) * pageSize + 1}"></span>-
+                <span th:text="${currentPage * pageSize > totalCount ? totalCount : currentPage * pageSize}"></span>건
+            </div>
+            <div class="pagination">
+                <button th:onclick="'changePage(1)'" th:disabled="${currentPage == 1}" class="page-button">&lt;&lt;</button>
+                <button th:onclick="'changePage(' + ${currentPage - 1} + ')'" th:disabled="${currentPage == 1}" class="page-button">&lt;</button>
+                <th:block th:with="start=${(currentPage-2) > 0 ? currentPage-2 : 1}, end=${(start + 4) < totalPages ? (start + 4) : totalPages}">
+                    <th:block th:each="pageNum : ${#numbers.sequence(start, end)}">
+                        <button th:text="${pageNum}" th:onclick="'changePage(' + ${pageNum} + ')'"
+                                th:class="${pageNum == currentPage ? 'page-button active' : 'page-button'}"></button>
+                    </th:block>
+                </th:block>
+                <button th:onclick="'changePage(' + ${currentPage + 1} + ')'" th:disabled="${currentPage == totalPages}" class="page-button">&gt;</button>
+                <button th:onclick="'changePage(' + ${totalPages} + ')'" th:disabled="${currentPage == totalPages}" class="page-button">&gt;&gt;</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- 신고 상세 내역 모달 -->

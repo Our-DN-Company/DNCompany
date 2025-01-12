@@ -20,7 +20,6 @@ public class ScheduleListApi {
     public List<ScheduleListDTO> getUserSchedules(@SessionAttribute(value = "usersId", required = false) Long usersId) {
 //        @SessionAttribute(value = "usersId", required = false) Long usersId
 //        @PathVariable("usersId") Long usersId
-        usersId = 6L;
 //        usersId = userSessionId;
         return scheduleService.getScheduleList(usersId);
     }
@@ -28,7 +27,6 @@ public class ScheduleListApi {
     @GetMapping("/v1/users/schedules/dates/{dateStr}")
     public List<ScheduleListDTO> getDayUserSchedules(@PathVariable("dateStr") LocalDate dateStr,
                                                      @SessionAttribute(value = "usersId", required = false) Long usersId){
-        usersId = 6L;
         return scheduleService.getScheduleDayList(dateStr, usersId);
     }
 

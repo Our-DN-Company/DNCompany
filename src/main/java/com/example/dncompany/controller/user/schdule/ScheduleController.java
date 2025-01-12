@@ -22,7 +22,6 @@ public class ScheduleController {
 
     @GetMapping("/calender")
     public String calender(@SessionAttribute(value = "usersId", required = false) Long userId, Model model) {
-        userId = 6L;
 
         List<ScheduleListDTO> scheduleList = scheduleService.getScheduleList(userId);
         model.addAttribute("scheduleList", scheduleList);

@@ -2,7 +2,7 @@
   <a th:href="@{/}">
     <!-- 로고 이미지  길이 조절 필요할시 조절하셈-->
     <img
-      th:src="@{/images/logo/logo_header2.png}"
+      th:src="@{/images/logo/logo_banner2.png}"
       width="300px"
       height="50px"
       alt="Site Logo"
@@ -11,7 +11,7 @@
   </a>
   <nav>
     <div class="nav_name">
-      <h2>댕냥 컴퍼니 관리자 페이지입니다</h2>
+<!--      <h2>댕냥 컴퍼니 관리자 페이지입니다</h2>-->
     </div>
     <ul>
       <!-- 어드민 메인 페이지로 링크 이동 -->
@@ -22,7 +22,10 @@
     </ul>
   </nav>
   <div class="user-menu">
-    <img src="https://via.placeholder.com/40" alt="User Image" id="userImage" />
+    <img th:src="@{/images/admin/admin_images/header_image/adminZZang2.jpg}" alt="User Image" id="userImage"
+         width="40px"
+         />
+
     <div class="modal" id="userModal">
       <p><strong th:text="${session.loginId}">Username</strong></p>
       <p class="subtext" th:text="${session.loginId + ' 운영자님'}">운영자님</p>

@@ -31,7 +31,7 @@ public interface AdminBoardMapper {
     // 답변
     void insertQnaAnswer(AdminAnswerDTO adminAnswerDTO);
     List<AdminAnswerDTO> selectQnaAnswersByQnaId(Long qnaId);
-
+    int countTotalBoards(BoardSearchDTO searchDTO);
     // 답변작성 시 모달 오픈 오픈 시 상세 내용
     Map<String, Object> selectQnaDetail(Long qnaId);
 

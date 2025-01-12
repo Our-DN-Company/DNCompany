@@ -488,3 +488,43 @@ header.header_nav .user-menu .modal button#logoutButton {
     background-color: #ff3333;
     color: white;
 }
+
+
+/* ========================================*/
+/*              페이징 css                  */
+/*=========================================*/
+
+.pagination-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination-info {
+    margin-bottom: 10px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.page-button {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    min-width: 35px;
+}
+
+.page-button:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.page-button.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+

@@ -110,56 +110,68 @@
     </select>
 
     <select id="selectBoardByCondition" resultType="AdminAllBoardDTO" parameterType="BoardSearchDTO">
+        SELECT * FROM (
         SELECT *
-        FROM (SELECT *
-        FROM (SELECT r.REPORT_ID                      AS id,
-        '신고'                             AS category,
-        r.REPORT_TITLE                   AS title,
+        FROM (
+        SELECT
+        r.REPORT_ID AS id,
+        '신고' AS category,
+        r.REPORT_TITLE AS title,
         NVL(r.REPORT_CHECK_STATUS, '없음') AS status,
-        u.NAME                           AS writer,
-        u.EMAIL                          AS email,
-        u.PHONE_NUMBER                   AS phoneNumber,
-        r.REPORT_CREATED_AT              AS createdAt
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        r.REPORT_CREATED_AT AS createdAt
         FROM ADMIN.REPORT r
         JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
-        JOIN ADMIN.USERS u ON ho.USERS_ID = u.USERS_ID)
+        JOIN ADMIN.USERS u ON ho.USERS_ID = u.USERS_ID
+        )
         UNION ALL
         SELECT *
-        FROM (SELECT q.QNA_ID                      AS id,
-        'QNA'                         AS category,
-        q.QNA_TITLE                   AS title,
+        FROM (
+        SELECT
+        q.QNA_ID AS id,
+        'QNA' AS category,
+        q.QNA_TITLE AS title,
         NVL(q.QNA_CHECK_STATUS, '없음') AS status,
-        u.NAME                        AS writer,
-        u.EMAIL                       AS email,
-        u.PHONE_NUMBER                AS phoneNumber,
-        q.QNA_CREATED_AT              AS createdAt
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        q.QNA_CREATED_AT AS createdAt
         FROM ADMIN.QNA_BOARD q
-        JOIN ADMIN.USERS u ON q.USERS_ID = u.USERS_ID)
+        JOIN ADMIN.USERS u ON q.USERS_ID = u.USERS_ID
+        )
         UNION ALL
         SELECT *
-        FROM (SELECT eb.EVENT_ID         AS id,
-        'EVENT'             AS category,
-        eb.EVENT_TITLE      AS title,
-        '없음'                AS status,
-        u.NAME              AS writer,
-        u.EMAIL             AS email,
-        u.PHONE_NUMBER      AS phoneNumber,
+        FROM (
+        SELECT
+        eb.EVENT_ID AS id,
+        'EVENT' AS category,
+        eb.EVENT_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
         eb.EVENT_CREATED_AT AS createdAt
         FROM ADMIN.EVENT_BOARD eb
-        JOIN ADMIN.USERS u ON eb.USERS_ID = u.USERS_ID)
+        JOIN ADMIN.USERS u ON eb.USERS_ID = u.USERS_ID
+        )
         UNION ALL
         SELECT *
-        FROM (SELECT hb.HELP_ID                   AS id,
-        'HELP'                       AS category,
-        hb.HELP_TITLE                AS title,
-        '없음'                         AS status,
-        u.NAME                       AS writer,
-        u.EMAIL                      AS email,
-        u.PHONE_NUMBER               AS phoneNumber,
-        hb.HELP_CREATED_AT           AS createdAt
+        FROM (
+        SELECT
+        hb.HELP_ID AS id,
+        'HELP' AS category,
+        hb.HELP_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        hb.HELP_CREATED_AT AS createdAt
         FROM ADMIN.HELP_BOARD hb
-        JOIN ADMIN.USERS u ON hb.USERS_ID = u.USERS_ID))
-        result
+        JOIN ADMIN.USERS u ON hb.USERS_ID = u.USERS_ID
+        )
+        ) result
         WHERE 1=1
         <if test="category != null and category != '' and category != 'all'">
             AND LOWER(category) = LOWER(#{category})
@@ -184,6 +196,96 @@
             AND createdAt &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
         </if>
         ORDER BY createdAt DESC
+        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+    </select>
+
+    <!-- 페이징 처리용 쿼리    -->
+    <select id="countTotalBoards" parameterType="BoardSearchDTO" resultType="int">
+        SELECT COUNT(*) FROM (
+        SELECT *
+        FROM (
+        SELECT
+        r.REPORT_ID AS id,
+        '신고' AS category,
+        r.REPORT_TITLE AS title,
+        NVL(r.REPORT_CHECK_STATUS, '없음') AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        r.REPORT_CREATED_AT AS createdAt
+        FROM ADMIN.REPORT r
+        JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+        JOIN ADMIN.USERS u ON ho.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        q.QNA_ID AS id,
+        'QNA' AS category,
+        q.QNA_TITLE AS title,
+        NVL(q.QNA_CHECK_STATUS, '없음') AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        q.QNA_CREATED_AT AS createdAt
+        FROM ADMIN.QNA_BOARD q
+        JOIN ADMIN.USERS u ON q.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        eb.EVENT_ID AS id,
+        'EVENT' AS category,
+        eb.EVENT_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        eb.EVENT_CREATED_AT AS createdAt
+        FROM ADMIN.EVENT_BOARD eb
+        JOIN ADMIN.USERS u ON eb.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        hb.HELP_ID AS id,
+        'HELP' AS category,
+        hb.HELP_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        hb.HELP_CREATED_AT AS createdAt
+        FROM ADMIN.HELP_BOARD hb
+        JOIN ADMIN.USERS u ON hb.USERS_ID = u.USERS_ID
+        )
+        ) result
+        WHERE 1=1
+        <if test="category != null and category != '' and category != 'all'">
+            AND LOWER(category) = LOWER(#{category})
+        </if>
+        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <when test="searchType == 'title'">
+                    AND LOWER(title) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+                <when test="searchType == 'author'">
+                    AND LOWER(writer) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+                <when test="searchType == 'id'">
+                    AND LOWER(email) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+            </choose>
+        </if>
+        <if test="startDate != null and startDate != ''">
+            AND createdAt >= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+        </if>
+        <if test="endDate != null and endDate != ''">
+            AND createdAt &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+        </if>
     </select>
 
     <insert id="insertQnaAnswer" parameterType="AdminAnswerDTO">
