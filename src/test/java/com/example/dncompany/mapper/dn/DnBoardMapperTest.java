@@ -1,9 +1,6 @@
 package com.example.dncompany.mapper.dn;
 
-import com.example.dncompany.dto.dn.DnBoardDetailDTO;
-import com.example.dncompany.dto.dn.DnBoardListDTO;
-import com.example.dncompany.dto.dn.DnBoardWriteDTO;
-import com.example.dncompany.dto.dn.ProductDTO;
+import com.example.dncompany.dto.dn.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,11 +28,13 @@ class DnBoardMapperTest {
     DnBoardDetailDTO dnBoardDetailDTO;
     DnBoardWriteDTO dnBoardWriteDTO;
     ProductDTO productDTO;
+    DnSellBoardDTO dnSellBoardDTO;
 
     @BeforeEach
     void setUp() {
         dnBoardWriteDTO = new DnBoardWriteDTO();
         productDTO = new ProductDTO();
+        dnSellBoardDTO = new DnSellBoardDTO();
         dnBoardWriteDTO.setUsersId(6L);
         dnBoardWriteDTO.setDnId(1L);
         dnBoardWriteDTO.setDnTitle("테스트용 타이틀이다~~");
@@ -44,6 +43,9 @@ class DnBoardMapperTest {
         productDTO.setProductCategory("간식");
         productDTO.setProductPrice(20000);
         productDTO.setProductId(1L);
+        dnSellBoardDTO.setDnId(dnBoardWriteDTO.getDnId());
+        dnSellBoardDTO.setUsersId(dnBoardWriteDTO.getUsersId());
+        dnSellBoardDTO.setProductId(productDTO.getProductId());
     }
 
     @Test
@@ -52,6 +54,7 @@ class DnBoardMapperTest {
         // given
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
         dnProductMapper.insertProduct(productDTO);
+        dnBoardMapper.insertSellBoard(dnSellBoardDTO);
         // when
         DnBoardDetailDTO foundDnBoard = dnBoardMapper.selectDnBoardById(dnBoardWriteDTO.getDnId()).orElse(null);
 
@@ -59,7 +62,12 @@ class DnBoardMapperTest {
         assertThat(foundDnBoard).isNotNull()
                 .extracting("dnTitle")
                 .isEqualTo("테스트용 타이틀이다~~");
+        assertThat(foundDnBoard).isNotNull()
+                .extracting("productCategory")
+                .isEqualTo("간식");
     }
+
+
 
     @Test
     void selectAllDnBoardList() {

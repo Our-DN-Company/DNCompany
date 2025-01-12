@@ -1,7 +1,6 @@
 package com.example.dncompany.controller.dn;
 
-import com.example.dncompany.dto.dn.DnBoardWriteDTO;
-import com.example.dncompany.dto.dn.ProductDTO;
+import com.example.dncompany.dto.dn.*;
 import com.example.dncompany.service.dn.DnBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/dn")
 @RequiredArgsConstructor
@@ -18,10 +19,21 @@ public class DnController {
     private final DnBoardService dnBoardService;
 
     @GetMapping("/market")
-    public String market() {return "dn/market";}
+    public String market(Model model) {
+        List<DnBoardListDTO> dnBoardList = dnBoardService.getDnBoardList();
+        model.addAttribute("dnBoardList", dnBoardList);
+
+        return "dn/market";
+    }
 
     @GetMapping("/detail")
-    public String detail() {return "dn/detail";}
+    public String detail(Long dnId, Model model) {
+
+        DnBoardDetailDTO foundBoard = dnBoardService.getDnBoardById(dnId);
+        model.addAttribute("board",foundBoard);
+
+        return "dn/detail";
+    }
 
     @GetMapping("/write")
     public String write() {
@@ -30,7 +42,9 @@ public class DnController {
 
     @PostMapping("/write")
     public String write(DnBoardWriteDTO dnBoardWriteDTO,
-                        ProductDTO productDTO, @SessionAttribute("usersId") Long usersId) {
+                        ProductDTO productDTO,
+                        DnSellBoardDTO dnSellBoardDTO,
+                        @SessionAttribute("usersId") Long usersId) {
 
         dnBoardService.addDnBoard(dnBoardWriteDTO,productDTO,usersId);
 
@@ -40,6 +54,7 @@ public class DnController {
     @GetMapping("/modify")
     public String modify(){
         return "dn/modify";
+
     }
 
 }

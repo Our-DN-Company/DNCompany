@@ -42,4 +42,5 @@ class DnBoardServiceTest {
         verify(dnBoardMapper).insertDnBoard(any());
         assertThat(foundDnBoard).isNotNull();
     }
+
 }

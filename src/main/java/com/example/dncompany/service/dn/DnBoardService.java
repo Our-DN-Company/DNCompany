@@ -1,9 +1,6 @@
 package com.example.dncompany.service.dn;
 
-import com.example.dncompany.dto.dn.DnBoardDetailDTO;
-import com.example.dncompany.dto.dn.DnBoardListDTO;
-import com.example.dncompany.dto.dn.DnBoardWriteDTO;
-import com.example.dncompany.dto.dn.ProductDTO;
+import com.example.dncompany.dto.dn.*;
 import com.example.dncompany.exception.dn.DnBoardNotFoundException;
 import com.example.dncompany.mapper.dn.DnBoardMapper;
 import com.example.dncompany.mapper.dn.DnProductMapper;
@@ -41,6 +38,9 @@ public class DnBoardService {
     
     // 게시글 전체 조회 기능
     // TODO : 게시글 전체 조회 기능 해야함 1/13일날
+    public List<DnBoardListDTO> getDnBoardList(){
 
+        return dnBoardMapper.selectAllDnBoardList();
+    }
 
 }
