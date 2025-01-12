@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 기존 변수 선언
+    // 변수 선언
     const itemsPerPageSelect = document.getElementById('itemsPerPage');
     const searchForm = document.getElementById('searchForm');
     const selectAllCheckbox = document.getElementById('selectAll');
@@ -7,24 +7,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const reportModal = document.getElementById('reportModal');
     const reportTableBody = document.getElementById('reportTableBody');
 
-    // 기존 이벤트 리스너들 유지
+    // itemsPerPage 변경 이벤트
     itemsPerPageSelect.addEventListener("change", function () {
-        searchForm.submit();
-    });
-
-    searchForm.addEventListener("submit", function (e) {
-        e.preventDefault();
         const formData = new FormData(searchForm);
+        formData.append('page', '1');  // 페이지 1로 리셋
+        formData.append('size', this.value);
 
-        // FormData를 서버에 전송
         fetch("/admin/user/board/list/data", {
             method: "POST",
             body: formData
         })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.text();
+            })
+            .then(html => {
+                memberListBody.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('데이터 로딩 중 오류가 발생했습니다.');
+            });
+    });
+
+    // 검색 폼 제출 이벤트
+    searchForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        formData.append('page', '1');  // 검색 시 첫 페이지로
+        formData.append('size', itemsPerPageSelect.value);
+
+        fetch("/admin/user/board/list/data", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
                 return response.text();
             })
             .then(html => {
@@ -36,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
+    // 전체 선택 체크박스 이벤트
     selectAllCheckbox.addEventListener("change", function () {
         const checkboxes = memberListBody.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
@@ -44,7 +63,38 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// 전역 함수들을 window 객체에 명시적으로 할당
+// 페이지 변경 함수
+window.changePage = function(page) {
+    const formData = new FormData(document.getElementById('searchForm'));
+    formData.append('page', page);
+    formData.append('size', document.getElementById('itemsPerPage').value);
+
+    fetch("/admin/user/board/list/data", {
+        method: "POST",
+        body: formData
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.text();
+        })
+        .then(html => {
+            // 임시 div를 생성하여 반환된 HTML을 파싱
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+
+            // memberListBody 내용을 업데이트
+            const memberListBody = document.getElementById('memberListBody');
+            if (memberListBody) {
+                memberListBody.innerHTML = tempDiv.querySelector('#memberListBody').innerHTML;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('데이터 로딩 중 오류가 발생했습니다.');
+        });
+};
+
+// 신고 모달 열기
 window.openReportModal = function(userId) {
     const reportModal = document.getElementById('reportModal');
     const reportTableBody = document.getElementById('reportTableBody');
@@ -104,12 +154,13 @@ function formatDateTime(dateTime) {
     }).format(date);
 }
 
-
+// 신고 모달 닫기
 window.closeReportModal = function() {
     const reportModal = document.getElementById('reportModal');
     reportModal.style.display = "none";
 };
 
+// 신고 처리
 window.processReport = function(reportId, banDays) {
     fetch(`/admin/user/board/processReport/${reportId}`, {
         method: 'POST',
@@ -133,10 +184,11 @@ window.processReport = function(reportId, banDays) {
         });
 };
 
+// 포인트 수정
 window.applyCustomPoints = function(userId) {
     const pointInput = document.getElementById(`point-${userId}`);
     const points = parseInt(pointInput.value, 10);
-    console.log(userId);
+
     if (isNaN(points)) {
         alert('포인트 값을 입력해주세요.');
         return;
@@ -153,8 +205,6 @@ window.applyCustomPoints = function(userId) {
         .then(data => {
             if (data.success) {
                 alert(`포인트가 성공적으로 수정되었습니다. 현재 포인트: ${data.newPoints}`);
-
-
                 const pointsDisplay = document.querySelector(`#point-${userId}`).parentNode.previousElementSibling.querySelector('.current-points');
                 pointsDisplay.textContent = data.newPoints;
                 pointInput.value = '';
@@ -168,6 +218,7 @@ window.applyCustomPoints = function(userId) {
         });
 };
 
+// 활동 정지
 window.applyBan = function(userId, days) {
     fetch(`/admin/user/board/banUser/${userId}`, {
         method: 'POST',
@@ -190,6 +241,7 @@ window.applyBan = function(userId, days) {
         });
 };
 
+// 사용자 정의 정지 일수 적용
 window.applyCustomBan = function(userId) {
     const banInput = document.getElementById(`ban-${userId}`);
     const days = banInput.value;
