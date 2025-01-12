@@ -27,39 +27,31 @@
             <div class="product_qaDetailContainer">
                 <div class="product_qaDetailContent">
                     <!-- 작성글 박스 -->
-                    <div class="product_qaDetailQuestion">
+                    <div class="product_qaDetailQuestion" th:object="${board}">
                         <div class="product_qaDetailTitle">
-                            <div class="product_labelListWrapper">
-                                <button class="mylabel_activeLabel">강아지</button>
-                                <button class="mylabel_activeLabel">간식</button>
+                            <div class="product_labelListWrapper" >
+                                <button class="mylabel_activeLabel" th:text="*{dnPetCategory}">강아지</button>
+                                <button class="mylabel_activeLabel" th:text="*{productCategory}">간식</button>
                             </div>
-                            <h1 class="product_qaDetailTop">물품명</h1>
+                            <h1 class="product_qaDetailTop" th:text="*{dnTitle}">물품명</h1>
                         </div>
                         <div class="product_qaDetailText">
                             <div class="product_detail_left">
                                 <!-- 상품 이미지 -->
-                                <img
-                                        src="https://via.placeholder.com/150"
-                                        alt="상품 이미지"
-                                        class="product_image"
-                                />
+                                <img src="https://via.placeholder.com/150" alt="상품 이미지" class="product_image"/>
                             </div>
                             <div class="product_detail_right">
                                 <!-- 판매 금액 -->
-                                <div class="product_price">₩50,000</div>
+                                <div class="product_price" th:text="*{productPrice}">₩50,000</div>
                                 <!-- 판매 글 내용 -->
-                                <div class="product_description">
+                                <div class="product_description" th:text="*{dnContent}">
                                     이 상품은 강아지 간식으로 적합하며, 고품질 원료로
                                     제작되었습니다.
                                 </div>
                                 <!-- 관심 상품 버튼 -->
                                 <button class="favorite_button">💖 관심 상품</button>
                                 <!-- 포인트 사용 텍스트 박스 -->
-                                <input
-                                        type="text"
-                                        class="point_input"
-                                        placeholder="사용할 포인트 입력"
-                                />
+                                <input type="text" class="point_input" placeholder="사용할 포인트 입력"/>
                                 <!-- 판매자와 대화 버튼 -->
                                 <button class="chat_button">판매자와 대화</button>
                             </div>
@@ -69,11 +61,9 @@
                         <div class="product_qaDetailInfo">
                             <div>
                                 <a href="" class="product_infoWrapper">
-                                    <img
-                                            src="https://bff-images.bemypet.kr/media/medias/profile_image/927-image_picker4881577713905119062.jpg"
-                                    />
-                                    <div class="product_qaDetailUser">삼색이짱짱</div>
-                                    <div class="product_qaDetailDate">2024.12.17</div>
+                                    <img src="https://bff-images.bemypet.kr/media/medias/profile_image/927-image_picker4881577713905119062.jpg"/>
+                                    <div class="product_qaDetailUser" th:text="*{usersId}">삼색이짱짱</div>
+                                    <div class="product_qaDetailDate" th:text="*{dbUpdatedAt}">2024.12.17</div>
                                 </a>
                             </div>
                         </div>

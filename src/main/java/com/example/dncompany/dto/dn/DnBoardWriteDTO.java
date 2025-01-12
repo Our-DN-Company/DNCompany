@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @Getter @Setter @ToString
-public class DnBoardDTO {
+public class DnBoardWriteDTO {
     Long dnId;
     Long usersId;
     String dnPetCategory;
