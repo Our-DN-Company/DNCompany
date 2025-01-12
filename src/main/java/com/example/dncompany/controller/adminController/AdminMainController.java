@@ -7,8 +7,11 @@ import com.example.dncompany.dto.admin.main.AdminCardLastWeekDTO;
 import com.example.dncompany.dto.admin.main.AdminUserCountDTO;
 import com.example.dncompany.mapper.admin.AdminMainMapper;
 import com.example.dncompany.service.admin.AdminMainService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +31,11 @@ public class AdminMainController {
     private final AdminMainService adminMainService;
 
     @GetMapping("/main")
-    public String adminmain(Model model) {
+    public String adminmain(HttpSession session, Model model) {
+
+        if(session.getAttribute("loginId") == null || !"ROLE_ADMIN".equals(session.getAttribute("role"))) {
+            return "redirect:/admin/login";
+        }
 
         // 보드 카운트
         List<AdminBoardCountDTO> boardCounts = adminMainService.getDailyBoardCounts();

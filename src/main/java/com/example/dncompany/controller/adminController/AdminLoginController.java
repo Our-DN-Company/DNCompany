@@ -48,11 +48,22 @@ public class AdminLoginController {
 
         try {
             AdminSessionDTO adminLoginInfo = adminLoginService.getAdminLoginInfo(adminLoginDTO);
-            session.setAttribute("userId",adminLoginInfo.getUsersId());
-            session.setAttribute("loginId", adminLoginInfo.getLoginId());
-            session.setAttribute("role", adminLoginInfo.getRole());
-        log.info("adminLoginInfo: " + adminLoginInfo);
-            return "redirect:/admin/main";
+
+            // role 체크
+            if ("ROLE_ADMIN".equals(adminLoginInfo.getRole())) {
+                // admin인 경우 세션 설정하고 메인으로
+                session.setAttribute("userId", adminLoginInfo.getUsersId());
+                session.setAttribute("loginId", adminLoginInfo.getLoginId());
+                session.setAttribute("role", adminLoginInfo.getRole());
+                return "redirect:/admin/main";
+            } else {
+                // admin이 아닌 경우 로그인 페이지로
+                redirectAttributes.addFlashAttribute("hasError", true);
+                redirectAttributes.addFlashAttribute("message", "관리자만 접근 가능합니다.");
+                return "redirect:/admin/login";
+            }
+
+
         } catch (LoginFailedException e) {
             log.error(e.getMessage());
         log.info("adminLoginDTO: " + adminLoginDTO);
@@ -61,7 +72,8 @@ public class AdminLoginController {
 
             redirectAttributes.addAttribute("message",e.getMessage());
 
-            return "redirect:/admin/admin_login/login";
+//            return "redirect:/admin/admin_login/login";
+            return "redirect:/admin/login";
         }
     }
 

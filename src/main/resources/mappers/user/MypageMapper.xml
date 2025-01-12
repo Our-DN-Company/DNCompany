@@ -61,6 +61,19 @@
 
     </select>
 
+    <!--도와드려요-->
+    <select id="MyPageMainHelpYouListById" resultType="HelpYouListDTO" parameterType="long">
+        SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+        FROM(
+                SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+                FROM HELP_OFFER
+                WHERE USERS_ID = #{usersId}
+                ORDER BY HELP_OFFER_ENROLL_DATE
+            )
+        <![CDATA[
+        WHERE RNUM <=3
+        ]]>
+    </select>
 
 
 
