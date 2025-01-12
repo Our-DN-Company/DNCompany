@@ -168,6 +168,20 @@
         WHERE PET_ID = #{petId}
     </update>
 
+    <!---회원정보 수정-->
+
+    <select id="selectUserProfileById" parameterType="long" resultType="UpdateUserProfileDTO">
+        SELECT USERS_ID, LOGIN_ID, PASSWORD, NAME, NICKNAME, EMAIL, PHONE_NUMBER, ADDRESS, ADDRESS_DETAIL
+        FROM USERS
+        WHERE USERS_ID=#{usersId}
+    </select>
+
+    <update id="updateUserProfile" parameterType="UpdateUserProfileDTO">
+        UPDATE USERS
+        SET PASSWORD=#{password}, NAME=#{name}, NICKNAME=#{nickname}, EMAIL=#{email}, PHONE_NUMBER=#{phoneNumber},
+            ADDRESS=#{address}, ADDRESS_DETAIL=#{addressDetail},ZIP_CODE=#{zipCode}
+        WHERE USERS_ID=#{usersId}
+    </update>
     <!--정보 삭제-->
     <!--반려동물 삭제-->
     <delete id="deletePetByPetId" parameterType="long">

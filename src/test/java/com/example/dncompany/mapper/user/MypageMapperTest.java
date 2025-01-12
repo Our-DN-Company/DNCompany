@@ -1,10 +1,7 @@
 package com.example.dncompany.mapper.user;
 
-import com.example.dncompany.dto.user.mypage.AddPetDTO;
+import com.example.dncompany.dto.user.mypage.*;
 
-import com.example.dncompany.dto.user.mypage.HelpMeListDTO;
-import com.example.dncompany.dto.user.mypage.PetListDTO;
-import com.example.dncompany.dto.user.mypage.UserProfileDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +75,12 @@ class MypageMapperTest {
 
         assertThat(helpMeList)
                 .isNotEmpty();
+    }
+
+
+    @Test
+    void updateUserProfileInfo() {
+        Optional<UpdateUserProfileDTO> updateUserProfile = mypageMapper.selectUserProfileById(81L);
+
     }
 }

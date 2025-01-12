@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.signup-wrap {
+.update_profile_wrap {
     padding: 70px 60px;
     min-width: 1050px;
     margin-top: 90px;
@@ -20,7 +20,7 @@
     border: 1px solid #dbdbdb;
 }
 
-.signup__kit {
+.update_profile_kit {
     text-align: center;
     font-family: "Pretendard-Regular";
     margin-bottom: 50px;
@@ -31,12 +31,12 @@
     color: rgb(51, 51, 51);
 }
 
-.signup__input {
+.update_profile_input {
     width: 640px;
     margin: 0px auto;
 }
 
-.signup__upbar {
+.update_profile_upbar {
     padding-bottom: 10px;
     border-bottom: 2px solid rgb(51, 51, 51);
     font-size: 12px;
@@ -48,15 +48,15 @@
         color: red;
     }
 }
-.signup__input__box {
+.update_profile_input__box {
     padding: 0px;
 }
-.signup__info {
+.update_profile_info {
     display: inline-flex;
     width: 100%;
     padding: 10px 20px;
 }
-.signup__info__title {
+.update_profile_info__title {
     width: 139px;
     padding-top: 12px;
     font-family: "Pretendard-Regular";
@@ -69,7 +69,7 @@
         }
     }
 }
-.signup__info__box {
+.update_profile_info__box {
     flex: 1 1 0%;
 }
 
@@ -124,12 +124,12 @@
     font-family: "Pretendard-Regular";
 }
 
-.signup__info__out {
+.update_profile_info__out {
     width: 120px;
     margin-left: 8px;
 }
 
-.signup__info__box__email {
+.update_profile_info__box__email {
     height: 48px;
     border-radius: 4px;
     border: 1px solid rgb(221, 221, 221);
@@ -223,7 +223,7 @@
     background-color: #fff;
     border: none;
 }
-.signup__info__number {
+.update_profile_info__number {
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(135, 135, 135);
     width: 100%;
@@ -278,14 +278,14 @@
 
 /* 성별 */
 
-.signup__info__box__gender {
+.update_profile_info__box__gender {
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
     flex-direction: row;
 }
 
-.signup__gender__box {
+.update_profile_gender__box {
     text-align: center;
     display: flex;
     -webkit-box-pack: justify;
@@ -333,7 +333,7 @@ input[name="gender"] {
     color: var(--sub-font-color);
     font-family: "Pretendard-Regular";
 }
-.signup__info__box__date {
+.update_profile_info__box__date {
     border: 1px solid rgb(204, 204, 204);
     width: 100%;
     display: flex;
@@ -389,7 +389,7 @@ input[name="gender"] {
     height: 100%;
 }
 
-.signup__btn__box {
+.update_profile_btn__box {
     margin-top: 28px;
     display: flex;
     -webkit-box-pack: center;
