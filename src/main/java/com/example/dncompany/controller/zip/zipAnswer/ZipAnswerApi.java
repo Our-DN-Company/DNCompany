@@ -21,7 +21,7 @@ public class ZipAnswerApi {
     public void postAnswer(@RequestBody ZipAnswerWriteDTO zipAnswerWriteDTO,
                            @PathVariable("zipId") Long zipId,
                            @SessionAttribute(value = "usersId", required = false) Long usersId) {
-        usersId = 6L;
+//        usersId = 6L;
         zipAnswerService.addAnswer(zipAnswerWriteDTO, zipId, usersId);
     }
 

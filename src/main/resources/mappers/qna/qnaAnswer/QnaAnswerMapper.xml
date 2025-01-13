@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.qna.qnaAnswer.QnaAnswerMapper">
+    <!--  댓글 삽입  -->
+    <insert id="insertAnswer" parameterType="QnaAnswerWriteDTO">
+        <selectKey resultType="long" keyProperty="qnaAnswerId" order="BEFORE">
+            SELECT SEQ_QNA_ANSWER.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO QNA_ANSWER (QNA_ANSWER_ID, QNA_ANSWER_CONTENT, USERS_ID, QNA_ID)
+        VALUES (#{qnaAnswerId}, #{qnaAnswerContent}, #{usersId}, #{qnaId})
+    </insert>
+
+    <!--  게시글 댓글 조회  -->
+    <select id="selectListByQnaId" parameterType="long" resultType="QnaAnswerDTO">
+        SELECT QA.QNA_ANSWER_ID, QNA_ANSWER_CONTENT, QA.QNA_ANSWER_CREATED_AT, QA.QNA_ANSWER_UPDATED_AT, ZA.ZIP_ID,
+               U.USERS_ID, U.NICKNAME
+        FROM QNA_ANSWER QA
+                 JOIN USERS U ON QA.QNA_ID = U.USERS_ID
+        WHERE QNA_ID = #{qnaId}
+        ORDER BY QA.QNA_ANSWER_ID DESC
+    </select>
+
+<!--    &lt;!&ndash;  댓글 갯수  &ndash;&gt;-->
+<!--    <select id="selectTotalByQnaId" parameterType="long" resultType="_int">-->
+<!--        SELECT COUNT(*)-->
+<!--        FROM QNA_ANSWER-->
+<!--        WHERE QNA_ID = #{QNApId}-->
+<!--    </select>-->
+
+    <!--  댓글 수정  -->
+    <update id="updateAnswer" parameterType="QnaAnswerModifyDTO">
+        UPDATE QNA_ANSWER
+        SET QNA_ANSWER_CONTENT = #{qnaAnswerContent}, QNA_ANSWER_UPDATED_AT = SYSDATE
+        WHERE QNA_ANSWER_ID = #{qnaAnswerId}
+    </update>
+
+    <!--  댓글 삭제  -->
+    <delete id="deleteByAnswerId" parameterType="long">
+        DELETE FROM QNA_ANSWER
+        WHERE QNA_ANSWER_ID = #{qnaAnswerId}
+    </delete>
+</mapper>

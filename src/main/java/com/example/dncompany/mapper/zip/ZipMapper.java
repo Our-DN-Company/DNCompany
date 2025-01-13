@@ -4,7 +4,10 @@ import com.example.dncompany.dto.zip.ZipBoardDetailDTO;
 import com.example.dncompany.dto.zip.ZipBoardListDTO;
 import com.example.dncompany.dto.zip.ZipBoardModifyDTO;
 import com.example.dncompany.dto.zip.ZipBoardWriteDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
+import com.example.dncompany.dto.zip.zipPage.ZipBoardSearchDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,4 +31,12 @@ public interface ZipMapper {
 
     // 게시글 삭제
     void deleteZipBoard(Long zipId);
+
+    List<ZipBoardListDTO> selectBySearchCondWithPage(
+            @Param("cond") ZipBoardSearchDTO zipBoardSearchDTO,
+            @Param("page") PageRequestDTO pageRequestDTO
+    );
+
+    int countBySearchCondition(@Param("cond") ZipBoardSearchDTO zipBoardSearchDTO);
+
 }
