@@ -68,8 +68,14 @@ public class DnController {
         dnBoardService.modifyDnBoard(boardModifyDTO,productModifyDTO);
 
         redirectAttributes.addAttribute("dnId",boardModifyDTO.getDnId());
+        redirectAttributes.addAttribute("productId",productModifyDTO.getProductId());
 
         return "redirect:/dn/detail";
     }
 
+    @GetMapping("/delete")
+    public String delete(Long dnId, Long productId){
+        dnBoardService.removeDnBoard(dnId,productId);
+        return "redirect:/dn/market";
+    }
 }

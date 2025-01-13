@@ -20,7 +20,7 @@
     <!-- 게시물 한 건 조회 쿼리 -->
     <select id="selectDnBoardById" parameterType="Long" resultType="DnBoardDetailDTO">
         SELECT DB.DN_ID, DB.DN_CREATED_AT, DB.DN_UPDATED_AT, DB.DN_PET_CATEGORY, DB.DN_TITLE, DB.DN_CONTENT,
-               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID
+               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID, U.LOGIN_ID
         FROM DN_BOARD DB
                  LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
                  LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
@@ -31,7 +31,7 @@
     <!-- 전체 게시글 조회 쿼리 -->
     <select id="selectAllDnBoardList" resultType="DnBoardListDTO">
         SELECT DB.DN_ID, DB.DN_CREATED_AT, DB.DN_UPDATED_AT, DB.DN_PET_CATEGORY, DB.DN_TITLE,
-               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID
+               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID, U.LOGIN_ID
         FROM DN_BOARD DB
                  LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
                  LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
@@ -45,4 +45,16 @@
         SET DN_PET_CATEGORY = #{dnPetCategory}, DN_TITLE = #{dnTitle}, DN_CONTENT = #{dnContent}
         WHERE DN_ID = #{dnId}
     </update>
+
+    <!-- 글 삭제 쿼리-->
+    <delete id="deleteDnBoard" parameterType="Long">
+        DELETE FROM DN_BOARD
+        WHERE DN_ID = #{dnId}
+    </delete>
+
+    <!-- 게시글 삭제 시 중간 테이블인 Sell 테이블에 있는 값도 동시 삭제 쿼리 -->
+    <delete id="deleteDnSell" parameterType="Long">
+        DELETE FROM DN_SELL
+        WHERE DN_ID = #{dnId}
+    </delete>
 </mapper>

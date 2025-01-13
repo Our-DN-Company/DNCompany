@@ -14,4 +14,10 @@
         SET PRODUCT_PRICE = #{productPrice}, PRODUCT_CATEGORY =#{productCategory}
         WHERE PRODUCT_ID = #{productId}
     </update>
+
+    <!-- 글 삭제 쿼리-->
+    <delete id="deleteProduct" parameterType="Long">
+        DELETE FROM PRODUCT
+        WHERE PRODUCT_ID = #{productId}
+    </delete>
 </mapper>

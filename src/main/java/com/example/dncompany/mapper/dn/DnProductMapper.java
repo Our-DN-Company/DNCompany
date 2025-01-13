@@ -11,4 +11,7 @@ public interface DnProductMapper {
 
     // 게시글 수정
     void updateProduct(ProductModifyDTO productModifyDTO);
+
+    // 게시글 삭제
+    void deleteProduct(Long productId);
 }

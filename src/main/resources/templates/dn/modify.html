@@ -33,6 +33,7 @@
                     <span class="prouduct_prouductMark">*</span>
                     <form class="write-form" th:action="@{/dn/modify}" th:object="${board}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="dnId" th:value="*{dnId}">
+                        <input type="hidden" name="productId" th:value="*{productId}">
                         <div class="animal_radioWrap">
                             <th:block>
                                 <div>
@@ -137,7 +138,7 @@
 
                         <!-- 내용 입력 박스 -->
                         <div class="prouduct_prouductInputWrapper">
-                            <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="prouduct_prouductInput" name="dnContent" th:value="*{dnContent}" required></textarea>
+                            <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="prouduct_prouductInput" name="dnContent" th:utext="*{dnContent}" required></textarea>
                             <!-- 박스 하단 여백 -->
                             <div class="prouduct_alertText"></div>
                         </div>
@@ -152,8 +153,8 @@
                             </label>
                             <span class="prouduct_imgDesc">개당 업로드 용량: 20MB, 첨부 파일의 경우 사진과 동영상을 합쳐 최대 10개 업로드 가능합니다.</span>
                         </div>
-                        <!-- 등록 버튼 -->
-                        <button class="prouduct_nosubmitBtn" type="submit">글 등록</button>
+                        <!-- 등록 수정 -->
+                        <button class="prouduct_nosubmitBtn" type="submit">글 수정</button>
                     </form>
                 </div>
             </div>

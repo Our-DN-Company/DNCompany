@@ -54,4 +54,14 @@ public class DnBoardService {
         dnProductMapper.updateProduct(productModifyDTO);
     }
 
+    // 게시글 삭제 처리 기능
+    public void removeDnBoard(Long dnId,
+                              Long productId) {
+
+        dnBoardMapper.deleteDnBoard(dnId);
+        dnProductMapper.deleteProduct(productId);
+        dnBoardMapper.deleteDnSell(dnId);
+
+    }
+
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.dn.DnFileMapper">
+    <insert id="insertFile" parameterType="DnFileDTO">
+        <selectKey resultType="long" order="BEFORE" keyProperty="DnFileId">
+            SELECT SEQ_PRODUCT.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO PRODUCT_IMG(PRODUCT_IMG_ID, PRODUCT_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_FILE_PATH, PRODUCT_EXTENSION)
+        VALUES (#{productImgId}, #{productId}, #{productOriginalFilename}, #{productUuid}, #{productPath}, #{productExtension})
+    </insert>
+
+<!--    <select id="selectByBoardId" parameterType="long" resultType="FreeFileDTO">-->
+<!--        SELECT PRODUCT_IMG_ID, PRODUCT_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_FILE_PATH, PRODUCT_EXTENSION, REG_DATE-->
+<!--        FROM PRODUCT_IMG-->
+<!--        WHERE FREE_BOARD_ID = #{freeBoardId}-->
+<!--    </select>-->
+</mapper>
