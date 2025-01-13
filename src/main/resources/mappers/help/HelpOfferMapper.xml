@@ -10,4 +10,11 @@
         VALUES (#{helpOfferId}, #{helpId}, #{usersId}, 'ACCEPT', SYSDATE)
     </insert>
 
+    <select id="isMePostTest" resultType="boolean">
+        SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
+        FROM HELP_BOARD
+        WHERE HELP_ID = #{helpId} AND USERS_ID = #{usersId}
+    </select>
+
+
 </mapper>

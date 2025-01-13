@@ -18,4 +18,6 @@ public class HelpListDTO {
     private Integer helpPrice;
     private LocalDate helpCareDate;
     private LocalDateTime helpCreatedAt;
+    private LocalDateTime helpStartTime;
+    private LocalDateTime helpEndTime;
 }
