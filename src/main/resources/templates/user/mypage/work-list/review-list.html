@@ -38,7 +38,7 @@
                     <th>작성일</th>
                 </tr>
                 <!-- 쪽지 컨텐츠 -->
-                <tr th:each="mypageReviewList:${MypageReviewList}" th:object="${mypageReviewList}">
+                <tr th:each="mypageReviewList:${reviewPageDTO.list}" th:object="${mypageReviewList}">
                     <td th:text="*{rnum}">샘플 작성날짜</td>
                     <td th:text="*{reviewTitle}">샘플 읽음여부</td>
                     <td th:text="*{reviewCreatedAt}"></td>
@@ -55,7 +55,7 @@
                     <th>작성일</th>
                 </tr>
                 <!-- 쪽지 컨텐츠 -->
-                <tr th:each="reviewReceivedList:${ReviewReceivedList}" th:object="${reviewReceivedList}">
+                <tr th:each="reviewReceivedList:${reviewReceivedpageDTO.list}" th:object="${reviewReceivedList}">
                     <td th:text="*{rnum}">샘플 작성날짜</td>
                     <td th:text="*{reviewTitle}">샘플 읽음여부</td>
                     <td th:text="*{reviewCreatedAt}"></td>

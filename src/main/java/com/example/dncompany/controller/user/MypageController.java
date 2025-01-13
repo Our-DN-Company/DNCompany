@@ -1,5 +1,7 @@
 package com.example.dncompany.controller.user;
 
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
 import com.example.dncompany.service.user.MypageService;
@@ -122,71 +124,77 @@ public class MypageController {
 
     @GetMapping("/list/zip")
     public String mypageListZip(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                PageRequestDTO pageRequestDTO,
                                 Model model) {
+        PageDTO<MypageZipBoardListDTO> zipBoardPageDTO= mypageService.zipBoardListPage (usersId, pageRequestDTO);
+        model.addAttribute("zipBoardPageDTO", zipBoardPageDTO);
 
-//        usersId = 6L;
-        List<MypageZipBoardListDTO>  MypageZipBoardListById = mypageService.MypageZipBoardListById(usersId);
-        model.addAttribute("MypageZipBoardListById", MypageZipBoardListById);
-        List<MypageZipAnswerListDTO> MypageZipAnswerListById = mypageService.MypageZipAnswerListById(usersId);
-        model.addAttribute("MypageZipAnswerListById", MypageZipAnswerListById);
+        PageDTO<MypageZipAnswerListDTO> zipAnswerPageDTO= mypageService.zipAnswerListPage (usersId, pageRequestDTO);
+        model.addAttribute("zipAnswerPageDTO", zipAnswerPageDTO);
         return "user/mypage/work-list/mypage-zip-list";
     }
 
     @GetMapping("/list/dn")
     public String mypageListContent(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                    PageRequestDTO pageRequestDTO,
                                     Model model) {
-//        usersId=6L;
-        List<MypageDnBoardListDTO> mypageDnBoardList = mypageService.MypageDnBoardListById(usersId);
-        model.addAttribute("MypageDnBoardList", mypageDnBoardList);
-        List<MypageDnSellListDTO> mypageDnSellList = mypageService.MypageDnSellListById(usersId);
-        model.addAttribute("MypageDnSellList", mypageDnSellList);
+        PageDTO<MypageDnBoardListDTO> dnBoardPageDTO= mypageService.mypageDnBoardListPage (usersId, pageRequestDTO);
+        model.addAttribute("dnBoardPageDTO", dnBoardPageDTO);
+
+        PageDTO<MypageDnSellListDTO> dnSellPageDTO= mypageService.mypageDnSellListPage (usersId, pageRequestDTO);
+        model.addAttribute("dnSellPageDTO", dnSellPageDTO);
         return "user/mypage/work-list/dn-list";
     }
 
     @GetMapping("/list/review")
     public String mypageListEvent(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                  PageRequestDTO pageRequestDTO,
                                   Model model) {
-//         usersId = 21L;
-        List<MypageReviewListDTO> mypageReviewList = mypageService.MypageReviewListById(usersId);
-        model.addAttribute("MypageReviewList", mypageReviewList);
+        PageDTO<MypageReviewListDTO> reviewpageDTO= mypageService.reviewListPage(usersId, pageRequestDTO);
+        model.addAttribute("reviewPageDTO", reviewpageDTO);
 
-        List<MypageReviewListDTO> ReviewReceivedList = mypageService.ReviewReceivedListById(usersId);
-        model.addAttribute("ReviewReceivedList", ReviewReceivedList);
+        PageDTO<MypageReviewListDTO> reviewReceivedpageDTO= mypageService.reviewReceivedListPage(usersId, pageRequestDTO);
+        model.addAttribute("reviewReceivedpageDTO", reviewReceivedpageDTO);
         return "user/mypage/work-list/review-list";
     }
 
     @GetMapping("/list/helpme")
     public String mypageListHelpme(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                   PageRequestDTO pageRequestDTO,
                                    Model model) {
 
-//        usersId=21L;
-
-
-        List<HelpMeListDTO> helpMeListById = mypageService.helpMeListById(usersId);
-        model.addAttribute("helpMeList", helpMeListById);
+        PageDTO<HelpMeListDTO> pageDTO= mypageService.helpMeListPage (usersId, pageRequestDTO);
+        model.addAttribute("pageDTO", pageDTO);
         return "user/mypage/work-list/helpme-list";
     }
 
     @GetMapping("/list/helpyou")
     public String mypageListHelpyou(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                    PageRequestDTO pageRequestDTO,
                                     Model model) {
-//        usersId=21L;
-
-        List<HelpYouListDTO> helpYouListById = mypageService.helpYouListById(usersId);
-        model.addAttribute("helpYouList", helpYouListById);
+        PageDTO<HelpYouListDTO> pageDTO= mypageService.helpYouListPage (usersId, pageRequestDTO);
+        model.addAttribute("pageDTO", pageDTO);
 
         return "user/mypage/work-list/helpyou-list";
     }
 
     @GetMapping("/list/qna")
     public String mypageListQna(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                                PageRequestDTO pageRequestDTO,
                                 Model model) {
 
-//        usersId=6L;
-        List<QnaListDTO> qnaListById = mypageService.qnaListById(usersId);
-        model.addAttribute("qnaList", qnaListById);
+
+        PageDTO<QnaListDTO> pageDTO= mypageService.qnaPageList (usersId, pageRequestDTO);
+        model.addAttribute("pageDTO", pageDTO);
         return "user/mypage/work-list/qna-list";
     }
+
+
+
+
+
+
+
 
     //    삭제 처리
     @GetMapping("/delete/pet")
