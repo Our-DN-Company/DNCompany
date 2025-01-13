@@ -5,13 +5,13 @@
         <selectKey resultType="long" order="BEFORE" keyProperty="DnFileId">
             SELECT SEQ_PRODUCT.nextval FROM DUAL
         </selectKey>
-        INSERT INTO PRODUCT_IMG(PRODUCT_IMG_ID, PRODUCT_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_FILE_PATH, PRODUCT_EXTENSION)
+        INSERT INTO PRODUCT_IMG(PRODUCT_IMG_ID, PRODUCT_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION)
         VALUES (#{productImgId}, #{productId}, #{productOriginalFilename}, #{productUuid}, #{productPath}, #{productExtension})
     </insert>
 
-<!--    <select id="selectByBoardId" parameterType="long" resultType="FreeFileDTO">-->
-<!--        SELECT PRODUCT_IMG_ID, PRODUCT_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_FILE_PATH, PRODUCT_EXTENSION, REG_DATE-->
-<!--        FROM PRODUCT_IMG-->
-<!--        WHERE FREE_BOARD_ID = #{freeBoardId}-->
-<!--    </select>-->
+    <select id="selectByBoardId" parameterType="long" resultType="DnFileDTO">
+        SELECT PRODUCT_IMG_ID, PRODUCT_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION
+        FROM PRODUCT_IMG
+        WHERE PRODUCT_ID = #{freeBoardId}
+    </select>
 </mapper>
