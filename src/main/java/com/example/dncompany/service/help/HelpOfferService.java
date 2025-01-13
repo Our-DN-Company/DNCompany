@@ -56,8 +56,23 @@ public class HelpOfferService {
 
 
     }
+    public boolean helpOfferCheckTest (Long helpId, Long usersId ) {
+
+        log.info("helpId: {}, usersId: {}", helpId, usersId);
+
+        boolean isWriter = helpOfferMapper.isMePostTest(helpId, usersId);
+
+        if (isWriter) {
+            log.info("자기자신은 신청 불가");
+        } else {
+            log.info("신청가능");
+        }
+
+        log.info("========== 게시글 작성자 체크 종료 ==========");
+        return helpOfferMapper.isMePostTest(helpId, usersId);
 
 
+    }
 
 
-}
+    }

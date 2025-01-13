@@ -24,6 +24,7 @@ public class HelpOfferController {
             @SessionAttribute(value = "usersId", required = false) Long usersId,
             HttpSession session) {
 
+
         log.info("========== 도움 신청 컨트롤러 시작 ==========");
         log.info("helpId: {}, usersId: {}", helpId, usersId);
 
@@ -41,13 +42,11 @@ public class HelpOfferController {
 //        }
 
         try {
+            if (helpOfferService.helpOfferCheckTest(helpId, usersId)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("본인의 게시글에는 신청할 수 없습니다.");
+            }
 
-                if (session.getAttribute("usersId") == usersId) {
-
-                    log.info("========== 도움 신청 컨트롤러 종료 - 실패 ==========");
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                            .body("신청 처리 중 오류가 발생했습니다.");
-                }
             helpOfferService.registerHelpOffer(helpId, usersId);
             log.info("========== 도움 신청 컨트롤러 종료 - 성공 ==========");
             return ResponseEntity.ok("신청이 완료되었습니다.");
