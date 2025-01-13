@@ -1,4 +1,4 @@
-package com.example.dncompany.mapper.user;
+package com.example.dncompany.mapper.user.message;
 
 import com.example.dncompany.dto.user.message.MessagePageDTO;
 import org.apache.ibatis.annotations.Mapper;

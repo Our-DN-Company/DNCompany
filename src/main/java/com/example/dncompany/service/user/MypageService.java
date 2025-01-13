@@ -1,6 +1,8 @@
 package com.example.dncompany.service.user;
 
 
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.user.mypage.*;
 import com.example.dncompany.dto.user.mypage.PetImageDTO;
 import com.example.dncompany.exception.user.UserNotFoundException;
@@ -88,7 +90,7 @@ public class MypageService {
     }
 
     // 수정페이지 진입시 조회
-    public PetDetailDTO getPetInfoByPetId(Long petId){
+    public PetDetailDTO getPetInfoByPetId(Long petId) {
         return mypageMapper.selectByPetId(petId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 펫ID"));
     }
@@ -118,9 +120,6 @@ public class MypageService {
     }
 
 
-
-
-
 //    상세내역 페이지
 
     public List<HelpMeListDTO> helpMeListById(Long usersId) {
@@ -135,6 +134,8 @@ public class MypageService {
         return mypageMapper.qnaListById(usersId);
     }
 
+
+
     public List<MypageZipAnswerListDTO> MypageZipAnswerListById(Long usersId) {
         return mypageMapper.MypageZipAnswerListById(usersId);
     }
@@ -145,6 +146,10 @@ public class MypageService {
 
     public List<MypageReviewListDTO> MypageReviewListById(Long usersId) {
         return mypageMapper.MypageReviewListById(usersId);
+    }
+
+    public List<MypageReviewListDTO> ReviewReceivedListById(Long usersId) {
+        return mypageMapper.ReviewReceivedListById(usersId);
     }
 
     public List<MypageDnBoardListDTO> MypageDnBoardListById(Long usersId) {
@@ -205,19 +210,19 @@ public class MypageService {
 
 
     //    반려동물 삭제
-    public void removePetByPetId(Long petId){
+    public void removePetByPetId(Long petId) {
         mypageMapper.deletePetByPetId(petId);
     }
 
     //회원정보
     //회원정보 출력
 
-    public UpdateUserProfileDTO selectUserProfileById(Long usersId){
+    public UpdateUserProfileDTO selectUserProfileById(Long usersId) {
         return mypageMapper.selectUserProfileById(usersId)
-                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원번호입니다"));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원번호입니다"));
     }
 
-    public void updateUserProfile(UpdateUserProfileDTO updateUserProfile){
+    public void updateUserProfile(UpdateUserProfileDTO updateUserProfile) {
 
         if (updateUserProfile.getAddressDetail() == null) {
             updateUserProfile.setAddressDetail(""); // 기본값 설정
@@ -226,9 +231,134 @@ public class MypageService {
             updateUserProfile.setZipCode(""); // 기본값 설정
         }
 
-       mypageMapper.updateUserProfile(updateUserProfile);
+        mypageMapper.updateUserProfile(updateUserProfile);
 
     }
+
+
+
+    //페이징처리
+
+    //Qna
+    public PageDTO<QnaListDTO> qnaPageList(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<QnaListDTO> qnaList = mypageMapper.qnaListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countQnaList(usersId);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                qnaList);
+
+
+    }
+
+    //helpMe
+    public PageDTO<HelpMeListDTO> helpMeListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<HelpMeListDTO> helpMeList = mypageMapper.helpMeListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countHelpMeList(usersId);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                helpMeList);
+
+
+    }
+
+    //helpYou
+    public PageDTO<HelpYouListDTO> helpYouListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<HelpYouListDTO> helpYouList = mypageMapper.helpYouListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countHelpYouList(usersId);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                helpYouList);
+
+
+    }
+
+
+    //zipBoard
+    public PageDTO<MypageZipBoardListDTO> zipBoardListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<MypageZipBoardListDTO> zipBoardList = mypageMapper.zipBoardListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countZipBoardList(usersId);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                zipBoardList);
+
+
+    }
+
+
+
+    //zipBoard
+    public PageDTO<MypageZipAnswerListDTO> zipAnswerListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<MypageZipAnswerListDTO> zipAnswerList = mypageMapper.zipAnswerListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countZipAnswerList(usersId);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                zipAnswerList);
+
+
+    }
+
+    //review
+    public PageDTO<MypageReviewListDTO> reviewListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<MypageReviewListDTO> reviewList = mypageMapper.reviewListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countReviewList(usersId);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                reviewList);
+
+
+    }
+
+    //reviewReceived
+    public PageDTO<MypageReviewListDTO> reviewReceivedListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<MypageReviewListDTO> reviewReceivedList = mypageMapper.reviewReceivedListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countReviewReceivedList(usersId);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                reviewReceivedList);
+
+
+    }
+
+    //dnBoard
+    public PageDTO<MypageDnBoardListDTO> mypageDnBoardListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<MypageDnBoardListDTO> dnBoardList = mypageMapper.mypageDnBoardListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countMypageDnBoardList(usersId);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                dnBoardList);
+
+
+    }
+
+    //dnBoard
+    public PageDTO<MypageDnSellListDTO> mypageDnSellListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<MypageDnSellListDTO> dnSellList = mypageMapper.mypageDnSellListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countMypageDnSellList(usersId);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                dnSellList);
+
+
+    }
+
 }
 
 

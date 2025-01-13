@@ -13,19 +13,11 @@
 
     <!-- 도와주세요 게시글 목록 조회 -->
     <select id="selectHelpList" resultType="HelpListDTO">
-        SELECT HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS, HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT
+        SELECT HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS, HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT, HELP_START_TIME, HELP_END_TIME
         FROM HELP_BOARD
         ORDER BY HELP_CREATED_AT DESC
     </select>
 
-    <!-- 도와주세요 게시글 상세 조회 -->
-<!--    <select id="selectHelpDetail" resultType="HelpResponseDTO">-->
-<!--        SELECT HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE,-->
-<!--            HELP_START_TIME, HELP_END_TIME, HELP_ADDRESS, HELP_ADDRESS_DETAIL, HELP_PRICE, HELP_POINT,-->
-<!--            USERS_ID, HELP_CREATED_AT-->
-<!--        FROM HELP_BOARD-->
-<!--        WHERE HELP_ID = #{helpId}-->
-<!--    </select>-->
 
     <select id="selectHelpDetail" resultType="HelpDetailDTO" parameterType="long">
         SELECT u.LOGIN_ID, h.HELP_ID, h.HELP_TITLE, h.HELP_CARE_TYPE, h.HELP_CARE_DATE,

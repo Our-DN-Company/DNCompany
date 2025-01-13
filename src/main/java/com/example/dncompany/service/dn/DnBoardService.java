@@ -24,9 +24,14 @@ public class DnBoardService {
                             ProductDTO productDTO,
                             Long userId) {
         dnBoardWriteDTO.setUsersId(userId);
-
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
         dnProductMapper.insertProduct(productDTO);
+
+        DnSellBoardDTO dnSellBoardDTO = new DnSellBoardDTO();
+        dnSellBoardDTO.setDnId(dnBoardWriteDTO.getDnId());
+        dnSellBoardDTO.setProductId(productDTO.getProductId());
+        dnSellBoardDTO.setUsersId(userId);
+        dnBoardMapper.insertSellBoard(dnSellBoardDTO);
     }
 
     // 게시글 조회 기능
@@ -37,10 +42,26 @@ public class DnBoardService {
     }
     
     // 게시글 전체 조회 기능
-    // TODO : 게시글 전체 조회 기능 해야함 1/13일날
     public List<DnBoardListDTO> getDnBoardList(){
 
         return dnBoardMapper.selectAllDnBoardList();
+    }
+
+    // 게시글 수정 처리 기능
+    public void modifyDnBoard(DnBoardModifyDTO boardModifyDTO,
+                              ProductModifyDTO productModifyDTO) {
+        dnBoardMapper.updateDnBoard(boardModifyDTO);
+        dnProductMapper.updateProduct(productModifyDTO);
+    }
+
+    // 게시글 삭제 처리 기능
+    public void removeDnBoard(Long dnId,
+                              Long productId) {
+
+        dnBoardMapper.deleteDnBoard(dnId);
+        dnProductMapper.deleteProduct(productId);
+        dnBoardMapper.deleteDnSell(dnId);
+
     }
 
 }

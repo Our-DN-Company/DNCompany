@@ -43,7 +43,7 @@
                 </tr>
 
                 <!-- 댓글 컨텐츠 -->
-                <tr th:each="DnBoardList :${MypageDnBoardList} " th:object="${DnBoardList}">
+                <tr th:each="DnBoardList :${dnBoardPageDTO.list} " th:object="${DnBoardList}">
                     <td th:text="*{rnum}">샘플 순번</td>
                     <td th:text="*{dnProductCategory}">샘플 제목</td>
                     <td th:text="*{dnTitle}">샘플 작성날짜</td>
@@ -60,13 +60,32 @@
 
 
                     <!-- 게시물 컨텐츠 -->
-                <tr th:each="DnSellList : ${MypageDnSellList}" th:object="${DnSellList}">
+                <tr th:each="DnSellList : ${dnSellPageDTO.list}" th:object="${DnSellList}">
                     <td th:text="*{rnum}">샘플 순번</td>
                     <td th:text="*{productName}">샘플 게시판</td>
                     <td th:text="*{productPrice}">샘플 제목</td>
 
                 </tr>
             </table>
+
+            <section class="pagination-section">
+                <div class="pagination">
+                    <a th:if="${pageDTO.hasPreviousGroup()}"
+                       th:href="@{/mypage/list/qna(page=${pageDTO.startPage - 1})}"
+                       class="page-btn prev" aria-label="Go to previous group">‹</a>
+
+                    <a class="page-btn"
+                       th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                       th:href="@{/mypage/list/qna(page=${i})}"
+                       th:classappend="${i == pageDTO.page ? ' active' : ''}"
+                       th:text="${i}"></a>
+
+                    <a th:if="${pageDTO.hasNextGroup()}"
+                       th:href="@{/mypage/list/qna(page=${pageDTO.endPage + 1})}"
+                       class="page-btn next" aria-label="Go to next group">›</a>
+                </div>
+            </section>
+
         </div>
     </main>
 </div>

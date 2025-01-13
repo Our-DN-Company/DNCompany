@@ -17,4 +17,5 @@ public class DnBoardListDTO {
     int productPrice;
     String productId;
     String usersId;
+    String loginId;
 }

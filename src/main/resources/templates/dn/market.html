@@ -137,77 +137,79 @@
                         </div>
 
                         <!-- 물품 목록 -->
-                        <div class="shopping_productList"  th:each="dnBoard : ${dnBoardList}" th:object="${dnBoard}">
-                            <!-- 반복 구간 -->
-                            <div class="productCard_productCardContainer">
-                                <a th:href="@{/dn/detail}">
-                                <!-- 사진 영역 -->
-                                <div class="productCard_cardImgContainer">
-                                    <!--              <span-->
-                                    <!--                      style="-->
-                                    <!--                  box-sizing: border-box;-->
-                                    <!--                  display: block;-->
-                                    <!--                  overflow: hidden;-->
-                                    <!--                  width: initial;-->
-                                    <!--                  height: initial;-->
-                                    <!--                  background: none;-->
-                                    <!--                  opacity: 1;-->
-                                    <!--                  border: 0px;-->
-                                    <!--                  margin: 0px;-->
-                                    <!--                  padding: 0px;-->
-                                    <!--                  position: absolute;-->
-                                    <!--                  inset: 0px;-->
-                                    <!--                "-->
-                                    <!--              ><img-->
-                                    <!--                      alt="card_image"-->
-                                    <!--                      sizes="100vw"-->
-                                    <!--                      srcset="640w, 750w, 828w, 1080w, 1200w, 1920w, 2048w, 3840w"-->
-                                    <!--                      src=""-->
-                                    <!--                      decoding="async"-->
-                                    <!--                      data-nimg="fill"-->
-                                    <!--                      style="-->
-                                    <!--                    position: absolute;-->
-                                    <!--                    inset: 0px;-->
-                                    <!--                    box-sizing: border-box;-->
-                                    <!--                    padding: 0px;-->
-                                    <!--                    border: none;-->
-                                    <!--                    margin: auto;-->
-                                    <!--                    display: block;-->
-                                    <!--                    width: 0px;-->
-                                    <!--                    height: 0px;-->
-                                    <!--                    min-width: 100%;-->
-                                    <!--                    max-width: 100%;-->
-                                    <!--                    min-height: 100%;-->
-                                    <!--                    max-height: 100%;-->
-                                    <!--                    object-fit: cover;-->
-                                    <!--                    object-position: center center;-->
-                                    <!--                    filter: none;-->
-                                    <!--                    background-size: cover;-->
-                                    <!--                    background-image: none;-->
-                                    <!--                    background-position: center center;-->
-                                    <!--                  "/><noscript></noscript-->
-                                    <!--              ></span>-->
-                                </div>
-
-                                <!-- 물품 정보 -->
-                                <div class="productCard_productInfo">
-                                    <div class="productCard_productBrand" th:text="*{productCategory}">물품명</div>
-                                    <div class="productCard_productName" th:text="*{dnTitle}">물품 상세 정보</div>
-                                </div>
-
-                                <!-- 경계선 -->
-                                <hr class="productCard_productDivider"/>
-
-                                <!-- 물품 가격 -->
-                                <div class="productCard_productInfo">
-                                    <div class="productCard_priceWrapper">
-                                        <div class="productCard_productPrice" th:text="*{productPrice}">10,000</div>
-                                        <span class="productCard_wonPrice">원</span>
+                        <div class="shopping-list-wrap" >
+                            <div class="shopping_productList" th:each="dnBoard : ${dnBoardList}" th:object="${dnBoard}">
+                                <!-- 반복 구간 -->
+                                <div class="productCard_productCardContainer">
+                                    <a th:href="@{/dn/detail(dnId=*{dnId})}">
+                                    <!-- 사진 영역 -->
+                                    <div class="productCard_cardImgContainer">
+                                        <!--              <span-->
+                                        <!--                      style="-->
+                                        <!--                  box-sizing: border-box;-->
+                                        <!--                  display: block;-->
+                                        <!--                  overflow: hidden;-->
+                                        <!--                  width: initial;-->
+                                        <!--                  height: initial;-->
+                                        <!--                  background: none;-->
+                                        <!--                  opacity: 1;-->
+                                        <!--                  border: 0px;-->
+                                        <!--                  margin: 0px;-->
+                                        <!--                  padding: 0px;-->
+                                        <!--                  position: absolute;-->
+                                        <!--                  inset: 0px;-->
+                                        <!--                "-->
+                                        <!--              ><img-->
+                                        <!--                      alt="card_image"-->
+                                        <!--                      sizes="100vw"-->
+                                        <!--                      srcset="640w, 750w, 828w, 1080w, 1200w, 1920w, 2048w, 3840w"-->
+                                        <!--                      src=""-->
+                                        <!--                      decoding="async"-->
+                                        <!--                      data-nimg="fill"-->
+                                        <!--                      style="-->
+                                        <!--                    position: absolute;-->
+                                        <!--                    inset: 0px;-->
+                                        <!--                    box-sizing: border-box;-->
+                                        <!--                    padding: 0px;-->
+                                        <!--                    border: none;-->
+                                        <!--                    margin: auto;-->
+                                        <!--                    display: block;-->
+                                        <!--                    width: 0px;-->
+                                        <!--                    height: 0px;-->
+                                        <!--                    min-width: 100%;-->
+                                        <!--                    max-width: 100%;-->
+                                        <!--                    min-height: 100%;-->
+                                        <!--                    max-height: 100%;-->
+                                        <!--                    object-fit: cover;-->
+                                        <!--                    object-position: center center;-->
+                                        <!--                    filter: none;-->
+                                        <!--                    background-size: cover;-->
+                                        <!--                    background-image: none;-->
+                                        <!--                    background-position: center center;-->
+                                        <!--                  "/><noscript></noscript-->
+                                        <!--              ></span>-->
                                     </div>
+
+                                    <!-- 물품 정보 -->
+                                    <div class="productCard_productInfo">
+                                        <div class="productCard_productBrand" th:text="*{productCategory}">물품명</div>
+                                        <div class="productCard_productName" th:text="*{dnTitle}">물품 상세 정보</div>
+                                    </div>
+
+                                    <!-- 경계선 -->
+                                    <hr class="productCard_productDivider"/>
+
+                                    <!-- 물품 가격 -->
+                                    <div class="productCard_productInfo">
+                                        <div class="productCard_priceWrapper">
+                                            <div class="productCard_productPrice" th:text="*{productPrice}">10,000</div>
+                                            <span class="productCard_wonPrice">원</span>
+                                        </div>
+                                    </div>
+                                    </a>
                                 </div>
-                                </a>
+                                <!-- 반복 구간 -->
                             </div>
-                            <!-- 반복 구간 -->
                         </div>
                     </div>
 

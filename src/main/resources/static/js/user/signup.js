@@ -5,7 +5,7 @@ import * as  userApi from './modules/userApi.js';
 // 입력 필드와 메시지 DOM 요소 가져오기
 // 아이디
 
-const elInputId = document.querySelector("#loginId");
+const elInputId = document.querySelector("#loginIdTo");
 const elFailureMessageOneId = document.querySelector(".id__notmessage1");
 const elFailureMessageTwoId = document.querySelector(".id__notmessage2");
 const elSuccessMessageId = document.querySelector(".id__okmessage");

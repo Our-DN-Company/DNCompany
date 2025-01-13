@@ -17,6 +17,7 @@ public class PageDTO<T> {
     private int pageGroup;
     private List<T> list;
 
+
     public PageDTO(int page, int size, int total, List<T> list) {
         this(page, size, total, 5, list);
     }

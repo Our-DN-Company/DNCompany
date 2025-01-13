@@ -7,6 +7,7 @@ import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.dto.help.pet.HelpPetListDTO;
 import com.example.dncompany.service.help.HelpService;
 import com.example.dncompany.service.help.pet.HelpPetService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,10 @@ public class HelpController {
     @GetMapping("/write")
     public String helpWrite(@SessionAttribute(value = "usersId", required = false) Long usersId,
                             Model model) {
-        usersId = 6L; // 임시 처리
+      //  usersId = 6L; // 임시 처리
+        if (usersId==null){
+            return "/user/login";
+        }
 
         List<HelpPetListDTO> petList = helpPetService.getPetListByUsersId(usersId);
         model.addAttribute("petList", petList);
@@ -45,12 +49,18 @@ public class HelpController {
         return "redirect:/help/list";
     }
 
-    @GetMapping("/list")
-    public String helpList(Model model) {
-        List<HelpListDTO> helpList = helpService.getHelpList();
-        model.addAttribute("helpList", helpList);
-        return "help/list";
+@GetMapping("/list")
+public String helpList(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                       Model model) {
+    // 로그인 체크
+    if (usersId == null) {
+        return "/user/login";
     }
+
+    List<HelpListDTO> helpList = helpService.getHelpList();
+    model.addAttribute("helpList", helpList);
+    return "help/list";
+}
 
     @GetMapping("/detail")
     public String helpDetail(@RequestParam Long helpId, Model model) {
