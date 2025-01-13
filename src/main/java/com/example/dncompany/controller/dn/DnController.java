@@ -3,16 +3,17 @@ package com.example.dncompany.controller.dn;
 import com.example.dncompany.dto.dn.*;
 import com.example.dncompany.service.dn.DnBoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/dn")
 @RequiredArgsConstructor
@@ -44,10 +45,15 @@ public class DnController {
     @PostMapping("/write")
     public String write(DnBoardWriteDTO dnBoardWriteDTO,
                         ProductDTO productDTO,
-                        DnSellBoardDTO dnSellBoardDTO,
-                        @SessionAttribute("usersId") Long usersId) {
+                        @SessionAttribute("usersId") Long usersId,
+                        @RequestParam(value = "image", required = false) MultipartFile imgFile) {
 
-        dnBoardService.addDnBoard(dnBoardWriteDTO,productDTO,usersId);
+//        dnBoardService.addDnBoard(dnBoardWriteDTO,productDTO,usersId);
+        try {
+            dnBoardService.addDnBoardWithFile(dnBoardWriteDTO,productDTO,usersId,imgFile);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
 
         return "redirect:/dn/market";
     }
