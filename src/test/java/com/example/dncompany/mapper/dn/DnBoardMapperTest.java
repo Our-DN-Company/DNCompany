@@ -55,6 +55,7 @@ class DnBoardMapperTest {
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
         dnProductMapper.insertProduct(productDTO);
         dnBoardMapper.insertSellBoard(dnSellBoardDTO);
+
         // when
         DnBoardDetailDTO foundDnBoard = dnBoardMapper.selectDnBoardById(dnBoardWriteDTO.getDnId()).orElse(null);
 
@@ -65,6 +66,7 @@ class DnBoardMapperTest {
         assertThat(foundDnBoard).isNotNull()
                 .extracting("productCategory")
                 .isEqualTo("간식");
+
     }
 
 
@@ -82,4 +84,5 @@ class DnBoardMapperTest {
                 .extracting("dnTitle")
                 .contains("테스트용 타이틀이다~~");
     }
+
 }

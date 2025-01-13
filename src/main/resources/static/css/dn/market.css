@@ -213,6 +213,15 @@
   align-items: start;
 }
 
+/*!* *!*/
+/*.shopping-list-wrap {*/
+/*  height: 40px;*/
+/*  margin-top: 30px;*/
+/*  display: grid;*/
+/*  grid-template-columns: repeat(4, minmax(0, 1fr));*/
+/*  grid-column-gap: 20px;*/
+/*}*/
+
 /* 물품 목록 */
 .productCard_productCardContainer {
   padding: 20px 15px 10px;

@@ -10,35 +10,51 @@
         INSERT INTO DN_BOARD (DN_ID, USERS_ID, DN_PET_CATEGORY, DN_TITLE, DN_CONTENT)
         VALUES (#{dnId}, #{usersId}, #{dnPetCategory},#{dnTitle}, #{dnContent})
     </insert>
-    <!-- 게시글 작성 시 중간 테이블인 Sell 테이블 작성 쿼리 -->
-    <!-- 이게 맞는질 잘 모르겠음... insert를 할 때 sell 테이블에 값이 안들어가길래 -->
-    <!-- 추가로 sell 테이블에도 넣는 쿼리가 필요할 것으로 판단하여 작성한 쿼리-->
-    <!-- 다만... 중간테이블이다보니 다른 테이블에서 값이 각자 들어와 어떤식으로 접근해야할 지 모르겠음..-->
 
+    <!-- 게시글 작성 시 중간 테이블인 Sell 테이블 작성 쿼리 -->
     <insert id="insertSellBoard" parameterType="DnSellBoardDTO">
         INSERT INTO DN_SELL (DN_ID, USERS_ID, PRODUCT_ID)
         VALUES (#{dnId}, #{usersId}, #{productId})
     </insert>
 
-    <!-- TODO: 1/12 계속 조회 오류가 나는 중.. 해결필요함-->
-    <!-- 예상으로는 sell 테이블에 값이 안들어가서 이를 못가져오는 것으로 판단됨.. sell 테이블에 값 넣을 수 있게 처리하면 해결될 듯 함-->
+    <!-- 게시물 한 건 조회 쿼리 -->
     <select id="selectDnBoardById" parameterType="Long" resultType="DnBoardDetailDTO">
         SELECT DB.DN_ID, DB.DN_CREATED_AT, DB.DN_UPDATED_AT, DB.DN_PET_CATEGORY, DB.DN_TITLE, DB.DN_CONTENT,
-               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID
+               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID, U.LOGIN_ID
         FROM DN_BOARD DB
                  LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
                  LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
                  LEFT JOIN USERS U ON DB.USERS_ID = U.USERS_ID
         WHERE DB.DN_ID = #{dnId}
     </select>
-    <!-- 쿼리 문제 있음.. 위와 비슷한 상황인듯 sell에 값이 안꽃혀서 sell 테이블에 값 넣을 수 있게 처리하면 해결될 듯 함-->
+
+    <!-- 전체 게시글 조회 쿼리 -->
     <select id="selectAllDnBoardList" resultType="DnBoardListDTO">
         SELECT DB.DN_ID, DB.DN_CREATED_AT, DB.DN_UPDATED_AT, DB.DN_PET_CATEGORY, DB.DN_TITLE,
-               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID
+               P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID, U.LOGIN_ID
         FROM DN_BOARD DB
                  LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
                  LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
                  LEFT JOIN USERS U ON DB.USERS_ID = U.USERS_ID
         ORDER BY P.PRODUCT_PRICE
     </select>
+
+    <!-- 글 수정 쿼리 -->
+    <update id="updateDnBoard" parameterType="DnBoardModifyDTO">
+        UPDATE DN_BOARD
+        SET DN_PET_CATEGORY = #{dnPetCategory}, DN_TITLE = #{dnTitle}, DN_CONTENT = #{dnContent}
+        WHERE DN_ID = #{dnId}
+    </update>
+
+    <!-- 글 삭제 쿼리-->
+    <delete id="deleteDnBoard" parameterType="Long">
+        DELETE FROM DN_BOARD
+        WHERE DN_ID = #{dnId}
+    </delete>
+
+    <!-- 게시글 삭제 시 중간 테이블인 Sell 테이블에 있는 값도 동시 삭제 쿼리 -->
+    <delete id="deleteDnSell" parameterType="Long">
+        DELETE FROM DN_SELL
+        WHERE DN_ID = #{dnId}
+    </delete>
 </mapper>
