@@ -144,50 +144,10 @@
                                     <a th:href="@{/dn/detail(dnId=*{dnId})}">
                                     <!-- 사진 영역 -->
                                     <div class="productCard_cardImgContainer">
-                                        <!--              <span-->
-                                        <!--                      style="-->
-                                        <!--                  box-sizing: border-box;-->
-                                        <!--                  display: block;-->
-                                        <!--                  overflow: hidden;-->
-                                        <!--                  width: initial;-->
-                                        <!--                  height: initial;-->
-                                        <!--                  background: none;-->
-                                        <!--                  opacity: 1;-->
-                                        <!--                  border: 0px;-->
-                                        <!--                  margin: 0px;-->
-                                        <!--                  padding: 0px;-->
-                                        <!--                  position: absolute;-->
-                                        <!--                  inset: 0px;-->
-                                        <!--                "-->
-                                        <!--              ><img-->
-                                        <!--                      alt="card_image"-->
-                                        <!--                      sizes="100vw"-->
-                                        <!--                      srcset="640w, 750w, 828w, 1080w, 1200w, 1920w, 2048w, 3840w"-->
-                                        <!--                      src=""-->
-                                        <!--                      decoding="async"-->
-                                        <!--                      data-nimg="fill"-->
-                                        <!--                      style="-->
-                                        <!--                    position: absolute;-->
-                                        <!--                    inset: 0px;-->
-                                        <!--                    box-sizing: border-box;-->
-                                        <!--                    padding: 0px;-->
-                                        <!--                    border: none;-->
-                                        <!--                    margin: auto;-->
-                                        <!--                    display: block;-->
-                                        <!--                    width: 0px;-->
-                                        <!--                    height: 0px;-->
-                                        <!--                    min-width: 100%;-->
-                                        <!--                    max-width: 100%;-->
-                                        <!--                    min-height: 100%;-->
-                                        <!--                    max-height: 100%;-->
-                                        <!--                    object-fit: cover;-->
-                                        <!--                    object-position: center center;-->
-                                        <!--                    filter: none;-->
-                                        <!--                    background-size: cover;-->
-                                        <!--                    background-image: none;-->
-                                        <!--                    background-position: center center;-->
-                                        <!--                  "/><noscript></noscript-->
-                                        <!--              ></span>-->
+                                      <span><img th:src="@{/images/logo/logo_banner2.png}" alt="게시글 썸네일" th:if="*{productImgId == null}" sizes="100vw" srcset="640w, 750w, 828w, 1080w, 1200w, 1920w, 2048w, 3840w" decoding="async" data-nimg="fill"/>
+                                      <span><img th:src="@{'/upload/dn/' + *{productPath} + '/th_' + *{productUuid} + *{productExtension}}" alt="게시글 썸네일" th:unless="*{productImgId == null}" sizes="100vw" srcset="640w, 750w, 828w, 1080w, 1200w, 1920w, 2048w, 3840w" decoding="async" data-nimg="fill"/>
+                                          <noscript></noscript>
+                                      </span>
                                     </div>
 
                                     <!-- 물품 정보 -->
