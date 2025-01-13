@@ -1,53 +1,8 @@
 import * as answerApi from './modules/answerApi.js'
-import * as likeApi from './modules/likeApi.js'
 
 {
 
-    const zipId = getZipId();
-
-    {
-        const $thumbBtn = document.querySelector('.thumbButton_thumbButtonContainer');
-
-        {
-            likeApi.checkLike(zipId, function (data) {
-                console.log(data);
-
-                const $likeCount = document.querySelector('.thumbButton_defaultLabel');
-                $likeCount.textContent = data.likeCount;
-
-                if (data.liked) {
-                    $thumbBtn.classList.add('active');
-                } else {
-                    $thumbBtn.classList.remove('active');
-                }
-            });
-        }
-
-        $thumbBtn.addEventListener('click', function () {
-
-            console.log("clicked");
-
-            const $likeCount = this.querySelector('.like-count');
-
-            likeApi.toggleLike(zipId, function (data) {
-                console.log(data);
-                if (!data.success) {
-                    alert(data.message);
-                    return;
-                }
-
-                if (data.liked) {
-                    $thumbBtn.classList.add('active');
-                } else {
-                    $thumbBtn.classList.remove('active');
-                }
-
-                $likeCount.textContent = data.likeCount;
-
-            });
-
-        });
-    }
+    const qnaId = getQnaId();
 
 
     {   // 댓글 처리
@@ -58,10 +13,10 @@ import * as likeApi from './modules/likeApi.js'
         $answerWriteBtn.addEventListener('click', (e) => {
             const content = $answerContent.value;
             const answerObj = {
-                zipAnswerContent: content
+                qnaAnswerContent: content
             };
 
-            answerApi.postAnswer(zipId, answerObj, function () {
+            answerApi.postAnswer(qnaId, answerObj, function () {
                 $answerContent.value = '';
                 loadAnswerList();
             });
@@ -95,7 +50,7 @@ import * as likeApi from './modules/likeApi.js'
                 const content = e.target.closest('.edit__container').querySelector('.edit__content').value;
 
                 const answerObj = {
-                    zipAnswerContent: content
+                    qnaAnswerContent: content
                 }
 
                 answerApi.patchAnswer(answerId, answerObj, function () {
@@ -146,7 +101,7 @@ import * as likeApi from './modules/likeApi.js'
      * 댓글 로드 함수
      */
     function loadAnswerList() {
-        answerApi.getAnswerList(zipId, displayAnswer);
+        answerApi.getAnswerList(qnaId, displayAnswer);
     }
 
     /**
@@ -160,25 +115,25 @@ import * as likeApi from './modules/likeApi.js'
 
         answerList.forEach(answer => {
             html += `
-         <div class="comment_qaDetailComment" data-answer-id="${answer.zipAnswerId}">
+         <div class="comment_qaDetailComment" data-answer-id="${answer.qnaAnswerId}">
             <div class="comment_qaCommentIdWrapper">
                 <div class="comment_qaCommentId">${answer.nickname}</div>
                 ${answer.usersId === loginUsersId ? `
                 <div class="comment_edit_delete">
                     <div class="comment_delete">
-                        <img src="/images/zip/icon-delete.png" class="comment-delete-btn" data-answer-id="${answer.zipAnswerId}"/>
+                        <img src="/images/qna/icon-delete.png" class="comment-delete-btn" data-answer-id="${answer.zipAnswerId}"/>
                     </div>
                     <div class="comment_edit">
-                        <img src="/images/zip/icon-pencil.png" class="comment-edit-btn" data-answer-id="${answer.zipAnswerId}"/>
+                        <img src="/images/qna/icon-pencil.png" class="comment-edit-btn" data-answer-id="${answer.zipAnswerId}"/>
                     </div>
                 </div>
-                <div class="comment_qaCommentDate">${answer.zipAnswerCreatedAt}</div>
+                <div class="comment_qaCommentDate">${answer.qnaAnswerCreatedAt}</div>
                 ` : ''}
                 
             </div>
            
             <div class="comment_qaDetailImgNone"></div>
-            <div class="comment_qaComment">${answer.zipAnswerContent}</div>
+            <div class="comment_qaComment">${answer.qnaAnswerContent}</div>
         </div>
         `;
         });
@@ -188,14 +143,14 @@ import * as likeApi from './modules/likeApi.js'
 
 
     /**
-     * 브라우저 URL에서 쿼리스트링의 zipId를 반환하는 함수
+     * 브라우저 URL에서 쿼리스트링의 qnaId를 반환하는 함수
      *
      * @returns {string}
      */
-    function getZipId() {
+    function getQnaId() {
         const urlParams = new URLSearchParams(location.search);
 
-        return urlParams.get('zipId');
+        return urlParams.get('qnaId');
     }
 }
 

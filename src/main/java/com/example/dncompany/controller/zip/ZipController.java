@@ -3,6 +3,9 @@ package com.example.dncompany.controller.zip;
 import com.example.dncompany.dto.zip.ZipBoardDetailDTO;
 import com.example.dncompany.dto.zip.ZipBoardListDTO;
 import com.example.dncompany.dto.zip.ZipBoardWriteDTO;
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
+import com.example.dncompany.dto.zip.zipPage.ZipBoardSearchDTO;
 import com.example.dncompany.service.zip.ZipService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -22,9 +23,26 @@ public class ZipController {
 
     // 전체글
     @GetMapping("/community")
-    public String community(Model model) {
-        List<ZipBoardListDTO> boardList = zipService.getAllZipBoards();
-        model.addAttribute("boardList", boardList);
+    public String community(ZipBoardSearchDTO searchDTO,
+                            PageRequestDTO pageRequestDTO,
+                            Model model) {
+
+        if (searchDTO.getSearchType() == null){
+            searchDTO.setSearchType("title");
+        }
+        if (searchDTO.getKeyword() == null){
+            searchDTO.setKeyword("");
+        }
+
+
+
+//        List<ZipBoardListDTO> boardList = zipService.getAllZipBoards();
+        PageDTO<ZipBoardListDTO> pageDTO = zipService.getZipBoardsBySearchCondWithPage(searchDTO, pageRequestDTO);
+
+//        model.addAttribute("boardList", boardList);
+        model.addAttribute("pageDTO", pageDTO);
+        model.addAttribute("searchDTO", searchDTO);
+
         return "zip/community";
     }
 
@@ -46,13 +64,12 @@ public class ZipController {
 
     @PostMapping("/write")
     public String write(ZipBoardWriteDTO zipBoardWriteDTO,
-//                        HttpSession session,
+                        HttpSession session,
                         @SessionAttribute(value = "usersId", required = false) Long usersId) {
         log.info("write zipBoardWriteDTO: {}", zipBoardWriteDTO);
-//        Long usersId = (Long) session.getAttribute("usersId");
-        usersId = 6L;
+        Long usersId1 = (Long) session.getAttribute("usersId");
 
-        zipService.addZipBoard(zipBoardWriteDTO, usersId);
+        zipService.addZipBoard(zipBoardWriteDTO, usersId1);
         return "redirect:/zip/community";
     }
 

@@ -52,30 +52,31 @@
                                     <input
                                             type="radio"
                                             class="radio_myRadio"
-                                            id="최신 순"
+                                            id="last_date"
                                             name="question"
-                                            value="최신 순"
+                                            value="last_date"
                                             checked
                                     />
-                                    <label for="최신 순">최신 순</label>
+                                    <label for="last_date">최신 순</label>
                                 </div>
+
                                 <div class="community_radioWrap">
                                     <input
                                             type="radio"
                                             class="radio_myRadio"
-                                            id="인기 순"
+                                            id="Date order"
                                             name="question"
-                                            value="인기순"
+                                            value="Date order"
                                     />
-                                    <label for="인기순">인기 순</label>
+                                    <label for="Date order">날짜 순</label>
                                 </div>
                             </div>
 
                             <!-- 글쓰기 버튼 -->
                             <div class="write_Btn">
-                                <button class="write_Btn_item" tabindex="0" type="button">
+                                <a class="write_Btn_item" th:href="@{/qna/write}" tabindex="0" >
                                     글쓰기
-                                </button>
+                                </a>
                             </div>
                         </div>
 
@@ -94,7 +95,7 @@
                                         </div>
                                     </div>
                                     <div class="qaList_qaListAbout">
-                                            <div class="qaList_nickname" th:text="${qna.nickname}"></div>
+                                        <div class="qaList_nickname" th:text="${qna.nickname}"></div>
                                         <div th:text="${qna.qnaUpdatedAt}">1시간 전</div>
                                     </div>
                                     <div class="qaList_labelWrapper">
