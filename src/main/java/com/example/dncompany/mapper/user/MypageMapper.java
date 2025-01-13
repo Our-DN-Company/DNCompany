@@ -1,9 +1,11 @@
 package com.example.dncompany.mapper.user;
 
 
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 
 import java.util.List;
@@ -49,6 +51,8 @@ public interface MypageMapper {
 
     List<MypageReviewListDTO> MypageReviewListById(Long usersId);
 
+    List<MypageReviewListDTO> ReviewReceivedListById(Long usersId);
+
     List<MypageDnBoardListDTO> MypageDnBoardListById(Long usersId);
 
     List<MypageDnSellListDTO> MypageDnSellListById(Long usersId);
@@ -67,7 +71,70 @@ public interface MypageMapper {
 
     //    반려동물 삭제
     void deletePetByPetId(Long petId);
+
+
+
+
+
+    //페이지처리
+
+    //Qna
+    List<QnaListDTO> qnaListPage(@Param("usersId") Long usersId,
+                                 @Param("page") PageRequestDTO pageRequestDTO);
+
+    int countQnaList(Long usersId);
+
+    //HelpMe
+    List<HelpMeListDTO> helpMeListPage(@Param("usersId") Long usersId,
+                                 @Param("page") PageRequestDTO pageRequestDTO);
+
+    int countHelpMeList(Long usersId);
+
+    //Helpyou
+    List<HelpYouListDTO> helpYouListPage(@Param("usersId") Long usersId,
+                                 @Param("page") PageRequestDTO pageRequestDTO);
+
+    int countHelpYouList(Long usersId);
+
+    //zipBoard
+    List<MypageZipBoardListDTO> zipBoardListPage(@Param("usersId") Long usersId,
+                                 @Param("page") PageRequestDTO pageRequestDTO);
+
+    int countZipBoardList(Long usersId);
+
+    //zipAnswer
+    List<MypageZipAnswerListDTO> zipAnswerListPage(@Param("usersId") Long usersId,
+                                 @Param("page") PageRequestDTO pageRequestDTO);
+
+    int countZipAnswerList(Long usersId);
+
+    //review
+    List<MypageReviewListDTO> reviewListPage(@Param("usersId") Long usersId,
+                                 @Param("page") PageRequestDTO pageRequestDTO);
+
+    int countReviewList(Long usersId);
+
+    //reviewReceived
+    List<MypageReviewListDTO> reviewReceivedListPage(@Param("usersId") Long usersId,
+                                 @Param("page") PageRequestDTO pageRequestDTO);
+
+    int countReviewReceivedList(Long usersId);
+
+    //dnBoard
+    List<MypageDnBoardListDTO> mypageDnBoardListPage(@Param("usersId") Long usersId,
+                                 @Param("page") PageRequestDTO pageRequestDTO);
+
+    int countMypageDnBoardList(Long usersId);
+
+    //dnSell
+    List<MypageDnSellListDTO> mypageDnSellListPage(@Param("usersId") Long usersId,
+                                 @Param("page") PageRequestDTO pageRequestDTO);
+
+    int countMypageDnSellList(Long usersId);
+
+
 }
+
 
 
 

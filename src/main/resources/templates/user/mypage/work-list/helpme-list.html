@@ -39,7 +39,7 @@
                 </tr>
 
 
-                <tr  th:each="helpMe :${helpMeList}" th:object="${helpMe}">
+                <tr  th:each="helpMe :${pageDTO.list}" th:object="${helpMe}">
                     <td th:text="*{rnum}"></td>
                     <td th:text="*{helpTitle}"></td>
                     <td th:text="*{helpCareType}"></td>
@@ -49,6 +49,25 @@
                         <button class="mypage_review_button">신고</button></td>
                 </tr>
             </table>
+
+            <section class="pagination-section">
+                <div class="pagination">
+                    <a th:if="${pageDTO.hasPreviousGroup()}"
+                       th:href="@{/mypage/list/qna(page=${pageDTO.startPage - 1})}"
+                       class="page-btn prev" aria-label="Go to previous group">‹</a>
+
+                    <a class="page-btn"
+                       th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                       th:href="@{/mypage/list/qna(page=${i})}"
+                       th:classappend="${i == pageDTO.page ? ' active' : ''}"
+                       th:text="${i}"></a>
+
+                    <a th:if="${pageDTO.hasNextGroup()}"
+                       th:href="@{/mypage/list/qna(page=${pageDTO.endPage + 1})}"
+                       class="page-btn next" aria-label="Go to next group">›</a>
+                </div>
+            </section>
+
 
         </div>
     </main>
