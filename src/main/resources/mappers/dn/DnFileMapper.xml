@@ -12,6 +12,6 @@
     <select id="selectByBoardId" parameterType="long" resultType="DnFileDTO">
         SELECT PRODUCT_IMG_ID, PRODUCT_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION
         FROM PRODUCT_IMG
-        WHERE PRODUCT_ID = #{freeBoardId}
+        WHERE PRODUCT_ID = #{productId}
     </select>
 </mapper>
