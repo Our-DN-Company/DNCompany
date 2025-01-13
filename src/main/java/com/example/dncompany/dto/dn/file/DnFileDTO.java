@@ -1,10 +1,15 @@
 package com.example.dncompany.dto.dn.file;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter @ToString
 public class DnFileDTO {
-    Long productImgId;
-    Long productId;
-    String productOriginalFilename;
-    String productUuid;
-    String productPath;
-    String productExtension;
+    private Long productImgId;
+    private Long productId;
+    private String productOriginalFilename;
+    private String productUuid;
+    private String productPath;
+    private String productExtension;
 }

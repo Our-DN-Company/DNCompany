@@ -139,6 +139,45 @@
   padding: 0 20px;
 }
 
+/* 사진 영역 */
+.productCard_cardImgContainer span{
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: initial;
+  height: initial;
+  background: none;
+  opacity: 1;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  inset: 0px;
+}
+
+/* 사진 영역 */
+.productCard_cardImgContainer img{
+  position: absolute;
+  inset: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 0px;
+  height: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: none;
+  background-size: cover;
+  background-image: none;
+  background-position: center center;
+}
+
 /* 정렬 영역 */
 .shopping_productFilterContainer {
   display: flex;
