@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <link rel="stylesheet" th:href="@{/css/zip/community.css}"/>
+    <script defer th:src="@{/js/zip/community.js}"></script>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
         @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
@@ -73,30 +74,40 @@
                                     <input
                                             type="radio"
                                             class="radio_myRadio"
-                                            id="최신 순"
+                                            id="last_date"
                                             name="question"
-                                            value="최신 순"
+                                            value="last_date"
                                             checked
                                     />
-                                    <label for="최신 순">최신 순</label>
+                                    <label for="last_date">최신 순</label>
                                 </div>
                                 <div class="community_radioWrap">
                                     <input
                                             type="radio"
                                             class="radio_myRadio"
-                                            id="인기 순"
+                                            id="Order_of_popularity"
                                             name="question"
-                                            value="인기순"
+                                            value="Order_of_popularity"
                                     />
-                                    <label for="인기순">인기 순</label>
+                                    <label for="Order_of_popularity">인기 순</label>
+                                </div>
+                                <div class="community_radioWrap">
+                                    <input
+                                            type="radio"
+                                            class="radio_myRadio"
+                                            id="Date order"
+                                            name="question"
+                                            value="Date order"
+                                    />
+                                    <label for="Date order">날짜 순</label>
                                 </div>
                             </div>
 
                             <!-- 글쓰기 버튼 -->
                             <div class="write_Btn">
-                                <button class="write_Btn_item" tabindex="0" type="button">
+                                <a class="write_Btn_item" th:href="@{/zip/write}" tabindex="0">
                                     글쓰기
-                                </button>
+                                </a>
                             </div>
                         </div>
 
@@ -104,15 +115,15 @@
                         <div class="community_loungeLeftContent">
                             <div class="community_loungeList">
                                 <!-- 반복요소 -->
-                                <div class="qaList_qaListContainer" th:each="board : ${boardList}">
+                                <div class="qaList_qaListContainer" th:each="board : ${pageDTO.list}">
                                     <div class="qaList_qaListWrapper">
                                         <div>
                                             <div class="qaList_qaListLabelWrapper">
                                                 <div class="qaList_labelListWrapper">
                                                     <div class="animalLabel_animalLabelContainer">
-<!--                                                        1<img-->
-<!--                                                                src="https://bemypet.kr/icons/community/ANIMALICON_ETC.svg"-->
-<!--                                                        />-->
+                                                        <!--                                                        1<img-->
+                                                        <!--                                                                src="https://bemypet.kr/icons/community/ANIMALICON_ETC.svg"-->
+                                                        <!--                                                        />-->
                                                         <div th:if="${board.zipPetCategory.equals('CAT')}">고양이</div>
                                                         <div th:if="${board.zipPetCategory.equals('DOG')}">강아지</div>
                                                         <div th:if="${board.zipPetCategory.equals('SMALL')}">소동물</div>
@@ -121,7 +132,8 @@
                                                 </div>
                                             </div>
                                             <div class="qaList_qaListTitle">
-                                                <a th:href="@{/zip/detail(zipId=${board.zipId})}" th:text="${board.zipTitle}">리리 팬아트!!</a>
+                                                <a th:href="@{/zip/detail(zipId=${board.zipId})}"
+                                                   th:text="${board.zipTitle}">리리 팬아트!!</a>
                                             </div>
                                             <div class="qaList_qaListText" th:text="${board.zipContent}">
                                                 지난번에 리리도 팬아트 만들어달라고 했는데.. 그림은
@@ -129,12 +141,12 @@
                                                 완성한 팬아트... (리리 사토루)
                                             </div>
                                         </div>
-<!--                                        <div class="qaList_qaListImg">-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="qaList_qaListImg">-->
+                                        <!--                                        </div>-->
                                     </div>
                                     <div class="qaList_qaListAbout">
 
-                                            <div class="qaList_nickname" th:text="${board.nickname}">삼색이짱짱</div>
+                                        <div class="qaList_nickname" th:text="${board.nickname}">삼색이짱짱</div>
 
                                         <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 :
                                             0
@@ -155,32 +167,23 @@
 
                         <!-- 페이지 영역 -->
                         <section class="pagination-section">
-                            <ul class="pagination">
-                                <li class>
-                                    <a class href="#" aria-label="Go to first page">‹</a>
-                                </li>
-                                <li class>
-                                    <a class href="#" aria-label="Go to page number 1">1</a>
-                                </li>
-                                <li class>
-                                    <a class href="#" aria-label="Go to page number 2">2</a>
-                                </li>
-                                <li class="active">
-                                    <a class href="un" aria-label="Go to page number 3">3</a>
-                                </li>
-                                <li class>
-                                    <a class href="undefined" aria-label="Go to page number 4"
-                                    >4</a
-                                    >
-                                </li>
-                                <li class>
-                                    <a class href="#" aria-label="Go to page number 5">5</a>
-                                </li>
-                                <li class>
-                                    <a class href="#" aria-label="Go to last page">›</a>
-                                </li>
-                            </ul>
+                            <div class="pagination">
+                                <a th:if="${pageDTO.hasPreviousGroup()}"
+                                   th:href="@{/zip/community(page=${pageDTO.startPage - 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"
+                                   class="page-btn prev" aria-label="Go to previous group">‹</a>
+
+                                <a class="page-btn"
+                                   th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                                   th:href="@{/zip/community(page=${i}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"
+                                   th:classappend="${i == pageDTO.page ? ' active' : ''}"
+                                   th:text="${i}"></a>
+
+                                <a th:if="${pageDTO.hasNextGroup()}"
+                                   th:href="@{/zip/community(page=${pageDTO.endPage + 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"
+                                   class="page-btn next" aria-label="Go to next group">›</a>
+                            </div>
                         </section>
+
                     </div>
                 </div>
             </div>
