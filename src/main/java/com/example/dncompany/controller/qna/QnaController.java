@@ -4,6 +4,7 @@ import com.example.dncompany.dto.page.PageDTO;
 import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.qna.QnADTO;
 import com.example.dncompany.dto.qna.QnADetailDTO;
+import com.example.dncompany.dto.qna.QnAModifyDTO;
 import com.example.dncompany.dto.qna.QnAWriteDTO;
 import com.example.dncompany.dto.qna.qnaPage.QnaBoardSearchDTO;
 import com.example.dncompany.dto.zip.ZipBoardWriteDTO;
@@ -33,10 +34,10 @@ public class QnaController {
                        PageRequestDTO pageRequestDTO,
                        Model model) {
 
-        if (qnaBoardSearchDTO.getSearchType() == null){
+        if (qnaBoardSearchDTO.getSearchType() == null) {
             qnaBoardSearchDTO.setSearchType("title");
         }
-        if (qnaBoardSearchDTO.getKeyword() == null){
+        if (qnaBoardSearchDTO.getKeyword() == null) {
             qnaBoardSearchDTO.setKeyword("");
         }
 
@@ -55,8 +56,8 @@ public class QnaController {
     @GetMapping("/detail")
     public String detail(Long qnaId, Model model) {
 
-        QnADetailDTO foundQnA = qnaService.getQnAById(qnaId);
-        model.addAttribute("qna", foundQnA);
+        QnADetailDTO foundQna = qnaService.getQnAById(qnaId);
+        model.addAttribute("qna", foundQna);
 
         return "qna/detail";
     }
@@ -84,8 +85,20 @@ public class QnaController {
 
     // 게시글 수정
     @GetMapping("/modfiy")
-    public String modfiy() {
+    public String modfiy(Long qnaId, Model model) {
+        QnADetailDTO foundQna = qnaService.getQnAById(qnaId);
+        model.addAttribute("qna", foundQna);
+
         return "qna/modfiy";
+    }
+
+    @PostMapping("/modify")
+    public String modify(QnAModifyDTO qnaModifyDTO,
+                         RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addAttribute("qnaId", qnaModifyDTO.getQnaId());
+
+        return "redirect:/qna/list";
     }
 
     // 게시글 삭제

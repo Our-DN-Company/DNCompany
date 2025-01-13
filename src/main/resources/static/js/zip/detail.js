@@ -105,6 +105,15 @@ import * as likeApi from './modules/likeApi.js'
         });
     }
 
+    $deleteBtn?.addEventListener('click', function () {
+        if (confirm('정말 삭제하시겠습니까?')) {
+            console.dir(this)
+            const qnaId = this.dataset.qnaId;
+            location.href = `/qna/delete?qnaId=${qnaId}`;
+        }
+    });
+
+
     /**
      * 댓글 수정 아이콘을 눌렀을 때 수정할 textarea와 수정/삭제 버튼을 만드는 함수
      *
