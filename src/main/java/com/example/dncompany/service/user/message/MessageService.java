@@ -1,7 +1,7 @@
-package com.example.dncompany.service.user;
+package com.example.dncompany.service.user.message;
 
 import com.example.dncompany.dto.user.message.MessagePageDTO;
-import com.example.dncompany.mapper.user.MessageMapper;
+import com.example.dncompany.mapper.user.message.MessageMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

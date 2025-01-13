@@ -165,6 +165,8 @@
     background-color: #fff;
     padding: 40px 30px;
     border: 1px solid rgb(95, 0, 128);
+    background-color: #fff;
+    z-index: 900;
 }
 
 
@@ -184,7 +186,7 @@
 
 }
 
-#userTo {
+#loginIdTo {
     width: 100%;
     box-sizing: border-box;
     display: inline-block;
@@ -265,5 +267,38 @@
             }
         }
     }
+}
+
+.testinfomvp {
+    padding-top: 10px;
+}
+
+.testinfomvp p {
+    font-family: "Pretendard-Regular";
+    font-size: 13px;
+    margin-top: -4px;
+}
+
+.testmessagenot {
+    color: rgb(240, 63, 64);
+    display: none;
+}
+
+.testmessagenot.active {
+    display: block;
+}
+
+.testmessageok {
+    color: rgb(15, 133, 26);
+    display: none;
+}
+
+.testmessageok.active {
+    display: block;
+}
+
+.testmessageok::before {
+    content: "✓";
+    margin-right: 3px;
 }
 

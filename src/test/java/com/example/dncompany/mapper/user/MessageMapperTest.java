@@ -1,6 +1,7 @@
 package com.example.dncompany.mapper.user;
 
 import com.example.dncompany.dto.user.message.MessagePageDTO;
+import com.example.dncompany.mapper.user.message.MessageMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
