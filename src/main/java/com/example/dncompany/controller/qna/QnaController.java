@@ -23,7 +23,6 @@ import java.util.List;
 public class QnaController {
 
     private final QnaService qnaService;
-    private final ZipService zipService;
 
     // 전체글
     @GetMapping("/list")

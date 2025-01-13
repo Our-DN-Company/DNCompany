@@ -121,10 +121,10 @@ import * as answerApi from './modules/answerApi.js'
                 ${answer.usersId === loginUsersId ? `
                 <div class="comment_edit_delete">
                     <div class="comment_delete">
-                        <img src="/images/qna/icon-delete.png" class="comment-delete-btn" data-answer-id="${answer.zipAnswerId}"/>
+                        <img src="/images/qna/icon-delete.png" class="comment-delete-btn" data-answer-id="${answer.qnaAnswerId}"/>
                     </div>
                     <div class="comment_edit">
-                        <img src="/images/qna/icon-pencil.png" class="comment-edit-btn" data-answer-id="${answer.zipAnswerId}"/>
+                        <img src="/images/qna/icon-pencil.png" class="comment-edit-btn" data-answer-id="${answer.qnaAnswerId}"/>
                     </div>
                 </div>
                 <div class="comment_qaCommentDate">${answer.qnaAnswerCreatedAt}</div>

@@ -40,4 +40,66 @@
         DELETE FROM QNA_BOARD
         WHERE QNA_ID = #{qnaId}
     </delete>
+
+    <!--  페이징 처리  -->
+    <select id="selectBySearchCondWithPage" resultType="QnaDTO">
+        SELECT RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT, USERS_ID
+        FROM (
+            SELECT ROWNUM AS RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT, USERS_ID
+            FROM (
+                SELECT QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT, USERS_ID
+                FROM QNA_BOARD QB
+                <where>
+                    <choose>
+                        <when test="cond.searchType != null and cond.searchType == 'usersId'">
+                            U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
+                        </when>
+                        <when test="cond.searchType != null and cond.searchType == 'title'">
+                            ZB.ZIP_TITLE LIKE '%' || #{cond.keyword} || '%'
+                        </when>
+                        <when test="cond.searchType != null and cond.searchType == 'content'">
+                            ZB.ZIP_CONTENT LIKE '%' || #{cond.keyword} || '%'
+                        </when>
+                    </choose>
+                </where>
+                ORDER BY QNA_ID DESC
+            )
+            <![CDATA[
+            WHERE ROWNUM <= ${page.page} * #{page.size}
+            ]]>
+        )
+        WHERE RNUM > (#{page.page} - 1 ) * #{page.size}
+    </select>
+
+<!--    <select id="countBySearchCondition" resultType="_int">-->
+<!--        SELECT -->
+<!--        FROM QNA_BOARD QB-->
+<!--        JOIN -->
+<!--        <where>-->
+<!--            <choose>-->
+<!--                <when test="cond.searchType != null and cond.searchType == 'usersId'">-->
+<!--                    U.USERS_ID LIKE '%' || #{cond.keyword} || '%'-->
+<!--                </when>-->
+<!--                <when test="cond.searchType != null and cond.searchType == 'title'">-->
+<!--                    ZB.ZIP_TITLE LIKE '%' || #{cond.keyword} || '%'-->
+<!--                </when>-->
+<!--                <when test="cond.searchType != null and cond.searchType == 'content'">-->
+<!--                    ZB.ZIP_CONTENT LIKE '%' || #{cond.keyword} || '%'-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        </where>-->
+<!--    </select>-->
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

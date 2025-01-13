@@ -21,7 +21,7 @@ public class QnaAnswerApi {
     public void postAnswer(@RequestBody QnaAnswerWriteDTO qnaAnswerWriteDTO,
                            @PathVariable("qnaId") Long qnaId,
                            @SessionAttribute(value = "usersId", required = false) Long usersId) {
-        usersId = 6L;
+//        usersId = 6L;
         qnaAnswerService.addAnswer(qnaAnswerWriteDTO, qnaId, usersId);
     }
 

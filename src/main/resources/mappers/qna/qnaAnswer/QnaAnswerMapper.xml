@@ -6,26 +6,18 @@
         <selectKey resultType="long" keyProperty="qnaAnswerId" order="BEFORE">
             SELECT SEQ_QNA_ANSWER.nextval FROM DUAL
         </selectKey>
-        INSERT INTO QNA_ANSWER (QNA_ANSWER_ID, QNA_ANSWER_CONTENT, USERS_ID, QNA_ID)
-        VALUES (#{qnaAnswerId}, #{qnaAnswerContent}, #{usersId}, #{qnaId})
+        INSERT INTO QNA_ANSWER (QNA_ANSWER_ID, QNA_ANSWER_CONTENT, QNA_ID)
+        VALUES (#{qnaAnswerId}, #{qnaAnswerContent}, #{qnaId})
     </insert>
 
     <!--  게시글 댓글 조회  -->
     <select id="selectListByQnaId" parameterType="long" resultType="QnaAnswerDTO">
-        SELECT QA.QNA_ANSWER_ID, QNA_ANSWER_CONTENT, QA.QNA_ANSWER_CREATED_AT, QA.QNA_ANSWER_UPDATED_AT, ZA.ZIP_ID,
-               U.USERS_ID, U.NICKNAME
+        SELECT QA.QNA_ANSWER_ID, QNA_ANSWER_CONTENT, QA.QNA_ANSWER_CREATED_AT, QA.QNA_ANSWER_UPDATED_AT, QA.QNA_ID
         FROM QNA_ANSWER QA
-                 JOIN USERS U ON QA.QNA_ID = U.USERS_ID
         WHERE QNA_ID = #{qnaId}
         ORDER BY QA.QNA_ANSWER_ID DESC
     </select>
 
-<!--    &lt;!&ndash;  댓글 갯수  &ndash;&gt;-->
-<!--    <select id="selectTotalByQnaId" parameterType="long" resultType="_int">-->
-<!--        SELECT COUNT(*)-->
-<!--        FROM QNA_ANSWER-->
-<!--        WHERE QNA_ID = #{QNApId}-->
-<!--    </select>-->
 
     <!--  댓글 수정  -->
     <update id="updateAnswer" parameterType="QnaAnswerModifyDTO">
