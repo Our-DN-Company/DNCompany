@@ -8,4 +8,10 @@
         INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_PRICE, PRODUCT_CATEGORY)
         VALUES (#{productId}, #{productPrice}, #{productCategory})
     </insert>
+
+    <update id="updateProduct" parameterType="ProductModifyDTO">
+        UPDATE PRODUCT
+        SET PRODUCT_PRICE = #{productPrice}, PRODUCT_CATEGORY =#{productCategory}
+        WHERE PRODUCT_ID = #{productId}
+    </update>
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -52,9 +53,23 @@ public class DnController {
     }
 
     @GetMapping("/modify")
-    public String modify(){
-        return "dn/modify";
+    public String modify(Long dnId, Model model){
+        DnBoardDetailDTO foundBoard = dnBoardService.getDnBoardById(dnId);
+        model.addAttribute("board", foundBoard);
 
+        return "dn/modify";
+    }
+
+    @PostMapping("/modify")
+    public String modify(DnBoardModifyDTO boardModifyDTO,
+                         ProductModifyDTO productModifyDTO,
+                         RedirectAttributes redirectAttributes){
+
+        dnBoardService.modifyDnBoard(boardModifyDTO,productModifyDTO);
+
+        redirectAttributes.addAttribute("dnId",boardModifyDTO.getDnId());
+
+        return "redirect:/dn/detail";
     }
 
 }

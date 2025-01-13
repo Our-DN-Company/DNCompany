@@ -21,6 +21,7 @@ public interface DnBoardMapper {
     // sell 테이블 삽입용
     void insertSellBoard (DnSellBoardDTO dnSellBoardDTO);
 
-
+    // 게시글 수정
+    void updateDnBoard (DnBoardModifyDTO dnBoardModifyDTO);
 }
 

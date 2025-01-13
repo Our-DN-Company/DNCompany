@@ -11,11 +11,11 @@ public class DnBoardDetailDTO {
     Long dnId;
     LocalDateTime dbCreatedAt;
     LocalDateTime dbUpdatedAt;
-    String dnPetCategory;
-    String dnTitle;
-    String dnContent;
-    String productCategory;
-    int productPrice;
+    String dnPetCategory; //
+    String dnTitle; //
+    String dnContent; //
+    String productCategory; //
+    int productPrice; //
     Long productId;
     Long usersId;
 }
