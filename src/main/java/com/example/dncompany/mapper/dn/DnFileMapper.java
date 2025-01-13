@@ -10,6 +10,8 @@ public interface DnFileMapper {
 
     void insertFile(DnFileDTO dnFileDTO);
 
-    Optional<DnFileDTO> selectByBoardId(Long freeBoardId);
+    Optional<DnFileDTO> selectByBoardId(Long productId);
+
+    void deleteByBoardId(Long productId);
 
 }
