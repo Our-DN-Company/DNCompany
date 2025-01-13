@@ -61,11 +61,11 @@
             USERS_ID, NICKNAME, ANSWER_COUNT, LIKE_COUNT
             FROM (
                 SELECT ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT,
-                u.USERS_ID, NICKNAME,
-                (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
-                (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+                    u.USERS_ID, NICKNAME,
+                    (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
+                    (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
                 FROM ZIP_BOARD ZB
-                JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
+                    JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
                 <where>
                     <choose>
                         <when test="cond.searchType != null and cond.searchType == 'usersId'">

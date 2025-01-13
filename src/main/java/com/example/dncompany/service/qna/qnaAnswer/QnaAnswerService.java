@@ -18,7 +18,6 @@ public class QnaAnswerService {
 
     public void addAnswer(QnaAnswerWriteDTO qnaAnswerWriteDTO,
                           Long qnaId, Long usersId) {
-        qnaAnswerWriteDTO.setUsersId(usersId);
         qnaAnswerWriteDTO.setQnaId(qnaId);
 
         qnaAnswerMapper.insertAnswer(qnaAnswerWriteDTO);
