@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dncompany.mapper.dn.DnFileMapper">
     <insert id="insertFile" parameterType="DnFileDTO">
-        <selectKey resultType="long" order="BEFORE" keyProperty="DnFileId">
-            SELECT SEQ_PRODUCT.nextval FROM DUAL
+        <selectKey resultType="long" order="BEFORE" keyProperty="productImgId">
+            SELECT SEQ_PRODUCT_IMG.nextval FROM DUAL
         </selectKey>
         INSERT INTO PRODUCT_IMG(PRODUCT_IMG_ID, PRODUCT_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION)
         VALUES (#{productImgId}, #{productId}, #{productOriginalFilename}, #{productUuid}, #{productPath}, #{productExtension})
@@ -14,4 +14,9 @@
         FROM PRODUCT_IMG
         WHERE PRODUCT_ID = #{productId}
     </select>
+    
+    <delete id="deleteByBoardId" parameterType="Long">
+        DELETE FROM PRODUCT_IMG
+        WHERE PRODUCT_ID = #{productId}
+    </delete>
 </mapper>
