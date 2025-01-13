@@ -31,7 +31,8 @@ public class QnaService {
     }
 
     // 게시글 삽입
-    public void addQnaBoard(QnAWriteDTO qnaWriteDTO) {
+    public void addQnaBoard(QnAWriteDTO qnaWriteDTO, Long usersId) {
+        qnaWriteDTO.setUsersId(usersId);
         qnaMapper.insertQnABoard(qnaWriteDTO);
     }
 
