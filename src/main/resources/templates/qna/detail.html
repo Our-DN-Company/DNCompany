@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <link rel="stylesheet" th:href="@{/css/qna/detail.css}"/>
+    <script defer type="module" th:src="@{/js/qna/detail.js}"></script>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
         @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
@@ -64,8 +65,8 @@
                         <!-- 작성자 정보 -->
                         <div class="qaDetail_qaDetailInfo">
                             <div>
-                                    <div class="qaDetail_qaDetailUser" th:text="${qna.nickname}">닉네임</div>
-                                    <div class="qaDetail_qaDetailDate" th:text="${qna.qnaUpdateAt}">작성 날짜</div>
+                                <div class="qaDetail_qaDetailUser" th:text="${qna.nickname}">닉네임</div>
+                                <div class="qaDetail_qaDetailDate" th:text="${qna.qnaUpdateAt}">작성 날짜</div>
                             </div>
                         </div>
                     </div>
@@ -75,26 +76,23 @@
 
                     <!-- 답글 -->
                     <div class="qaDetail_qaDetailAnswerWrapper">
-                        <div class="qaDetail_qaDetailTotal">댓글 0</div>
                         <div class="qaDetail_qaDetailComment">
                             <div class="answer_qaAnswerInputWrapper">
-                                <textarea placeholder="댓글을 입력해주세요"></textarea>
+                                <textarea id="answerContent" placeholder="댓글을 입력해주세요"></textarea>
                                 <div class="answer_inputBtnWrapper">
                                     <div class="answer_questionImgContainer"></div>
                                     <div class="answer_answerBtnContainer">
-                                        <form enctype="multipart/form-data">
-                                            <input
-                                                    id="uploadFile"
-                                                    type="file"
-                                                    multiple
-                                                    accept="image/jpg,image/png,image/jpeg,image/gif"
-                                                    class="answer_fileUploadWrapper"
-                                            />
-                                        </form>
+                                        <!--                                            <input-->
+                                        <!--                                                    id="uploadFile"-->
+                                        <!--                                                    type="file"-->
+                                        <!--                                                    multiple-->
+                                        <!--                                                    accept="image/jpg,image/png,image/jpeg,image/gif"-->
+                                        <!--                                                    class="answer_fileUploadWrapper"-->
+                                        <!--                                            />-->
 
                                         <div>
 
-                                            <button class="answer_submitBtn">등록</button>
+                                            <button class="answer_submitBtn" id="answerWriteBtn">등록</button>
                                         </div>
                                     </div>
                                 </div>
@@ -103,37 +101,41 @@
 
                         <!-- 댓글 리스트 -->
                         <div class="qaDetail_qaDetailAnswer" id="answers">
-                            <!-- 반복요소 -->
-                            <div class="comment_qaDetailComment">
-                                <div class="comment_qaCommentIdWrapper">
-                                        <div class="comment_qaCommentId">닉네임</div>
+                            <!--                            &lt;!&ndash; 반복요소 &ndash;&gt;-->
+                            <!--                            <div class="comment_qaDetailComment">-->
+                            <!--                                <div class="comment_qaCommentIdWrapper">-->
+                            <!--                                        <div class="comment_qaCommentId">닉네임</div>-->
 
-                                    <div class="comment_edit_delete">
-                                        <!-- 삭제 아이콘 -->
-                                        <div class="comment_delete">
-                                            <img
-                                                    src="../img/—Pngtree—delete glyph black icon_4008308.png"
-                                            />
-                                        </div>
-                                        <!-- 수정 아이콘 -->
-                                        <div class="comment_edit">
-                                            <img src="../img/—Pngtree—edit icon_4643109.png"/>
-                                        </div>
-                                    </div>
-                                    <div class="comment_qaCommentDate">날짜</div>
-                                </div>
+                            <!--                                    <div class="comment_edit_delete">-->
+                            <!--                                        &lt;!&ndash; 삭제 아이콘 &ndash;&gt;-->
+                            <!--                                        <div class="comment_delete">-->
+                            <!--                                            <img-->
+                            <!--                                                    src="../img/—Pngtree—delete glyph black icon_4008308.png"-->
+                            <!--                                            />-->
+                            <!--                                        </div>-->
+                            <!--                                        &lt;!&ndash; 수정 아이콘 &ndash;&gt;-->
+                            <!--                                        <div class="comment_edit">-->
+                            <!--                                            <img src="../img/—Pngtree—edit icon_4643109.png"/>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="comment_qaCommentDate">날짜</div>-->
+                            <!--                                </div>-->
 
-                                <div class="comment_qaDetailImgNone"></div>
-                                <div class="comment_qaComment">내용</div>
-                            </div>
+                            <!--                                <div class="comment_qaDetailImgNone"></div>-->
+                            <!--                                <div class="comment_qaComment">내용</div>-->
+                            <!--                            </div>-->
                             <!-- 반복요소 -->
                         </div>
                     </div>
                 </div>
+
             </div>
         </main>
     </div>
     <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
 </div>
+<script th:inline="javascript">
+    const loginUsersId = [[${loginUsersId}]];
+</script>
 </body>
 </html>

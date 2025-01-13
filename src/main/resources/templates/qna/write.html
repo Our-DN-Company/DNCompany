@@ -8,8 +8,12 @@
     <link rel="stylesheet" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
-    <script defer th:src="@{/js/fragment/header.js}"></script>
     <link rel="stylesheet" th:href="@{/css/qna/write.css}"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
+    <script defer th:src="@{/js/qna/write.js}"></script>
+    <script defer th:src="@{/js/fragment/header.js}"></script>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
         @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
@@ -24,58 +28,63 @@
             <!-- 여기에 작업 -->
             <div class="question_questionContainer">
                 <div class="question_questionContent">
-                    <!-- 제목 입력 박스 -->
-                    <div>
+                    <form th:action="@{/qna/write}" method="post" enctype="multipart/form-data">
+                        <!-- 제목 입력 박스 -->
                         <div>
-                            <span class="question_questionCategory">Q&A 글 작성</span>
-                            <span class="question_questionMark">*</span>
-                        </div>
-                        <input
-                                placeholder="제목을 입력해주세요"
-                                class="question_titleInput"
-                                value
-                        />
-                        <!-- 박스 하단 여백 -->
-                        <div class="question_alertText"></div>
-                    </div>
-
-                    <!-- 내용 입력 박스 -->
-                    <div class="question_questionInputWrapper">
-                <textarea
-                        placeholder="5자 이상의 글 내용을 입력해주세요"
-                        class="question_questionInput"
-                ></textarea>
-                        <!-- 박스 하단 여백 -->
-                        <div class="question_alertText"></div>
-                    </div>
-
-                    <form action="multipart/form-data">
-                        <div class="question_fileInputWrapper">
-                            <!-- 사진 업로드 박스 -->
-                            <span class="question_questionCategory">사진 업로드</span>
-                            <div class="question_questionImgContainer"></div>
+                            <div>
+                                <span class="question_questionCategory">Q&A 글 작성</span>
+                                <span class="question_questionMark">*</span>
+                            </div>
                             <input
-                                    id="uploadFile"
-                                    type="file"
-                                    multiple
-                                    accept="image/jpg,image/png,image/jpeg,image/gif"
-                                    style="display: none"
+                                    placeholder="제목을 입력해주세요"
+                                    class="question_titleInput"
+                                    name="qnaTitle"
+                                    value
                             />
-                            <label for="uploadFile" class="question_inputFileBtn">
-                                <div class="question_inputFileText">사진 첨부</div>
-                                <img
-                                        src="https://bemypet.kr/icons/community/ICON_PHOTO_CAMERA.svg"
-                                />
-                            </label>
-                            <span class="question_imgDesc"
-                            >개당 업로드 용량: 20MB, 첨부 파일의 경우 사진과 동영상을
-                    합쳐 최대 10개 업로드 가능합니다.</span
-                            >
+                            <!-- 박스 하단 여백 -->
+                            <div class="question_alertText"></div>
                         </div>
-                    </form>
 
-                    <!-- 등록 버튼 -->
-                    <button class="question_nosubmitBtn" disabled>글 등록</button>
+                        <!-- 내용 입력 박스 -->
+                        <div class="question_questionInputWrapper">
+                    <textarea
+                            placeholder="5자 이상의 글 내용을 입력해주세요"
+                            class="question_questionInput"
+                            id="qnaContent"
+                            name="qnaContent"
+                    ></textarea>
+                            <!-- 박스 하단 여백 -->
+                            <div class="question_alertText"></div>
+                        </div>
+
+                        <!--                            <form action="multipart/form-data">-->
+                        <!--                                <div class="question_fileInputWrapper">-->
+                        <!--                                     사진 업로드 박스 -->
+                        <!--                                    <span class="question_questionCategory">사진 업로드</span>-->
+                        <!--                                    <div class="question_questionImgContainer"></div>-->
+                        <!--                                    <input-->
+                        <!--                                            id="uploadFile"-->
+                        <!--                                            type="file"-->
+                        <!--                                            multiple-->
+                        <!--                                            accept="image/jpg,image/png,image/jpeg,image/gif"-->
+                        <!--                                            style="display: none"-->
+                        <!--                                    />-->
+                        <!--                                    <label for="uploadFile" class="question_inputFileBtn">-->
+                        <!--                                        <div class="question_inputFileText">사진 첨부</div>-->
+                        <!--                                        <img-->
+                        <!--                                                src="https://bemypet.kr/icons/community/ICON_PHOTO_CAMERA.svg"-->
+                        <!--                                        />-->
+                        <!--                                    </label>-->
+                        <!--                                    <span class="question_imgDesc"-->
+                        <!--                                    >개당 업로드 용량: 20MB, 첨부 파일의 경우 사진과 동영상을-->
+                        <!--                            합쳐 최대 10개 업로드 가능합니다.</span-->
+                        <!--                                    >-->
+                        <!--                                </div>-->
+                        <!--                            </form>-->
+
+                        <!-- 등록 버튼 -->
+                        <button class="question_nosubmitBtn">글 등록</button>
+                    </form>
                 </div>
             </div>
         </main>
