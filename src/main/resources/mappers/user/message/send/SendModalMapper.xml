@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.user.message.send.SendModalMapper">
+    <insert id="insertSendModal" parameterType="MessageSendDTO">
+        <selectKey resultType="long" order="BEFORE" keyProperty="messageId">
+            SELECT SEQ_MESSAGE.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO MESSAGE(MESSAGE_ID, USER_FROM, USER_TO, MS_CONTENT)
+        VALUES (#{messageId}, #{userFrom}, #{userTo}, #{msContent})
+    </insert>
+    <select id="selectloginIdUserTo" parameterType="String" resultType="long">
+        SELECT USERS_ID
+        FROM USERS
+        WHERE LOGIN_ID = #{loginIdTo}
+    </select>
+</mapper>
