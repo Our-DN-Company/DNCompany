@@ -55,24 +55,24 @@
                         JOIN USERS U ON QB.USERS_ID = U.USERS_ID
                     <where>
                         <choose>
-                            <when test="qnaCond.searchType != null and qnaCond.searchType == 'usersId'">
-                                U.USERS_ID LIKE '%' || #{qnaCond.keyword} || '%'
+                            <when test="cond.searchType != null and cond.searchType == 'usersId'">
+                                U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
                             </when>
-                            <when test="qnaCond.searchType != null and qnaCond.searchType == 'title'">
-                                QB.QNA_TITLE LIKE '%' || #{qnaCond.keyword} || '%'
+                            <when test="cond.searchType != null and cond.searchType == 'title'">
+                                QB.QNA_TITLE LIKE '%' || #{cond.keyword} || '%'
                             </when>
-                            <when test="qnaCond.searchType != null and cond.searchType == 'content'">
-                                QB.QNA_CONTENT LIKE '%' || #{qnaCond.keyword} || '%'
+                            <when test="cond.searchType != null and cond.searchType == 'content'">
+                                QB.QNA_CONTENT LIKE '%' || #{cond.keyword} || '%'
                             </when>
                         </choose>
                     </where>
                     ORDER BY QNA_ID DESC
                 )
             <![CDATA[
-            WHERE ROWNUM <= ${qnaPage.page} * #{qnaPage.size}
+            WHERE ROWNUM <= ${page.page} * #{page.size}
             ]]>
         )
-        WHERE RNUM > (#{qnaPage.page} - 1 ) * #{qnaPage.size}
+        WHERE RNUM > (#{page.page} - 1 ) * #{page.size}
     </select>
 
     <select id="countBySearchCondition" resultType="_int">
@@ -81,14 +81,14 @@
             JOIN USERS U ON QB.USERS_ID = U.USERS_ID
         <where>
             <choose>
-                <when test="qnaCond.searchType != null and qnaCond.searchType == 'usersId'">
-                    U.USERS_ID LIKE '%' || #{qnaCond.keyword} || '%'
+                <when test="cond.searchType != null and cond.searchType == 'usersId'">
+                    U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
                 </when>
-                <when test="qnaCond.searchType != null and qnaCond.searchType == 'title'">
-                    QB.QNA_TITLE LIKE '%' || #{qnaCond.keyword} || '%'
+                <when test="cond.searchType != null and cond.searchType == 'title'">
+                    QB.QNA_TITLE LIKE '%' || #{cond.keyword} || '%'
                 </when>
-                <when test="qnaCond.searchType != null and qnaCond.searchType == 'content'">
-                    QB.QNA_CONTENT LIKE '%' || #{qnaCond.keyword} || '%'
+                <when test="cond.searchType != null and cond.searchType == 'content'">
+                    QB.QNA_CONTENT LIKE '%' || #{cond.keyword} || '%'
                 </when>
             </choose>
         </where>

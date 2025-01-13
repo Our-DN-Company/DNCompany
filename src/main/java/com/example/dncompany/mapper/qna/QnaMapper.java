@@ -31,9 +31,9 @@ public interface QnaMapper {
 
     // 페이징 처리
     List<QnADTO> selectBySearchCondWithPage (
-            @Param("qnaCond") QnaBoardSearchDTO qnaBoardSearchDTO,
-            @Param("qnaPage")PageRequestDTO pageRequestDTO);
+            @Param("cond") QnaBoardSearchDTO qnaBoardSearchDTO,
+            @Param("page")PageRequestDTO pageRequestDTO);
 
-    int countBySearchCondition (@Param("qnaCond") QnaBoardSearchDTO qnaBoardSearchDTO);
+    int countBySearchCondition (@Param("cond") QnaBoardSearchDTO qnaBoardSearchDTO);
 
 }

@@ -5,7 +5,7 @@ import * as answerApi from './modules/answerApi.js'
     const qnaId = getQnaId();
 
 
-    {   // 댓글 처리
+    {
         const $answerWriteBtn = document.querySelector('#answerWriteBtn');
         const $answerContent = document.querySelector('#answerContent');
 
@@ -58,6 +58,17 @@ import * as answerApi from './modules/answerApi.js'
                 });
             }
         });
+
+
+        $deleteBtn?.addEventListener('click', function () {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                console.dir(this)
+                const qnaId = this.dataset.qnaId;
+                location.href = `/qna/delete?qnaId=${qnaId}`;
+            }
+        });
+
+
     }
 
     /**

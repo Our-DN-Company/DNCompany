@@ -26,6 +26,12 @@ public class ZipService {
         return zipMapper.selectAllZipBoards();
     }
 
+    // 게시물 목록 조회
+    public List<ZipBoardListDTO> getZipBoardList() {
+        return zipMapper.selectAllBoard();
+    }
+
+
     //
     public ZipBoardDetailDTO getZipBoardById(Long zipId){
         zipMapper.updateViewCount(zipId);
