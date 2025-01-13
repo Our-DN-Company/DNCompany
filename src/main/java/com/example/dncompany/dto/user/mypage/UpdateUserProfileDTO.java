@@ -20,4 +20,7 @@ public class UpdateUserProfileDTO {
     private String addressDetail;
     private String addressExtra;
 
+
+
+
 }
