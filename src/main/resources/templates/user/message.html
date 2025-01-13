@@ -45,7 +45,7 @@
                                         <p class="info__title">삭제</p>
                                     </div>
                                     <!-- 반복 요소 -->
-                                    <div class="message__info__title__user" th:each="board: ${messagePageDTOList}">
+                                    <div class="message__info__title__user" th:each="board: ${messageFromDTOList}">
                                         <p class="info__title__user" th:text="${board.loginId}">aaa123님!!!!!!!!!!!!!!!</p>
                                         <p class="info__title__user" th:text="${board.msContent}">도움 위치가 햇갈려서 쪽지 드립니다! !!!!!!!!!!!!!!!!!!!!!!!!</p>
                                         <button class="title__delete__btn">삭제</button>
@@ -68,13 +68,13 @@
                                 <div class="message__info__title" >
                                     <p class="info__title" >받은 사람</p>
                                     <p class="info__title" >내용</p>
-                                    <p class="info__title">삭제</p>
+                                    <p class="info__title" >삭제</p>
                                 </div>
-<!--                                <div class="message__info__title__user">-->
-<!--                                    <p class="info__title__user">ccc1234님</p>-->
-<!--                                    <p class="info__title__user">이번에 뜬 펫페어 같이 가실래요?</p>-->
-<!--                                    <button class="title__delete__btn">삭제</button>-->
-<!--                                </div>-->
+                                <div class="message__info__title__user" th:each="board2 : ${messageToDTOList}">
+                                    <p class="info__title__user" th:text="${board2.loginId}" >ccc1234님</p>
+                                    <p class="info__title__user" th:text="${board2.msContent}">이번에 뜬 펫페어 같이 가실래요?</p>
+                                    <button class="title__delete__btn">삭제</button>
+                                </div>
                             </div>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 package com.example.dncompany.service.user;
 
-import com.example.dncompany.dto.user.MessagePageDTO;
+import com.example.dncompany.dto.user.message.MessagePageDTO;
 import com.example.dncompany.mapper.user.MessageMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,5 +16,10 @@ import java.util.List;
 public class MessageService {
     private final MessageMapper messageMapper;
 
-    public List<MessagePageDTO> addMessageBoard() { return messageMapper.selectfromMessage(); }
+    public List<MessagePageDTO> addMessageBoardFrom(Long usesId) {
+        return messageMapper.selectFromMessage(usesId);
+    }
+    public List<MessagePageDTO> addMessageBoardTo(Long usesId) {
+        return messageMapper.selectToMessage(usesId);
+    }
 }

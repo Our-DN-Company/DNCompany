@@ -2,17 +2,21 @@ package com.example.dncompany.controller.qna;
 
 import com.example.dncompany.dto.qna.QnADTO;
 import com.example.dncompany.dto.qna.QnADetailDTO;
+import com.example.dncompany.dto.qna.QnAWriteDTO;
+import com.example.dncompany.dto.zip.ZipBoardWriteDTO;
 import com.example.dncompany.service.qna.QnaService;
 import com.example.dncompany.service.zip.ZipService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-
+@Slf4j
 @Controller
 @RequestMapping("/qna")
 @RequiredArgsConstructor
@@ -41,7 +45,37 @@ public class QnaController {
 
     // 게시글 작성
     @GetMapping("/write")
-    public String write() {
+    public String write(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                        RedirectAttributes redirectAttributes) {
+        if (usersId == null) {
+            redirectAttributes.addFlashAttribute("hasError", true);
+            redirectAttributes.addFlashAttribute("message", "로그인 후 이용해주세요");
+            return "redirect:/user/login";
+        }
         return "qna/write";
     }
+
+    @PostMapping("/write")
+    public String write(QnAWriteDTO qnaWriteDTO,
+                        @SessionAttribute(value = "usersId", required = false) Long usersId) {
+
+        qnaService.addQnaBoard(qnaWriteDTO, usersId);
+
+        return "redirect:/qna/list";
+    }
+
+    // 게시글 수정
+    @GetMapping("/modfiy")
+    public String modfiy() {
+        return "qna/modfiy";
+    }
+
+    // 게시글 삭제
+    @GetMapping("/delete")
+    public String delete(Long qnaId) {
+        qnaService.removeQnABoard(qnaId);
+        return "redirect:/qna/list";
+    }
+
+
 }
