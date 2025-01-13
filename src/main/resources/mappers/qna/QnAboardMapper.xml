@@ -43,52 +43,56 @@
 
     <!--  페이징 처리  -->
     <select id="selectBySearchCondWithPage" resultType="QnaDTO">
-        SELECT RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT, USERS_ID
-        FROM (
-            SELECT ROWNUM AS RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT, USERS_ID
+        SELECT RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT,
+                USERS_ID, NICKNAME, ROLE
             FROM (
-                SELECT QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT, USERS_ID
-                FROM QNA_BOARD QB
-                <where>
-                    <choose>
-                        <when test="cond.searchType != null and cond.searchType == 'usersId'">
-                            U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
-                        </when>
-                        <when test="cond.searchType != null and cond.searchType == 'title'">
-                            ZB.ZIP_TITLE LIKE '%' || #{cond.keyword} || '%'
-                        </when>
-                        <when test="cond.searchType != null and cond.searchType == 'content'">
-                            ZB.ZIP_CONTENT LIKE '%' || #{cond.keyword} || '%'
-                        </when>
-                    </choose>
-                </where>
-                ORDER BY QNA_ID DESC
-            )
+                SELECT ROWNUM AS RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT,
+                    USERS_ID, NICKNAME, ROLE
+                FROM (
+                    SELECT QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT,
+                        U.USERS_ID, U.NICKNAME, U.ROLE
+                    FROM QNA_BOARD QB
+                        JOIN USERS U ON QB.USERS_ID = U.USERS_ID
+                    <where>
+                        <choose>
+                            <when test="qnaCond.searchType != null and qnaCond.searchType == 'usersId'">
+                                U.USERS_ID LIKE '%' || #{qnaCond.keyword} || '%'
+                            </when>
+                            <when test="qnaCond.searchType != null and qnaCond.searchType == 'title'">
+                                QB.QNA_TITLE LIKE '%' || #{qnaCond.keyword} || '%'
+                            </when>
+                            <when test="qnaCond.searchType != null and cond.searchType == 'content'">
+                                QB.QNA_CONTENT LIKE '%' || #{qnaCond.keyword} || '%'
+                            </when>
+                        </choose>
+                    </where>
+                    ORDER BY QNA_ID DESC
+                )
             <![CDATA[
-            WHERE ROWNUM <= ${page.page} * #{page.size}
+            WHERE ROWNUM <= ${qnaPage.page} * #{qnaPage.size}
             ]]>
         )
-        WHERE RNUM > (#{page.page} - 1 ) * #{page.size}
+        WHERE RNUM > (#{qnaPage.page} - 1 ) * #{qnaPage.size}
     </select>
 
-<!--    <select id="countBySearchCondition" resultType="_int">-->
-<!--        SELECT -->
-<!--        FROM QNA_BOARD QB-->
-<!--        JOIN -->
-<!--        <where>-->
-<!--            <choose>-->
-<!--                <when test="cond.searchType != null and cond.searchType == 'usersId'">-->
-<!--                    U.USERS_ID LIKE '%' || #{cond.keyword} || '%'-->
-<!--                </when>-->
-<!--                <when test="cond.searchType != null and cond.searchType == 'title'">-->
-<!--                    ZB.ZIP_TITLE LIKE '%' || #{cond.keyword} || '%'-->
-<!--                </when>-->
-<!--                <when test="cond.searchType != null and cond.searchType == 'content'">-->
-<!--                    ZB.ZIP_CONTENT LIKE '%' || #{cond.keyword} || '%'-->
-<!--                </when>-->
-<!--            </choose>-->
-<!--        </where>-->
-<!--    </select>-->
+    <select id="countBySearchCondition" resultType="_int">
+        SELECT COUNT(*)
+        FROM QNA_BOARD QB
+            JOIN USERS U ON QB.USERS_ID = U.USERS_ID
+        <where>
+            <choose>
+                <when test="qnaCond.searchType != null and qnaCond.searchType == 'usersId'">
+                    U.USERS_ID LIKE '%' || #{qnaCond.keyword} || '%'
+                </when>
+                <when test="qnaCond.searchType != null and qnaCond.searchType == 'title'">
+                    QB.QNA_TITLE LIKE '%' || #{qnaCond.keyword} || '%'
+                </when>
+                <when test="qnaCond.searchType != null and qnaCond.searchType == 'content'">
+                    QB.QNA_CONTENT LIKE '%' || #{qnaCond.keyword} || '%'
+                </when>
+            </choose>
+        </where>
+    </select>
 </mapper>
 
 

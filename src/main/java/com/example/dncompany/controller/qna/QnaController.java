@@ -1,8 +1,11 @@
 package com.example.dncompany.controller.qna;
 
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.qna.QnADTO;
 import com.example.dncompany.dto.qna.QnADetailDTO;
 import com.example.dncompany.dto.qna.QnAWriteDTO;
+import com.example.dncompany.dto.qna.qnaPage.QnaBoardSearchDTO;
 import com.example.dncompany.dto.zip.ZipBoardWriteDTO;
 import com.example.dncompany.service.qna.QnaService;
 import com.example.dncompany.service.zip.ZipService;
@@ -26,11 +29,27 @@ public class QnaController {
 
     // 전체글
     @GetMapping("/list")
-    public String list(Model model) {
-        List<QnADTO> qnaList = qnaService.getAllQnaBoards();
-        model.addAttribute("qnaList", qnaList);
+    public String list(QnaBoardSearchDTO qnaBoardSearchDTO,
+                       PageRequestDTO pageRequestDTO,
+                       Model model) {
+
+        if (qnaBoardSearchDTO.getSearchType() == null){
+            qnaBoardSearchDTO.setSearchType("title");
+        }
+        if (qnaBoardSearchDTO.getKeyword() == null){
+            qnaBoardSearchDTO.setKeyword("");
+        }
+
+//        List<QnADTO> qnaList = qnaService.getAllQnaBoards();
+        PageDTO<QnADTO> qnaPageDTO = qnaService.getQnaBoardsBySearchCondWithPage(qnaBoardSearchDTO, pageRequestDTO);
+
+//        model.addAttribute("qnaList", qnaList);
+        model.addAttribute("qnaPageDTO", qnaPageDTO);
+        model.addAttribute("qnaBoardSearchDTO", qnaBoardSearchDTO);
+
         return "qna/list";
     }
+
 
     // 상세글
     @GetMapping("/detail")
