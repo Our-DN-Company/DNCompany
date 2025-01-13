@@ -29,13 +29,16 @@
             <div class="community_loungeContents">
                 <div class="community_SearchContainer">
                     <div class="community_inputContainer">
+                        <form th:action="@{/zip/community}" method="get">
                             <input
                                     type="text"
                                     placeholder="찾으시는 커뮤니티 글이 있으신가요?"
                                     maxlength="130"
                                     class="community_searchInput"
                                     name="keyword"
+                                    th:value="${searchDTO.keyword}"
                             />
+                        </form>
                     </div>
                     <!-- 네비게이션 -->
                     <div class="community_loungeContainer">
