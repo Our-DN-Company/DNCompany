@@ -44,7 +44,7 @@
         <h3>전체 회원수</h3>
         <p class="number" th:text="${cardCounts.getCardTotalMembers()}">1,234</p>
         <p class="change"
-           th:text="${(#numbers.formatDecimal((cardLastWeekCounts.getLastWeekTotalMembers()/cardCounts.getCardTotalMembers())*100,1,2))}
+           th:text="${(#numbers.formatDecimal((cardCounts.getCardTotalMembers()/cardLastWeekCounts.getLastWeekTotalMembers())*100,1,2))}
         +'% from last week' "> </p>
       </div>
     </div>
@@ -54,9 +54,10 @@
         <h3>총 게시글</h3>
         <p class="number" th:text="${cardCounts.getCardTotalBoards()}">856</p>
         <p class="change"
-           th:text="${(#numbers.formatDecimal((cardLastWeekCounts.getLastWeekTotalBoards()/cardCounts.getCardTotalBoards())*100,1,2))}
+           th:text="${(#numbers.formatDecimal((cardCounts.getCardTotalBoards()/cardLastWeekCounts.getLastWeekTotalBoards())*100,1,2))}
         +'% from last week' "
         ></p>
+
       </div>
     </div>
     <div class="stat-card">
@@ -65,7 +66,7 @@
         <h3>금일 댓글</h3>
         <p class="number" th:text="${cardCounts.getCardTotalAnswers()}" >89</p>
         <p class="change"
-           th:text="${(#numbers.formatDecimal((cardLastWeekCounts.getLastWeekTotalAnswers()/cardCounts.getCardTotalAnswers())*100,1,2))}
+           th:text="${(#numbers.formatDecimal((cardCounts.getCardTotalAnswers()/cardLastWeekCounts.getLastWeekTotalAnswers())*100,1,2))}
         +'% from last week' "
         ></p>
       </div>
