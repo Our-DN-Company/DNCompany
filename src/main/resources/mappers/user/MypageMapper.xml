@@ -134,11 +134,19 @@
     </select>
 
     <!-- 리뷰 -->
+    <!--받은리뷰-->
     <select id="MypageReviewListById" parameterType="long" resultType="MypageReviewListDTO">
         SELECT ROWNUM AS RNUM, R.REVIEW_ID, R.REVIEW_TITLE, R.REVIEW_CREATED_AT, HO.USERS_ID
         FROM REVIEW R
                  JOIN HELP_OFFER HO ON R.HELP_OFFER_ID = HO.HELP_OFFER_ID
         WHERE HO.USERS_ID = #{usersId}
+    </select>
+    <!--보낸리뷰-->
+
+    <select id="ReviewReceivedListById" parameterType="long" resultType="MypageReviewListDTO">
+        SELECT ROWNUM AS RNUM, R.REVIEW_ID, R.REVIEW_TITLE, R.REVIEW_CREATED_AT, R.USERS_ID
+        FROM REVIEW R
+        WHERE R.USERS_ID = #{usersId}
     </select>
 
     <!--댕냥바다-->

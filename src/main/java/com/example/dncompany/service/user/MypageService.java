@@ -147,6 +147,10 @@ public class MypageService {
         return mypageMapper.MypageReviewListById(usersId);
     }
 
+    public List<MypageReviewListDTO> ReviewReceivedListById(Long usersId) {
+        return mypageMapper.ReviewReceivedListById(usersId);
+    }
+
     public List<MypageDnBoardListDTO> MypageDnBoardListById(Long usersId) {
         return mypageMapper.MypageDnBoardListById(usersId);
     }

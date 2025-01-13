@@ -49,6 +49,8 @@ public interface MypageMapper {
 
     List<MypageReviewListDTO> MypageReviewListById(Long usersId);
 
+    List<MypageReviewListDTO> ReviewReceivedListById(Long usersId);
+
     List<MypageDnBoardListDTO> MypageDnBoardListById(Long usersId);
 
     List<MypageDnSellListDTO> MypageDnSellListById(Long usersId);

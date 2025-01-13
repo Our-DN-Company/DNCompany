@@ -149,6 +149,9 @@ public class MypageController {
 //         usersId = 21L;
         List<MypageReviewListDTO> mypageReviewList = mypageService.MypageReviewListById(usersId);
         model.addAttribute("MypageReviewList", mypageReviewList);
+
+        List<MypageReviewListDTO> ReviewReceivedList = mypageService.ReviewReceivedListById(usersId);
+        model.addAttribute("ReviewReceivedList", ReviewReceivedList);
         return "user/mypage/work-list/review-list";
     }
 
