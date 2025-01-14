@@ -39,7 +39,7 @@
                         <div class="product_qaDetailText">
                             <div class="product_detail_left" th:if="*{productId != null}">
                                 <!-- 상품 이미지 -->
-                                <img th:src="@{'upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension}}" alt="상품 이미지" class="product_image"/>
+                                <img th:src="@{'/upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension}}" alt="상품 이미지" class="product_image"/>
                             </div>
                             <div class="product_detail_right">
                                 <!-- 판매 금액 -->
