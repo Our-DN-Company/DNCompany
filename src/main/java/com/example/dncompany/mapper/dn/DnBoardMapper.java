@@ -1,6 +1,7 @@
 package com.example.dncompany.mapper.dn;
 
 import com.example.dncompany.dto.dn.*;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,5 +31,8 @@ public interface DnBoardMapper {
 
     // 게시글 삭제하면서 sell 테이블에 있는 값도 같이 삭제
     void deleteDnSell (Long dnId);
+
+    // 게시글 전체 조회하면서 페이징 처리
+    List<DnBoardListDTO> selectAllDnBoardListWithPage(@Param("page") PageRequestDTO pageRequstDTO);
 }
 

@@ -37,10 +37,14 @@
                             <h1 class="product_qaDetailTop" th:text="*{dnTitle}">물품명</h1>
                         </div>
                         <div class="product_qaDetailText">
-                            <div class="product_detail_left" th:if="*{productId != null}">
+                            <div class="product_detail_left" th:if="*{productImgId != null}">
                                 <!-- 상품 이미지 -->
-                                <img th:src="@{'upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension}}" alt="상품 이미지" class="product_image"/>
+                                <img th:src="@{'/upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension}}" alt="상품 이미지" class="product_image"/>
                             </div>
+                            <div class="product_detail_left" th:unless="*{productImgId != null}">
+                            <!-- 상품 이미지 -->
+                            <img th:src="@{/images/logo/logo_banner2.png}" alt="상품 이미지" class="product_image"/>
+                        </div>
                             <div class="product_detail_right">
                                 <!-- 판매 금액 -->
                                 <div class="product_price" th:text="*{productPrice}">₩50,000</div>

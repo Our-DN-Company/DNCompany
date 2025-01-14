@@ -62,12 +62,6 @@ public class DnBoardService {
         return dnBoardMapper.selectAllDnBoardList();
     }
 
-    // 게시글 수정 처리 기능
-    public void modifyDnBoard(DnBoardModifyDTO boardModifyDTO,
-                              ProductModifyDTO productModifyDTO) {
-        dnBoardMapper.updateDnBoard(boardModifyDTO);
-        dnProductMapper.updateProduct(productModifyDTO);
-    }
 
     // 게시글 삭제 처리 기능
     public void removeDnBoard(Long dnId,
@@ -82,17 +76,17 @@ public class DnBoardService {
     // 게시글 추가 기능 + 파일 업로드
     public void addDnBoardWithFile (DnBoardWriteDTO dnBoardWriteDTO,
                                     ProductDTO productDTO,
-                                    Long userId,
+                                    Long usersId,
                                     MultipartFile multipartFile) throws IOException {
         // 1. 게시글 저장
-        dnBoardWriteDTO.setUsersId(userId);
+        dnBoardWriteDTO.setUsersId(usersId);
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
         dnProductMapper.insertProduct(productDTO);
 
         DnSellBoardDTO dnSellBoardDTO = new DnSellBoardDTO();
         dnSellBoardDTO.setDnId(dnBoardWriteDTO.getDnId());
         dnSellBoardDTO.setProductId(productDTO.getProductId());
-        dnSellBoardDTO.setUsersId(userId);
+        dnSellBoardDTO.setUsersId(usersId);
         dnBoardMapper.insertSellBoard(dnSellBoardDTO);
 
         // 2. 파일 존재 여부 검사
@@ -143,8 +137,61 @@ public class DnBoardService {
             // 썸네일은 같은 경로상에 파일 이름만 th_를 붙여 사용
         }
 
-
         // 3-2. 저장한 실제파일 정보를 DB에 삽입
+        dnFileDTO.setProductId(productDTO.getProductId());
+        dnFileMapper.insertFile(dnFileDTO);
+    }
+
+    // 게시글 수정 처리 기능 + 파일 업로드
+    public void modifyDnBoard(DnBoardModifyDTO boardModifyDTO,
+                              ProductModifyDTO productModifyDTO,
+                              MultipartFile multipartFile) throws IOException {
+        dnBoardMapper.updateDnBoard(boardModifyDTO);
+        dnProductMapper.updateProduct(productModifyDTO);
+
+        if (multipartFile == null || multipartFile.isEmpty()) {
+            return;
+        }
+
+        // 파일이 존재하면 삭제 후 다시 저장 처리
+        dnFileMapper.deleteByBoardId(productModifyDTO.getProductId());
+
+        // 새 파일로 저장
+        String originalFilename = multipartFile.getOriginalFilename();// 원본파일 이름.확장자 가 이름
+        String extension = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자 분리, 뒤에서부터 substring을 사용하여 분리
+        String uuid = UUID.randomUUID().toString();// uuid (파일 이름 중복을 방지하기 위해 사용)
+        String datePath = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        String savePath = this.fileUploadPath + "/" + datePath;// 실제 저장될 전체 디렉터리 경로
+
+        DnFileDTO dnFileDTO = new DnFileDTO();
+        dnFileDTO.setProductOriginalFilename(originalFilename);
+        dnFileDTO.setProductExtension(extension);
+        dnFileDTO.setProductUuid(uuid);
+        dnFileDTO.setProductPath(datePath);
+        dnFileDTO.setProductId(productModifyDTO.getProductId());
+
+        log.debug("freeFileDTO: {}", dnFileDTO);
+
+        File uploadDir = new File(savePath); // 저장하려는 경로 (디렉토리만 포함하는 경로)
+
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs(); //mkdirs(): make directories 의 약자
+        }
+
+        String fileSystemName = uuid + extension;
+        String fileFullpath = savePath + "/" + fileSystemName;
+        File file = new File(fileFullpath);
+
+        multipartFile.transferTo(file);
+
+
+        String contentType = Files.probeContentType(file.toPath());
+        if (contentType.startsWith("image")) {
+            Thumbnails.of(file)
+                    .size(300, 200)
+                    .toFile(new File(savePath + "/th_" + fileSystemName));
+        }
+
         dnFileMapper.insertFile(dnFileDTO);
 
     }

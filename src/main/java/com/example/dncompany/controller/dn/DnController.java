@@ -69,9 +69,14 @@ public class DnController {
     @PostMapping("/modify")
     public String modify(DnBoardModifyDTO boardModifyDTO,
                          ProductModifyDTO productModifyDTO,
+                         @RequestParam(value = "image", required = false) MultipartFile multipartFile,
                          RedirectAttributes redirectAttributes){
 
-        dnBoardService.modifyDnBoard(boardModifyDTO,productModifyDTO);
+        try {
+            dnBoardService.modifyDnBoard(boardModifyDTO,productModifyDTO,multipartFile);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
 
         redirectAttributes.addAttribute("dnId",boardModifyDTO.getDnId());
         redirectAttributes.addAttribute("productId",productModifyDTO.getProductId());
