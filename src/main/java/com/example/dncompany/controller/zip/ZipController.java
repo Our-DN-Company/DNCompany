@@ -53,6 +53,15 @@ public class ZipController {
         return "zip/community";
     }
 
+    // 상세글
+    @GetMapping("/detail")
+    public String detail(Long zipId, Model model) {
+
+        ZipBoardDetailDTO foundZip = zipService.getZipBoardById(zipId);
+        model.addAttribute("board", foundZip);
+
+        return "zip/detail";
+    }
 
     // 게시글 작성
     @GetMapping("/write")
@@ -79,15 +88,6 @@ public class ZipController {
         return "redirect:/zip/community";
     }
 
-    // 상세글
-    @GetMapping("/detail")
-    public String detail(Long zipId, Model model) {
-
-        ZipBoardDetailDTO foundZip = zipService.getZipBoardById(zipId);
-        model.addAttribute("board", foundZip);
-
-        return "zip/detail";
-    }
 
     // 게시글 수정
     @GetMapping("/modify")
