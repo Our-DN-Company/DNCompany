@@ -18,7 +18,7 @@ public interface AdminUserMapper {
 
 
 
-
+//    @TODO 안쓰는 코드 삭제 예정
     // 신고 상태 업데이트
     int updateReportStatus(@Param("reportId") Long reportId, @Param("status") String status);
 

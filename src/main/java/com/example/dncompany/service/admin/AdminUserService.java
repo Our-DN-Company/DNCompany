@@ -39,9 +39,12 @@ public class AdminUserService {
         return adminUserMapper.getReportsByUserId(userId);
     }
 
-    public boolean updateReportStatus(Long reportId, String status) {
-        return adminUserMapper.updateReportStatus(reportId, status) > 0;
-    }
+//        @TODO 안쓰는 코드 삭제 예정
+//    public boolean updateReportStatus(Long reportId, String status) {
+//        return adminUserMapper.updateReportStatus(reportId, status) > 0;
+//    }
+
+
     // 포인트 변경은 트랜잭션으로 처리되어야 함 why? 어디 하나 오류가 발생하면 포인트 복사버그가 될 수 있음
     // 이미 만들어서 어쩔 수 없지만 다음에는 포인트 정보를 담을 DTO를 만들 예정
     // 일딴 Map<String, Object> 특히 오브젝트 떄문에 불안함 포인트

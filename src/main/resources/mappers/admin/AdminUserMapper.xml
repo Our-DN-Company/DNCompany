@@ -175,7 +175,7 @@
         ON (US.USERS_ID = #{userId})
         WHEN MATCHED THEN
             UPDATE SET
-                       US.USERS_STATUS = 'BAN',
+                       US.USERS_STATUS = 'SUSPENDED',
                        US.USERS_BAN_AT = SYSDATE,
                        US.USERS_PERMIT_AT = SYSDATE + #{banDays}
         WHEN NOT MATCHED THEN

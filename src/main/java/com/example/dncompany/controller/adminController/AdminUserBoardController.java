@@ -85,29 +85,6 @@ public class AdminUserBoardController {
         return ResponseEntity.ok(reports);
     }
     /**
-     * 신고 처리 상태 업데이트
-     * 비동기 요청으로 처리
-     *
-     * @param reportId 처리할 신고 ID
-     * @param request 처리 관련 데이터
-     * @return 처리 결과
-     */
-    // 신고 처리
-    @PostMapping("/processReport/{reportId}")
-    @ResponseBody  // JSON 응답을 위해 추가
-    public ResponseEntity<Map<String, Object>> processReport(
-            @PathVariable Long reportId,
-            @RequestBody Map<String, Integer> request) {
-
-        String status = "처리완료";  // 실제 DB에 맞는 상태값으로 수정
-        boolean success = adminUserService.updateReportStatus(reportId, status);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", success);
-
-        return ResponseEntity.ok(response);
-    }
-    /**
      * 회원 활동 정지 처리
      * 비동기 요청으로 처리
      *
@@ -121,6 +98,14 @@ public class AdminUserBoardController {
     public ResponseEntity<Map<String, Object>> banUser(
             @PathVariable Long userId,
             @RequestBody Map<String, Long> request) {
+
+
+        if (userId == 1) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "어드민은 무적이라네");
+            return ResponseEntity.ok(response);
+        }
 
         Long banDays = request.get("banDays");
         boolean success = adminUserService.banUser(userId, banDays);
