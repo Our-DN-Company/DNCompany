@@ -1,10 +1,13 @@
 package com.example.dncompany.mapper.qna;
 
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.qna.QnADTO;
 import com.example.dncompany.dto.qna.QnADetailDTO;
 import com.example.dncompany.dto.qna.QnAModifyDTO;
 import com.example.dncompany.dto.qna.QnAWriteDTO;
+import com.example.dncompany.dto.qna.qnaPage.QnaBoardSearchDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,4 +28,12 @@ public interface QnaMapper {
 
     // QnA 게시글 삭제
     void deleteQnABoard(Long QnAId);
+
+    // 페이징 처리
+    List<QnADTO> selectBySearchCondWithPage (
+            @Param("cond") QnaBoardSearchDTO qnaBoardSearchDTO,
+            @Param("page")PageRequestDTO pageRequestDTO);
+
+    int countBySearchCondition (@Param("cond") QnaBoardSearchDTO qnaBoardSearchDTO);
+
 }

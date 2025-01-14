@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.dncompany.mapper.user.MessageMapper">
+<mapper namespace="com.example.dncompany.mapper.user.message.MessageMapper">
     <select id="selectToMessage" parameterType="long" resultType="MessagePageDTO">
         SELECT M.USER_FROM, M.USER_TO, M.MS_CONTENT, M.MESSAGE_ID, M.MS_DATE,
                U.USERS_ID, U.LOGIN_ID
@@ -17,5 +17,61 @@
         WHERE M.USER_TO = #{userTo}
         ORDER BY MS_DATE DESC
     </select>
+
+    <select id="selectToMessagePage" parameterType="long" resultType="MessagePageDTO">
+        SELECT RNUM, USER_FROM, USER_TO, MS_CONTENT, MESSAGE_ID, MS_DATE,
+               USERS_ID, LOGIN_ID
+        FROM (
+                 SELECT ROWNUM AS RNUM, USER_FROM, USER_TO, MS_CONTENT, MESSAGE_ID, MS_DATE,
+                        USERS_ID, LOGIN_ID
+                 FROM(
+                         SELECT M.USER_FROM, M.USER_TO, M.MS_CONTENT, M.MESSAGE_ID, M.MS_DATE,
+                                U.USERS_ID, U.LOGIN_ID
+                         FROM MESSAGE M
+                                  JOIN USERS U ON M.USER_FROM = U.USERS_ID
+                         WHERE M.USER_FROM = #{userFrom}
+                         ORDER BY MS_DATE DESC
+                     )
+        <![CDATA[
+                 WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+             )
+        WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="selectFromMessagePage" parameterType="long" resultType="MessagePageDTO">
+        SELECT RNUM, USER_FROM, USER_TO, MS_CONTENT, MESSAGE_ID, MS_DATE,
+               USERS_ID, LOGIN_ID
+        FROM (
+                 SELECT ROWNUM AS RNUM, USER_FROM, USER_TO, MS_CONTENT, MESSAGE_ID, MS_DATE,
+                        USERS_ID, LOGIN_ID
+                 FROM (
+                          SELECT M.USER_FROM, M.USER_TO, M.MS_CONTENT, M.MESSAGE_ID, M.MS_DATE,
+                                 U.USERS_ID, U.LOGIN_ID
+                          FROM MESSAGE M
+                                   JOIN USERS U ON M.USER_FROM = U.USERS_ID
+                          WHERE M.USER_TO = #{userTo}
+                          ORDER BY MS_DATE DESC
+                      )
+        <![CDATA[
+                 WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+             )
+        WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countByPage" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM MESSAGE M
+        JOIN USERS U ON M.USER_FROM = U.USERS_ID
+        WHERE
+        <if test="userFrom != null">
+            M.USER_FROM = #{userFrom}
+        </if>
+        <if test="userTo != null">
+            M.USER_TO = #{userTo}
+        </if>
+    </select>
+
 
 </mapper>

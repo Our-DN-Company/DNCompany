@@ -30,14 +30,16 @@
             <div class="community_loungeContents">
                 <div class="community_SearchContainer">
                     <div class="community_inputContainer">
-                        <input
-                                type="text"
-                                placeholder="찾으시는 질문이 있으신가요?"
-                                maxlength="130"
-                                class="community_searchInput"
-                                enterkeyhint="search"
-                                value
-                        />
+                        <form th:action="@{/qna/list}" method="get">
+                            <input
+                                    type="text"
+                                    placeholder="찾으시는 질문이 있으신가요?"
+                                    maxlength="130"
+                                    class="community_searchInput"
+                                    name="keyword"
+                                    th:value="${qnaBoardSearchDTO.keyword}"
+                            />
+                        </form>
                     </div>
 
                     <!-- 경계선 -->
@@ -52,30 +54,31 @@
                                     <input
                                             type="radio"
                                             class="radio_myRadio"
-                                            id="최신 순"
+                                            id="last_date"
                                             name="question"
-                                            value="최신 순"
+                                            value="last_date"
                                             checked
                                     />
-                                    <label for="최신 순">최신 순</label>
+                                    <label for="last_date">최신 순</label>
                                 </div>
+
                                 <div class="community_radioWrap">
                                     <input
                                             type="radio"
                                             class="radio_myRadio"
-                                            id="인기 순"
+                                            id="Date order"
                                             name="question"
-                                            value="인기순"
+                                            value="Date order"
                                     />
-                                    <label for="인기순">인기 순</label>
+                                    <label for="Date order">날짜 순</label>
                                 </div>
                             </div>
 
                             <!-- 글쓰기 버튼 -->
                             <div class="write_Btn">
-                                <button class="write_Btn_item" tabindex="0" type="button">
+                                <a class="write_Btn_item" th:href="@{/qna/write}" tabindex="0">
                                     글쓰기
-                                </button>
+                                </a>
                             </div>
                         </div>
 
@@ -83,18 +86,21 @@
                         <div class="community_loungeLeftContent">
                             <div class="community_loungeList">
                                 <!-- 반복요소 -->
-                                <div class="qaList_qaListContainer" th:each="qna : ${qnaList}">
+                                <div class="qaList_qaListContainer" th:each="qna : ${qnaPageDTO.list}">
                                     <div class="qaList_qaListWrapper">
                                         <div>
                                             <div class="qaList_qaListLabelWrapper">
                                                 <div class="qaList_labelListWrapper"></div>
                                             </div>
-                                            <div class="qaList_qaListTitle" th:text="${qna.qnaTitle}"></div>
+                                            <div class="qaList_qaListTitle">
+                                                <a th:href="@{/qna/detail(qnaId=${qna.qnaId})}"
+                                                   th:text="${qna.qnaTitle}"></a>
+                                            </div>
                                             <div class="qaList_qaListText" th:text="${qna.qnaContent}"></div>
                                         </div>
                                     </div>
                                     <div class="qaList_qaListAbout">
-                                            <div class="qaList_nickname" th:text="${qna.nickname}"></div>
+                                        <div class="qaList_nickname" th:text="${qna.nickname}"></div>
                                         <div th:text="${qna.qnaUpdatedAt}">1시간 전</div>
                                     </div>
                                     <div class="qaList_labelWrapper">
@@ -110,31 +116,29 @@
                         </div>
 
                         <!-- 페이지 영역 -->
-                        <ul class="pagination">
-                            <li class>
-                                <a class href="#" aria-label="Go to first page">‹</a>
-                            </li>
-                            <li class>
-                                <a class href="#" aria-label="Go to page number 1">1</a>
-                            </li>
-                            <li class>
-                                <a class href="#" aria-label="Go to page number 2">2</a>
-                            </li>
-                            <li class="active">
-                                <a class href="un" aria-label="Go to page number 3">3</a>
-                            </li>
-                            <li class>
-                                <a class href="undefined" aria-label="Go to page number 4"
-                                >4</a
-                                >
-                            </li>
-                            <li class>
-                                <a class href="#" aria-label="Go to page number 5">5</a>
-                            </li>
-                            <li class>
-                                <a class href="#" aria-label="Go to last page">›</a>
-                            </li>
-                        </ul>
+                        <section class="pagination-section">
+                            <div class="pagination">
+                                <a th:if="${qnaPageDTO.hasPreviousGroup()}"
+                                   th:href="@{/qna/list(page=${qnaPageDTO.startPage - 1},
+                                   searchType=${qnaBoardSearchDTO.searchType},
+                                   keyword=${qnaBoardSearchDTO.keyword})}"
+                                   class="page-btn prev" aria-label="Go to previous group">‹</a>
+
+                                <a class="page-btn"
+                                   th:each="i : ${#numbers.sequence(qnaPageDTO.startPage,qnaPageDTO.endPage)}"
+                                   th:href="@{/qna/list(page=${i}, searchType=${qnaBoardSearchDTO.searchType},
+                                   keyword=${qnaBoardSearchDTO.keyword})}"
+                                   th:classappend="${i == qnaPageDTO ? ' active ' : ''}"
+                                   th:text="${i}">1</a>
+
+                                <a th:if="${qnaPageDTO.hasNextGroup()}"
+                                   th:href="@{/qna/list(page=${qnaPageDTO.endPage + 1},
+                                   searchType=${qnaBoardSearchDTO.searchType},
+                                   keyword=${qnaBoardSearchDTO.keyword})}"
+                                   class="page-btn next" aria-label="Go to next group">›</a>
+                            </div>
+                        </section>
+
                     </div>
                 </div>
             </div>

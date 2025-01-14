@@ -109,6 +109,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     :first-child{
         width: 100px;
         padding-left: 3px;
@@ -141,10 +142,13 @@
     }
 }
 .info__title__user{
-    font-weight: 500;
-    color: rgb(51, 51, 51);
-    line-height: 15px;
 
+    font-weight: 500;
+    font-size: 15px;
+    color: rgb(51, 51, 51);
+    background-color: #fff;
+    line-height: 15px;
+    font-family: "Pretendard-Regular";
 }
 
 .message__info__box {
@@ -165,6 +169,24 @@
     background-color: #fff;
     padding: 40px 30px;
     border: 1px solid rgb(95, 0, 128);
+    background-color: #fff;
+    z-index: 900;
+}
+
+.message_receive_modal_box {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    border-radius: 12px;
+    background-color: #fff;
+    padding: 40px 30px;
+    border: 1px solid rgb(95, 0, 128);
+    background-color: #fff;
+    z-index: 900;
 }
 
 
@@ -184,7 +206,7 @@
 
 }
 
-#userTo {
+#loginIdTo {
     width: 100%;
     box-sizing: border-box;
     display: inline-block;
@@ -196,6 +218,20 @@
     margin-top: 10px;
     font-size: 13px;
     font-family: sans-serif;
+}
+
+.message__receive__title {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    background: #F3F4F8;
+    border: 0;
+    border-radius: 10px;
+    resize: none;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-family: "Pretendard-Regular";
 }
 
 
@@ -211,7 +247,7 @@
     padding: 15px;
     margin-top: 10px;
     font-size: 13px;
-    font-family: sans-serif;
+    font-family: "Pretendard-Regular";;
 }
 
 .message__botton {
@@ -266,4 +302,41 @@
         }
     }
 }
+
+.message_receive__btn_send {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    border: 1px solid rgb(95, 0, 128);
+    padding: 10px 15px 10px 15px;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(95, 0, 128);
+    background: transparent;
+    &:hover{
+        color: #fff;
+        background-color: rgb(95, 0, 128);
+    }
+}
+.message_receive__btn_close {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    border: 1px solid rgb(95, 0, 128);
+    padding: 10px 15px 10px 15px;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(95, 0, 128);
+    background: transparent;
+
+    &:hover {
+        color: #fff;
+        background-color: rgb(95, 0, 128);
+    }
+}
+
 

@@ -4,10 +4,12 @@ import com.example.dncompany.dto.zip.ZipBoardDetailDTO;
 import com.example.dncompany.dto.zip.ZipBoardListDTO;
 import com.example.dncompany.dto.zip.ZipBoardModifyDTO;
 import com.example.dncompany.dto.zip.ZipBoardWriteDTO;
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
+import com.example.dncompany.dto.zip.zipPage.ZipBoardSearchDTO;
 import com.example.dncompany.exception.zip.ZipNotFoundException;
 import com.example.dncompany.mapper.zip.ZipMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,12 @@ public class ZipService {
     public List<ZipBoardListDTO> getAllZipBoards(){
         return zipMapper.selectAllZipBoards();
     }
+
+    // 게시물 목록 조회
+    public List<ZipBoardListDTO> getZipBoardList() {
+        return zipMapper.selectAllBoard();
+    }
+
 
     //
     public ZipBoardDetailDTO getZipBoardById(Long zipId){
@@ -46,6 +54,19 @@ public class ZipService {
     // 게시글 삭제
     public void removeZipBoard(Long zipId) {
         zipMapper.deleteZipBoard(zipId);
+    }
+
+    // 페이징 처리
+    public PageDTO<ZipBoardListDTO> getZipBoardsBySearchCondWithPage (ZipBoardSearchDTO zipBoardSearchDTO,
+                                                                      PageRequestDTO pageRequestDTO
+    ){
+        List<ZipBoardListDTO> zipList = zipMapper.selectBySearchCondWithPage(zipBoardSearchDTO, pageRequestDTO);
+        int total = zipMapper.countBySearchCondition(zipBoardSearchDTO);
+
+        return  new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                zipList);
     }
 }
 
