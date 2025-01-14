@@ -361,13 +361,61 @@
 
     <!--  delete  -->
 
+    <!-- 통합 다중 삭제 -->
+    <delete id="deleteZipBoards" parameterType="map">
+        DELETE FROM ADMIN.ZIP_BOARD
+        WHERE ZIP_ID IN
+        <foreach collection="zipIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
+    <delete id="deleteQnaBoards" parameterType="map">
+        DELETE FROM ADMIN.QNA_BOARD
+        WHERE QNA_ID IN
+        <foreach collection="qnaIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
+    <delete id="deleteHelpBoards" parameterType="map">
+        DELETE FROM ADMIN.HELP_BOARD
+        WHERE HELP_ID IN
+        <foreach collection="helpIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
+    <delete id="deleteDnBoards" parameterType="map">
+        DELETE FROM ADMIN.DN_BOARD
+        WHERE DN_ID IN
+        <foreach collection="dnIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
+    <delete id="deleteEventBoards" parameterType="map">
+        DELETE FROM ADMIN.EVENT_BOARD
+        WHERE EVENT_ID IN
+        <foreach collection="eventIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteReports" parameterType="map">
+        DELETE FROM ADMIN.REPORT
+        WHERE REPORT_ID IN
+        <foreach collection="reportIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 
 
 
 
 </mapper>
+
+
+
+
