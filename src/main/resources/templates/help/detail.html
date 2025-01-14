@@ -26,7 +26,9 @@
           <!-- 상단 섹션 -->
           <header class="detail-header">
             <div class="tags">
-              <span class="tag status">모집중</span>
+             <span class="tag" th:classappend="${isRecruiting} ? 'tag-orange' : 'tag-green'"
+                   th:text="${isRecruiting} ? '모집 마감' : '모집중'">
+    </span>
             </div>
             <h1 th:text="${helpDetail.helpTitle}">우리 댕댕이 산책 도와주실 분 구해요</h1>
             <div class="header-info">
@@ -100,13 +102,6 @@
         </article>
       </div>
 
-<!--      <script>-->
-<!--        function applyForCare() {-->
-<!--          if(confirm('돌봄을 신청하시겠습니까?')) {-->
-<!--            alert('신청이 완료되었습니다.');-->
-<!--          }-->
-<!--        }-->
-<!--      </script>-->
 
       <script>
         function applyForCare(helpId) {

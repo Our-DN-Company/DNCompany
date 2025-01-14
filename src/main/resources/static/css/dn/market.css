@@ -139,6 +139,45 @@
   padding: 0 20px;
 }
 
+/* 사진 영역 */
+.productCard_cardImgContainer span{
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: initial;
+  height: initial;
+  background: none;
+  opacity: 1;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  inset: 0px;
+}
+
+/* 사진 영역 */
+.productCard_cardImgContainer img{
+  position: absolute;
+  inset: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 0px;
+  height: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: none;
+  background-size: cover;
+  background-image: none;
+  background-position: center center;
+}
+
 /* 정렬 영역 */
 .shopping_productFilterContainer {
   display: flex;
@@ -206,18 +245,24 @@
 /* 물품 리스트 */
 .shopping_productList {
   margin-top: 28px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 48px 45px;
-  justify-content: center;
-  align-items: start;
+}
+
+/* */
+.shopping-list-wrap {
+  height: auto;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column-gap: 20px;
 }
 
 /* 물품 목록 */
 .productCard_productCardContainer {
   padding: 20px 15px 10px;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  font-size: 14px;
 }
 
 /* 사진 영역 */
@@ -291,46 +336,36 @@
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  gap: 5px;
+  margin: 30px 0;
 }
 
-ul.pagination li {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
+.page-btn {
+  display: inline-flex;
   align-items: center;
-  font-size: 1rem;
-  font-family: "Pretendard-Regular";
-}
-
-ul.pagination li.active {
-  border-radius: 50%;
-}
-
-ul.pagination.li.active a {
-  color: black;
-  border: none;
-}
-
-ul.pagination li {
-  width: 30px;
-  height: 30px;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  font-size: 1rem;
-  border: none;
-}
-
-ul.pagination li:last-child {
-  border-radius: 0 5px 5px 0;
-  border: none;
-}
-
-ul.pagination li a {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #666;
   text-decoration: none;
-  color: #868688;
-  font-size: 1rem;
-  border: none;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.page-btn:hover {
+  border-color: rgb(189, 118, 255);
+  color: rgb(189, 118, 255);
+}
+
+.page-btn.active {
+  background: rgb(189, 118, 255);
+  border-color: rgb(189, 118, 255);
+  color: #fff;
+}
+
+.page-btn.prev,
+.page-btn.next {
+  width: 40px;
 }

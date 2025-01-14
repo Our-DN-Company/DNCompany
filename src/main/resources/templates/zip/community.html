@@ -29,14 +29,18 @@
             <div class="community_loungeContents">
                 <div class="community_SearchContainer">
                     <div class="community_inputContainer">
-                        <input
-                                type="text"
-                                placeholder="찾으시는 커뮤니티 글이 있으신가요?"
-                                maxlength="130"
-                                class="community_searchInput"
-                                enterkeyhint="search"
-                                value
-                        />
+                        <form th:action="@{/zip/community}" method="get">
+                            <input type="hidden" name="category" th:value="${zipSearchDTO.category}"/>
+                            <input type="hidden" name="order" th:value="${zipSearchDTO.order}"/>
+                            <input
+                                    type="text"
+                                    placeholder="찾으시는 커뮤니티 글이 있으신가요?"
+                                    maxlength="130"
+                                    class="community_searchInput"
+                                    name="keyword"
+                                    th:value="${zipSearchDTO.keyword}"
+                            />
+                        </form>
                     </div>
                     <!-- 네비게이션 -->
                     <div class="community_loungeContainer">
@@ -45,16 +49,19 @@
                                 <div class="SubView-sub-tab">
                                     <ul class="SubView-sub-tabList">
                                         <li class="SubView-tab-item">
-                                            <a href="#" class="SubView-tab-t1">강아지</a>
+                                            <a th:href="@{/zip/community(category='DOG', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="DOG">강아지</a>
                                         </li>
                                         <li class="SubView-tab-item">
-                                            <a href="#" class="SubView-tab-t1">고양이</a>
+                                            <a th:href="@{/zip/community(category='CAT', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="CAT">고양이</a>
                                         </li>
                                         <li class="SubView-tab-item">
-                                            <a href="#" class="SubView-tab-t1">소동물</a>
+                                            <a th:href="@{/zip/community(category='SMALL', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="SMALL">소동물</a>
                                         </li>
                                         <li class="SubView-tab-item">
-                                            <a href="#" class="SubView-tab-t1">기타</a>
+                                            <a th:href="@{/zip/community(category='OTHER', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="OTHER">기타</a>
+                                        </li>
+                                        <li class="SubView-tab-item">
+                                            <a th:href="@{/zip/community(category='', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="ALL">전체</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -76,8 +83,8 @@
                                             class="radio_myRadio"
                                             id="last_date"
                                             name="question"
-                                            value="last_date"
-                                            checked
+                                            value="last_order"
+                                            th:checked="${zipSearchDTO.order.equals('last_order')}"
                                     />
                                     <label for="last_date">최신 순</label>
                                 </div>
@@ -88,6 +95,7 @@
                                             id="Order_of_popularity"
                                             name="question"
                                             value="Order_of_popularity"
+                                            th:checked="${zipSearchDTO.order.equals('Order_of_popularity')}"
                                     />
                                     <label for="Order_of_popularity">인기 순</label>
                                 </div>
@@ -95,11 +103,12 @@
                                     <input
                                             type="radio"
                                             class="radio_myRadio"
-                                            id="Date order"
+                                            id="views_order"
                                             name="question"
-                                            value="Date order"
+                                            value="views_order"
+                                            th:checked="${zipSearchDTO.order.equals('views_order')}"
                                     />
-                                    <label for="Date order">날짜 순</label>
+                                    <label for="views_order">조회수 순</label>
                                 </div>
                             </div>
 
@@ -115,7 +124,7 @@
                         <div class="community_loungeLeftContent">
                             <div class="community_loungeList">
                                 <!-- 반복요소 -->
-                                <div class="qaList_qaListContainer" th:each="board : ${pageDTO.list}">
+                                <div class="qaList_qaListContainer" th:each="board : ${zipPageDTO.list}">
                                     <div class="qaList_qaListWrapper">
                                         <div>
                                             <div class="qaList_qaListLabelWrapper">
@@ -136,9 +145,7 @@
                                                    th:text="${board.zipTitle}">리리 팬아트!!</a>
                                             </div>
                                             <div class="qaList_qaListText" th:text="${board.zipContent}">
-                                                지난번에 리리도 팬아트 만들어달라고 했는데.. 그림은
-                                                준비되었는데 색이없어 어쩔수없이 편집의 힘을 빌려
-                                                완성한 팬아트... (리리 사토루)
+
                                             </div>
                                         </div>
                                         <!--                                        <div class="qaList_qaListImg">-->
@@ -151,7 +158,7 @@
                                         <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 :
                                             0
                                         </div>
-                                        <div th:text="${board.zipCreatedAt}">1시간 전</div>
+                                        <div th:text="${board.zipUpdatedAt}">1시간 전</div>
                                     </div>
                                     <div class="qaList_labelWrapper">
                                         <div class="qaList_desktopLabelContainer"></div>
@@ -168,18 +175,30 @@
                         <!-- 페이지 영역 -->
                         <section class="pagination-section">
                             <div class="pagination">
-                                <a th:if="${pageDTO.hasPreviousGroup()}"
-                                   th:href="@{/zip/community(page=${pageDTO.startPage - 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"
+                                <a th:if="${zipPageDTO.hasPreviousGroup()}"
+                                   th:href="@{/zip/community(page=${zipPageDTO.startPage - 1},
+                                   searchType=${zipSearchDTO.searchType},
+                                   keyword=${zipSearchDTO.keyword},
+                                   order=${zipSearchDTO.order},
+                                   category=${zipSearchDTO.category})}"
                                    class="page-btn prev" aria-label="Go to previous group">‹</a>
 
                                 <a class="page-btn"
-                                   th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
-                                   th:href="@{/zip/community(page=${i}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"
-                                   th:classappend="${i == pageDTO.page ? ' active' : ''}"
+                                   th:each="i : ${#numbers.sequence(zipPageDTO.startPage, zipPageDTO.endPage)}"
+                                   th:href="@{/zip/community(page=${i},
+                                   searchType=${zipSearchDTO.searchType},
+                                   keyword=${zipSearchDTO.keyword},
+                                   order=${zipSearchDTO.order},
+                                   category=${zipSearchDTO.category})}"
+                                   th:classappend="${i == zipPageDTO.page ? ' active' : ''}"
                                    th:text="${i}"></a>
 
-                                <a th:if="${pageDTO.hasNextGroup()}"
-                                   th:href="@{/zip/community(page=${pageDTO.endPage + 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"
+                                <a th:if="${zipPageDTO.hasNextGroup()}"
+                                   th:href="@{/zip/community(page=${zipPageDTO.endPage + 1},
+                                   searchType=${zipSearchDTO.searchType},
+                                   keyword=${zipSearchDTO.keyword},
+                                   order=${zipSearchDTO.order},
+                                   category=${zipSearchDTO.category})}"
                                    class="page-btn next" aria-label="Go to next group">›</a>
                             </div>
                         </section>

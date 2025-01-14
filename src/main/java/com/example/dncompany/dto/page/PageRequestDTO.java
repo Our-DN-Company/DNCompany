@@ -14,6 +14,11 @@ public class PageRequestDTO {
         this.size = 10;
     }
 
+    // offset 계산 메서드
+    public int getOffset() {
+        return (page - 1) * size;
+    }
+
 }
 
 

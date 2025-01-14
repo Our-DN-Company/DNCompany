@@ -5,7 +5,7 @@ import * as answerApi from './modules/answerApi.js'
     const qnaId = getQnaId();
 
 
-    {   // 댓글 처리
+    {
         const $answerWriteBtn = document.querySelector('#answerWriteBtn');
         const $answerContent = document.querySelector('#answerContent');
 
@@ -56,6 +56,20 @@ import * as answerApi from './modules/answerApi.js'
                 answerApi.patchAnswer(answerId, answerObj, function () {
                     loadAnswerList();
                 });
+            }
+        });
+
+
+        }
+
+    // 게시글 삭제 처리
+    const $deleteBtn = document.querySelector('.delete_Btn_item');
+    {
+        $deleteBtn?.addEventListener('click', function () {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                console.dir(this)
+                const qnaId = this.dataset.qnaId;
+                location.href = `/qna/delete?qnaId=${qnaId}`;
             }
         });
     }
@@ -121,10 +135,10 @@ import * as answerApi from './modules/answerApi.js'
                 ${answer.usersId === loginUsersId ? `
                 <div class="comment_edit_delete">
                     <div class="comment_delete">
-                        <img src="/images/qna/icon-delete.png" class="comment-delete-btn" data-answer-id="${answer.zipAnswerId}"/>
+                        <img src="/images/qna/icon-delete.png" class="comment-delete-btn" data-answer-id="${answer.qnaAnswerId}"/>
                     </div>
                     <div class="comment_edit">
-                        <img src="/images/qna/icon-pencil.png" class="comment-edit-btn" data-answer-id="${answer.zipAnswerId}"/>
+                        <img src="/images/qna/icon-pencil.png" class="comment-edit-btn" data-answer-id="${answer.qnaAnswerId}"/>
                     </div>
                 </div>
                 <div class="comment_qaCommentDate">${answer.qnaAnswerCreatedAt}</div>

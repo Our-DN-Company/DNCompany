@@ -8,12 +8,13 @@
     <link rel="stylesheet" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
-    <script defer th:src="@{/js/fragment/header.js}"></script>
     <link rel="stylesheet" th:href="@{/css/dn/detail.css}"/>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
         @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
     </style>
+    <script defer th:src="@{/js/dn/dnDelete.js}"></script>
+    <script defer th:src="@{/js/fragment/header.js}"></script>
 </head>
 <body>
 
@@ -36,15 +37,19 @@
                             <h1 class="product_qaDetailTop" th:text="*{dnTitle}">물품명</h1>
                         </div>
                         <div class="product_qaDetailText">
-                            <div class="product_detail_left">
+                            <div class="product_detail_left" th:if="*{productImgId != null}">
                                 <!-- 상품 이미지 -->
-                                <img src="https://via.placeholder.com/150" alt="상품 이미지" class="product_image"/>
+                                <img th:src="@{'/upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension}}" alt="상품 이미지" class="product_image"/>
                             </div>
+                            <div class="product_detail_left" th:unless="*{productImgId != null}">
+                            <!-- 상품 이미지 -->
+                            <img th:src="@{/images/logo/logo_banner2.png}" alt="상품 이미지" class="product_image"/>
+                        </div>
                             <div class="product_detail_right">
                                 <!-- 판매 금액 -->
                                 <div class="product_price" th:text="*{productPrice}">₩50,000</div>
                                 <!-- 판매 글 내용 -->
-                                <div class="product_description" th:text="*{dnContent}">
+                                <div class="product_description" th:utext="*{dnContent}">
                                     이 상품은 강아지 간식으로 적합하며, 고품질 원료로
                                     제작되었습니다.
                                 </div>
@@ -62,7 +67,7 @@
                             <div>
                                 <a href="" class="product_infoWrapper">
                                     <img src="https://bff-images.bemypet.kr/media/medias/profile_image/927-image_picker4881577713905119062.jpg"/>
-                                    <div class="product_qaDetailUser" th:text="*{usersId}">삼색이짱짱</div>
+                                    <div class="product_qaDetailUser" th:text="*{loginId}">삼색이짱짱</div>
                                     <div class="product_qaDetailDate" th:text="*{dbUpdatedAt}">2024.12.17</div>
                                 </a>
                             </div>
@@ -70,14 +75,14 @@
                         <!-- 작성글 삭제/수정 버튼 -->
                         <div class="delete_modify_Btn">
                             <div class="delete_Btn">
-                                <button class="delete_Btn_item" tabindex="0" type="button">
+                                <button class="delete_Btn_item" tabindex="0" type="button" th:data-dn-id="*{dnId}" th:data-product-id="*{productId}">
                                     글 삭제
                                 </button>
                             </div>
                             <!-- 작성글 수정 버튼 -->
                             <div class="modify_Btn">
                                 <button class="modify_Btn_item" tabindex="0" type="button">
-                                    <a th:href="@{/dn/modify}">
+                                    <a th:href="@{/dn/modify(dnId=*{dnId})}">
                                     글 수정
                                     </a>
                                 </button>
@@ -91,5 +96,10 @@
     </div>
     <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
 </div>
+
+<script th:inline="javascript">
+    const dnId = [[${board.dnId}]];
+    const productId = [[${board.productId}]];
+</script>
 </body>
 </html>

@@ -26,6 +26,9 @@ public interface ZipMapper {
     // 게시글 상세 페이지 정보
     Optional<ZipBoardDetailDTO> selectById(Long zipId);
 
+    // 게시글 목록 조회
+    List<ZipBoardListDTO> selectAllBoard();
+
     // 게시글 수정
     void updateZipBoard (ZipBoardModifyDTO zipBoardModifyDTO);
 

@@ -105,6 +105,18 @@ import * as likeApi from './modules/likeApi.js'
         });
     }
 
+    // 게시글 삭제 처리
+    const $deleteBtn = document.querySelector('.delete_Btn_item');
+    {
+    $deleteBtn?.addEventListener('click', function () {
+        if (confirm('정말 삭제하시겠습니까?')) {
+            console.dir(this)
+            const zipId = this.dataset.zipId;
+            location.href = `/zip/delete?zipId=${zipId}`;
+        }
+    });
+    }
+
     /**
      * 댓글 수정 아이콘을 눌렀을 때 수정할 textarea와 수정/삭제 버튼을 만드는 함수
      *
@@ -140,6 +152,8 @@ import * as likeApi from './modules/likeApi.js'
         $contentBox.appendChild($editContainer);
 
     }
+
+
 
 
     /**

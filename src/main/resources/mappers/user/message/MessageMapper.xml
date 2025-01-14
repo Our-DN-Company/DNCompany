@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.dncompany.mapper.user.MessageMapper">
-    <select id="selectToMessage" parameterType="long" resultType="MessagePageDTO">
+<mapper namespace="com.example.dncompany.mapper.user.message.MessageMapper">
+
+    <!-- 보내는 사람 기준 메시지 조회 -->
+    <select id="selectFromMessage" parameterType="long" resultType="MessagePageDTO">
         SELECT M.USER_FROM, M.USER_TO, M.MS_CONTENT, M.MESSAGE_ID, M.MS_DATE,
                U.USERS_ID, U.LOGIN_ID
         FROM MESSAGE M
@@ -9,13 +11,73 @@
         WHERE M.USER_FROM = #{userFrom}
         ORDER BY MS_DATE DESC
     </select>
-    <select id="selectFromMessage" parameterType="long" resultType="MessagePageDTO">
+
+    <!-- 받는 사람 기준 메시지 조회 -->
+    <select id="selectToMessage" parameterType="long" resultType="MessagePageDTO">
         SELECT M.USER_FROM, M.USER_TO, M.MS_CONTENT, M.MESSAGE_ID, M.MS_DATE,
                U.USERS_ID, U.LOGIN_ID
         FROM MESSAGE M
                  JOIN USERS U ON M.USER_FROM = U.USERS_ID
         WHERE M.USER_TO = #{userTo}
         ORDER BY MS_DATE DESC
+    </select>
+
+    <!-- 보내는 사람 기준 페이지네이션된 메시지 조회 -->
+    <select id="selectFromMessagePage" resultType="MessagePageDTO">
+        SELECT RNUM, USER_FROM, USER_TO, MS_CONTENT, MESSAGE_ID, MS_DATE,
+               USERS_ID, LOGIN_ID
+        FROM (
+                 SELECT ROWNUM AS RNUM, USER_FROM, USER_TO, MS_CONTENT, MESSAGE_ID, MS_DATE,
+                        USERS_ID, LOGIN_ID
+                 FROM(
+                         SELECT M.USER_FROM, M.USER_TO, M.MS_CONTENT, M.MESSAGE_ID, M.MS_DATE,
+                                U.USERS_ID, U.LOGIN_ID
+                         FROM MESSAGE M
+                                  JOIN USERS U ON M.USER_FROM = U.USERS_ID
+                         WHERE M.USER_FROM = #{userFrom}
+                         ORDER BY MS_DATE DESC
+                     )
+        <![CDATA[
+                 WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+             )
+        WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <!-- 받는 사람 기준 페이지네이션된 메시지 조회 -->
+    <select id="selectToMessagePage" resultType="MessagePageDTO">
+        SELECT RNUM, USER_FROM, USER_TO, MS_CONTENT, MESSAGE_ID, MS_DATE,
+               USERS_ID, LOGIN_ID
+        FROM (
+                 SELECT ROWNUM AS RNUM, USER_FROM, USER_TO, MS_CONTENT, MESSAGE_ID, MS_DATE,
+                        USERS_ID, LOGIN_ID
+                 FROM (
+                          SELECT M.USER_FROM, M.USER_TO, M.MS_CONTENT, M.MESSAGE_ID, M.MS_DATE,
+                                 U.USERS_ID, U.LOGIN_ID
+                          FROM MESSAGE M
+                                   JOIN USERS U ON M.USER_FROM = U.USERS_ID
+                          WHERE M.USER_TO = #{userTo}
+                          ORDER BY MS_DATE DESC
+                      )
+        <![CDATA[
+                 WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+             )
+        WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <!-- 보내는 사람 기준 메시지 수 조회 -->
+    <select id="countByTotalFrom" parameterType="long" resultType="int">
+        SELECT COUNT(*)
+        FROM MESSAGE M
+        WHERE M.USER_FROM = #{userFrom}
+    </select>
+
+    <!-- 받는 사람 기준 메시지 수 조회 -->
+    <select id="countByTotalTo" parameterType="long" resultType="int">
+        SELECT COUNT(*)
+        FROM MESSAGE M
+        WHERE M.USER_TO = #{userTo}
     </select>
 
 </mapper>

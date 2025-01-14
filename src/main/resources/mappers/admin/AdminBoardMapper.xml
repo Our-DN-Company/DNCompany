@@ -359,6 +359,15 @@
         ORDER BY EVENT_ID DESC
     </select>
 
+    <!--  delete  -->
+
+
+
+
+
+
+
+
 
 
 </mapper>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <link rel="stylesheet" th:href="@{/css/user/message.css}" />
-    <script defer th:src="@{/js/user/message.js}"></script>
+    <script defer type="module"  th:src="@{/js/user/message/message.js}"></script>
     <title>Document</title>
 
 </head>
@@ -45,16 +45,31 @@
                                         <p class="info__title">삭제</p>
                                     </div>
                                     <!-- 반복 요소 -->
-                                    <div class="message__info__title__user" th:each="board: ${messageFromDTOList}">
-                                        <p class="info__title__user" th:text="${board.loginId}">aaa123님!!!!!!!!!!!!!!!</p>
-                                        <p class="info__title__user" th:text="${board.msContent}">도움 위치가 햇갈려서 쪽지 드립니다! !!!!!!!!!!!!!!!!!!!!!!!!</p>
-                                        <button class="title__delete__btn">삭제</button>
-                                    </div>
-<!--                                    <div class="message__info__title__user">-->
-<!--                                        <p class="info__title__user">bbb1234님</p>-->
-<!--                                        <p class="info__title__user">사료 구매하고 싶습니다</p>-->
-<!--                                        <button class="title__delete__btn">삭제</button>-->
-<!--                                    </div>-->
+                                <div id="messageFromList" class="message__info__title__user">
+                                    <!-- 이곳에 비동기적으로 메시지가 추가됩니다 -->
+
+                                </div>
+                                <div id="paginationFrom" class="pagination">
+                                    <!-- 보낸 메시지 페이지네이션 버튼은 message.js에서 동적으로 생성됩니다 -->
+                                </div>
+
+                                <!-- 페이지네이션 -->
+<!--                                <div class="pagination">-->
+<!--                                    <a th:if="${pageDTO.hasPreviousGroup()}"-->
+<!--                                       th:href="@{/board/free/list(page=${pageDTO.startPage - 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}" class="page-btn prev">&lt;</a>-->
+
+<!--                                    <a th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"-->
+<!--                                       th:href="@{/board/free/list(page=${i}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"-->
+<!--                                       class="page-btn"-->
+<!--                                       th:classappend="${i == pageDTO.page ? 'active' : ''}"-->
+<!--                                       th:text="${i}"-->
+<!--                                    >1</a>-->
+
+<!--                                    <a th:if="${pageDTO.hasNextGroup()}"-->
+<!--                                       th:href="@{/board/free/list(page=${pageDTO.endPage + 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}" class="page-btn next">&gt;</a>-->
+<!--                                </div>-->
+
+
                             </div>
                         </div>
 
@@ -70,11 +85,29 @@
                                     <p class="info__title" >내용</p>
                                     <p class="info__title" >삭제</p>
                                 </div>
-                                <div class="message__info__title__user" th:each="board2 : ${messageToDTOList}">
-                                    <p class="info__title__user" th:text="${board2.loginId}" >ccc1234님</p>
-                                    <p class="info__title__user" th:text="${board2.msContent}">이번에 뜬 펫페어 같이 가실래요?</p>
-                                    <button class="title__delete__btn">삭제</button>
+                                <!-- 받은 메시지 목록 (messageToDTOList) -->
+                                <div id="messageToList" class="message__info__title__user">
+                                    <!-- 이곳에 비동기적으로 메시지가 추가됩니다 -->
+
                                 </div>
+                                <div id="paginationTo" class="pagination">
+                                    <!-- 받은 메시지 페이지네이션 버튼은 message.js에서 동적으로 생성됩니다 -->
+                                </div>
+<!--                                &lt;!&ndash; 페이지네이션 &ndash;&gt;-->
+<!--                                <div class="pagination">-->
+<!--                                    <a th:if="${pageDTO.hasPrevious()}"-->
+<!--                                       th:href="@{/board/free/list(page=${pageDTO.startPage - 1})}" class="page-btn prev">&lt;</a>-->
+
+<!--                                    <a th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"-->
+<!--                                       th:href="@{/board/free/list(page=${i}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"-->
+<!--                                       class="page-btn"-->
+<!--                                       th:classappend="${i == pageDTO.page ? 'active' : ''}"-->
+<!--                                       th:text="${i}"-->
+<!--                                    >1</a>-->
+
+<!--                                    <a th:if="${pageDTO.hasNextGroup()}"-->
+<!--                                       th:href="@{/board/free/list(page=${pageDTO.endPage + 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}" class="page-btn next">&gt;</a>-->
+<!--                                </div>-->
                             </div>
                             </div>
                         </div>
@@ -83,25 +116,54 @@
                 </div>
                 <!--모달창-->
                 <div class="message_modal_box">
-                    <form class="message_form">
+                    <form class="message_form" th:action="@{/user/message}" method="post">
                         <div class="message__top">
                             <p><span>쪽지</span> 보내기</p>
                         </div>
                         <div class="message__top">
                             <p>쪽지 받을 사람 &nbsp;</p>
-                            <label for="userTo"></label>
-                            <input type="text" id="userTo" name="userTo" placeholder="아이디를 입력해주세요.">
+                            <label for="userFrom"></label>
+                            <input type="hidden" id="userFrom" name="userFrom" th:value="${session.usersId}">
+                            <label for="loginIdTo"></label>
+                            <input type="text" id="loginIdTo" name="loginIdTo" placeholder="아이디를 입력해주세요.">
                         </div>
                         <div class="message__top">
                             <p>쪽지 내용</p>
                             <label for="msContent"></label>
                             <textarea class="message__content_box" id="msContent" name="msContent" placeholder="쪽지의 내용을 작성해주세요."></textarea>
                         </div>
-                    </form>
+
                     <div class="message__botton">
                         <div class="message_btn">
-                            <button class="message_btn_send">확인</button>
-                            <button class="message_btn_close">취소</button>
+                            <input type="submit" class="message_btn_send" value="확인">
+                            <input type="reset" class="message_btn_close" value="취소">
+                        </div>
+                    </div>
+                    </form>
+                    </div>
+                <!-- 쪽지 확인하기 -->
+                <div class="message_receive_modal_box">
+                    <div class="message_recive">
+                        <div class="message__top">
+                            <p><span>쪽지</span> 보내기</p>
+                        </div>
+                        <div class="message__top">
+                            <p>쪽지 보낸 사람</p>
+                            <div class="message__receive__title">
+                            </div>
+                        </div>
+                        <div class="message__top">
+                            <p>쪽지 내용</p>
+
+                            <div class="message__content_box">
+
+                            </div>
+                        </div>
+
+                        <div class="message__botton">
+                            <div class="message_btn">
+                                <input type="reset" class="message_receive__btn_close" value="닫기">
+                            </div>
                         </div>
                     </div>
                 </div>
