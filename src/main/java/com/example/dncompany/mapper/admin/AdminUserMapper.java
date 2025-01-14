@@ -26,7 +26,7 @@ public interface AdminUserMapper {
     int updateUserPoints(@Param("userId") Long userId, @Param("points") Integer points);
 
     // 활동 정지 상태 업데이트
-    int updateUserBanStatus(@Param("userId") Long userId, @Param("banDays") Integer banDays);
+    int updateUserBanStatus(@Param("userId") Long userId, @Param("banDays") Long banDays);
 
     int getCurrentUserPoints(@Param("userId") Long userId);
 }

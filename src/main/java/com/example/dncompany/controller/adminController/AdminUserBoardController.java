@@ -120,9 +120,9 @@ public class AdminUserBoardController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> banUser(
             @PathVariable Long userId,
-            @RequestBody Map<String, Integer> request) {
+            @RequestBody Map<String, Long> request) {
 
-        Integer banDays = request.get("banDays");
+        Long banDays = request.get("banDays");
         boolean success = adminUserService.banUser(userId, banDays);
 
         Map<String, Object> response = new HashMap<>();
