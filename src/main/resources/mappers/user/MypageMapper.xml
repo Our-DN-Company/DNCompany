@@ -302,7 +302,7 @@ FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_
        WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countZipBoardList" resultType="_int" >
+    <select id="countZipBoardList" resultType="_int" parameterType="long" >
         SELECT COUNT(*)
         FROM ZIP_BOARD
         WHERE USERS_ID=#{usersId}
@@ -362,7 +362,7 @@ WHERE ROWNUM <= #{page.page} * #{page.size}
 WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countReivewList" resultType="long" parameterType="_int">
+    <select id="countReivewList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM REVIEW
         WHERE USERS_ID=#{usersId}
@@ -382,7 +382,7 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
         WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countReivewReceivedList" resultType="long" parameterType="_int">
+    <select id="countReivewReceivedList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM REVIEW
         WHERE USERS_ID=#{usersId}
@@ -425,7 +425,7 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
          WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countMypageDnSellList" resultType="long" parameterType="_int">
+    <select id="countMypageDnSellList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM DN_SELL
         WHERE USERS_ID=#{usersId}
