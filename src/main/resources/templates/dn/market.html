@@ -144,8 +144,8 @@
                                     <a th:href="@{/dn/detail(dnId=*{dnId})}">
                                     <!-- 사진 영역 -->
                                     <div class="productCard_cardImgContainer">
-                                      <span><img th:src="@{/images/logo/logo_banner2.png}" alt="게시글 썸네일" th:if="*{productImgId == null}" sizes="100vw" srcset="640w, 750w, 828w, 1080w, 1200w, 1920w, 2048w, 3840w" decoding="async" data-nimg="fill"/>
-                                      <span><img th:src="@{'/upload/dn/' + *{productPath} + '/th_' + *{productUuid} + *{productExtension}}" alt="게시글 썸네일" th:unless="*{productImgId == null}" sizes="100vw" srcset="640w, 750w, 828w, 1080w, 1200w, 1920w, 2048w, 3840w" decoding="async" data-nimg="fill"/>
+                                      <span><img th:src="@{/images/logo/logo_banner2.png}" alt="게시글 썸네일" th:if="*{productImgId == null}" />
+                                      <span><img th:src="@{'/upload/dn/' + *{productPath} + '/th_' + *{productUuid} + *{productExtension}}" alt="게시글 썸네일" th:unless="*{productImgId == null}"/>
                                           <noscript></noscript>
                                       </span>
                                     </div>
