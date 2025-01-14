@@ -21,7 +21,7 @@ public class AdminUserService {
     private final AdminUserMapper adminUserMapper;
 
     public List<AdminUserAllBoard> getAllUserData(AdminUserAllBoard searchCriteria) {
-        // 오프셋 계산
+        // 페이징 오프셋 계산
         int offset = (searchCriteria.getPage() - 1) * searchCriteria.getSize();
         searchCriteria.setOffset(offset);
 
