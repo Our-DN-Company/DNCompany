@@ -19,32 +19,32 @@ public class MessageService {
     private final MessageMapper messageMapper;
 
     public List<MessagePageDTO> addMessageBoardFrom(Long usesId) {
+
         return messageMapper.selectFromMessage(usesId);
     }
     public List<MessagePageDTO> addMessageBoardTo(Long usesId) {
+
         return messageMapper.selectToMessage(usesId);
     }
 
-    public PageDTO<MessagePageDTO> getMessageWithPage(PageRequestDTO pageRequestDTO, Long userId, boolean isFrom) {
-        List<MessagePageDTO> messages;
-        int total;
+    public PageDTO<MessagePageDTO> messageWithToPage(PageRequestDTO pageRequestDTO, Long userTo) {
 
-        if (isFrom) {
-            // 보내는 사람 기준 페이징 메시지 조회
-            messages = messageMapper.selectFromMessagePage(pageRequestDTO);
-            total = messageMapper.countByPage(userId, null);
-        } else {
-            // 받는 사람 기준 페이징 메시지 조회
-            messages = messageMapper.selectToMessagePage(pageRequestDTO);
-            total = messageMapper.countByPage(null, userId);
-        }
 
-        return new PageDTO<>(
-                pageRequestDTO.getPage(),
+        List<MessagePageDTO> messageListTo = messageMapper.selectToMessagePage(pageRequestDTO, userTo);
+        int total = messageMapper.countByTotalTo(userTo);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
                 pageRequestDTO.getSize(),
                 total,
-                messages
-        );
+                messageListTo);
+    }
+    public PageDTO<MessagePageDTO> messageWithFromPage(PageRequestDTO pageRequestDTO,Long userFrom) {
+        List<MessagePageDTO> messageListFrom = messageMapper.selectFromMessagePage(pageRequestDTO, userFrom);
+        int total = messageMapper.countByTotalTo(userFrom);
 
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                messageListFrom);
     }
 }

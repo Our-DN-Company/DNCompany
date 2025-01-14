@@ -30,21 +30,13 @@ public class MessageController {
     private final UserService userService;
 
     @GetMapping("/message")
-    public String message(@SessionAttribute(value = "usersId", required = false) Long usersId,
-                          Model model) {
+    public String message(@SessionAttribute(value = "usersId", required = false) Long usersId){
         if(usersId == null) {
             return "redirect:/user/login";
         }
-        List<MessagePageDTO> messageFromDTOList = messageService.addMessageBoardFrom(usersId);
-        log.debug("messageFromDTOList: {}", messageFromDTOList);
-        List<MessagePageDTO> messageToDTOList = messageService.addMessageBoardTo(usersId);
-        log.debug("messageToDTOList: {}", messageToDTOList);
-
-        model.addAttribute("messageFromDTOList", messageFromDTOList);
-        model.addAttribute("messageToDTOList", messageToDTOList);
-
         return "user/message";
     }
+
     @PostMapping("/message")
     public String message(MessageSendDTO messageSendDTO, HttpSession session) {
         log.debug("messageSendDTO: {}", messageSendDTO);
@@ -58,7 +50,7 @@ public class MessageController {
             messageSendService.addMessageSend(messageSendDTO);
             return "redirect:/user/message";
 
-
     }
+
 
 }

@@ -60,6 +60,11 @@ import * as answerApi from './modules/answerApi.js'
         });
 
 
+        }
+
+    // 게시글 삭제 처리
+    const $deleteBtn = document.querySelector('.delete_Btn_item');
+    {
         $deleteBtn?.addEventListener('click', function () {
             if (confirm('정말 삭제하시겠습니까?')) {
                 console.dir(this)
@@ -67,8 +72,6 @@ import * as answerApi from './modules/answerApi.js'
                 location.href = `/qna/delete?qnaId=${qnaId}`;
             }
         });
-
-
     }
 
     /**
