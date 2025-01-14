@@ -215,17 +215,72 @@ header.header_nav .user-menu .modal button#logoutButton {
 .post-list table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed; /* 컬럼 너비 고정 */
 }
 
 .post-list th,
 .post-list td {
   padding: 10px;
   border: 1px solid #ccc;
-  text-align: center; /* 텍스트 가운데 정렬 */
+  text-align: center;
+  word-break: break-all; /* 긴 텍스트 처리 */
+  overflow: hidden;      /* 내용이 넘칠 경우 숨김 */
+  text-overflow: ellipsis; /* 넘치는 텍스트에 ... 표시 */
 }
+
+.post-list th:nth-child(1),
+.post-list td:nth-child(1) {  /* 체크박스 */
+  width: 5%;
+}
+
+.post-list th:nth-child(2),
+.post-list td:nth-child(2) {  /* 번호 */
+  width: 7%;
+}
+
+.post-list th:nth-child(3),
+.post-list td:nth-child(3) {  /* 카테고리 */
+  width: 10%;
+}
+
+.post-list th:nth-child(4),
+.post-list td:nth-child(4) {  /* 제목 */
+  width: 25%;
+}
+
+.post-list th:nth-child(5),
+.post-list td:nth-child(5) {  /* 답변/신고 처리 */
+  width: 10%;
+}
+
+.post-list th:nth-child(6),
+.post-list td:nth-child(6) {  /* 작성자 */
+  width: 10%;
+}
+
+.post-list th:nth-child(7),
+.post-list td:nth-child(7) {  /* 메일 */
+  width: 13%;
+}
+
+.post-list th:nth-child(8),
+.post-list td:nth-child(8) {  /* 번호 */
+  width: 10%;
+}
+
+.post-list th:nth-child(9),
+.post-list td:nth-child(9) {  /* 작성일 */
+  width: 10%;
+}
+
 
 .post-list th {
   background: #f0f0f0;
+}
+
+/* 테이블 내용 호버 효과 */
+.post-list tbody tr:hover {
+  background-color: #f5f5f5;
 }
 
 /* ============================= */

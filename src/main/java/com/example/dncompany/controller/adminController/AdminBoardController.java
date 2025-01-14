@@ -1,6 +1,7 @@
 package com.example.dncompany.controller.adminController;
 
 import com.example.dncompany.dto.admin.board.AdminAnswerDTO;
+import com.example.dncompany.dto.admin.board.AdminBoardDeleteDTO;
 import com.example.dncompany.dto.admin.board.BoardSearchDTO;
 import com.example.dncompany.service.admin.AdminBoardService;
 import jakarta.servlet.http.HttpSession;
@@ -130,6 +131,13 @@ public class AdminBoardController {
             log.error("QnA 상세 조회 실패: ", e);
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Map<String, Integer>> deleteBoards(@RequestBody AdminBoardDeleteDTO adminBoardDeleteDTO) {
+        Map<String, Integer> results = adminBoardService.deleteBoards(adminBoardDeleteDTO);
+        return ResponseEntity.ok(results);
     }
 
 

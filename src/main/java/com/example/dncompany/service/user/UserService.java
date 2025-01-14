@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -55,9 +58,22 @@ public class UserService {
         return userMapper.countByLoginId(loginId) > 0;
     }
 
-    public UserSessionDTO getLoginInfo(UserLoginDTO userLoginDTO){
-        return userMapper.selectLoginInfo(userLoginDTO)
-                .orElseThrow(()-> new LoginFailedException("아이디 또는 비밀번호가 일치하지 않습니다"));
-    }
 
+
+    // 코드 수정 큰 변경점 없음 리턴도 사실상 이전과 동일
+    // 정지 로직 추가
+    public UserSessionDTO getLoginInfo(UserLoginDTO userLoginDTO){
+        log.info("Attempting to get login info for user: {}", userLoginDTO.getLoginId());
+        UserSessionDTO loginInfo = userMapper.selectLoginInfo(userLoginDTO)
+                .orElseThrow(() -> new LoginFailedException("아이디 또는 비밀번호가 일치하지 않습니다"));
+
+        if ("SUSPENDED".equals(loginInfo.getUserStatus())) {
+            Date now = new Date();
+            if (loginInfo.getBanEndDate() != null && now.compareTo(loginInfo.getBanEndDate()) <= 0) {
+                throw new LoginFailedException("계정이 정지되었습니다. 정지 해제 날짜: " + loginInfo.getBanEndDate());
+            }
+        }
+
+        return loginInfo;
+    }
 }

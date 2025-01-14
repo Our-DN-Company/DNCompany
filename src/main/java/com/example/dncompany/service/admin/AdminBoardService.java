@@ -1,6 +1,7 @@
 package com.example.dncompany.service.admin;
 
 import com.example.dncompany.dto.admin.board.AdminAnswerDTO;
+import com.example.dncompany.dto.admin.board.AdminBoardDeleteDTO;
 import com.example.dncompany.dto.admin.board.AdminEventWriteDTO;
 import com.example.dncompany.dto.admin.board.BoardSearchDTO;
 import com.example.dncompany.dto.admin.board.file.AdminFIleDTO;
@@ -254,5 +255,53 @@ public class AdminBoardService {
     }
 
 
+//    삭제용 서비스 메퍼 조립중
+//    삭제 게시물 추가 시 AdminBoardDeleteDTO DTO에 List값 추가
+//    그리고 if 문으로 같은 방식으로 작성
+//    html 코드 값 확인해야함
 
+    @Transactional
+    public Map<String, Integer> deleteBoards(AdminBoardDeleteDTO adminBoardDeleteDTO) {
+        Map<String, Integer> results = new HashMap<>();
+
+        if (adminBoardDeleteDTO.getZipIds() != null && !adminBoardDeleteDTO.getZipIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("zipIds", adminBoardDeleteDTO.getZipIds());
+            results.put("zip", adminBoardMapper.deleteZipBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getQnaIds() != null && !adminBoardDeleteDTO.getQnaIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("qnaIds", adminBoardDeleteDTO.getQnaIds());
+            results.put("qna", adminBoardMapper.deleteQnaBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getHelpIds() != null && !adminBoardDeleteDTO.getHelpIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("helpIds", adminBoardDeleteDTO.getHelpIds());
+            results.put("help", adminBoardMapper.deleteHelpBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getDnIds() != null && !adminBoardDeleteDTO.getDnIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("dnIds", adminBoardDeleteDTO.getDnIds());
+            results.put("dn", adminBoardMapper.deleteDnBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getEventIds() != null && !adminBoardDeleteDTO.getEventIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("eventIds", adminBoardDeleteDTO.getEventIds());
+            results.put("event", adminBoardMapper.deleteEventBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getReportIds() != null && !adminBoardDeleteDTO.getReportIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("reportIds", adminBoardDeleteDTO.getReportIds());
+            results.put("report", adminBoardMapper.deleteReports(params));
+        }
+
+        return results;
+    }
 }
+
+

@@ -167,4 +167,35 @@
             </choose>
         </if>
     </select>
+
+<!--    유저 정지 벤 데이터도 받아야함-->
+    <update id="updateUserBanStatus" parameterType="long">
+        MERGE INTO ADMIN.USERS_STATUS US
+        USING DUAL
+        ON (US.USERS_ID = #{userId})
+        WHEN MATCHED THEN
+            UPDATE SET
+                       US.USERS_STATUS = 'SUSPENDED',
+                       US.USERS_BAN_AT = SYSDATE,
+                       US.USERS_PERMIT_AT = SYSDATE + #{banDays}
+        WHEN NOT MATCHED THEN
+            INSERT (
+                STATUS_ID,
+                USERS_ID,
+                USERS_STATUS,
+                USERS_BAN_AT,
+                USERS_PERMIT_AT
+            ) VALUES (
+                         ADMIN.SEQ_USERS_STATUS.NEXTVAL,
+                         #{userId},
+                         'SUSPENDED',
+                         SYSDATE,
+                         SYSDATE + #{banDays}
+                     )
+    </update>
+
+
+
+
+
 </mapper>

@@ -124,8 +124,13 @@ window.openReportModal = function(userId) {
                     <td>${formatDateTime(report.reportDate)}</td>
                     <td>${report.reporterName || '-'} (${report.reporterLoginId || '-'})</td>
                     <td>${report.reportedName || '-'} (${report.reportedLoginId || '-'})</td>
-                    <td>${statusBadge}</td>
-                    <td>${banPeriod}</td>
+                    <td>${report.status}</td>
+                    <td>${report.banStartDate ? new Date(report.banStartDate).toISOString()
+                            .slice(0,19).replace('T', ' ') : '-'} ~
+                    <br> 
+                        (${report.banEndDate ? new Date(report.banEndDate).toISOString()
+                            .slice(0,19).replace('T', ' ') : '-'})
+                    </td>
                 `;
 
                 reportTableBody.appendChild(row);
@@ -160,29 +165,6 @@ window.closeReportModal = function() {
     reportModal.style.display = "none";
 };
 
-// 신고 처리
-window.processReport = function(reportId, banDays) {
-    fetch(`/admin/user/board/processReport/${reportId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ banDays: banDays })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(`신고가 처리되었습니다. ${banDays}일 정지가 적용되었습니다.`);
-                openReportModal(data.userId);
-            } else {
-                alert('신고 처리에 실패했습니다.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('신고 처리 중 오류가 발생했습니다.');
-        });
-};
 
 // 포인트 수정
 window.applyCustomPoints = function(userId) {

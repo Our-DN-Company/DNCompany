@@ -44,4 +44,13 @@ public interface AdminBoardMapper {
 
     //테스트 이벤트 게시판 조회용
     List<AdminEventWriteDTO> selectAllEvents();
+
+//  통합 삭제용 딜리트 메소드들 조립 예정
+    int deleteZipBoards(Map<String, List<Long>> params);
+    int deleteQnaBoards(Map<String, List<Long>> params);
+    int deleteHelpBoards(Map<String, List<Long>> params);
+    int deleteDnBoards(Map<String, List<Long>> params);
+    int deleteEventBoards(Map<String, List<Long>> params);
+    int deleteReports(Map<String, List<Long>> params);
+
 }
