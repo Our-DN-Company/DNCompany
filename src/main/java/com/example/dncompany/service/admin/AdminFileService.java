@@ -55,8 +55,19 @@ public class AdminFileService {
              Path eventDirectory = Path.of(eventUploadPath, "/", eventDatePath);
 //             Path eventDirectory = Path.of(eventUploadPath, "/", eventDatePath2);
 
+          /**
+           * 데이터베이스 경로에 있는 이미지 파일명을 문자열로 반환하여 저장하였다
+           * validFilePaths 리스트안에 모두 들어있음
+           * !validFilePaths 리스트안에 파일명과 동일하지 않은 모든 파일은 삭제 대상임
+           * @validFilePaths
+           */
+          List<String> validFilePaths = oldEventFiles.stream()
+                  .map(file -> file.getEventUuid() + file.getEventExtension())
+                  .collect(Collectors.toList());
+
              List<Path> unnecessayEventPathList = Files.list(eventDirectory).
-                     filter(eventPath -> !oldEventFiles.contains(eventPath)).toList();
+                     filter(eventPath -> !validFilePaths.contains(eventPath.getFileName().toString())).toList();
+
              log.info("경로 찾기용 {} ",unnecessayEventPathList);
 
              for (Path path : unnecessayEventPathList) {
