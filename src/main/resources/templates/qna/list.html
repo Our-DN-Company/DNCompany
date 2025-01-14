@@ -126,7 +126,8 @@
 
                                 <a class="page-btn"
                                    th:each="i : ${#numbers.sequence(qnaPageDTO.startPage,qnaPageDTO.endPage)}"
-                                   th:href="@{/qna/list(page=${i}, searchType=${qnaBoardSearchDTO.searchType},
+                                   th:href="@{/qna/list(page=${i},
+                                   searchType=${qnaBoardSearchDTO.searchType},
                                    keyword=${qnaBoardSearchDTO.keyword})}"
                                    th:classappend="${i == qnaPageDTO ? ' active ' : ''}"
                                    th:text="${i}">1</a>

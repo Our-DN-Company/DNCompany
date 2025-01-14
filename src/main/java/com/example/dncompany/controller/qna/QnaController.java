@@ -76,20 +76,21 @@ public class QnaController {
 
     @PostMapping("/write")
     public String write(QnAWriteDTO qnaWriteDTO,
+                        HttpSession session,
                         @SessionAttribute(value = "usersId", required = false) Long usersId) {
-
+//        log.info("write qnaBoardWriteDTO: {}", qnaBoardWriteDTO);
         qnaService.addQnaBoard(qnaWriteDTO, usersId);
 
         return "redirect:/qna/list";
     }
 
     // 게시글 수정
-    @GetMapping("/modfiy")
-    public String modfiy(Long qnaId, Model model) {
+    @GetMapping("/modify")
+    public String modify(Long qnaId, Model model) {
         QnADetailDTO foundQna = qnaService.getQnAById(qnaId);
         model.addAttribute("qna", foundQna);
 
-        return "qna/modfiy";
+        return "qna/modify";
     }
 
     @PostMapping("/modify")

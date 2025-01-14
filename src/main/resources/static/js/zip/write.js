@@ -1,5 +1,5 @@
 $('#zipContent').summernote({
-    placeholder: 'Hello stand alone ui',
+    placeholder: '내용을 입력해주세요',
     tabsize: 2,
     height: 500,
     toolbar: [
