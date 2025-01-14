@@ -36,6 +36,16 @@
     font-weight: 500;
     margin-right: 8px;
 }
+/* 태그 색상 추가 */
+.tag-green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.tag-orange {
+    background-color: #FFA726;
+    color: white;
+}
 
 .tag.status {
     background: #E2F5FF;
