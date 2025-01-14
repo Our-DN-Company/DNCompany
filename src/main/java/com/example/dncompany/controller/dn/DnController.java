@@ -1,6 +1,8 @@
 package com.example.dncompany.controller.dn;
 
 import com.example.dncompany.dto.dn.*;
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.service.dn.DnBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +23,12 @@ public class DnController {
     private final DnBoardService dnBoardService;
 
     @GetMapping("/market")
-    public String market(Model model) {
+    public String market(PageRequestDTO pageRequestDTO, Model model) {
         List<DnBoardListDTO> dnBoardList = dnBoardService.getDnBoardList();
-        model.addAttribute("dnBoardList", dnBoardList);
+        PageDTO<DnBoardListDTO> pageDTO = dnBoardService.getDnBoardsBySearchCondWithPage(pageRequestDTO);
+//        model.addAttribute("dnBoardList", dnBoardList);
+
+        model.addAttribute("pageDTO", pageDTO);
 
         return "dn/market";
     }

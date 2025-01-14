@@ -33,6 +33,9 @@ public interface DnBoardMapper {
     void deleteDnSell (Long dnId);
 
     // 게시글 전체 조회하면서 페이징 처리
-    List<DnBoardListDTO> selectAllDnBoardListWithPage(@Param("page") PageRequestDTO pageRequstDTO);
+    List<DnBoardListDTO> selectAllDnBoardListWithPage(@Param("page") PageRequestDTO pageRequestDTO);
+
+    // 게시글 전체 페이지 수 조회
+    int selectAllDnBoardListCondition();
 }
 
