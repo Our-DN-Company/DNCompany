@@ -57,4 +57,10 @@
         </where>
         ORDER BY HELP_CREATED_AT DESC
     </select>
+
+    <select id="checkHelpOfferExists" resultType="int">
+        SELECT COUNT(*)
+        FROM HELP_OFFER
+        WHERE HELP_ID=#{helpId} AND HELP_OFFER_STATUS='ACCEPT'
+    </select>
 </mapper>

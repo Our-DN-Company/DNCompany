@@ -60,6 +60,11 @@ public class HelpService {
         return result;
     }
 
+    // 등록 가능 여부
+    public boolean checkHelpOfferExists(Long helpId){
+        return helpMapper.checkHelpOfferExists(helpId)>0;
+    }
+
 }
 
 
