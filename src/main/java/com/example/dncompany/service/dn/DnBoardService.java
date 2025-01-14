@@ -2,6 +2,8 @@ package com.example.dncompany.service.dn;
 
 import com.example.dncompany.dto.dn.*;
 import com.example.dncompany.dto.dn.file.DnFileDTO;
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.exception.dn.DnBoardNotFoundException;
 import com.example.dncompany.mapper.dn.DnBoardMapper;
 import com.example.dncompany.mapper.dn.DnFileMapper;
@@ -35,9 +37,9 @@ public class DnBoardService {
     private String fileUploadPath;
 
     // 게시글 추가 기능
-    public void addDnBoard (DnBoardWriteDTO dnBoardWriteDTO,
-                            ProductDTO productDTO,
-                            Long userId) {
+    public void addDnBoard(DnBoardWriteDTO dnBoardWriteDTO,
+                           ProductDTO productDTO,
+                           Long userId) {
         dnBoardWriteDTO.setUsersId(userId);
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
         dnProductMapper.insertProduct(productDTO);
@@ -55,9 +57,9 @@ public class DnBoardService {
         return dnBoardMapper.selectDnBoardById(dnId)
                 .orElseThrow(() -> new DnBoardNotFoundException("게시글을 찾을 수 없음, ID : " + dnId));
     }
-    
+
     // 게시글 전체 조회 기능
-    public List<DnBoardListDTO> getDnBoardList(){
+    public List<DnBoardListDTO> getDnBoardList() {
 
         return dnBoardMapper.selectAllDnBoardList();
     }
@@ -74,10 +76,10 @@ public class DnBoardService {
     }
 
     // 게시글 추가 기능 + 파일 업로드
-    public void addDnBoardWithFile (DnBoardWriteDTO dnBoardWriteDTO,
-                                    ProductDTO productDTO,
-                                    Long usersId,
-                                    MultipartFile multipartFile) throws IOException {
+    public void addDnBoardWithFile(DnBoardWriteDTO dnBoardWriteDTO,
+                                   ProductDTO productDTO,
+                                   Long usersId,
+                                   MultipartFile multipartFile) throws IOException {
         // 1. 게시글 저장
         dnBoardWriteDTO.setUsersId(usersId);
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
@@ -90,7 +92,9 @@ public class DnBoardService {
         dnBoardMapper.insertSellBoard(dnSellBoardDTO);
 
         // 2. 파일 존재 여부 검사
-        if (multipartFile == null || multipartFile.isEmpty()) { return; }
+        if (multipartFile == null || multipartFile.isEmpty()) {
+            return;
+        }
 
         // 2-1. 파일이 존재하면 파일 정보 가져오기
         String originalFilename = multipartFile.getOriginalFilename();
@@ -112,7 +116,7 @@ public class DnBoardService {
         File uploadDir = new File(savePath); // 저장하려는 경로 (디렉토리만 포함하는 경로)
 
         // 만약 저장하려는 경로가 존재하지 않다면????
-        if (!uploadDir.exists()){
+        if (!uploadDir.exists()) {
             // 경로까지 필요한 모든 디렉터리 생성!!
             uploadDir.mkdirs(); //mkdirs(): make directories 의 약자
         }
@@ -132,7 +136,7 @@ public class DnBoardService {
         // 이미지 파일인 경우에만 처리하는 조건식
         if (contentType.startsWith("image")) {
             Thumbnails.of(file)
-                    .size(300,200)
+                    .size(300, 200)
                     .toFile(new File(savePath + "/th_" + fileSystemName));
             // 썸네일은 같은 경로상에 파일 이름만 th_를 붙여 사용
         }
@@ -196,4 +200,15 @@ public class DnBoardService {
 
     }
 
+    public PageDTO<DnBoardListDTO> getDnBoardsBySearchCondWithPage(PageRequestDTO pageRequestDTO) {
+        pageRequestDTO.setSize(12);
+        List<DnBoardListDTO> boardList = dnBoardMapper.selectAllDnBoardListWithPage(pageRequestDTO);
+        int total = dnBoardMapper.selectAllDnBoardListCondition();
+
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                boardList);
+    }
 }

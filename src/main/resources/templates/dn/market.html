@@ -138,13 +138,13 @@
 
                         <!-- 물품 목록 -->
                         <div class="shopping-list-wrap" >
-                            <div class="shopping_productList" th:each="dnBoard : ${dnBoardList}" th:object="${dnBoard}">
+                            <div class="shopping_productList" th:each="dnBoard : ${pageDTO.list}" th:object="${dnBoard}">
                                 <!-- 반복 구간 -->
                                 <div class="productCard_productCardContainer">
                                     <a th:href="@{/dn/detail(dnId=*{dnId})}">
                                     <!-- 사진 영역 -->
                                     <div class="productCard_cardImgContainer">
-                                      <span><img th:src="@{/images/logo/logo_banner2.png}" alt="게시글 썸네일" th:if="*{productImgId == null}" />
+                                        <span><img th:src="@{/images/logo/logo_banner2.png}" alt="게시글 썸네일" th:if="*{productImgId == null}" /></span>
                                       <span><img th:src="@{'/upload/dn/' + *{productPath} + '/th_' + *{productUuid} + *{productExtension}}" alt="게시글 썸네일" th:unless="*{productImgId == null}"/>
                                           <noscript></noscript>
                                       </span>
@@ -174,29 +174,22 @@
                     </div>
 
                     <!-- 페이지 영역 -->
-                    <ul class="pagination">
-                        <li class>
-                            <a class href="#" aria-label="Go to first page">‹</a>
-                        </li>
-                        <li class>
-                            <a class href="#" aria-label="Go to page number 1">1</a>
-                        </li>
-                        <li class>
-                            <a class href="#" aria-label="Go to page number 2">2</a>
-                        </li>
-                        <li class="active">
-                            <a class href="#" aria-label="Go to page number 3">3</a>
-                        </li>
-                        <li class>
-                            <a class href="#" aria-label="Go to page number 4">4</a>
-                        </li>
-                        <li class>
-                            <a class href="#" aria-label="Go to page number 5">5</a>
-                        </li>
-                        <li class>
-                            <a class href="#" aria-label="Go to last page">›</a>
-                        </li>
-                    </ul>
+                    <div class="pagination">
+                        <a th:if="${pageDTO.hasPreviousGroup()}"
+                           th:href="@{/dn/market(page=${pageDTO.startPage - 1})}"
+                           class="page-btn prev">‹
+                        </a>
+                        <a th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                           th:href="@{/dn/market(page=${i})}"
+                           class="page-btn"
+                           th:classappend="${i == pageDTO.page ? 'active' : ''}"
+                           th:text="${i}">1
+                        </a>
+                        <a th:if="${pageDTO.hasNextGroup()}"
+                           th:href="@{/dn/market(page=${pageDTO.endPage + 1})}"
+                           class="page-btn next">&gt;
+                        </a>
+                    </div>
                 </div>
             </div>
         </main>
