@@ -119,7 +119,7 @@ public class ZipController {
     @GetMapping("/delete")
     public String delete(Long zipId) {
         zipService.removeZipBoard(zipId);
-        return "redirect:zip/community";
+        return "redirect:/zip/community";
     }
 
 }
