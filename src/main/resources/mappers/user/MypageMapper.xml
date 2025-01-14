@@ -288,7 +288,7 @@ FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_
 
     <!--초보zip-->
     <!--게시물-->
-    <select id="zipBoardListPage" parameterType="MypageZipBoardListDTO">
+    <select id="zipBoardListPage" resultType="MypageZipBoardListDTO">
       SELECT RNUM, ZIP_ID, ZIP_TITLE, ZIP_CREATED_AT, USERS_ID
           FROM(
            SELECT ROWNUM AS RNUM, ZIP_ID, ZIP_TITLE, ZIP_CREATED_AT, USERS_ID
@@ -302,13 +302,13 @@ FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_
        WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countZipBoardList" resultType="long" parameterType="_int">
+    <select id="countZipBoardList" resultType="_int" >
         SELECT COUNT(*)
         FROM ZIP_BOARD
         WHERE USERS_ID=#{usersId}
     </select>
     <!--댓글-->
-    <select id="zipAnswerList" parameterType="MypageZipAnswerListDTO">
+    <select id="zipAnswerListPage" resultType="MypageZipAnswerListDTO">
        SELECT RNUM,
               ZIP_ANSWER_ID,
               ZIP_TITLE,
@@ -340,7 +340,7 @@ FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_
        WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countZipAnswerList" resultType="long" parameterType="_int">
+    <select id="countZipAnswerList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM ZIP_ANSWER
         WHERE USERS_ID=#{usersId}
