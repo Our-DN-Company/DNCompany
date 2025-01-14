@@ -171,6 +171,21 @@
         FROM ADMIN.HELP_BOARD hb
         JOIN ADMIN.USERS u ON hb.USERS_ID = u.USERS_ID
         )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        db.DN_ID AS id,
+        'DN' AS category,
+        db.DN_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        db.DN_CREATED_AT AS createdAt
+        FROM ADMIN.DN_BOARD db
+        JOIN ADMIN.USERS u ON db.USERS_ID = u.USERS_ID
+        )
         ) result
         WHERE 1=1
         <if test="category != null and category != '' and category != 'all'">
