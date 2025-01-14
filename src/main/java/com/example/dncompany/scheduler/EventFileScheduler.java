@@ -17,8 +17,7 @@ public class EventFileScheduler {
     private final AdminFileService adminFileService;
 
     @Scheduled(cron = "0 0 23 * * *")
-//    @Scheduled(cron = "0/
-//    10 * * * * *")
+//    @Scheduled(cron = "0/10 * * * * *")
     public void deleteEventOldFiles() {
         log.info("Deleting old files");
         try {
