@@ -15,6 +15,4 @@
         FROM HELP_BOARD
         WHERE HELP_ID = #{helpId} AND USERS_ID = #{usersId}
     </select>
-
-
 </mapper>

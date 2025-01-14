@@ -22,4 +22,7 @@ public interface HelpMapper {
 
     // 검색 기능 추가
     List<HelpListDTO> searchHelpList(HelpSearchDTO searchDTO);
+
+    // 신청 가능 여부
+    int checkHelpOfferExists(Long helpId);
 }
