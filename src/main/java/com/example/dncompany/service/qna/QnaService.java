@@ -1,9 +1,12 @@
 package com.example.dncompany.service.qna;
 
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.qna.QnADTO;
 import com.example.dncompany.dto.qna.QnADetailDTO;
 import com.example.dncompany.dto.qna.QnAModifyDTO;
 import com.example.dncompany.dto.qna.QnAWriteDTO;
+import com.example.dncompany.dto.qna.qnaPage.QnaBoardSearchDTO;
 import com.example.dncompany.exception.qna.QnANotFoundException;
 import com.example.dncompany.mapper.qna.QnaMapper;
 import com.example.dncompany.mapper.zip.ZipMapper;
@@ -44,5 +47,18 @@ public class QnaService {
     //게시글 삭제
     public void removeQnABoard(Long qnaId) {
         qnaMapper.deleteQnABoard(qnaId);
+    }
+
+    // 페이징 처리
+    public PageDTO<QnADTO> getQnaBoardsBySearchCondWithPage (QnaBoardSearchDTO qnaBoardSearchDTO,
+                                                             PageRequestDTO pageRequestDTO) {
+
+        List<QnADTO> qnaList = qnaMapper.selectBySearchCondWithPage(qnaBoardSearchDTO, pageRequestDTO);
+        int total = qnaMapper.countBySearchCondition(qnaBoardSearchDTO);
+
+        return new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                qnaList);
     }
 }

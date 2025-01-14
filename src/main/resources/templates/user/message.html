@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <link rel="stylesheet" th:href="@{/css/user/message.css}" />
-    <script defer th:src="@{/js/user/message.js}"></script>
+    <script defer type="module"  th:src="@{/js/user/message.js}"></script>
     <title>Document</title>
 
 </head>
@@ -83,25 +83,54 @@
                 </div>
                 <!--모달창-->
                 <div class="message_modal_box">
-                    <form class="message_form">
+                    <form class="message_form" th:action="@{/user/message}" method="post">
                         <div class="message__top">
                             <p><span>쪽지</span> 보내기</p>
                         </div>
                         <div class="message__top">
                             <p>쪽지 받을 사람 &nbsp;</p>
-                            <label for="userTo"></label>
-                            <input type="text" id="userTo" name="userTo" placeholder="아이디를 입력해주세요.">
+                            <label for="userFrom"></label>
+                            <input type="hidden" id="userFrom" name="userFrom" th:value="${session.usersId}">
+                            <label for="loginIdTo"></label>
+                            <input type="text" id="loginIdTo" name="loginIdTo" placeholder="아이디를 입력해주세요.">
                         </div>
                         <div class="message__top">
                             <p>쪽지 내용</p>
                             <label for="msContent"></label>
                             <textarea class="message__content_box" id="msContent" name="msContent" placeholder="쪽지의 내용을 작성해주세요."></textarea>
                         </div>
-                    </form>
+
                     <div class="message__botton">
                         <div class="message_btn">
-                            <button class="message_btn_send">확인</button>
-                            <button class="message_btn_close">취소</button>
+                            <input type="submit" class="message_btn_send" value="확인">
+                            <input type="reset" class="message_btn_close" value="취소">
+                        </div>
+                    </div>
+                    </form>
+                    </div>
+                <!-- 쪽지 확인하기 -->
+                <div class="message_receive_modal_box">
+                    <div class="message_recive">
+                        <div class="message__top">
+                            <p><span>쪽지</span> 보내기</p>
+                        </div>
+                        <div class="message__top">
+                            <p>쪽지 보낸 사람</p>
+                            <div class="message__receive__title">
+                            </div>
+                        </div>
+                        <div class="message__top">
+                            <p>쪽지 내용</p>
+
+                            <div class="message__content_box">
+
+                            </div>
+                        </div>
+
+                        <div class="message__botton">
+                            <div class="message_btn">
+                                <input type="reset" class="message_receive__btn_close" value="닫기">
+                            </div>
                         </div>
                     </div>
                 </div>

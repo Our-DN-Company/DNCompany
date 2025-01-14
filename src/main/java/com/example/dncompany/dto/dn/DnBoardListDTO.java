@@ -8,13 +8,21 @@ import java.time.LocalDateTime;
 
 @Getter @Setter @ToString
 public class DnBoardListDTO {
-    Long dnId;
-    LocalDateTime dnCreatedAt;
-    LocalDateTime dnUpdatedAt;
-    String dnPetCategory;
-    String dnTitle;
-    String productCategory;
-    int productPrice;
-    String productId;
-    String usersId;
+    private Long dnId;
+    private LocalDateTime dnCreatedAt;
+    private LocalDateTime dnUpdatedAt;
+    private String dnPetCategory;
+    private String dnTitle;
+    private String productCategory;
+    private int productPrice;
+    private String productId;
+    private String usersId;
+    private String loginId;
+
+    // 파일 정보 추가
+    private Long productImgId;
+    private String productOriginalFilename;
+    private String productUuid;
+    private String productPath;
+    private String productExtension;
 }

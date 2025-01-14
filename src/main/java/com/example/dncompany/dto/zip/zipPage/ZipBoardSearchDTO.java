@@ -8,4 +8,6 @@ import lombok.ToString;
 public class ZipBoardSearchDTO {
     private String searchType;
     private String keyword;
+    private String order;
+    private String category;
 }
