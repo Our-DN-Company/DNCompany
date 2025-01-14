@@ -12,16 +12,34 @@
         EVENT_UUID,
         EVENT_PATH,
         EVENT_EXTENSION,
-        EVENT_ID        <!-- 추가된 컬럼 -->
+        EVENT_ID
         ) VALUES (
         #{eventImgId},
         #{eventOriginalFilename},
         #{eventUuid},
         #{eventPath},
         #{eventExtension},
-        #{eventBoardId} <!-- 추가된 값 -->
+        #{eventBoardId}
         )
     </insert>
+
+    <select id="selectOldEventFileDTO" resultType="AdminFIleDTO">
+        SELECT EVENT_IMG_ID, EVENT_ID, EVENT_ORIGINAL_FILENAME, EVENT_UUID, EVENT_PATH, EVENT_EXTENSION, EVENT_REG_DATE
+        FROM EVENT_IMG
+        WHERE EVENT_PATH = TO_CHAR(SYSDATE -1 ,'YYYY/MM/DD')
+    </select>
+
+
+<!--    <select id="selectOldEventFileDTO" resultType="AdminFIleDTO">-->
+<!--        SELECT EVENT_IMG_ID, EVENT_ID, EVENT_ORIGINAL_FILENAME, EVENT_UUID, EVENT_PATH, EVENT_EXTENSION, EVENT_REG_DATE-->
+<!--        FROM EVENT_IMG-->
+<!--        WHERE EVENT_PATH = TO_CHAR(SYSDATE,'YYYY/MM/DD')-->
+<!--    </select>-->
+
+
+
+
+
 
 
 

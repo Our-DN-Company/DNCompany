@@ -102,6 +102,7 @@ public class ImageUploadController {
 
             String saveFileName = uuid + extension;
             File saveFile = new File(savePath + "/" + saveFileName);
+            log.info("Save File Name : " + saveFileName);
             file.transferTo(saveFile);
 
             String contentType = Files.probeContentType(saveFile.toPath());
