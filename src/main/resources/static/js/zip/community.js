@@ -1,90 +1,36 @@
-let currentPage = 1;
-let isLoading = false
-let hasNext = true;
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const $listContainer = document.querySelector(".community_loungeList"); // 게시글 리스트 영역
-    const $paginationContainer = document.querySelector(".pagination-section"); // 페이지네이션 영역
-
-    function initPagination() {
-        if (!$paginationContainer || !$listContainer) return;
-
-        const $nextButton = $paginationContainer.querySelector(".next");
-        if ($nextButton) {
-            $nextButton.addEventListener("click", async () => {
-                if (isLoading || !hasNext) return;
-                await loadNextPage();
-            });
-        }
-
-        const $prevButton = $paginationContainer.querySelector(".prev");
-        if ($prevButton) {
-            $prevButton.addEventListener("click", async () => {
-                if (isLoading || currentPage <= 1) return;
-                currentPage--; // 이전 페이지로 이동
-                await loadPage(currentPage);
-            });
-        }
-    }
-
-    async function loadPage(page) {
-        try {
-            isLoading = true;
-
-            const response = await fetch(`/zip/community?page=${page}`);
-            if (!response.ok) throw new Error("데이터를 가져오는 데 실패했습니다.");
-
-            const { data, hasNextPage } = await response.json();
-
-            renderList(data);
-
-            currentPage = page;
-            hasNext = hasNextPage;
-        } catch (error) {
-            console.error(error.message);
-        } finally {
-            isLoading = false;
-        }
-    }
-
-    async function loadNextPage() {
-        if (!hasNext) return;
-        await loadPage(currentPage + 1);
-    }
-
-    function renderList(data) {
-        if (!Array.isArray(data)) return;
-
-        $listContainer.innerHTML = "";
-
-        data.forEach((item) => {
-            const $item = document.createElement("div");
-            $item.className = "qaList_qaListWrapper";
-            $item.innerHTML = `
-                <div>
-                    <div class="qaList_qaListTitle">
-                        <a href="/zip/detail?zipId=${item.zipId}">${item.zipTitle}</a>
-                    </div>
-                    <div class="qaList_qaListText">${item.zipContent}</div>
-                </div>
-            `;
-            $listContainer.appendChild($item);
-        });
-    }
-
-    initPagination();
-
-    loadPage(currentPage);
-
-
+{   // 작성 버튼 처리
     const writeButton = document.querySelector(".write_Btn_item");
     if (writeButton) {
         writeButton.addEventListener("click", () => {
             window.location.href = "/zip/write";
         });
     }
-});
+}
+
+{   // 정렬 버튼 처리
+    const $radioContainer = document.querySelector('.community_radioContainer');
+
+    $radioContainer.addEventListener("change", (e) => {
+        if (e.target.classList.contains("radio_myRadio")) {
+            const searchParams = new URLSearchParams(location.search);
+            searchParams.set("order", e.target.value);
+
+            location.search = searchParams.toString();
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -25,30 +25,30 @@ public class ZipController {
 
     // 전체글
     @GetMapping("/community")
-    public String community(ZipBoardSearchDTO searchDTO,
+    public String community(ZipBoardSearchDTO zipSearchDTO,
                             PageRequestDTO pageRequestDTO,
                             Model model) {
 
-        if (searchDTO.getSearchType() == null){
-            searchDTO.setSearchType("title");
+        if (zipSearchDTO.getSearchType() == null){
+            zipSearchDTO.setSearchType("title");
         }
-        if (searchDTO.getKeyword() == null){
-            searchDTO.setKeyword("");
+        if (zipSearchDTO.getKeyword() == null){
+            zipSearchDTO.setKeyword("");
         }
-        if (searchDTO.getOrder() == null) {
-            searchDTO.setOrder("late_date");
+        if (zipSearchDTO.getOrder() == null) {
+            zipSearchDTO.setOrder("late_date");
         }
-        if (searchDTO.getCategory() == null) {
-            searchDTO.setCategory("");
+        if (zipSearchDTO.getCategory() == null) {
+            zipSearchDTO.setCategory("");
         }
 
 
 //        List<ZipBoardListDTO> boardList = zipService.getAllZipBoards();
-        PageDTO<ZipBoardListDTO> pageDTO = zipService.getZipBoardsBySearchCondWithPage(searchDTO, pageRequestDTO);
+        PageDTO<ZipBoardListDTO> zipPageDTO = zipService.getZipBoardsBySearchCondWithPage(zipSearchDTO, pageRequestDTO);
 
 //        model.addAttribute("boardList", boardList);
-        model.addAttribute("pageDTO", pageDTO);
-        model.addAttribute("searchDTO", searchDTO);
+        model.addAttribute("zipPageDTO", zipPageDTO);
+        model.addAttribute("zipSearchDTO", zipSearchDTO);
 
         return "zip/community";
     }

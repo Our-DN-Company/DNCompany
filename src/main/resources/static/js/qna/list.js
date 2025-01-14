@@ -1,6 +1,3 @@
-let currentPage = 1;
-let isLoading = false
-let hasNext = true;
 
 let currentPage = 1; // 현재 페이지
 let isLoading = false; // 로딩 상태
