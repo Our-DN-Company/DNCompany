@@ -63,13 +63,15 @@
 
     <!--도와드려요-->
     <select id="MyPageMainHelpYouListById" resultType="HelpYouListDTO" parameterType="long">
-        SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+        SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE, HELP_ID, USERS_ID,LOGIN_ID
         FROM(
-                SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
-                FROM HELP_OFFER
-                WHERE USERS_ID = #{usersId}
-                ORDER BY HELP_OFFER_ENROLL_DATE
-            )
+                SELECT ROWNUM AS RNUM,HB.USERS_ID,HB.HELP_ID,HELP_OFFER_ID ,HB.HELP_TITLE,HO.HELP_OFFER_STATUS,U.LOGIN_ID
+                FROM HELP_OFFER HO JOIN HELP_BOARD HB ON HO.HELP_ID = HB.HELP_ID
+                                   JOIN USERS U ON HO.USERS_ID = U.USERS_ID
+                WHERE HB.USERS_ID=#{usersId}
+                ORDER BY RNUM)
+
+
         <![CDATA[
         WHERE RNUM <=3
         ]]>
@@ -259,13 +261,13 @@
 
     <!--도와드려요-->
     <select id="helpYouListPage" resultType="HelpYouListDTO">
-      SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
-FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+      SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE,LOGIN_ID, HELP_ID, USERS_ID
+FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE,LOGIN_ID, HELP_ID, USERS_ID
           FROM(
-        SELECT HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
-        FROM HELP_OFFER
-        WHERE USERS_ID = #{usersId}
-        ORDER BY HELP_OFFER_ENROLL_DATE)
+                  SELECT HB.USERS_ID,HB.HELP_ID,HELP_OFFER_ID ,HB.HELP_TITLE,HO.HELP_OFFER_STATUS,U.LOGIN_ID
+                  FROM HELP_OFFER HO JOIN HELP_BOARD HB ON HO.HELP_ID = HB.HELP_ID
+                                     JOIN USERS U ON HO.USERS_ID = U.USERS_ID
+                  WHERE HB.USERS_ID=#{usersId})
        <![CDATA[
       WHERE ROWNUM <= #{page.page} * #{page.size}
         ]]>
@@ -377,7 +379,7 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
         WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countMypageDnBoardList" resultType="long" parameterType="_int">
+    <select id="countMypageDnBoardList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM DN_BOARD
         WHERE USERS_ID=#{usersId}

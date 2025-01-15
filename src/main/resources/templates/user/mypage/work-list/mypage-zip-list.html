@@ -32,8 +32,6 @@
                 <div class="mypage_list_line"></div>
             </div>
 
-            <p>게시글이력</p>
-            <div class="mypage_list_sub_line"></div>
             <table>
 
 
@@ -46,68 +44,14 @@
 
                 </tbody>
 
-                <!-- 댓글 컨텐츠 -->
-<!--                <tr th:each="MypageZipList :${zipBoardPageDTO.list} " th:object="${MypageZipList}">-->
-<!--                    <td th:text="*{rnum}">샘플 순번</td>-->
-<!--                    <td th:text="*{zipTitle}">샘플 작성날짜</td>-->
-<!--                    <td th:text="*{zipCreatedAt}">샘플 제목</td>-->
-<!--                </tr>-->
             </table>
 
             <section class="pagination-section">
                 <div class="pagination zip-list-pagination">
-<!--                    <a th:if="${zipBoardPageDTO.hasPreviousGroup()}"-->
-<!--                       th:href="@{/mypage/list/zip(page=${zipBoardPageDTO.startPage - 1})}"-->
-<!--                       class="page-btn prev" aria-label="Go to previous group">‹</a>-->
-
-<!--                    <a class="page-btn"-->
-<!--                       th:each="i : ${#numbers.sequence(zipBoardPageDTO.startPage, zipBoardPageDTO.endPage)}"-->
-<!--                       th:href="@{/mypage/list/zip(page=${i})}"-->
-<!--                       th:classappend="${i == zipBoardPageDTO.page ? ' active' : ''}"-->
-<!--                       th:text="${i}"></a>-->
-
-<!--                    <a th:if="${zipBoardPageDTO.hasNextGroup()}"-->
-<!--                       th:href="@{/mypage/list/zip(page=${zipBoardPageDTO.endPage + 1})}"-->
-<!--                       class="page-btn next" aria-label="Go to next group">›</a>-->
                 </div>
             </section>
 
-            <p>댓글이력</p>
-            <div class="mypage_list_sub_line"></div>
-            <table>
-                <tr>
-                    <th>순번</th>
-                    <th>게시판</th>
-                    <th>제목</th>
-                    <th>작성날짜</th>
 
-                    <!-- 게시물 컨텐츠 -->
-                <tr th:each="MypageZipAList : ${zipAnswerPageDTO.list}" th:object="${MypageZipAList}">
-                    <td th:text="*{rnum}">샘플 순번</td>
-                    <td th:text="*{zipTitle}">샘플 게시판</td>
-                    <td th:text="*{zipAnswerContent}">샘플 제목</td>
-                    <td th:text="*{zipAnswerCreatedAt}">샘플 작성날짜</td>
-                </tr>
-            </table>
-
-
-            <section class="pagination-section">
-                <div class="pagination">
-<!--                    <a th:if="${pageDTO.hasPreviousGroup()}"-->
-<!--                       th:href="@{/mypage/list/zip(page=${pageDTO.startPage - 1})}"-->
-<!--                       class="page-btn prev" aria-label="Go to previous group">‹</a>-->
-
-<!--                    <a class="page-btn"-->
-<!--                       th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"-->
-<!--                       th:href="@{/mypage/list/zip(page=${i})}"-->
-<!--                       th:classappend="${i == pageDTO.page ? ' active' : ''}"-->
-<!--                       th:text="${i}"></a>-->
-
-<!--                    <a th:if="${pageDTO.hasNextGroup()}"-->
-<!--                       th:href="@{/mypage/list/zip(page=${pageDTO.endPage + 1})}"-->
-<!--                       class="page-btn next" aria-label="Go to next group">›</a>-->
-                </div>
-            </section>
 
         </div>
     </main>
