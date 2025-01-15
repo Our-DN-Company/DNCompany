@@ -200,10 +200,10 @@ public class DnBoardService {
 
     }
 
-    public PageDTO<DnBoardListDTO> getDnBoardsBySearchCondWithPage(PageRequestDTO pageRequestDTO) {
+    public PageDTO<DnBoardListDTO> getDnBoardsBySearchCondWithPage(PageRequestDTO pageRequestDTO, DnSearchDTO dnSearchDTO) {
         pageRequestDTO.setSize(12);
-        List<DnBoardListDTO> boardList = dnBoardMapper.selectAllDnBoardListWithPage(pageRequestDTO);
-        int total = dnBoardMapper.selectAllDnBoardListCondition();
+        List<DnBoardListDTO> boardList = dnBoardMapper.selectAllDnBoardListCondWithPage(pageRequestDTO, dnSearchDTO);
+        int total = dnBoardMapper.countBySearchCondition(dnSearchDTO);
 
 
         return new PageDTO<>(pageRequestDTO.getPage(),

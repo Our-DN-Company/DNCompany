@@ -60,30 +60,50 @@
   padding: 5px 0 15px;
 }
 
-.animalLabel_animalLabelBtn {
-  padding: 5px 9px;
+.SubView-sub {
+  position: relative;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  background: white;
-  color: black;
-  border-radius: 25px;
-  border: 2px solid transparent;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 18px;
-  box-shadow: none;
-  cursor: pointer;
-  font-family: "Ownglyph_ParkDaHyun";
-  font-size: 17px;
-  letter-spacing: 5px;
+  margin: 0 20px 18px;
+  border-radius: 4px;
 }
 
-.animalLabel_radioInput {
-  display: none;
+.SubView-sub-box {
+  position: relative;
+  min-width: 0;
+}
+
+.SubView-sub-tab {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.SubView-sub-tabList {
+  display: inline-flex;
+  gap: 10px;
+  padding: 7px 10px;
+}
+
+.SubView-tab-item {
+  margin: 0 2px;
+}
+
+.SubView-tab-t1 {
+  border: 1.5px none white;
+  color: black;
+  padding: 3px 12px;
+  border-radius: 5px;
+  background-color: rgb(189, 118, 255);
+  line-height: 34px;
+  text-align: center;
+  font-family: Ownglyph_ParkDaHyun;
+  letter-spacing: 3px;
+  font-size: 20px;
 }
 
 /* 버튼 선택된 상태 */
-.animalLabel_radioInput:checked + .animalLabel_animalLabelBtn {
+.SubView-tab-t1:checked {
   background: rgb(189, 118, 255);
   color: black;
   border: 2px solid rgb(189, 118, 255);

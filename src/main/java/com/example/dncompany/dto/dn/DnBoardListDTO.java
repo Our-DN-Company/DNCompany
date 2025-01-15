@@ -18,6 +18,7 @@ public class DnBoardListDTO {
     private String productId;
     private String usersId;
     private String loginId;
+    private int likeCount;
 
     // 파일 정보 추가
     private Long productImgId;
