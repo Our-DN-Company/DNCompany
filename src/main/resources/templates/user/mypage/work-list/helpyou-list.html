@@ -31,36 +31,34 @@
             <table th:each="helpYou : ${pageDTO.list}" th:object="${helpYou}">
                 <tr>
                     <td>순번</td>
-                    <td>신청날짜</td>
+                    <td>신청내용</td>
+                    <td>산청자</td>
                     <td>상태</td>
                 </tr>
                 <tr>
                     <td th:text="*{rnum}">순번</td>
-                    <td th:text="*{helpOfferEnrollDate}">신청날짜</td>
+                    <td th:text="*{helpTitle}">신청날짜</td>
+                    <td th:text="*{loginId}">신청날짜</td>
                     <td th:text="*{ helpOfferStatus}">상태</td>
                 </tr>
-                <tr>
-                    <td>누구님</td>
-                    <td>2024.12.20</td>
-                    <td><button class="mypage_review_button">도움완료</button></td>
-                </tr>
+
             </table>
 
 
             <section class="pagination-section">
                 <div class="pagination">
                     <a th:if="${pageDTO.hasPreviousGroup()}"
-                       th:href="@{/mypage/list/qna(page=${pageDTO.startPage - 1})}"
+                       th:href="@{/mypage/list/HelpYou(page=${pageDTO.startPage - 1})}"
                        class="page-btn prev" aria-label="Go to previous group">‹</a>
 
                     <a class="page-btn"
                        th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
-                       th:href="@{/mypage/list/qna(page=${i})}"
+                       th:href="@{/mypage/list/helpYou(page=${i})}"
                        th:classappend="${i == pageDTO.page ? ' active' : ''}"
                        th:text="${i}"></a>
 
                     <a th:if="${pageDTO.hasNextGroup()}"
-                       th:href="@{/mypage/list/qna(page=${pageDTO.endPage + 1})}"
+                       th:href="@{/mypage/list/helpYou(page=${pageDTO.endPage + 1})}"
                        class="page-btn next" aria-label="Go to next group">›</a>
                 </div>
             </section>

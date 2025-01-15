@@ -140,7 +140,7 @@
 
                                     <tr th:each="help:${mainHelpMeList}" th:object="${help}">
                                         <td th:text="*{rnum}"></td>
-                                        <td th:text="*{helpTitle}"></td>
+                                        <td><a th:href="@{/help/detail(helpId=*{helpId})}" th:text="*{helpTitle}"></a></td>
                                         <td th:text="*{helpCareType}"></td>
                                         <td th:text="*{helpCreatedAt}"></td>
                                         <td th:text="*{helpCareDate}"></td>
@@ -162,12 +162,14 @@
                                 <table class="mypage_main_list_top" >
                                     <tr>
                                         <td>순번</td>
-                                        <td>신청날짜</td>
+                                        <td>신청내용</td>
+                                        <td>산청자</td>
                                         <td>상태</td>
                                     </tr>
                                     <tr th:each="helpYou : ${mainHelpYouList}" th:object="${helpYou}">
                                         <td th:text="*{rnum}">순번</td>
-                                        <td th:text="*{helpOfferEnrollDate}">신청날짜</td>
+                                        <td th:text="*{helpTitle}">신청날짜</td>
+                                        <td th:text="*{loginId}">신청날짜</td>
                                         <td th:text="*{helpOfferStatus}">상태</td>
                                     </tr>
 

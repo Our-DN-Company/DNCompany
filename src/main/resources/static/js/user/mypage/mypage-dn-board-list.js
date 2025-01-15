@@ -1,46 +1,47 @@
 import * as mypageApi from '../modules/mypageApi.js'
 
 {
-    mypageApi.getMypageZipList(1, function (data) {
+    mypageApi.getMypageDnBoardList(1, function (data) {
         console.log(data);
-        displayZipList(data.list);
-        makeZipPageGroup(data);
-    });
+        displayDnBoardList(data.list);
+        makeDnBoardPageGroup(data);   });
 
-    const $pageGroupContainer = document.querySelector('.zip-list-pagination');
+    const $pageGroupContainer = document.querySelector('.dn-board-list-pagination');
 
     $pageGroupContainer.addEventListener('click', function (e) {
         if (e.target.tagName === 'SPAN'){
             const page = e.target.dataset.page;
 
-            mypageApi.getMypageZipList(page, function (data) {
-                displayZipList(data.list);
-                makeZipPageGroup(data);
+            mypageApi.getMypageDnBoardList(page, function (data) {
+                displayDnBoardList(data.list);
+                makeDnBoardPageGroup(data);
             });
         }
 
     });
+
 }
 
-function displayZipList(zipList) {
-    console.log('displayZipList', zipList);
+
+function displayDnBoardList(dnBoardList) {
+    console.log('displayDnBoardList', dnBoardList);
 
     let html = '';
 
-    zipList.forEach(zip => {
+    dnBoardList.forEach(zip => {
         html += `
-             <tr>
-                <td>${zip.rnum}</td>
-                <td>${zip.zipTitle}</td>
-                <td>${zip.zipCreatedAt}</td>
-            </tr>
+              <tr>
+                    <td>${dnBoardList.rnum}</td>
+                    <td>${dnBoardList.dnProductCategory}</td>
+                    <td >${dnBoardList.dnTitle}</td>
+                </tr>
         `;
     });
 
-    document.querySelector('.zip-list-tbody').innerHTML = html;
+    document.querySelector('.dn-board-list-tbody').innerHTML = html;
 }
 
-function makeZipPageGroup(pageDTO) {
+function makeDnBoardPageGroup(pageDTO) {
 
     let html = ``;
 
@@ -64,17 +65,8 @@ function makeZipPageGroup(pageDTO) {
     }
 
 
-    document.querySelector('.zip-list-pagination').innerHTML = html;
+    document.querySelector('.dn-board-list-pagination').innerHTML = html;
 }
-
-
-
-
-
-
-
-
-
 
 
 
