@@ -1,4 +1,4 @@
-$('#zipContent').summernote({
+$('#qnaContent').summernote({
     placeholder: '내용을 수정해주세요',
     tabsize: 2,
     height: 500,

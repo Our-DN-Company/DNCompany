@@ -14,35 +14,11 @@
     <title>Document</title>
 </head>
 <body>
-<!-- 홈페이지 전체 사이즈 -->
 <div class="container">
-    <th:block th:insert="~{fragment/header::header}">
-
-    </th:block>
+    <th:block th:insert="~{fragment/header::header}"></th:block>
     <div class="main-wrap">
         <main>
-            <!-- 여기에 작업 -->
-
             <!-- 필터 섹션 -->
-<!--            <div class="filter-section">-->
-<!--                <div class="filter-options">-->
-<!--                    <select class="filter-select">-->
-<!--                        <option>서울시 전체</option>-->
-<!--                        <option>강남구</option>-->
-<!--                        <option>서초구</option>-->
-<!--                    </select>-->
-<!--                    <input type="date" class="filter-date">-->
-<!--                    <select class="filter-select">-->
-<!--                        <option>돌봄 유형</option>-->
-<!--                        <option>산책</option>-->
-<!--                        <option>돌봄</option>-->
-<!--                        <option>병원 동행</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-<!--                <div class="search-box">-->
-<!--                    <input type="text" placeholder="검색어를 입력하세요">-->
-<!--                </div>-->
-<!--            </div>-->
             <div class="filter-section">
                 <form th:action="@{/help/search}" method="get">
                     <div class="filter-options">
@@ -71,49 +47,58 @@
             </div>
 
             <!-- 게시글 목록 -->
-            <div class="post-list" >
-                <!-- 게시글 카드 1 -->
-                <div class="post-card" th:each="help : ${helpList}" th:data-help-id="${help.helpId}" th:onclick="'goToDetail(' + ${help.helpId} + ')'">
+            <div class="post-list">
+                <div class="post-card" th:each="help : ${pageResult.list}" th:data-help-id="${help.helpId}">
                     <div class="post-content">
                         <div class="post-tags">
-<!--                            <span class="tag tag-purple" th:text="${help.helpCareType}">산책</span>-->
                             <span class="tag tag-purple" th:switch="${help.helpCareType}">
-        <th:block th:case="'walk'">산책</th:block>
-        <th:block th:case="'hospital'">병원 동행</th:block>
-        <th:block th:case="'daycare'">돌봄</th:block>
-        <th:block th:case="*" th:text="${help.helpCareType}"></th:block>
-    </span>
+                                <th:block th:case="'walk'">산책</th:block>
+                                <th:block th:case="'hospital'">병원 동행</th:block>
+                                <th:block th:case="'daycare'">돌봄</th:block>
+                                <th:block th:case="*" th:text="${help.helpCareType}"></th:block>
+                            </span>
                         </div>
                         <h3 class="post-title" th:text="${help.helpTitle}">우리 댕댕이 산책 도와주실 분 구해요</h3>
                         <div class="post-info">
                             <span class="location" th:text="${help.helpAddress}">서울시 강남구</span>
                             <span class="time"
                                   th:text="${#temporals.format(help.helpCareDate, 'MM/dd')} + ' ' +
-               ${#temporals.format(help.helpStartTime, 'a h')} + '시-' +
-               ${#temporals.format(help.helpEndTime, 'h')} + '시'">
-                                  >12/15 오후 2시-4시</span>
+                                         ${#temporals.format(help.helpStartTime, 'a h')} + '시-' +
+                                         ${#temporals.format(help.helpEndTime, 'h')} + '시'">
+                                12/15 오후 2시-4시
+                            </span>
                         </div>
                     </div>
                     <div class="post-side">
                         <div class="point" th:text="${help.helpPoint}+'p'">2,000P</div>
                         <div class="price" th:text="${help.helpPrice}+'원'">40000원</div>
-
                     </div>
                 </div>
-
             </div>
 
             <!-- 페이지네이션 -->
-            <div class="pagination">
-                <button class="page-button active">1</button>
-                <button class="page-button">2</button>
-                <button class="page-button">3</button>
+            <div class="pagination" th:if="${pageResult != null}">
+                <!-- 이전 페이지 버튼 -->
+                <a th:if="${pageResult.hasPrevious()}"
+                        class="page-button"
+                        th:href="@{/help/list(page=${pageResult.page - 1})}">&lt;</a>
+
+                <!-- 페이지 번호 -->
+                <th:block th:each="pageNum : ${#numbers.sequence(pageResult.startPage, pageResult.endPage)}">
+                    <a class="page-button"
+                            th:classappend="${pageNum == pageResult.page} ? 'active'"
+                            th:href="@{/help/list(page=${pageNum})}"
+                            th:text="${pageNum}">1</a>
+                </th:block>
+
+                <!-- 다음 페이지 버튼 -->
+                <a th:if="${pageResult.hasNext()}"
+                        class="page-button"
+                        th:href="@{/help/list(page=${pageResult.page + 1})}">&gt;</a>
             </div>
         </main>
     </div>
-    <th:block th:insert="~{fragment/footer::footer}">
-
-    </th:block>
+    <th:block th:insert="~{fragment/footer::footer}"></th:block>
 </div>
 </body>
 </html>

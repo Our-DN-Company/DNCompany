@@ -279,6 +279,10 @@ header.header_nav .user-menu .modal button#logoutButton {
     width: 270px; /*  보유 포인트 */
 }
 
+/* 테이블 내용 호버 효과 */
+.member-list tbody tr:hover {
+    background-color: #f5f5f5;
+}
 
 /* 포인트 수정 영역의 입력폼과 버튼 배치 */
 .point-buttons {

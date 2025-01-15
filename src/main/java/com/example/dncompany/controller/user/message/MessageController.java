@@ -1,9 +1,13 @@
 package com.example.dncompany.controller.user.message;
 
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.user.UserLoginDTO;
 import com.example.dncompany.dto.user.UserSessionDTO;
 import com.example.dncompany.dto.user.message.MessagePageDTO;
 import com.example.dncompany.dto.user.message.MessageSendDTO;
+import com.example.dncompany.dto.user.mypage.MypageZipAnswerListDTO;
+import com.example.dncompany.dto.user.mypage.MypageZipBoardListDTO;
 import com.example.dncompany.exception.user.message.MessageSendException;
 import com.example.dncompany.service.user.UserService;
 import com.example.dncompany.service.user.message.MessageSendService;
@@ -27,13 +31,17 @@ public class MessageController {
 
     private final MessageService messageService;
     private final MessageSendService messageSendService;
-    private final UserService userService;
 
     @GetMapping("/message")
-    public String message(@SessionAttribute(value = "usersId", required = false) Long usersId){
+    public String message(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                          Long userTo,
+                          Long userFrom,
+                          PageRequestDTO pageRequestDTO,
+                          Model model){
         if(usersId == null) {
             return "redirect:/user/login";
         }
+
         return "user/message";
     }
 

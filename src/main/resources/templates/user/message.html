@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <link rel="stylesheet" th:href="@{/css/user/message.css}" />
-    <script defer type="module"  th:src="@{/js/user/message/message.js}"></script>
+    <script defer type="module" th:src="@{/js/user/message/message.js}"></script>
     <title>Document</title>
 
 </head>
@@ -45,14 +45,13 @@
                                         <p class="info__title">삭제</p>
                                     </div>
                                     <!-- 반복 요소 -->
-                                <div id="messageFromList" class="message__info__title__user">
+                                <div id="messageToListContainer">
                                     <!-- 이곳에 비동기적으로 메시지가 추가됩니다 -->
 
                                 </div>
-                                <div id="paginationFrom" class="pagination">
-                                    <!-- 보낸 메시지 페이지네이션 버튼은 message.js에서 동적으로 생성됩니다 -->
+                                <div id="paginationTo" class="pagination">
+                                    <!-- 보낸 메시지 페이지네이션 버튼은 비동기로 생성됩니다 -->
                                 </div>
-
 
                             </div>
                         </div>
@@ -70,13 +69,14 @@
                                     <p class="info__title" >삭제</p>
                                 </div>
                                 <!-- 받은 메시지 목록 (messageToDTOList) -->
-                                <div id="messageToList" class="message__info__title__user">
+                                <div id="messageFromListContainer">
                                     <!-- 이곳에 비동기적으로 메시지가 추가됩니다 -->
 
                                 </div>
-                                <div id="paginationTo" class="pagination">
-                                    <!-- 받은 메시지 페이지네이션 버튼은 message.js에서 동적으로 생성됩니다 -->
+                                <div id="paginationFrom" class="pagination">
+                                    <!-- 보낸 메시지 페이지네이션 버튼은 비동기로 생성됩니다 -->
                                 </div>
+
                             </div>
                             </div>
                         </div>

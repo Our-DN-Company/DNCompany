@@ -18,7 +18,7 @@ public interface AdminUserMapper {
 
 
 
-
+//    @TODO 안쓰는 코드 삭제 예정
     // 신고 상태 업데이트
     int updateReportStatus(@Param("reportId") Long reportId, @Param("status") String status);
 
@@ -26,7 +26,8 @@ public interface AdminUserMapper {
     int updateUserPoints(@Param("userId") Long userId, @Param("points") Integer points);
 
     // 활동 정지 상태 업데이트
-    int updateUserBanStatus(@Param("userId") Long userId, @Param("banDays") Integer banDays);
+    int updateUserBanStatus(@Param("userId") Long userId, @Param("banDays") Long banDays);
+    int updateReportStatus(@Param("reportId") Long reportId);
 
     int getCurrentUserPoints(@Param("userId") Long userId);
 }

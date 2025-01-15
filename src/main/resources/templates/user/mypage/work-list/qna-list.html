@@ -37,10 +37,10 @@
 
                 <!-- QnA 컨텐츠 -->
 
-                <tr th:each="qna:${pageDTO.list}" th:object="${qna}">
+                <tr class="qna-list" th:each="qna:${pageDTO.list}" th:object="${qna}">
 
                     <td th:text="*{rnum}">순번</td>
-                    <td><a th:text="*{qnaTitle}"></a></td>
+                    <td><a th:href="@{/qna/detail(qnaId=*{qnaId})}" th:text="*{qnaTitle}"></a></td>
                     <td th:text="*{qnaCreateAt}" >샘플 작성날짜</td>
                     <td th:text="*{qnaAnswerCount}">샘플 답변</td>
                 </tr>

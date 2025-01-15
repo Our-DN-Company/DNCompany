@@ -1,6 +1,7 @@
 package com.example.dncompany.service.admin;
 
 import com.example.dncompany.dto.admin.board.AdminAnswerDTO;
+import com.example.dncompany.dto.admin.board.AdminBoardDeleteDTO;
 import com.example.dncompany.dto.admin.board.AdminEventWriteDTO;
 import com.example.dncompany.dto.admin.board.BoardSearchDTO;
 import com.example.dncompany.dto.admin.board.file.AdminFIleDTO;
@@ -47,24 +48,24 @@ public class AdminBoardService {
 
     // @TODO 카테고리별 게시물 조회 (쿼리 완성시 case 하나씩 추가 예정)
     // 옛날 코드 곧 제거 예정
-    public List<?> getBoardByCategory(String category) {
-        // 카테고리에 따라 적절한 매퍼 메소드 호출
-        switch (category.toLowerCase()) {
-            case "qna":
-                return adminBoardMapper.selectQnABoard();
-            case "신고":
-                return adminBoardMapper.selectReportBoard();
-            case "도와주세요":
-                return adminBoardMapper.selectHelpBoard();
-            case "이벤트":
-                return adminBoardMapper.selectEventBoard();
-            case "all":
-                // 전체 목록 조회 로직 (구현 필요)
-                return adminBoardMapper.selectAllBoard();
-            default:
-                return adminBoardMapper.selectReportBoard();
-        }
-    }
+//    public List<?> getBoardByCategory(String category) {
+//        // 카테고리에 따라 적절한 매퍼 메소드 호출
+//        switch (category.toLowerCase()) {
+//            case "qna":
+//                return adminBoardMapper.selectQnABoard();
+//            case "신고":
+//                return adminBoardMapper.selectReportBoard();
+//            case "도와주세요":
+//                return adminBoardMapper.selectHelpBoard();
+//            case "이벤트":
+//                return adminBoardMapper.selectEventBoard();
+//            case "all":
+//                // 전체 목록 조회 로직 (구현 필요)
+//                return adminBoardMapper.selectAllBoard();
+//            default:
+//                return adminBoardMapper.selectReportBoard();
+//        }
+//    }
 
     // 검색 조건에 따른 게시물 조회
     public List<?> getBoardBySearchCondition(BoardSearchDTO searchDTO) {
@@ -254,5 +255,53 @@ public class AdminBoardService {
     }
 
 
+//    삭제용 서비스 메퍼 조립중
+//    삭제 게시물 추가 시 AdminBoardDeleteDTO DTO에 List값 추가
+//    그리고 if 문으로 같은 방식으로 작성
+//    html 코드 값 확인해야함
 
+    @Transactional
+    public Map<String, Integer> deleteBoards(AdminBoardDeleteDTO adminBoardDeleteDTO) {
+        Map<String, Integer> results = new HashMap<>();
+
+        if (adminBoardDeleteDTO.getZipIds() != null && !adminBoardDeleteDTO.getZipIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("zipIds", adminBoardDeleteDTO.getZipIds());
+            results.put("zip", adminBoardMapper.deleteZipBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getQnaIds() != null && !adminBoardDeleteDTO.getQnaIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("qnaIds", adminBoardDeleteDTO.getQnaIds());
+            results.put("qna", adminBoardMapper.deleteQnaBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getHelpIds() != null && !adminBoardDeleteDTO.getHelpIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("helpIds", adminBoardDeleteDTO.getHelpIds());
+            results.put("help", adminBoardMapper.deleteHelpBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getDnIds() != null && !adminBoardDeleteDTO.getDnIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("dnIds", adminBoardDeleteDTO.getDnIds());
+            results.put("dn", adminBoardMapper.deleteDnBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getEventIds() != null && !adminBoardDeleteDTO.getEventIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("eventIds", adminBoardDeleteDTO.getEventIds());
+            results.put("event", adminBoardMapper.deleteEventBoards(params));
+        }
+
+        if (adminBoardDeleteDTO.getReportIds() != null && !adminBoardDeleteDTO.getReportIds().isEmpty()) {
+            Map<String, List<Long>> params = new HashMap<>();
+            params.put("reportIds", adminBoardDeleteDTO.getReportIds());
+            results.put("report", adminBoardMapper.deleteReports(params));
+        }
+
+        return results;
+    }
 }
+
+

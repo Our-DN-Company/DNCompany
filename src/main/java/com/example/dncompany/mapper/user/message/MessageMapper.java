@@ -10,14 +10,16 @@ import java.util.List;
 @Mapper
 public interface MessageMapper {
 
-        List<MessagePageDTO> selectFromMessage(Long usersId);
-        List<MessagePageDTO> selectToMessage(Long usersId);
+        List<MessagePageDTO> selectToMessage(Long userTo);
+        List<MessagePageDTO>  selectFromMessage(Long userFrom);
 
         List<MessagePageDTO> selectToMessagePage(@Param("page") PageRequestDTO pageRequestDTO, @Param("userTo") Long userTo);
         List<MessagePageDTO> selectFromMessagePage(@Param("page") PageRequestDTO pageRequestDTO, @Param("userFrom") Long userFrom);
 
         int countByTotalFrom(@Param("userFrom") Long userFrom);
         int countByTotalTo(@Param("userTo") Long userTo);
+
+        void deletemessageList(Long messageId);
 
 
 }

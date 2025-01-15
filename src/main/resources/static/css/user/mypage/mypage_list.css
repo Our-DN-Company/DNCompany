@@ -51,3 +51,16 @@ td {
   opacity: 0.5;
   margin: 10px 0;
 }
+
+section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+ div{
+   span,a{
+     cursor: pointer;
+     padding: 10px;
+   }
+ }
+}

@@ -18,13 +18,13 @@ import java.util.List;
 public class MessageService {
     private final MessageMapper messageMapper;
 
-    public List<MessagePageDTO> addMessageBoardFrom(Long usesId) {
+    public List<MessagePageDTO> addMessageBoardFrom(Long userFrom) {
 
-        return messageMapper.selectFromMessage(usesId);
+        return messageMapper.selectFromMessage(userFrom);
     }
-    public List<MessagePageDTO> addMessageBoardTo(Long usesId) {
+    public List<MessagePageDTO> addMessageBoardTo(Long userTo) {
 
-        return messageMapper.selectToMessage(usesId);
+        return messageMapper.selectToMessage(userTo);
     }
 
     public PageDTO<MessagePageDTO> messageWithToPage(PageRequestDTO pageRequestDTO, Long userTo) {
@@ -40,11 +40,14 @@ public class MessageService {
     }
     public PageDTO<MessagePageDTO> messageWithFromPage(PageRequestDTO pageRequestDTO,Long userFrom) {
         List<MessagePageDTO> messageListFrom = messageMapper.selectFromMessagePage(pageRequestDTO, userFrom);
-        int total = messageMapper.countByTotalTo(userFrom);
+        int total = messageMapper.countByTotalFrom(userFrom);
 
         return new PageDTO<>(pageRequestDTO.getPage(),
                 pageRequestDTO.getSize(),
                 total,
                 messageListFrom);
+    }
+    public void removeBymessageId(Long messageId) {
+        messageMapper.deletemessageList(messageId);
     }
 }

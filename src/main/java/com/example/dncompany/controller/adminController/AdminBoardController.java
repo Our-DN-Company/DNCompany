@@ -1,6 +1,7 @@
 package com.example.dncompany.controller.adminController;
 
 import com.example.dncompany.dto.admin.board.AdminAnswerDTO;
+import com.example.dncompany.dto.admin.board.AdminBoardDeleteDTO;
 import com.example.dncompany.dto.admin.board.BoardSearchDTO;
 import com.example.dncompany.service.admin.AdminBoardService;
 import jakarta.servlet.http.HttpSession;
@@ -34,7 +35,7 @@ public class AdminBoardController {
 //        model.addAttribute("boardType", boards);
 //        return "admin/admin_board/admin_board :: #postListBody";
 //    }
-
+    // @ TODO 위에 코드 곧 삭제 예정
     // 게시판 데이터 검색 및 조회
     // 위에 코드 기반으로 개조 테스트 후 문제 없으면 위에 코드 삭제 예정
     @PostMapping("/list/reportBoard")
@@ -130,6 +131,13 @@ public class AdminBoardController {
             log.error("QnA 상세 조회 실패: ", e);
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Map<String, Integer>> deleteBoards(@RequestBody AdminBoardDeleteDTO adminBoardDeleteDTO) {
+        Map<String, Integer> results = adminBoardService.deleteBoards(adminBoardDeleteDTO);
+        return ResponseEntity.ok(results);
     }
 
 

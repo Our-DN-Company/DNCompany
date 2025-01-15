@@ -63,13 +63,15 @@
 
     <!--도와드려요-->
     <select id="MyPageMainHelpYouListById" resultType="HelpYouListDTO" parameterType="long">
-        SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+        SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE, HELP_ID, USERS_ID,LOGIN_ID
         FROM(
-                SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
-                FROM HELP_OFFER
-                WHERE USERS_ID = #{usersId}
-                ORDER BY HELP_OFFER_ENROLL_DATE
-            )
+                SELECT ROWNUM AS RNUM,HB.USERS_ID,HB.HELP_ID,HELP_OFFER_ID ,HB.HELP_TITLE,HO.HELP_OFFER_STATUS,U.LOGIN_ID
+                FROM HELP_OFFER HO JOIN HELP_BOARD HB ON HO.HELP_ID = HB.HELP_ID
+                                   JOIN USERS U ON HO.USERS_ID = U.USERS_ID
+                WHERE HB.USERS_ID=#{usersId}
+                ORDER BY RNUM)
+
+
         <![CDATA[
         WHERE RNUM <=3
         ]]>
@@ -141,13 +143,7 @@
                  JOIN HELP_OFFER HO ON R.HELP_OFFER_ID = HO.HELP_OFFER_ID
         WHERE HO.USERS_ID = #{usersId}
     </select>
-    <!--보낸리뷰-->
 
-    <select id="ReviewReceivedListById" parameterType="long" resultType="MypageReviewListDTO">
-        SELECT ROWNUM AS RNUM, R.REVIEW_ID, R.REVIEW_TITLE, R.REVIEW_CREATED_AT, R.USERS_ID
-        FROM REVIEW R
-        WHERE R.USERS_ID = #{usersId}
-    </select>
 
     <!--댕냥바다-->
             <!--판매내역-->
@@ -265,13 +261,13 @@
 
     <!--도와드려요-->
     <select id="helpYouListPage" resultType="HelpYouListDTO">
-      SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
-FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+      SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE,LOGIN_ID, HELP_ID, USERS_ID
+FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE,LOGIN_ID, HELP_ID, USERS_ID
           FROM(
-        SELECT HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
-        FROM HELP_OFFER
-        WHERE USERS_ID = #{usersId}
-        ORDER BY HELP_OFFER_ENROLL_DATE)
+                  SELECT HB.USERS_ID,HB.HELP_ID,HELP_OFFER_ID ,HB.HELP_TITLE,HO.HELP_OFFER_STATUS,U.LOGIN_ID
+                  FROM HELP_OFFER HO JOIN HELP_BOARD HB ON HO.HELP_ID = HB.HELP_ID
+                                     JOIN USERS U ON HO.USERS_ID = U.USERS_ID
+                  WHERE HB.USERS_ID=#{usersId})
        <![CDATA[
       WHERE ROWNUM <= #{page.page} * #{page.size}
         ]]>
@@ -288,7 +284,7 @@ FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_
 
     <!--초보zip-->
     <!--게시물-->
-    <select id="zipBoardListPage" parameterType="MypageZipBoardListDTO">
+    <select id="zipBoardListPage" resultType="MypageZipBoardListDTO">
       SELECT RNUM, ZIP_ID, ZIP_TITLE, ZIP_CREATED_AT, USERS_ID
           FROM(
            SELECT ROWNUM AS RNUM, ZIP_ID, ZIP_TITLE, ZIP_CREATED_AT, USERS_ID
@@ -302,13 +298,13 @@ FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_
        WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countZipBoardList" resultType="long" parameterType="_int">
+    <select id="countZipBoardList" resultType="_int" parameterType="long" >
         SELECT COUNT(*)
         FROM ZIP_BOARD
         WHERE USERS_ID=#{usersId}
     </select>
     <!--댓글-->
-    <select id="zipAnswerList" parameterType="MypageZipAnswerListDTO">
+    <select id="zipAnswerListPage" resultType="MypageZipAnswerListDTO">
        SELECT RNUM,
               ZIP_ANSWER_ID,
               ZIP_TITLE,
@@ -340,7 +336,7 @@ FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_
        WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countZipAnswerList" resultType="long" parameterType="_int">
+    <select id="countZipAnswerList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM ZIP_ANSWER
         WHERE USERS_ID=#{usersId}
@@ -348,7 +344,7 @@ FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_
 
     <!-- 리뷰 -->
     <!--받은리뷰-->
-    <select id="reivewListPage"  resultType="MypageReviewListDTO">
+    <select id="reviewListPage"  resultType="MypageReviewListDTO">
 SELECT RNUM, REVIEW_ID, REVIEW_TITLE, REVIEW_CREATED_AT, USERS_ID
 FROM(SELECT  ROWNUM AS RNUM, REVIEW_ID, REVIEW_TITLE, REVIEW_CREATED_AT, USERS_ID
 FROM ( SELECT  R.REVIEW_ID, R.REVIEW_TITLE, R.REVIEW_CREATED_AT, HO.USERS_ID
@@ -362,33 +358,13 @@ WHERE ROWNUM <= #{page.page} * #{page.size}
 WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countReivewList" resultType="long" parameterType="_int">
-        SELECT COUNT(*)
-        FROM REVIEW
-        WHERE USERS_ID=#{usersId}
-    </select>
-    <!--보낸리뷰-->
-
-    <select id="reviewReceivedListPage"  resultType="MypageReviewListDTO">
-        SELECT RNUM, REVIEW_ID, REVIEW_TITLE, REVIEW_CREATED_AT, USERS_ID
-        FROM (SELECT ROWNUM AS RNUM, REVIEW_ID, REVIEW_TITLE, REVIEW_CREATED_AT, USERS_ID
-              FROM (SELECT R.REVIEW_ID, R.REVIEW_TITLE, R.REVIEW_CREATED_AT, R.USERS_ID
-                    FROM REVIEW R
-                    WHERE R.USERS_ID = #{usersId})
-        <![CDATA[
-              WHERE ROWNUM <= #{page.page} * #{page.size}
-        ]]>
-        )
-        WHERE RNUM > (#{page.page} - 1) * #{page.size}
-    </select>
-
-    <select id="countReivewReceivedList" resultType="long" parameterType="_int">
+    <select id="countReviewList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM REVIEW
         WHERE USERS_ID=#{usersId}
     </select>
 
-    <!--댕냥바다-->
+       <!--댕냥바다-->
     <!--판매내역-->
     <select id="mypageDnBoardListPage"  resultType="MypageDnBoardListDTO">
         SELECT RNUM, DN_ID, DN_PRDUCT_CATEGORY, DN_TITLE, USERS_ID
@@ -403,7 +379,7 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
         WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countMypageDnBoardList" resultType="long" parameterType="_int">
+    <select id="countMypageDnBoardList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM DN_BOARD
         WHERE USERS_ID=#{usersId}
@@ -425,7 +401,7 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
          WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countMypageDnSellList" resultType="long" parameterType="_int">
+    <select id="countMypageDnSellList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM DN_SELL
         WHERE USERS_ID=#{usersId}

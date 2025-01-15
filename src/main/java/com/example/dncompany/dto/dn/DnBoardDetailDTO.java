@@ -19,6 +19,7 @@ public class DnBoardDetailDTO {
     private Long productId;
     private Long usersId;
     private String loginId;
+    private int likeCount;
 
     private Long productImgId;
     private String productOriginalFilename;
