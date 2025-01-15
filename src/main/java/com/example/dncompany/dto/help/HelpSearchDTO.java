@@ -13,4 +13,5 @@ public class HelpSearchDTO {
     private LocalDate careDate;
     private String careType;
     private String keyword;
+
 }
