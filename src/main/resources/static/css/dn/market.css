@@ -275,6 +275,11 @@
   overflow: hidden;
 }
 
+.productCard_cardImgContainer img {
+  width: 215px;
+}
+
+
 /* 물품 정보 */
 .productCard_productInfo {
   display: flex;
