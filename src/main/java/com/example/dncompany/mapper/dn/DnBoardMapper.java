@@ -35,6 +35,12 @@ public interface DnBoardMapper {
     // 게시글 전체 조회하면서 페이징 처리
     List<DnBoardListDTO> selectAllDnBoardListWithPage(@Param("page") PageRequestDTO pageRequestDTO);
 
+    // 게시글 전체 조회하며 페이징 및 검색 조건 추가
+    List<DnBoardListDTO> selectAllDnBoardListCondWithPage(@Param("page") PageRequestDTO pageRequestDTO,
+                                                          @Param("cond") DnSearchDTO dnSearchDTO);
+
+    int countBySearchCondition (@Param("cond") DnSearchDTO dnSearchDTO);
+
     // 게시글 전체 페이지 수 조회
     int selectAllDnBoardListCondition();
 }

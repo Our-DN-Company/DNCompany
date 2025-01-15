@@ -54,7 +54,7 @@
                                     제작되었습니다.
                                 </div>
                                 <!-- 관심 상품 버튼 -->
-                                <button class="favorite_button">💖 관심 상품</button>
+                                <button class="favorite_button" th:text="'💖 관심 상품' + *{likeCount}">💖 관심 상품</button>
                                 <!-- 포인트 사용 텍스트 박스 -->
                                 <input type="text" class="point_input" placeholder="사용할 포인트 입력"/>
                                 <!-- 판매자와 대화 버튼 -->
