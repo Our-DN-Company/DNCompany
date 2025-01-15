@@ -17,17 +17,22 @@ public class MessagelistApi {
 
     @GetMapping("/v1/message/listTos")
     public PageDTO<MessagePageDTO> getmessageToPage(PageRequestDTO pageRequestDTO,
-                                                    @RequestParam(required = false) Long userTo) {
+                                                    @SessionAttribute(value = "usersId") Long userTo) {
         PageDTO<MessagePageDTO> messagePageDTOTo = messageService.messageWithToPage(pageRequestDTO, userTo);
         return messagePageDTOTo;
 
     }
     @GetMapping("/v1/message/listFroms")
     public PageDTO<MessagePageDTO> getmessageFromPage(PageRequestDTO pageRequestDTO,
-                                                      @RequestParam(required = false) Long userFrom) {
+                                                      @SessionAttribute(value = "usersId") Long userFrom) {
         PageDTO<MessagePageDTO> messagePageDTOFrom = messageService.messageWithFromPage(pageRequestDTO, userFrom);
         return messagePageDTOFrom;
 
+    }
+
+    @DeleteMapping("/v1/message/{messageId}")
+    public void deleteFreeComment(@PathVariable("messageId") Long messageId) {
+        messageService.removeBymessageId(messageId);
     }
 }
 

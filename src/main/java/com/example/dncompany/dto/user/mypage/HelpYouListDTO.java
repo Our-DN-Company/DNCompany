@@ -13,6 +13,7 @@ public class HelpYouListDTO {
     private int rnum;
     private Long helpOfferId;
     private String helpOfferStatus;
-    private LocalDate helpOfferEnrollDate;
+    private String helpTitle;
+    private String loginId;
     private Long helpId;
     private Long usersId;}

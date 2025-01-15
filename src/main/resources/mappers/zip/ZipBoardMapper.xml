@@ -12,7 +12,7 @@
 
     <!--  게시글 전체 정보  -->
     <select id="selectAllZipBoards" resultType="ZipBoardListDTO">
-        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT, ZB.ZIP_VIEWCOUNT,
                U.USERS_ID, U.NICKNAME,
                (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
                (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
@@ -30,7 +30,7 @@
 
     <!--  게시글 상세 정보  -->
     <select id="selectById" parameterType="long" resultType="ZipBoardDetailDTO">
-        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT, ZB.ZIP_VIEWCOUNT,
                U.USERS_ID, U.NICKNAME,
                (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
                (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
@@ -41,7 +41,7 @@
 
     <!--  게시글 목록 조회  -->
     <select id="selectAllBoard" resultType="ZipBoardListDTO">
-        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT, ZB.ZIP_VIEWCOUNT,
                U.USERS_ID, U.NICKNAME,
                (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
                (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
@@ -66,13 +66,13 @@
 
     <!--  페이지  -->
     <select id="selectBySearchCondWithPage" resultType="ZipBoardListDTO">
-        SELECT RNUM, ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT, USERS_ID, NICKNAME,
+        SELECT RNUM, ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT, USERS_ID, NICKNAME, ZIP_VIEWCOUNT,
         ANSWER_COUNT, LIKE_COUNT
         FROM (
-        SELECT ROWNUM AS RNUM, ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT,
+        SELECT ROWNUM AS RNUM, ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT, ZIP_VIEWCOUNT,
         USERS_ID, NICKNAME, ANSWER_COUNT, LIKE_COUNT
         FROM (
-        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT, ZB.ZIP_VIEWCOUNT,
         U.USERS_ID, U.NICKNAME,
         (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
         (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
@@ -103,8 +103,8 @@
             <when test="cond.order == 'Order_of_popularity'">
                 LIKE_COUNT DESC
             </when>
-            <when test="cond.order == 'Date_order'">
-                ANSWER_COUNT DESC
+            <when test="cond.order == 'views_order'">
+                ZIP_VIEWCOUNT DESC
             </when>
             <otherwise>
                 ZIP_UPDATE_AT DESC

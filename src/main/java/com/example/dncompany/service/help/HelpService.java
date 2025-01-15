@@ -9,6 +9,7 @@ import com.example.dncompany.exception.help.HelpNotFoundException;
 import com.example.dncompany.mapper.help.HelpMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -55,6 +56,7 @@ public class HelpService {
         return helpMapper.selectHelpDetail(helpId)
                 .orElseThrow(() -> new HelpNotFoundException("게시글을 찾을 수 없습니다."));
     }
+
     // 검색
     public List<HelpListDTO> searchHelpList(HelpSearchDTO searchDTO) {
         log.info("검색 서비스 호출 - 검색조건: {}", searchDTO);
@@ -64,22 +66,27 @@ public class HelpService {
     }
 
     // 등록 가능 여부
-    public boolean checkHelpOfferExists(Long helpId){
-        return helpMapper.checkHelpOfferExists(helpId)>0;
+    public boolean checkHelpOfferExists(Long helpId) {
+        return helpMapper.checkHelpOfferExists(helpId) > 0;
     }
 
-        // 페이징 처리된 목록 조회
+
+    // 페이징 처리된 목록 조회
     public PageDTO<HelpListDTO> getHelpListWithPaging(int page, int size) {
+        log.info("페이징 처리 시작 - page: {}, size: {}", page, size);
 
     // 전체 게시글 수 조회
     int total = helpMapper.getTotalCount();
+        log.info("전체 게시글 수: {}", total);
 
     // 페이징 처리된 목록 조회
     List<HelpListDTO> list = helpMapper.selectHelpListWithPaging(page, size);
+        log.info("조회된 게시글 수: {}", list.size());
 
     // PageDTO 생성하여 반환
     return new PageDTO<>(page, size, total, list);
-}
+    }
+
 
 
 }

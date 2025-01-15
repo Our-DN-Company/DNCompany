@@ -153,12 +153,14 @@
                                     </div>
                                     <div class="qaList_qaListAbout">
 
-                                        <div class="qaList_nickname" th:text="${board.nickname}">삼색이짱짱</div>
+                                        <div class="qaList_nickname" th:text="${board.nickname}"></div>
 
                                         <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 :
                                             0
                                         </div>
-                                        <div th:text="${board.zipUpdatedAt}">1시간 전</div>
+                                        <div th:text="${board.zipUpdatedAt}"></div>
+                                        <div th:text="'조회 수 : ' + ${board.zipViewCount}"></div>
+                                        <div th:text="'추천 수 : ' + ${board.answerCount}"></div>
                                     </div>
                                     <div class="qaList_labelWrapper">
                                         <div class="qaList_desktopLabelContainer"></div>

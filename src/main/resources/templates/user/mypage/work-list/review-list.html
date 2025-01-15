@@ -37,7 +37,7 @@
                     <th>작성일</th>
                 </tr>
                 <!-- 쪽지 컨텐츠 -->
-                <tr th:each="mypageReviewList:${pageDTO.list}" th:object="${mypageReviewList}">
+                <tr class="review-list" th:each="mypageReviewList:${pageDTO.list}" th:object="${mypageReviewList}">
                     <td th:text="*{rnum}">샘플 작성날짜</td>
                     <td th:text="*{reviewTitle}">샘플 읽음여부</td>
                     <td th:text="*{reviewCreatedAt}"></td>
@@ -47,19 +47,19 @@
 
             <section class="pagination-section">
                 <div class="pagination">
-                    <a th:if="${pageDTO.hasPreviousGroup()}"
+                    <span th:if="${pageDTO.hasPreviousGroup()}"
                        th:href="@{/mypage/list/zip(page=${pageDTO.startPage - 1})}"
-                       class="page-btn prev" aria-label="Go to previous group">‹</a>
+                       class="page-btn prev" aria-label="Go to previous group">‹</span>
 
-                    <a class="page-btn"
+                    <span class="page-btn"
                        th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
                        th:href="@{/mypage/list/review(page=${i})}"
                        th:classappend="${i == pageDTO.page ? ' active' : ''}"
-                       th:text="${i}"></a>
+                       th:text="${i}"></span>
 
-                    <a th:if="${pageDTO.hasNextGroup()}"
+                    <span th:if="${pageDTO.hasNextGroup()}"
                        th:href="@{/mypage/list/review(page=${pageDTO.endPage + 1})}"
-                       class="page-btn next" aria-label="Go to next group">›</a>
+                       class="page-btn next" aria-label="Go to next group">›</span>
                 </div>
             </section>
 

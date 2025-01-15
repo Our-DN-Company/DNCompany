@@ -43,11 +43,11 @@
   display: flex;
   align-items: center;
   margin-right: 40px;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
 }
 
 .write_Btn_item {
-  display: flex;
+  position: absolute;
   border: 0.5px none rgb(95, 0, 128);
   color: black;
   padding: 0 12px;
@@ -202,7 +202,6 @@
 .community_filterBtnWrapper {
   max-width: 808px;
   margin-top: 20px;
-  display: flex;
   justify-content: space-between;
 }
 

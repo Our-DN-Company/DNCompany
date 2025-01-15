@@ -79,5 +79,9 @@
         FROM MESSAGE M
         WHERE M.USER_TO = #{userTo}
     </select>
+    <delete id="deletemessageList" parameterType="long">
+        DELETE FROM MESSAGE
+        WHERE MESSAGE_ID = ${messageId}
+    </delete>
 
 </mapper>

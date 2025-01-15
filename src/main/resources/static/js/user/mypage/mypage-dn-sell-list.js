@@ -1,46 +1,48 @@
 import * as mypageApi from '../modules/mypageApi.js'
 
 {
-    mypageApi.getMypageZipList(1, function (data) {
+    mypageApi.getMypageDnSellList(1, function (data) {
         console.log(data);
-        displayZipList(data.list);
-        makeZipPageGroup(data);
-    });
+        displayDnSellList(data.list);
+        makeDnSellPageGroup(data);   });
 
-    const $pageGroupContainer = document.querySelector('.zip-list-pagination');
+    const $pageGroupContainer = document.querySelector('.dn-sell-list-pagination');
 
     $pageGroupContainer.addEventListener('click', function (e) {
         if (e.target.tagName === 'SPAN'){
             const page = e.target.dataset.page;
 
-            mypageApi.getMypageZipList(page, function (data) {
-                displayZipList(data.list);
-                makeZipPageGroup(data);
+            mypageApi.getMypageDnSellList(page, function (data) {
+                displayDnSelldList(data.list);
+                makeDnSellPageGroup(data);
             });
         }
 
     });
+
 }
 
-function displayZipList(zipList) {
-    console.log('displayZipList', zipList);
+
+function displayDnSellList(dnSellList) {
+    console.log('displayDnSellList', dnSellList);
 
     let html = '';
 
-    zipList.forEach(zip => {
+    dnBoardList.forEach(zip => {
         html += `
-             <tr onclick="location.href='/zip/detail?zipId=${zip.zipId}'">
-                <td>${zip.rnum}</td>
-                <td>${zip.zipTitle}</td>
-                <td>${zip.zipCreatedAt}</td>
-            </tr>
+             <tr>
+                    <td>${dnSellList.rnum}</td>
+                    <td>${dnSellList.productName}</td>
+                    <td>${dnSellList.productPrice}</td>
+
+                </tr>
         `;
     });
 
-    document.querySelector('.zip-list-tbody').innerHTML = html;
+    document.querySelector('.dn-sell-list-tbody').innerHTML = html;
 }
 
-function makeZipPageGroup(pageDTO) {
+function makeDnBoardPageGroup(pageDTO) {
 
     let html = ``;
 
@@ -64,19 +66,8 @@ function makeZipPageGroup(pageDTO) {
     }
 
 
-    document.querySelector('.zip-list-pagination').innerHTML = html;
+    document.querySelector('.dn-sell-list-pagination').innerHTML = html;
 }
-
-{
-
-}
-
-
-
-
-
-
-
 
 
 
