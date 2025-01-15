@@ -13,6 +13,7 @@
 
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <script defer th:src="@{/js/common.js}"></script>
+    <script defer type="module" th:src="@{/js/user/mypage/mypage-zip-list.js}"></script>
 
     <title>Document</title>
 </head>
@@ -40,32 +41,34 @@
                     <th>순번</th>
                     <th>원글 제목</th>
                     <th>작성날짜</th>
-
                 </tr>
+                <tbody class="zip-list-tbody">
+
+                </tbody>
 
                 <!-- 댓글 컨텐츠 -->
-                <tr th:each="MypageZipList :${zipBoardPageDTO.list} " th:object="${MypageZipList}">
-                    <td th:text="*{rnum}">샘플 순번</td>
-                    <td th:text="*{zipTitle}">샘플 작성날짜</td>
-                    <td th:text="*{zipCreatedAt}">샘플 제목</td>
-                </tr>
+<!--                <tr th:each="MypageZipList :${zipBoardPageDTO.list} " th:object="${MypageZipList}">-->
+<!--                    <td th:text="*{rnum}">샘플 순번</td>-->
+<!--                    <td th:text="*{zipTitle}">샘플 작성날짜</td>-->
+<!--                    <td th:text="*{zipCreatedAt}">샘플 제목</td>-->
+<!--                </tr>-->
             </table>
 
             <section class="pagination-section">
-                <div class="pagination">
-                    <a th:if="${zipBoardPageDTO.hasPreviousGroup()}"
-                       th:href="@{/mypage/list/zip(page=${zipBoardPageDTO.startPage - 1})}"
-                       class="page-btn prev" aria-label="Go to previous group">‹</a>
+                <div class="pagination zip-list-pagination">
+<!--                    <a th:if="${zipBoardPageDTO.hasPreviousGroup()}"-->
+<!--                       th:href="@{/mypage/list/zip(page=${zipBoardPageDTO.startPage - 1})}"-->
+<!--                       class="page-btn prev" aria-label="Go to previous group">‹</a>-->
 
-                    <a class="page-btn"
-                       th:each="i : ${#numbers.sequence(zipBoardPageDTO.startPage, zipBoardPageDTO.endPage)}"
-                       th:href="@{/mypage/list/zip(page=${i})}"
-                       th:classappend="${i == zipBoardPageDTO.page ? ' active' : ''}"
-                       th:text="${i}"></a>
+<!--                    <a class="page-btn"-->
+<!--                       th:each="i : ${#numbers.sequence(zipBoardPageDTO.startPage, zipBoardPageDTO.endPage)}"-->
+<!--                       th:href="@{/mypage/list/zip(page=${i})}"-->
+<!--                       th:classappend="${i == zipBoardPageDTO.page ? ' active' : ''}"-->
+<!--                       th:text="${i}"></a>-->
 
-                    <a th:if="${zipBoardPageDTO.hasNextGroup()}"
-                       th:href="@{/mypage/list/zip(page=${zipBoardPageDTO.endPage + 1})}"
-                       class="page-btn next" aria-label="Go to next group">›</a>
+<!--                    <a th:if="${zipBoardPageDTO.hasNextGroup()}"-->
+<!--                       th:href="@{/mypage/list/zip(page=${zipBoardPageDTO.endPage + 1})}"-->
+<!--                       class="page-btn next" aria-label="Go to next group">›</a>-->
                 </div>
             </section>
 
@@ -90,19 +93,19 @@
 
             <section class="pagination-section">
                 <div class="pagination">
-                    <a th:if="${pageDTO.hasPreviousGroup()}"
-                       th:href="@{/mypage/list/zip(page=${pageDTO.startPage - 1})}"
-                       class="page-btn prev" aria-label="Go to previous group">‹</a>
+<!--                    <a th:if="${pageDTO.hasPreviousGroup()}"-->
+<!--                       th:href="@{/mypage/list/zip(page=${pageDTO.startPage - 1})}"-->
+<!--                       class="page-btn prev" aria-label="Go to previous group">‹</a>-->
 
-                    <a class="page-btn"
-                       th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
-                       th:href="@{/mypage/list/zip(page=${i})}"
-                       th:classappend="${i == pageDTO.page ? ' active' : ''}"
-                       th:text="${i}"></a>
+<!--                    <a class="page-btn"-->
+<!--                       th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"-->
+<!--                       th:href="@{/mypage/list/zip(page=${i})}"-->
+<!--                       th:classappend="${i == pageDTO.page ? ' active' : ''}"-->
+<!--                       th:text="${i}"></a>-->
 
-                    <a th:if="${pageDTO.hasNextGroup()}"
-                       th:href="@{/mypage/list/zip(page=${pageDTO.endPage + 1})}"
-                       class="page-btn next" aria-label="Go to next group">›</a>
+<!--                    <a th:if="${pageDTO.hasNextGroup()}"-->
+<!--                       th:href="@{/mypage/list/zip(page=${pageDTO.endPage + 1})}"-->
+<!--                       class="page-btn next" aria-label="Go to next group">›</a>-->
                 </div>
             </section>
 
