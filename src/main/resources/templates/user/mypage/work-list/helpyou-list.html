@@ -35,7 +35,7 @@
                     <td>산청자</td>
                     <td>상태</td>
                 </tr>
-                <tr class="help-you-list" th:each="helpYou : ${pageDTO.list}" th:object="${helpYou}">
+                <tr class="help-you-list" th:each="helpYou : ${pageDTO.list}" th:object="${helpYou}" th:data-help-id="${helpYou.helpId}">
                     <td th:text="*{rnum}">순번</td>
                     <td th:text="*{helpTitle}">신청날짜</td>
                     <td th:text="*{loginId}">신청날짜</td>

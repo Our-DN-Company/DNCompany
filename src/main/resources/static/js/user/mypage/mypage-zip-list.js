@@ -29,7 +29,7 @@ function displayZipList(zipList) {
 
     zipList.forEach(zip => {
         html += `
-             <tr>
+             <tr onclick="location.href='/zip/detail?zipId=${zip.zipId}'">
                 <td>${zip.rnum}</td>
                 <td>${zip.zipTitle}</td>
                 <td>${zip.zipCreatedAt}</td>
@@ -68,7 +68,6 @@ function makeZipPageGroup(pageDTO) {
 }
 
 {
-
 
 }
 
