@@ -150,11 +150,10 @@ public class MypageController {
     public String mypageListEvent(@SessionAttribute(value = "usersId", required = false) Long usersId,
                                   PageRequestDTO pageRequestDTO,
                                   Model model) {
-        PageDTO<MypageReviewListDTO> reviewpageDTO= mypageService.reviewListPage(usersId, pageRequestDTO);
-        model.addAttribute("reviewPageDTO", reviewpageDTO);
+        PageDTO<MypageReviewListDTO> pageDTO= mypageService.reviewListPage(usersId, pageRequestDTO);
+        model.addAttribute("pageDTO", pageDTO);
 
-        PageDTO<MypageReviewListDTO> reviewReceivedpageDTO= mypageService.reviewReceivedListPage(usersId, pageRequestDTO);
-        model.addAttribute("reviewReceivedpageDTO", reviewReceivedpageDTO);
+
         return "user/mypage/work-list/review-list";
     }
 

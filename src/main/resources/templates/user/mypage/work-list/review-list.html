@@ -26,19 +26,18 @@
     <main>
         <div class="mypage_list">
             <div class="mypage_list_title">
-                <p>리뷰</p>
+                <p>받은 후기</p>
                 <div class="mypage_list_line"></div></div>
 
             <table>
-                <P>받은 리뷰</P>
-                <div class="mypage_list_sub_line"></div>
+
                 <tr>
                     <th>순번</th>
                     <th>제목</th>
                     <th>작성일</th>
                 </tr>
                 <!-- 쪽지 컨텐츠 -->
-                <tr th:each="mypageReviewList:${reviewPageDTO.list}" th:object="${mypageReviewList}">
+                <tr th:each="mypageReviewList:${pageDTO.list}" th:object="${mypageReviewList}">
                     <td th:text="*{rnum}">샘플 작성날짜</td>
                     <td th:text="*{reviewTitle}">샘플 읽음여부</td>
                     <td th:text="*{reviewCreatedAt}"></td>
@@ -46,23 +45,24 @@
             </table>
 
 
-            <table>
-                <P>보낸 리뷰</P>
-                <div class="mypage_list_sub_line"></div>
-                <tr>
-                    <th>순번</th>
-                    <th>제목</th>
-                    <th>작성일</th>
-                </tr>
-                <!-- 쪽지 컨텐츠 -->
-                <tr th:each="reviewReceivedList:${reviewReceivedpageDTO.list}" th:object="${reviewReceivedList}">
-                    <td th:text="*{rnum}">샘플 작성날짜</td>
-                    <td th:text="*{reviewTitle}">샘플 읽음여부</td>
-                    <td th:text="*{reviewCreatedAt}"></td>
-                </tr>
+            <section class="pagination-section">
+                <div class="pagination">
+                    <a th:if="${pageDTO.hasPreviousGroup()}"
+                       th:href="@{/mypage/list/zip(page=${pageDTO.startPage - 1})}"
+                       class="page-btn prev" aria-label="Go to previous group">‹</a>
 
+                    <a class="page-btn"
+                       th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                       th:href="@{/mypage/list/review(page=${i})}"
+                       th:classappend="${i == pageDTO.page ? ' active' : ''}"
+                       th:text="${i}"></a>
 
-            </table>
+                    <a th:if="${pageDTO.hasNextGroup()}"
+                       th:href="@{/mypage/list/review(page=${pageDTO.endPage + 1})}"
+                       class="page-btn next" aria-label="Go to next group">›</a>
+                </div>
+            </section>
+
 
         </div>
     </main>
