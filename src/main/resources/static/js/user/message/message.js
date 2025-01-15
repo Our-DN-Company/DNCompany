@@ -1,6 +1,5 @@
 import * as userApi from '../modules/userApi.js';
-import * as messageListApi from '../modules/messageListApi';
-import {patchMessageListFrom} from "./modules/messageListApi";
+import * as messageListApi from '/modules/messageListApi';
 
 // HTML과 이벤트 처리
 const $messageSend = document.querySelector('.message__btn');
@@ -94,57 +93,70 @@ let hasNext = true;       // 다음 페이지 존재여부 저장할 변수
 // From
 
 {
-    // 페이지 진입과 동시에 호출
-    loadComments();
 
-    function loadComments() {
-        if (isLoading || !hasNext) {
-            return;
-        }
-        isLoading = true;
+    document.addEventListener('DOMContentLoaded', () => {
+        const $messageFromList = document.querySelector('.message__info__list'); // 메시지 리스트 컨테이너
+        const $messageFromCount = document.querySelector('#paginationFrom'); // 메시지 총 개수 표시 영역
+        const $pagination = document.querySelector('.pagination'); // 페이지 번호 버튼들
 
-        // 페이지 진입 후 댓글 목록 가져오기
-        messageListApi.patchMessageListFrom(usersId, currentPage, function (data) {
-            console.log(data);
-            displayCommentList(data);
-        });
-    }
-    function displayCommentList(obj) {
-        const $commentCount = document.querySelector('.comment-count');
-        $commentCount.textContent = obj.total;
+        // 페이지 초기화
+        loadComments();
 
-        let html = '';
-
-        obj.sliceDTO.list.forEach(comment => {
-            html += `
-      <li class="comment-item">
-        <article class="comment-article">
-          <div class="comment-info">
-            <span class="writer">${comment.loginId}</span>
-            <span class="date">${timeForToday(comment.regDate)}</span>
-          </div>
-          <p class="comment-text">${comment.content}</p>
-          `;
-
-            if (comment.memberId == loginMemberId) {
-                html +=`
-          <div class="comment-actions">
-            <button type="button" class="edit-comment-btn" data-comment-id="${comment.freeCommentId}">수정</button>
-            <button type="button" class="delete-comment-btn" data-comment-id="${comment.freeCommentId}">삭제</button>
-          </div>
-          `;
+        // 페이지 번호 버튼 클릭 시 페이지 변경
+        $pagination.addEventListener('click', (e) => {
+            if (e.target && e.target.classList.contains('page-btn')) {
+                currentPage = parseInt(e.target.dataset.page); // 클릭한 버튼의 페이지 번호로 변경
+                loadComments();
             }
-
-
-            html += `
-        </article>
-      </li>
-      `;
         });
 
-        $commentList.innerHTML += html;
+        function loadComments() {
+            // 중복 로드 방지 및 다음 페이지 확인
+            if (isLoading || !hasNext) return;
 
-    }
+            isLoading = true;
+
+            // 메시지 목록 API 호출
+            messageListApi.messageWithFromPage(usersId, currentPage, (data) => {
+                console.log(data); // 디버깅용 콘솔 출력
+                displayMessageFrom(data); // 데이터 렌더링
+                isLoading = false; // 로드 상태 해제
+                hasNext = data.pageDTO.hasNext; // 다음 페이지 존재 여부 업데이트
+            });
+        }
+
+        function displayMessageFrom(obj) {
+            $messageFromCount.textContent = obj.total; // 총 메시지 개수 업데이트
+
+            let html = '';
+
+            // 데이터 렌더링
+            obj.pageDTO.list.forEach((messageFrom) => {
+                html += `
+            <div class="message__info__title__user">
+                <p class="info__title__user">${escapeHtml(messageFrom.loginId)}님</p>
+                <p class="info__title__user">${escapeHtml(messageFrom.msContent)}</p>
+                <button class="title__delete__btn" data-comment-id="${messageFrom.userFrom}">삭제</button>
+            </div>
+            `;
+            });
+
+            // DOM 업데이트
+            $messageFromList.innerHTML = html; // 페이지를 새로고침할 때마다 리스트 갱신
+        }
+
+        // HTML 이스케이프 처리 함수
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+    });
+
+
 }
 
 

@@ -19,22 +19,31 @@ import java.util.Map;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class MessagelistApi {
-//    private final MessageMapper messageMapper;
-//
-//    // 보낸 메시지 목록을 페이지네이션하여 반환
-//    public PageDTO<MessagePageDTO> messageWithFromPage(PageRequestDTO pageRequestDTO, Long userId) {
-//        int totalMessages = messageMapper.countByTotalFrom(userId);
-//        List<MessagePageDTO> messageList = messageMapper.selectFromMessagePage(userId, pageRequestDTO);
-//
-//        return new PageDTO<>(pageRequestDTO.getPage(), pageRequestDTO.getSize(), totalMessages, messageList);
-//    }
-//
-//    // 받은 메시지 목록을 페이지네이션하여 반환
-//    public PageDTO<MessagePageDTO> messageWithToPage(PageRequestDTO pageRequestDTO, Long userId) {
-//        int totalMessages = messageMapper.countByTotalTo(userId);
-//        List<MessagePageDTO> messageList = messageMapper.selectToMessagePage(userId, pageRequestDTO);
-//
-//        return new PageDTO<>(pageRequestDTO.getPage(), pageRequestDTO.getSize(), totalMessages, messageList);
-//    }
+    private final MessageMapper messageMapper;
+
+    // 보낸 메시지 목록을 페이지네이션하여 반환
+    @PatchMapping("/v1/messagelist-To/{usersId}")
+    public PageDTO<MessagePageDTO> messageWithFromPage(@PathVariable("usersId") Long usersId,
+                                                       @RequestBody PageRequestDTO pageRequestDTO,
+                                                       Long userTo) {
+        int totalMessages = messageMapper.countByTotalFrom(usersId);
+
+        List<MessagePageDTO> messageList = messageMapper.selectFromMessagePage(pageRequestDTO, userTo);
+        log.debug("messageWithFromPage, totalMessages={}", totalMessages);
+
+        return new PageDTO<>(pageRequestDTO.getPage(), pageRequestDTO.getSize(), totalMessages, messageList);
+    }
+
+    // 받은 메시지 목록을 페이지네이션하여 반환
+    @PatchMapping("/v1/messagelist-From/{usersId}")
+    public PageDTO<MessagePageDTO> messageWithToPage(@PathVariable("usersId") Long usersId,
+                                                     @RequestBody PageRequestDTO pageRequestDTO,
+                                                     Long userFrom) {
+        int totalMessages = messageMapper.countByTotalTo(usersId);
+        List<MessagePageDTO> messageList = messageMapper.selectToMessagePage(pageRequestDTO, userFrom);
+        log.debug("messageWithToPage, totalMessages={}", totalMessages);
+
+        return new PageDTO<>(pageRequestDTO.getPage(), pageRequestDTO.getSize(), totalMessages, messageList);
+    }
 }
 

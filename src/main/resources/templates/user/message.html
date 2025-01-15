@@ -53,22 +53,6 @@
                                     <!-- 보낸 메시지 페이지네이션 버튼은 message.js에서 동적으로 생성됩니다 -->
                                 </div>
 
-                                <!-- 페이지네이션 -->
-<!--                                <div class="pagination">-->
-<!--                                    <a th:if="${pageDTO.hasPreviousGroup()}"-->
-<!--                                       th:href="@{/board/free/list(page=${pageDTO.startPage - 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}" class="page-btn prev">&lt;</a>-->
-
-<!--                                    <a th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"-->
-<!--                                       th:href="@{/board/free/list(page=${i}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"-->
-<!--                                       class="page-btn"-->
-<!--                                       th:classappend="${i == pageDTO.page ? 'active' : ''}"-->
-<!--                                       th:text="${i}"-->
-<!--                                    >1</a>-->
-
-<!--                                    <a th:if="${pageDTO.hasNextGroup()}"-->
-<!--                                       th:href="@{/board/free/list(page=${pageDTO.endPage + 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}" class="page-btn next">&gt;</a>-->
-<!--                                </div>-->
-
 
                             </div>
                         </div>
@@ -93,21 +77,6 @@
                                 <div id="paginationTo" class="pagination">
                                     <!-- 받은 메시지 페이지네이션 버튼은 message.js에서 동적으로 생성됩니다 -->
                                 </div>
-<!--                                &lt;!&ndash; 페이지네이션 &ndash;&gt;-->
-<!--                                <div class="pagination">-->
-<!--                                    <a th:if="${pageDTO.hasPrevious()}"-->
-<!--                                       th:href="@{/board/free/list(page=${pageDTO.startPage - 1})}" class="page-btn prev">&lt;</a>-->
-
-<!--                                    <a th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"-->
-<!--                                       th:href="@{/board/free/list(page=${i}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}"-->
-<!--                                       class="page-btn"-->
-<!--                                       th:classappend="${i == pageDTO.page ? 'active' : ''}"-->
-<!--                                       th:text="${i}"-->
-<!--                                    >1</a>-->
-
-<!--                                    <a th:if="${pageDTO.hasNextGroup()}"-->
-<!--                                       th:href="@{/board/free/list(page=${pageDTO.endPage + 1}, searchType=${searchDTO.searchType}, keyword=${searchDTO.keyword})}" class="page-btn next">&gt;</a>-->
-<!--                                </div>-->
                             </div>
                             </div>
                         </div>
