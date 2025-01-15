@@ -98,6 +98,13 @@ public class HelpController {
 //
 //        return "help/list";
 //    }
+
+    /**
+     * 도와주세요 게시글 목록 페이지 요청을 처리
+     * @param usersId 세션에서 가져온 사용자 ID
+     * @param model View에 데이터를 전달하기 위한 Model 객체
+     * @return 로그인이 안된 경우 로그인 페이지로, 로그인된 경우 목록 페이지로 이동
+     */
     @GetMapping("/list")
     public String helpList(@SessionAttribute(value = "usersId", required = false) Long usersId,
                            @RequestParam(defaultValue = "1") int page,
@@ -111,11 +118,20 @@ public class HelpController {
         // 페이징 처리된 게시글 목록 조회
         PageDTO<HelpListDTO> pageResult = helpService.getHelpListWithPaging(page, size);
 
+        // 각 게시글의 신청 상태를 Map에 저장
+        Map<Long, Boolean> offerStatus = new HashMap<>();
+        for (HelpListDTO help : pageResult.getList()) {
+            offerStatus.put(help.getHelpId(), helpMapper.checkHelpOfferExists(help.getHelpId()) > 0);
+        }
+
+        // 모델에 데이터 추가
         model.addAttribute("helpList", pageResult.getList());
-        model.addAttribute("pageDTO", pageResult);  // 페이징 처리를 위한 정보
+        model.addAttribute("offerStatus", offerStatus);
+        model.addAttribute("pageResult", pageResult);  // 페이징 정보도 함께 전달
 
         return "help/list";
     }
+
     /**
      * 도와주세요 상세 페이지 요청을 처리
      *
