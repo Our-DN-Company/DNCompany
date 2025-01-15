@@ -4,6 +4,7 @@ import com.example.dncompany.dto.help.HelpListDTO;
 import com.example.dncompany.dto.help.HelpDetailDTO;
 import com.example.dncompany.dto.help.HelpSearchDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
+import com.example.dncompany.dto.page.PageDTO;
 import com.example.dncompany.exception.help.HelpNotFoundException;
 import com.example.dncompany.mapper.help.HelpMapper;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -64,6 +67,20 @@ public class HelpService {
     public boolean checkHelpOfferExists(Long helpId){
         return helpMapper.checkHelpOfferExists(helpId)>0;
     }
+
+        // 페이징 처리된 목록 조회
+    public PageDTO<HelpListDTO> getHelpListWithPaging(int page, int size) {
+
+    // 전체 게시글 수 조회
+    int total = helpMapper.getTotalCount();
+
+    // 페이징 처리된 목록 조회
+    List<HelpListDTO> list = helpMapper.selectHelpListWithPaging(page, size);
+
+    // PageDTO 생성하여 반환
+    return new PageDTO<>(page, size, total, list);
+}
+
 
 }
 

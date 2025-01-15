@@ -63,4 +63,32 @@
         FROM HELP_OFFER
         WHERE HELP_ID=#{helpId} AND HELP_OFFER_STATUS='ACCEPT'
     </select>
+
+    <!-- 전체 게시글 수 조회 -->
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM HELP_BOARD H
+    </select>
+
+    <!-- 페이징 처리 -->
+    <select id="selectHelpListWithPaging" resultType="HelpListDTO">
+    SELECT RNUM, HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
+    HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_START_TIME, HELP_END_TIME
+    FROM
+        (SELECT ROWNUM AS RNUM, HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
+    HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_START_TIME, HELP_END_TIME
+    FROM
+        ( SELECT H.HELP_ID, H.HELP_TITLE, H.HELP_CARE_TYPE, H.HELP_ADDRESS,
+    H.HELP_POINT, H.HELP_PRICE, H.HELP_CARE_DATE, H.HELP_START_TIME, H.HELP_END_TIME
+    FROM HELP_BOARD H
+    ORDER BY H.HELP_CREATED_AT DESC
+    )
+    <![CDATA[
+    WHERE ROWNUM <= #{page}-1 * #{size}
+     ]]>
+    )
+     <![CDATA[
+    WHERE RNUM > (#{page} - 1) * #{size}
+        ]]>
+    </select>
 </mapper>
