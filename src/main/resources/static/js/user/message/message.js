@@ -1,6 +1,6 @@
 import * as userApi from '../modules/userApi.js';
 import * as messageListApi from '../modules/messageListApi';
-import {patchMessageListFrom} from "./modules/messageListApi";
+import {patchMessageListFrom} from "../modules/messageListApi";
 
 // HTML과 이벤트 처리
 const $messageSend = document.querySelector('.message__btn');
@@ -62,90 +62,6 @@ $form.addEventListener('submit', function (e) {
         }
     });
 });
-
-const $messagedetail = document.querySelectorAll('.message__info__title__user');
-const $openreciveModal = document.querySelector('.message_receive_modal_box');
-const $closereciveModal = document.querySelector('.message_receive__btn_close'); // 닫기 버튼 수정
-
-// // 모달 팝업 열기
-// $messagedetail.addEventListener('click', function() {
-//     $openreciveModal.style.display = 'flex';
-// });
-//
-// 모달 팝업 닫기
-
-document.addEventListener("click", function (e) {
-    const $currentElement = e.target;
-
-    if ($currentElement.classList.contains('info__title__user')) {
-        $openreciveModal.style.display = 'flex';
-    }
-});
-
-$closereciveModal.addEventListener('click', function() {
-    $openreciveModal.style.display = 'none';
-});
-
-let currentPage = 1;      // 현재 페이지 번호를 관리하는 변수
-let isLoading = false;    // 현재 페이지를 불러오는 중인지 여부를 저장할 변수
-let hasNext = true;       // 다음 페이지 존재여부 저장할 변수
-
-
-// From
-
-{
-    // 페이지 진입과 동시에 호출
-    loadComments();
-
-    function loadComments() {
-        if (isLoading || !hasNext) {
-            return;
-        }
-        isLoading = true;
-
-        // 페이지 진입 후 댓글 목록 가져오기
-        messageListApi.patchMessageListFrom(usersId, currentPage, function (data) {
-            console.log(data);
-            displayCommentList(data);
-        });
-    }
-    function displayCommentList(obj) {
-        const $commentCount = document.querySelector('.comment-count');
-        $commentCount.textContent = obj.total;
-
-        let html = '';
-
-        obj.sliceDTO.list.forEach(comment => {
-            html += `
-      <li class="comment-item">
-        <article class="comment-article">
-          <div class="comment-info">
-            <span class="writer">${comment.loginId}</span>
-            <span class="date">${timeForToday(comment.regDate)}</span>
-          </div>
-          <p class="comment-text">${comment.content}</p>
-          `;
-
-            if (comment.memberId == loginMemberId) {
-                html +=`
-          <div class="comment-actions">
-            <button type="button" class="edit-comment-btn" data-comment-id="${comment.freeCommentId}">수정</button>
-            <button type="button" class="delete-comment-btn" data-comment-id="${comment.freeCommentId}">삭제</button>
-          </div>
-          `;
-            }
-
-
-            html += `
-        </article>
-      </li>
-      `;
-        });
-
-        $commentList.innerHTML += html;
-
-    }
-}
 
 
 

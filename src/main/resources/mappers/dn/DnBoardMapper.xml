@@ -99,4 +99,44 @@
             WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
+    <!-- 페이지 처리 전체 조회, 카테고리 검색 기능 추가 -->
+    <select id="selectAllDnBoardListWithPage" resultType="DnBoardListDTO">
+        SELECT RNUM,DN_ID, DN_CREATED_AT, DN_UPDATED_AT, DN_PET_CATEGORY, DN_TITLE,
+        PRODUCT_CATEGORY, PRODUCT_PRICE, PRODUCT_ID, USERS_ID, LOGIN_ID,
+        PRODUCT_IMG_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION
+        FROM (
+        SELECT ROWNUM AS RNUM, DN_ID, DN_CREATED_AT, DN_UPDATED_AT, DN_PET_CATEGORY, DN_TITLE,
+        PRODUCT_CATEGORY, PRODUCT_PRICE, PRODUCT_ID, USERS_ID, LOGIN_ID,
+        PRODUCT_IMG_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION
+        FROM(
+        SELECT DB.DN_ID, DB.DN_CREATED_AT, DB.DN_UPDATED_AT, DB.DN_PET_CATEGORY, DB.DN_TITLE,
+        P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID, U.LOGIN_ID,
+        PI.PRODUCT_IMG_ID, PI.PRODUCT_ORIGINAL_FILENAME, PI.PRODUCT_UUID, PI.PRODUCT_PATH, PI.PRODUCT_EXTENSION
+        FROM DN_BOARD DB
+        LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
+        LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
+        LEFT JOIN USERS U ON DB.USERS_ID = U.USERS_ID
+        LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID
+        <where>
+            <choose>
+                <when test="'loginId'.equals(cond.searchType)">
+                    M.LOGIN_ID LIKE '%' || #{cond.keyword} || '%'
+                </when>
+                <when test="'title'.equals(cond.searchType)">
+                    FB.TITLE LIKE '%' || #{cond.keyword} || '%'
+                </when>
+                <when test="'content'.equals(cond.searchType)">
+                    FB.CONTENT LIKE '%' || #{cond.keyword} || '%'
+                </when>
+            </choose>
+        </where>
+        ORDER BY P.PRODUCT_PRICE
+        )
+        <![CDATA[
+                 WHERE ROWNUM <= #{page.page} * #{page.size}
+                 ]]>
+        )
+        WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
 </mapper>

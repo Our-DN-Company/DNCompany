@@ -145,8 +145,7 @@
                                     <!-- 사진 영역 -->
                                     <div class="productCard_cardImgContainer">
                                         <span><img th:src="@{/images/logo/logo_banner2.png}" alt="게시글 썸네일" th:if="*{productImgId == null}" /></span>
-                                      <span><img th:src="@{'/upload/dn/' + *{productPath} + '/th_' + *{productUuid} + *{productExtension}}" alt="게시글 썸네일" th:unless="*{productImgId == null}"/>
-                                          <noscript></noscript>
+                                        <span><img th:src="@{'/upload/dn/' + *{productPath} + '/th_' + *{productUuid} + *{productExtension}}" alt="게시글 썸네일" th:unless="*{productImgId == null}"/>
                                       </span>
                                     </div>
 
