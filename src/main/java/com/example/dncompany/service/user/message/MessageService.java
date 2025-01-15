@@ -40,11 +40,14 @@ public class MessageService {
     }
     public PageDTO<MessagePageDTO> messageWithFromPage(PageRequestDTO pageRequestDTO,Long userFrom) {
         List<MessagePageDTO> messageListFrom = messageMapper.selectFromMessagePage(pageRequestDTO, userFrom);
-        int total = messageMapper.countByTotalTo(userFrom);
+        int total = messageMapper.countByTotalFrom(userFrom);
 
         return new PageDTO<>(pageRequestDTO.getPage(),
                 pageRequestDTO.getSize(),
                 total,
                 messageListFrom);
+    }
+    public void removeBymessageId(Long messageId) {
+        messageMapper.deletemessageList(messageId);
     }
 }

@@ -1,9 +1,24 @@
 export function getMessageListTo(page, callback) {
-    fetch(`/api/v1/messageList/${usersId}/listFrom`, {
-        method: 'PATCH',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(messageListObj)
-    })
+    fetch(`/api/v1/message/listTos?page=${page}`)
+        .then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            }
+        })
+            .then(data => {
+                if (callback) {
+                    callback(data);
+                }
+            });
+}
+
+export function getMessageListFrom(page, callback) {
+    fetch(`/api/v1/message/listFroms?page=${page}`)
+        .then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            }
+        })
         .then(data => {
             if (callback) {
                 callback(data);
@@ -11,16 +26,14 @@ export function getMessageListTo(page, callback) {
         });
 }
 
-export function patchMessageListTo(usersId, messageListObj, callback) {
-    fetch(`/api/v1/messageList/${usersId}/listTo`, {
-        method: 'PATCH',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(messageListObj)
+
+export function deleteMessage(messageId, callback) {
+    fetch(`/api/v1/message/${messageId}`, {
+        method: 'DELETE',
     })
         .then(resp => {
             if (resp.ok && callback) {
                 callback();
             }
-        });
+        })
 }
-
