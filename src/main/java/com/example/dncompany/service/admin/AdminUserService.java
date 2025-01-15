@@ -109,9 +109,11 @@ public class AdminUserService {
         }
     }
 
-    @Transactional
     // 벤 확인 처리를 위해 크기 비교 실패 했으면 0 false 반환 예정
-    public boolean banUser(Long userId, Long banDays) {
-        return adminUserMapper.updateUserBanStatus(userId, banDays) > 0;
+    @Transactional
+    public boolean banUser(Long userId, Long banDays, Long reportId) {
+        int banResult = adminUserMapper.updateUserBanStatus(userId, banDays);
+        int reportResult = adminUserMapper.updateReportStatus(reportId);
+        return banResult > 0 && reportResult > 0;
     }
 }
