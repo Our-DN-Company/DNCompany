@@ -18,13 +18,13 @@ import java.util.List;
 public class MessageService {
     private final MessageMapper messageMapper;
 
-    public List<MessagePageDTO> addMessageBoardFrom(Long usesId) {
+    public List<MessagePageDTO> addMessageBoardFrom(Long userFrom) {
 
-        return messageMapper.selectFromMessage(usesId);
+        return messageMapper.selectFromMessage(userFrom);
     }
-    public List<MessagePageDTO> addMessageBoardTo(Long usesId) {
+    public List<MessagePageDTO> addMessageBoardTo(Long userTo) {
 
-        return messageMapper.selectToMessage(usesId);
+        return messageMapper.selectToMessage(userTo);
     }
 
     public PageDTO<MessagePageDTO> messageWithToPage(PageRequestDTO pageRequestDTO, Long userTo) {
