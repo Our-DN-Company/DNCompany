@@ -35,7 +35,7 @@ public class AdminBoardController {
 //        model.addAttribute("boardType", boards);
 //        return "admin/admin_board/admin_board :: #postListBody";
 //    }
-
+    // @ TODO 위에 코드 곧 삭제 예정
     // 게시판 데이터 검색 및 조회
     // 위에 코드 기반으로 개조 테스트 후 문제 없으면 위에 코드 삭제 예정
     @PostMapping("/list/reportBoard")
