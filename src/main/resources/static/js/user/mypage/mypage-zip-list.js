@@ -67,7 +67,10 @@ function makeZipPageGroup(pageDTO) {
     document.querySelector('.zip-list-pagination').innerHTML = html;
 }
 
+{
+    const $zipClick = document.querySelector(".zip-list-tbody>*")
 
+}
 
 
 

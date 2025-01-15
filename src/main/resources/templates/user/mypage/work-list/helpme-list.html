@@ -39,7 +39,7 @@
                 </tr>
 
 
-                <tr  th:each="helpMe :${pageDTO.list}" th:object="${helpMe}">
+                <tr class="help-me-list" th:each="helpMe :${pageDTO.list}" th:object="${helpMe}">
                     <td th:text="*{rnum}"></td>
                     <td ><a th:href="@{/help/detail(helpId=*{helpId})}" th:text="*{helpTitle}"></a></td>
                     <td th:text="*{helpCareType}"></td>

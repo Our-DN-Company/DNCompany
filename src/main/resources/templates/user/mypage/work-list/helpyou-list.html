@@ -28,14 +28,14 @@
             <div class="mypage_list_title">
                 <p>도와드려요</p>
                 <div class="mypage_list_line"></div></div>
-            <table th:each="helpYou : ${pageDTO.list}" th:object="${helpYou}">
+            <table >
                 <tr>
                     <td>순번</td>
                     <td>신청내용</td>
                     <td>산청자</td>
                     <td>상태</td>
                 </tr>
-                <tr>
+                <tr class="help-you-list" th:each="helpYou : ${pageDTO.list}" th:object="${helpYou}">
                     <td th:text="*{rnum}">순번</td>
                     <td th:text="*{helpTitle}">신청날짜</td>
                     <td th:text="*{loginId}">신청날짜</td>
