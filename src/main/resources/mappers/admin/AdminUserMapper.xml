@@ -101,13 +101,6 @@
             r.REPORT_CREATED_AT DESC
     </select>
 
-    <update id="updateReportStatus">
-        UPDATE ADMIN.REPORT
-        SET REPORT_CHECK_STATUS = #{status}
-        WHERE REPORT_ID = #{reportId}
-    </update>
-
-
 
     <update id="updateUserPoints">
         UPDATE USERS
@@ -192,6 +185,13 @@
                          SYSDATE,
                          SYSDATE + #{banDays}
                      )
+    </update>
+
+
+    <update id="updateReportStatus" parameterType="long">
+        UPDATE ADMIN.REPORT
+        SET REPORT_CHECK_STATUS = 'O'
+        WHERE REPORT_ID = #{reportId}
     </update>
 
 

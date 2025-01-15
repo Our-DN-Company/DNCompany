@@ -108,7 +108,8 @@ public class AdminUserBoardController {
         }
 
         Long banDays = request.get("banDays");
-        boolean success = adminUserService.banUser(userId, banDays);
+        Long reportId = request.get("reportId");
+        boolean success = adminUserService.banUser(userId, banDays,reportId);
 
         Map<String, Object> response = new HashMap<>();
         response.put("success", success);
