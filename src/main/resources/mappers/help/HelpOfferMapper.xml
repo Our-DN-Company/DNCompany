@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.help.HelpOfferMapper">
+    <!-- 도움 신청하기 -->
+    <insert id="insertHelpOffer" parameterType="HelpOfferListDTO">
+        <selectKey keyProperty="helpOfferId" resultType="long" order="BEFORE">
+            SELECT SEQ_HELP_OFFER.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO HELP_OFFER (HELP_OFFER_ID, HELP_ID, USERS_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE)
+        VALUES (#{helpOfferId}, #{helpId}, #{usersId}, 'ACCEPT', SYSDATE)
+    </insert>
+
+    <select id="isMePostTest" resultType="boolean">
+        SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
+        FROM HELP_BOARD
+        WHERE HELP_ID = #{helpId} AND USERS_ID = #{usersId}
+    </select>
+</mapper>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/zip/community.css}"/>
+    <script defer th:src="@{/js/zip/community.js}"></script>
+    <style>
+        @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
+        @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
+    </style>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <header class="header" th:include="~{fragment/header::header}">
+    </header>
+    <div class="main-wrap">
+        <main>
+            <!-- 여기에 작업 -->
+            <!-- 게시판 영역 -->
+
+            <!-- 검색 영역 -->
+            <div class="community_loungeContents">
+                <div class="community_SearchContainer">
+                    <div class="community_inputContainer">
+                        <form th:action="@{/zip/community}" method="get">
+                            <input type="hidden" name="category" th:value="${zipSearchDTO.category}"/>
+                            <input type="hidden" name="order" th:value="${zipSearchDTO.order}"/>
+                            <input
+                                    type="text"
+                                    placeholder="찾으시는 커뮤니티 글이 있으신가요?"
+                                    maxlength="130"
+                                    class="community_searchInput"
+                                    name="keyword"
+                                    th:value="${zipSearchDTO.keyword}"
+                            />
+                        </form>
+                    </div>
+                    <!-- 네비게이션 -->
+                    <div class="community_loungeContainer">
+                        <div class="SubView-sub">
+                            <div class="SubView-sub-box">
+                                <div class="SubView-sub-tab">
+                                    <ul class="SubView-sub-tabList">
+                                        <li class="SubView-tab-item">
+                                            <a th:href="@{/zip/community(category='DOG', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="DOG">강아지</a>
+                                        </li>
+                                        <li class="SubView-tab-item">
+                                            <a th:href="@{/zip/community(category='CAT', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="CAT">고양이</a>
+                                        </li>
+                                        <li class="SubView-tab-item">
+                                            <a th:href="@{/zip/community(category='SMALL', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="SMALL">소동물</a>
+                                        </li>
+                                        <li class="SubView-tab-item">
+                                            <a th:href="@{/zip/community(category='OTHER', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="OTHER">기타</a>
+                                        </li>
+                                        <li class="SubView-tab-item">
+                                            <a th:href="@{/zip/community(category='', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="ALL">전체</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 경계선 -->
+                    <hr class="community_pageDivider"/>
+
+                    <!-- 메인 게시판 -->
+                    <div class="community_loungeContents">
+                        <div class="community_filterBtnWrapper">
+                            <!-- 정렬 -->
+                            <div class="community_radioContainer">
+                                <div class="community_radioWrap">
+                                    <input
+                                            type="radio"
+                                            class="radio_myRadio"
+                                            id="last_date"
+                                            name="question"
+                                            value="last_order"
+                                            th:checked="${zipSearchDTO.order.equals('last_order')}"
+                                    />
+                                    <label for="last_date">최신 순</label>
+                                </div>
+                                <div class="community_radioWrap">
+                                    <input
+                                            type="radio"
+                                            class="radio_myRadio"
+                                            id="Order_of_popularity"
+                                            name="question"
+                                            value="Order_of_popularity"
+                                            th:checked="${zipSearchDTO.order.equals('Order_of_popularity')}"
+                                    />
+                                    <label for="Order_of_popularity">인기 순</label>
+                                </div>
+                                <div class="community_radioWrap">
+                                    <input
+                                            type="radio"
+                                            class="radio_myRadio"
+                                            id="views_order"
+                                            name="question"
+                                            value="views_order"
+                                            th:checked="${zipSearchDTO.order.equals('views_order')}"
+                                    />
+                                    <label for="views_order">조회수 순</label>
+                                </div>
+                            </div>
+
+                            <!-- 글쓰기 버튼 -->
+                            <div class="write_Btn">
+                                <a class="write_Btn_item" th:href="@{/zip/write}" tabindex="0">
+                                    글쓰기
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 글 목록 -->
+                        <div class="community_loungeLeftContent">
+                            <div class="community_loungeList">
+                                <!-- 반복요소 -->
+                                <div class="qaList_qaListContainer" th:each="board : ${zipPageDTO.list}">
+                                    <div class="qaList_qaListWrapper">
+                                        <div>
+                                            <div class="qaList_qaListLabelWrapper">
+                                                <div class="qaList_labelListWrapper">
+                                                    <div class="animalLabel_animalLabelContainer">
+                                                        <!--                                                        1<img-->
+                                                        <!--                                                                src="https://bemypet.kr/icons/community/ANIMALICON_ETC.svg"-->
+                                                        <!--                                                        />-->
+                                                        <div th:if="${board.zipPetCategory.equals('CAT')}">고양이</div>
+                                                        <div th:if="${board.zipPetCategory.equals('DOG')}">강아지</div>
+                                                        <div th:if="${board.zipPetCategory.equals('SMALL')}">소동물</div>
+                                                        <div th:if="${board.zipPetCategory.equals('OTHER')}">기타</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="qaList_qaListTitle">
+                                                <a th:href="@{/zip/detail(zipId=${board.zipId})}"
+                                                   th:text="${board.zipTitle}">리리 팬아트!!</a>
+                                            </div>
+                                            <div class="qaList_qaListText" th:text="${board.zipContent}">
+
+                                            </div>
+                                        </div>
+                                        <!--                                        <div class="qaList_qaListImg">-->
+                                        <!--                                        </div>-->
+                                    </div>
+                                    <div class="qaList_qaListAbout">
+
+                                        <div class="qaList_nickname" th:text="${board.nickname}">삼색이짱짱</div>
+
+                                        <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 :
+                                            0
+                                        </div>
+                                        <div th:text="${board.zipUpdatedAt}">1시간 전</div>
+                                    </div>
+                                    <div class="qaList_labelWrapper">
+                                        <div class="qaList_desktopLabelContainer"></div>
+                                    </div>
+                                    <hr class="qaList_qaListDivider"/>
+                                </div>
+                                <!-- /반복요소 -->
+                                <!-- 샘플 -->
+
+                                <!-- /샘플 -->
+                            </div>
+                        </div>
+
+                        <!-- 페이지 영역 -->
+                        <section class="pagination-section">
+                            <div class="pagination">
+                                <a th:if="${zipPageDTO.hasPreviousGroup()}"
+                                   th:href="@{/zip/community(page=${zipPageDTO.startPage - 1},
+                                   searchType=${zipSearchDTO.searchType},
+                                   keyword=${zipSearchDTO.keyword},
+                                   order=${zipSearchDTO.order},
+                                   category=${zipSearchDTO.category})}"
+                                   class="page-btn prev" aria-label="Go to previous group">‹</a>
+
+                                <a class="page-btn"
+                                   th:each="i : ${#numbers.sequence(zipPageDTO.startPage, zipPageDTO.endPage)}"
+                                   th:href="@{/zip/community(page=${i},
+                                   searchType=${zipSearchDTO.searchType},
+                                   keyword=${zipSearchDTO.keyword},
+                                   order=${zipSearchDTO.order},
+                                   category=${zipSearchDTO.category})}"
+                                   th:classappend="${i == zipPageDTO.page ? ' active' : ''}"
+                                   th:text="${i}"></a>
+
+                                <a th:if="${zipPageDTO.hasNextGroup()}"
+                                   th:href="@{/zip/community(page=${zipPageDTO.endPage + 1},
+                                   searchType=${zipSearchDTO.searchType},
+                                   keyword=${zipSearchDTO.keyword},
+                                   order=${zipSearchDTO.order},
+                                   category=${zipSearchDTO.category})}"
+                                   class="page-btn next" aria-label="Go to next group">›</a>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+</div>
+</body>
+</html>

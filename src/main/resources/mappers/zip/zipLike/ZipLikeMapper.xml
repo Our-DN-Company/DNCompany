@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.zip.zipLike.ZipLikeMapper">
+    <!--  추천 삽입  -->
+    <insert id="insertZipLike" parameterType="ZipLikeDTO">
+        INSERT INTO ZIP_LIKE(ZIP_ID, USERS_ID)
+        VALUES (#{zipId}, #{usersId})
+    </insert>
+
+    <!--  누가 추천을 눌럿는지?  -->
+    <select id="countByZipId" resultType="_int">
+        SELECT COUNT(*)
+        FROM ZIP_LIKE
+        WHERE ZIP_ID = #{zipId}
+    </select>
+
+    <!--  게시글 총 추천 수  -->
+    <select id="countByZipIdAndUserId" resultType="_int">
+        SELECT COUNT(*)
+        FROM ZIP_LIKE
+        WHERE ZIP_ID = #{zipId} AND USERS_ID = #{usersId}
+    </select>
+
+    <!--  추천 취소  -->
+    <delete id="deleteByZipIdAndUserId">
+        DELETE FROM ZIP_LIKE
+        WHERE ZIP_ID = #{zipId} AND USERS_ID = #{usersId}
+    </delete>
+
+</mapper>

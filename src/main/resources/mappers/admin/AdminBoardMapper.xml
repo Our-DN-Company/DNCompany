@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.admin.AdminBoardMapper">
+    <!-- 신고 게시판 조회 -->
+<!--    프로퍼티 설정 때문에 별칭 안해도 되는데 설정 파일을 두고 왔었음-->
+    <select id="selectReportBoard" resultType="AdminReportBoardDTO">
+        SELECT r.REPORT_ID                             AS reportId,
+               '신고'                                    AS category,
+               r.REPORT_TITLE                          AS title,
+               NVL(r.REPORT_CHECK_STATUS, '없음')        AS status,
+               u.NAME                                  AS writer,
+               u.EMAIL                                 AS email,
+               u.PHONE_NUMBER                          AS phoneNumber,
+               TO_CHAR(r.REPORT_CREATED_AT, 'YYYY-MM-DD') AS createdAt
+        FROM ADMIN.REPORT r
+                 JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                 JOIN ADMIN.USERS u ON ho.USERS_ID = u.USERS_ID
+    </select>
+
+    <!-- QnA 게시판 조회 -->
+    <select id="selectQnABoard" resultType="AdminQnABoardDTO">
+        SELECT q.QNA_ID                                AS qnaId,
+               'QNA'                                   AS category,
+               q.QNA_TITLE                             AS title,
+               NVL(q.QNA_CHECK_STATUS, '없음')           AS status,
+               u.NAME                                  AS writer,
+               u.EMAIL                                 AS email,
+               u.PHONE_NUMBER                          AS phoneNumber,
+               TO_CHAR(q.QNA_CREATED_AT, 'YYYY-MM-DD') AS createdAt
+        FROM ADMIN.QNA_BOARD q
+                 JOIN ADMIN.USERS u ON q.USERS_ID = u.USERS_ID
+    </select>
+
+    <select id="selectHelpBoard" resultType="AdminHelpBoardDTO">
+        SELECT hb.HELP_ID                                AS helpId,
+               'HELP'                                    AS category,
+               hb.HELP_TITLE                             AS title,
+               NVL(hb.HELP_CARE_TYPE, '없음')              AS careType,
+               u.NAME                                    AS writer,
+               u.EMAIL                                   AS email,
+               u.PHONE_NUMBER                            AS phoneNumber,
+               TO_CHAR(hb.HELP_CREATED_AT, 'YYYY-MM-DD') AS createdAt
+        FROM ADMIN.HELP_BOARD hb
+                 JOIN ADMIN.USERS u ON hb.USERS_ID = u.USERS_ID
+    </select>
+
+    <select id="selectEventBoard" resultType="AdminEventBoardDTO">
+        SELECT eb.EVENT_ID                                AS eventId,
+               'EVENT'                                    AS category,
+               eb.EVENT_TITLE                             AS title,
+               u.NAME                                     AS writer,
+               u.EMAIL                                    AS email,
+               u.PHONE_NUMBER                             AS phoneNumber,
+               TO_CHAR(eb.EVENT_CREATED_AT, 'YYYY-MM-DD') AS createdAt
+        FROM ADMIN.EVENT_BOARD eb
+                 JOIN ADMIN.USERS u ON eb.USERS_ID = u.USERS_ID
+    </select>
+
+    <select id="selectAllBoard" resultType="AdminAllBoardDTO">
+        SELECT *
+        FROM (SELECT *
+              FROM (SELECT r.REPORT_ID                      AS id,
+                           '신고'                             AS category,
+                           r.REPORT_TITLE                   AS title,
+                           NVL(r.REPORT_CHECK_STATUS, '없음') AS status,
+                           u.NAME                           AS writer,
+                           u.EMAIL                          AS email,
+                           u.PHONE_NUMBER                   AS phoneNumber,
+                           r.REPORT_CREATED_AT              AS createdAt
+                    FROM ADMIN.REPORT r
+                             JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                             JOIN ADMIN.USERS u ON ho.USERS_ID = u.USERS_ID)
+              UNION ALL
+              SELECT *
+              FROM (SELECT q.QNA_ID                      AS id,
+                           'QNA'                         AS category,
+                           q.QNA_TITLE                   AS title,
+                           NVL(q.QNA_CHECK_STATUS, '없음') AS status,
+                           u.NAME                        AS writer,
+                           u.EMAIL                       AS email,
+                           u.PHONE_NUMBER                AS phoneNumber,
+                           q.QNA_CREATED_AT              AS createdAt
+                    FROM ADMIN.QNA_BOARD q
+                             JOIN ADMIN.USERS u ON q.USERS_ID = u.USERS_ID)
+              UNION ALL
+              SELECT *
+              FROM (SELECT eb.EVENT_ID         AS id,
+                           'EVENT'             AS category,
+                           eb.EVENT_TITLE      AS title,
+                           '없음'                AS status,
+                           u.NAME              AS writer,
+                           u.EMAIL             AS email,
+                           u.PHONE_NUMBER      AS phoneNumber,
+                           eb.EVENT_CREATED_AT AS createdAt
+                    FROM ADMIN.EVENT_BOARD eb
+                             JOIN ADMIN.USERS u ON eb.USERS_ID = u.USERS_ID)
+              UNION ALL
+              SELECT *
+              FROM (SELECT hb.HELP_ID                   AS id,
+                           'HELP'                       AS category,
+                           hb.HELP_TITLE                AS title,
+                           NVL(hb.HELP_CARE_TYPE, '없음') AS status,
+                           u.NAME                       AS writer,
+                           u.EMAIL                      AS email,
+                           u.PHONE_NUMBER               AS phoneNumber,
+                           hb.HELP_CREATED_AT           AS createdAt
+                    FROM ADMIN.HELP_BOARD hb
+                             JOIN ADMIN.USERS u ON hb.USERS_ID = u.USERS_ID))
+        ORDER BY createdAt DESC
+    </select>
+
+    <select id="selectBoardByCondition" resultType="AdminAllBoardDTO" parameterType="BoardSearchDTO">
+        SELECT * FROM (
+        SELECT *
+        FROM (
+        SELECT
+        r.REPORT_ID AS id,
+        '신고' AS category,
+        r.REPORT_TITLE AS title,
+        NVL(r.REPORT_CHECK_STATUS, '없음') AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        r.REPORT_CREATED_AT AS createdAt
+        FROM ADMIN.REPORT r
+        JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+        JOIN ADMIN.USERS u ON ho.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        q.QNA_ID AS id,
+        'QNA' AS category,
+        q.QNA_TITLE AS title,
+        NVL(q.QNA_CHECK_STATUS, '없음') AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        q.QNA_CREATED_AT AS createdAt
+        FROM ADMIN.QNA_BOARD q
+        JOIN ADMIN.USERS u ON q.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        eb.EVENT_ID AS id,
+        'EVENT' AS category,
+        eb.EVENT_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        eb.EVENT_CREATED_AT AS createdAt
+        FROM ADMIN.EVENT_BOARD eb
+        JOIN ADMIN.USERS u ON eb.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        hb.HELP_ID AS id,
+        'HELP' AS category,
+        hb.HELP_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        hb.HELP_CREATED_AT AS createdAt
+        FROM ADMIN.HELP_BOARD hb
+        JOIN ADMIN.USERS u ON hb.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        db.DN_ID AS id,
+        'DN' AS category,
+        db.DN_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        db.DN_CREATED_AT AS createdAt
+        FROM ADMIN.DN_BOARD db
+        JOIN ADMIN.USERS u ON db.USERS_ID = u.USERS_ID
+        )
+        ) result
+        WHERE 1=1
+        <if test="category != null and category != '' and category != 'all'">
+            AND LOWER(category) = LOWER(#{category})
+        </if>
+        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <when test="searchType == 'title'">
+                    AND LOWER(title) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+                <when test="searchType == 'author'">
+                    AND LOWER(writer) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+                <when test="searchType == 'id'">
+                    AND LOWER(email) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+            </choose>
+        </if>
+        <if test="startDate != null and startDate != ''">
+            AND createdAt >= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+        </if>
+        <if test="endDate != null and endDate != ''">
+            AND createdAt &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+        </if>
+        ORDER BY createdAt DESC
+        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+    </select>
+
+    <!-- 페이징 처리용 쿼리    -->
+    <select id="countTotalBoards" parameterType="BoardSearchDTO" resultType="int">
+        SELECT COUNT(*) FROM (
+        SELECT *
+        FROM (
+        SELECT
+        r.REPORT_ID AS id,
+        '신고' AS category,
+        r.REPORT_TITLE AS title,
+        NVL(r.REPORT_CHECK_STATUS, '없음') AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        r.REPORT_CREATED_AT AS createdAt
+        FROM ADMIN.REPORT r
+        JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+        JOIN ADMIN.USERS u ON ho.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        q.QNA_ID AS id,
+        'QNA' AS category,
+        q.QNA_TITLE AS title,
+        NVL(q.QNA_CHECK_STATUS, '없음') AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        q.QNA_CREATED_AT AS createdAt
+        FROM ADMIN.QNA_BOARD q
+        JOIN ADMIN.USERS u ON q.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        eb.EVENT_ID AS id,
+        'EVENT' AS category,
+        eb.EVENT_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        eb.EVENT_CREATED_AT AS createdAt
+        FROM ADMIN.EVENT_BOARD eb
+        JOIN ADMIN.USERS u ON eb.USERS_ID = u.USERS_ID
+        )
+        UNION ALL
+        SELECT *
+        FROM (
+        SELECT
+        hb.HELP_ID AS id,
+        'HELP' AS category,
+        hb.HELP_TITLE AS title,
+        '없음' AS status,
+        u.NAME AS writer,
+        u.EMAIL AS email,
+        u.PHONE_NUMBER AS phoneNumber,
+        hb.HELP_CREATED_AT AS createdAt
+        FROM ADMIN.HELP_BOARD hb
+        JOIN ADMIN.USERS u ON hb.USERS_ID = u.USERS_ID
+        )
+        ) result
+        WHERE 1=1
+        <if test="category != null and category != '' and category != 'all'">
+            AND LOWER(category) = LOWER(#{category})
+        </if>
+        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <when test="searchType == 'title'">
+                    AND LOWER(title) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+                <when test="searchType == 'author'">
+                    AND LOWER(writer) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+                <when test="searchType == 'id'">
+                    AND LOWER(email) LIKE LOWER('%' || #{searchKeyword} || '%')
+                </when>
+            </choose>
+        </if>
+        <if test="startDate != null and startDate != ''">
+            AND createdAt >= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+        </if>
+        <if test="endDate != null and endDate != ''">
+            AND createdAt &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+        </if>
+    </select>
+
+    <insert id="insertQnaAnswer" parameterType="AdminAnswerDTO">
+        INSERT INTO ADMIN.QNA_ANSWER (QNA_ANSWER_ID, QNA_ANSWER_CONTENT,QNA_ANSWER_CREATED_AT, QNA_ANSWER_UPDATED_AT,QNA_ID)
+        VALUES (   SEQ_QNA_ANSWER.NEXTVAL,#{qnaAnswerContent},SYSDATE,SYSDATE,#{qnaId})
+    </insert>
+
+<!--      프로퍼티 설정 때문에 별칭 안해도 되는데 설정 파일을 두고 왔었음-->
+    <select id="selectQnaAnswersByQnaId" parameterType="Long" resultType="AdminAnswerDTO">
+        SELECT
+            QNA_ANSWER_ID as qnaAnswerId,
+            QNA_ANSWER_CONTENT as qnaAnswerContent,
+            QNA_ANSWER_CREATED_AT as qnaAnswerCreatedAt,
+            QNA_ANSWER_UPDATED_AT as qnaAnswerUpdatedAt,
+            QNA_ID as qnaId
+        FROM ADMIN.QNA_ANSWER
+        WHERE QNA_ID = #{qnaId}
+        ORDER BY QNA_ANSWER_CREATED_AT DESC
+    </select>
+
+
+        <!--  조회내용 가져오기용  -->
+    <select id="selectQnaDetail" parameterType="Long" resultType="map">
+        SELECT
+        QNA_ID as qnaId,
+        QNA_TITLE as title,
+        DBMS_LOB.SUBSTR(QNA_CONTENT, 4000) as content,  <!-- CLOB 데이터 처리해야함 조회시 오류 ㅈㄴ터짐 -->
+        QNA_CHECK_STATUS as status,
+        TO_CHAR(QNA_CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') as createdAt
+        FROM ADMIN.QNA_BOARD
+        WHERE QNA_ID = #{qnaId}
+    </select>
+
+        <!-- 어드민 답변 유무 댓글 수로 할려다가 이게 맞는 것 같음       -->
+        <!--   일반페이지도 아니고 이 쿼리는 어드민만 쓰기 때문에     -->
+    <update id="updateQnaStatus" parameterType="Long">
+        UPDATE ADMIN.QNA_BOARD
+        SET QNA_CHECK_STATUS = 'O'
+        WHERE QNA_ID = #{qnaId}
+    </update>
+
+    <insert id="insertEventBoard" parameterType="AdminEventWriteDTO">
+        <selectKey resultType="long" keyProperty="eventBoardId" order="BEFORE">
+            SELECT SEQ_EVENT_BOARD.nextval FROM DUAL
+        </selectKey>
+
+        INSERT INTO ADMIN.EVENT_BOARD (
+        EVENT_ID,
+        EVENT_TITLE,
+        EVENT_CONTENT,
+        USERS_ID )
+        VALUES (
+        #{eventBoardId},      <!-- SEQ_EVENT_BOARD.nextval 대신 selectKey에서 받은 값 사용 -->
+        #{eventTitle},
+        #{eventContent},
+        #{usersId} )
+    </insert>
+
+
+    <!--테스트 코드-->
+
+    <select id="selectAllEvents" resultType="AdminEventWriteDTO">
+        SELECT
+            EVENT_ID as eventBoardId,
+            EVENT_TITLE as eventTitle,
+            EVENT_CONTENT as eventContent,
+            EVENT_CREATED_AT as eventCreatedAt,
+            EVENT_UPDATE_AT as eventUpdatedAt,
+            USERS_ID as usersId
+        FROM ADMIN.EVENT_BOARD
+        ORDER BY EVENT_ID DESC
+    </select>
+
+    <!--  delete  -->
+
+    <!-- 통합 다중 삭제 -->
+    <delete id="deleteZipBoards" parameterType="map">
+        DELETE FROM ADMIN.ZIP_BOARD
+        WHERE ZIP_ID IN
+        <foreach collection="zipIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteQnaBoards" parameterType="map">
+        DELETE FROM ADMIN.QNA_BOARD
+        WHERE QNA_ID IN
+        <foreach collection="qnaIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteHelpBoards" parameterType="map">
+        DELETE FROM ADMIN.HELP_BOARD
+        WHERE HELP_ID IN
+        <foreach collection="helpIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteDnBoards" parameterType="map">
+        DELETE FROM ADMIN.DN_BOARD
+        WHERE DN_ID IN
+        <foreach collection="dnIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteEventBoards" parameterType="map">
+        DELETE FROM ADMIN.EVENT_BOARD
+        WHERE EVENT_ID IN
+        <foreach collection="eventIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteReports" parameterType="map">
+        DELETE FROM ADMIN.REPORT
+        WHERE REPORT_ID IN
+        <foreach collection="reportIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+
+
+
+</mapper>
+
+
+
+

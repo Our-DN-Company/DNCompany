@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.help.HelpMapper">
+
+    <!-- 도와주세요 게시글 등록 -->
+    <insert id="insertHelp" parameterType="HelpRequestDTO">
+        <selectKey keyProperty="helpId" resultType="long" order="BEFORE">
+            SELECT SEQ_HELP_BOARD.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO HELP_BOARD(HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_START_TIME, HELP_END_TIME, HELP_ADDRESS, HELP_ADDRESS_DETAIL, HELP_PRICE, HELP_POINT, USERS_ID, PET_ID, HELP_SPECIAL_NOTE)
+        VALUES (#{helpId}, #{helpTitle}, #{helpCareType}, #{helpCareDate}, #{helpStartTime}, #{helpEndTime}, #{helpAddress}, #{helpAddressDetail}, #{helpPrice}, #{helpPoint}, #{usersId}, #{petId}, #{helpSpecialNote})
+    </insert>
+
+    <!-- 도와주세요 게시글 목록 조회 -->
+    <select id="selectHelpList" resultType="HelpListDTO">
+        SELECT HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS, HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT, HELP_START_TIME, HELP_END_TIME
+        FROM HELP_BOARD
+        ORDER BY HELP_CREATED_AT DESC
+    </select>
+
+
+    <select id="selectHelpDetail" resultType="HelpDetailDTO" parameterType="long">
+        SELECT u.LOGIN_ID, h.HELP_ID, h.HELP_TITLE, h.HELP_CARE_TYPE, h.HELP_CARE_DATE,
+               h.HELP_START_TIME, h.HELP_END_TIME, h.HELP_ADDRESS, h.HELP_ADDRESS_DETAIL,
+               h.HELP_PRICE, h.HELP_POINT, h.USERS_ID, h.HELP_CREATED_AT,
+               h.HELP_SPECIAL_NOTE,
+               p.PET_ID, p.PET_NAME, p.PET_AGE, p.PET_SPECIES, p.PET_GENDER
+        FROM USERS u
+            JOIN HELP_BOARD h ON u.USERS_ID = h.USERS_ID
+                 JOIN PET p ON h.PET_ID = p.PET_ID
+        WHERE h.HELP_ID = #{helpId}
+    </select>
+
+    <select id="searchHelpList" parameterType="HelpSearchDTO" resultType="HelpListDTO">
+        /* 검색 쿼리 실행 */
+        SELECT
+        HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
+        HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT
+        FROM HELP_BOARD
+        <where>
+            <if test="sido != null and sido != ''">
+                AND HELP_ADDRESS LIKE '%' || #{sido} || '%'
+                <if test="gugun != null and gugun != ''">
+                    AND HELP_ADDRESS LIKE '%' || #{gugun} || '%'
+                </if>
+            </if>
+            <if test="careDate != null">
+                AND HELP_CARE_DATE = #{careDate}
+            </if>
+            <if test="careType != null and careType != ''">
+                AND HELP_CARE_TYPE = #{careType}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (HELP_TITLE LIKE '%' || #{keyword} || '%'
+                OR HELP_SPECIAL_NOTE LIKE '%' || #{keyword} || '%')
+            </if>
+        </where>
+        ORDER BY HELP_CREATED_AT DESC
+    </select>
+
+    <select id="checkHelpOfferExists" resultType="int">
+        SELECT COUNT(*)
+        FROM HELP_OFFER
+        WHERE HELP_ID=#{helpId} AND HELP_OFFER_STATUS='ACCEPT'
+    </select>
+
+    <!-- 전체 게시글 수 조회 -->
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM HELP_BOARD H
+    </select>
+
+    <!-- 페이징 처리 -->
+    <select id="selectHelpListWithPaging" resultType="HelpListDTO">
+    SELECT RNUM, HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
+    HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_START_TIME, HELP_END_TIME
+    FROM
+        (SELECT ROWNUM AS RNUM, HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
+    HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_START_TIME, HELP_END_TIME
+    FROM
+        ( SELECT H.HELP_ID, H.HELP_TITLE, H.HELP_CARE_TYPE, H.HELP_ADDRESS,
+    H.HELP_POINT, H.HELP_PRICE, H.HELP_CARE_DATE, H.HELP_START_TIME, H.HELP_END_TIME
+    FROM HELP_BOARD H
+    ORDER BY H.HELP_CREATED_AT DESC
+    )
+    <![CDATA[
+    WHERE ROWNUM <= #{page}-1 * #{size}
+     ]]>
+    )
+     <![CDATA[
+    WHERE RNUM > (#{page} - 1) * #{size}
+        ]]>
+    </select>
+</mapper>

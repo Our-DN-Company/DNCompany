@@ -1,0 +1,172 @@
+/* 공통 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 헤더, 푸터를 포함헌 전체 컨테이너 */
+.container {
+  min-height: 600px;
+  width: 100%;
+  min-width: 1200px;
+  overflow: hidden;
+}
+
+/* main 레이아웃 */
+.main-wrap {
+  /* footer가 메인 높이에 따라 하단 고정이 되는지 확인하기 위해 임의로 설정 */
+  /* 이후 삭제 필요요 */
+  width: 1200px;
+  margin: 0 auto;
+}
+
+footer {
+  margin-top: 100px;
+  width: 100%;
+  min-width: 1200px;
+  padding: 25px 0 35px;
+  margin: 0 auto;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 1) 0px 4px 5px 0px;
+}
+/* 푸터 첫줄 */
+.footer-link_wrap {
+  display: flex;
+}
+.footer-link {
+  padding-left: 0;
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+  border-bottom: 1px solid #e8e7e7;
+  padding-bottom: 7px;
+}
+.footer-link ul {
+  display: flex;
+  height: 50px;
+  overflow: hidden;
+  li {
+    position: relative;
+    padding: 15px 15px;
+    font-size: 13px;
+    color: #3d3935;
+    font-family: "Pretendard-Regular"; /* 시작 위치 맞추기 */
+    &:first-child {
+      padding-left: 0;
+    }
+    &:first-child:after {
+      display: none;
+    }
+    /* 부분 나누는 줄 */
+    &:after {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 1px;
+      height: 10px;
+      background: #a4a4a3;
+      transform: translateY(-50%);
+      content: "";
+    }
+    /* 개인정보처리 두껍게 */
+    &:nth-of-type(2) a {
+      font-weight: 500;
+    }
+  }
+}
+/* 푸터 아래쪽 */
+.foter-info_wrap {
+  display: flex;
+  padding-left: 0;
+}
+.footer-info {
+  position: relative;
+  max-width: 1200px;
+  width: 100%;
+  padding: 35px 0 0;
+  margin: 0 auto;
+  font-weight: 300;
+  font-family: "Pretendard-Regular";
+  p strong {
+    font-weight: 500;
+    color: var(--main-font-color);
+  }
+  p {
+    font-size: 13px;
+    line-height: 24px;
+    font-weight: 300;
+    color: rgb(131, 131, 131);
+  }
+  span {
+    display: inline-block;
+    padding-left: 10px;
+    :first-child {
+      font-size: 17px;
+      color: var(--main-color);
+      font-family: "Ownglyph_ParkDaHyun";
+    }
+  }
+
+  /* THEBOONKOREA 두껍게 */
+  span.bold {
+    font-weight: 500;
+  }
+  /* 시작 위치 맞추기 */
+  span:first-child {
+    padding-left: 0;
+  }
+
+  address {
+    font-size: 17px;
+    font-style: normal; /* address 기본 설정 이텔릭체 없애기 */
+    line-height: 24px;
+    font-weight: 300;
+    color: rgb(131, 131, 131);
+    font-family: "Ownglyph_ParkDaHyun";
+  }
+  .exp {
+    margin-top: 30px;
+    line-height: 20px;
+    color: rgb(131, 131, 131);
+    font-weight: 300;
+    font-size: 13px;
+  }
+  .copy {
+    margin-top: 10px;
+    line-height: 20px;
+    color: rgb(131, 131, 131);
+    font-weight: 300;
+    font-size: 13px;
+  }
+}
+.cs {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: auto;
+  height: 100px;
+  line-height: 1.5;
+  font-size: 14px;
+  font-family: "Pretendard-Regular";
+  p.bold {
+    font-weight: bold;
+    padding-bottom: 0;
+    color: rgb(131, 131, 131);
+  }
+  p.info {
+    padding-top: 0px;
+  }
+}

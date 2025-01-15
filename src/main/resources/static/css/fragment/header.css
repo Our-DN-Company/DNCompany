@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+#header__wrap {
+  width: 100%;
+  height: 90px;
+  background: #fff;
+}
+
+#header {
+  position: fixed;
+  width: 100%;
+  min-width: 1200px;
+  left: 0;
+  top: 0;
+  padding: 0 50px;
+  margin: auto;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: #fff;
+  z-index: 9998;
+}
+
+#header h1 {
+  height: 80px;
+  width: 160px;
+  display: flex;
+  align-items: center;
+  .header__logo__img {
+    height: 80px;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+#header > #gnb {
+  width: 800px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(34, 34, 34);
+  background: #fff;
+}
+
+#header > #gnb::before {
+  content: "";
+  width: 100%;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  height: 150px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 3px 4px 0px;
+  display: block;
+}
+
+#header > #gnb::before {
+  display: none;
+}
+
+#header > #gnb.on::before {
+  display: block;
+}
+
+.header__item__foot {
+  height: 20px;
+  width: 20px;
+
+  vertical-align: bottom;
+}
+
+#header > #gnb > li .snb {
+  position: absolute;
+  top: 90px;
+  display: none;
+  font-size: 15px;
+  color: rgb(69, 69, 69);
+}
+
+#header > #gnb.on > li .snb {
+  display: block;
+}
+
+#header > #gnb > li > .snb > ul > li + li {
+  margin-top: 10px;
+}
+
+#header > #gnb > li a:hover {
+  color: rgb(95, 0, 128);
+}
+
+nav {
+  ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: 5px;
+    position: relative;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(34, 34, 34);
+
+    white-space: nowrap;
+    overflow: hidden;
+
+    a:hover {
+      color: rgb(95, 0, 128);
+    }
+  }
+}
+
+
+
+.nav__user__name{
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(34, 34, 34);
+
+  white-space: nowrap;
+  overflow: hidden;
+  :hover{
+    color: rgb(95, 0, 128);
+  }
+}

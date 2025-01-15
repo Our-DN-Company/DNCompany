@@ -1,0 +1,227 @@
+
+.container {
+    max-width: 768px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.pet-detail {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 헤더 스타일 */
+.detail-header {
+    margin-bottom: 32px;
+}
+
+.detail-header h1 {
+    font-size: 24px;
+    margin: 16px 0;
+    color: rgb(34, 34, 34);
+    text-align: center;
+}
+
+.tags {
+    margin-bottom: 16px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 8px;
+}
+/* 태그 색상 추가 */
+.tag-green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.tag-orange {
+    background-color: #FFA726;
+    color: white;
+}
+
+.tag.status {
+    background: #E2F5FF;
+    color: #3AA1FF;
+}
+
+.tag.care-type {
+    background: #E8FFE2;
+    color: #52C41A;
+}
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.writer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.writer-name {
+    font-weight: 500;
+}
+
+.post-info {
+    color: #666;
+    font-size: 14px;
+}
+
+/* 섹션 공통 스타일 */
+.info-section {
+    background: #FAFAFA;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+@font-face {
+    font-family: "Ownglyph_ParkDaHyun";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2")
+    format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+.info-section h2 {
+    font-family: "Ownglyph_ParkDaHyun";
+    font-size: 23px;
+    color: rgb(189, 118, 255);
+    margin-bottom: 20px;
+}
+
+/* 반려동물 프로필 */
+.pet-profile {
+    display: flex;
+    gap: 24px;
+}
+
+
+.pet-details dl {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 12px;
+}
+
+.pet-details dt {
+    color: #666;
+    font-size: 14px;
+}
+
+.pet-details dd {
+    color: #333;
+    font-weight: 500;
+}
+
+/* 돌봄 정보 */
+.care-point {
+    background: rgb(189, 118, 255);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.care-price {
+    background: rgb(189, 118, 255);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.point-amount {
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(95, 0, 128);
+}
+.price-amount {
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(95, 0, 128);
+}
+
+.point-text {
+    font-size: 14px;
+    color: rgb(95, 0, 128);
+    margin-left: 8px;
+}
+
+.care-details dl {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 16px;
+}
+
+.care-details dt {
+    color: #666;
+    font-size: 14px;
+}
+
+.care-details dd {
+    color: #333;
+    font-weight: 500;
+}
+
+/* 특이사항 */
+.note-text {
+    line-height: 1.6;
+    color: #444;
+}
+
+/* 버튼 스타일 */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.action-buttons button {
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.apply-button {
+    flex: 2;
+    background: rgb(189, 118, 255);
+    color: white;
+}
+
+.apply-button:hover {
+    background: rgb(95, 0, 128);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 576px) {
+    .container {
+        padding: 0 16px;
+        margin: 20px auto;
+    }
+
+    .pet-detail {
+        padding: 20px;
+    }
+
+    .pet-profile {
+        flex-direction: column;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+}

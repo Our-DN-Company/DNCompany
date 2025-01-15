@@ -1,0 +1,51 @@
+<header class="header header_nav" th:fragment="admin_main_header_nav">
+  <a th:href="@{/}">
+    <!-- 로고 이미지  길이 조절 필요할시 조절하셈-->
+    <img
+      th:src="@{/images/logo/logo_banner2.png}"
+      width="300"
+      height="50"
+      fetchpriority="high"
+      decoding="async"
+      alt="Site Logo"
+
+    />
+<!--    th:src="@{/images/admin/admin_images/header_image/samplelogo2.png}"-->
+  </a>
+  <nav>
+    <div class="nav_name">
+<!--      <h2>댕냥 컴퍼니 관리자 페이지입니다</h2>-->
+    </div>
+    <ul>
+      <!-- 어드민 메인 페이지로 링크 이동 -->
+      <li><a th:href="@{/admin/main}">Home</a></li>
+      <!--  -->
+      <li><a th:href="@{/admin/user/board/list}">회원</a></li>
+      <li><a th:href="@{/admin/board/list}">게시글</a></li>
+    </ul>
+  </nav>
+  <div class="user-menu">
+    <img th:src="@{/images/admin/admin_images/header_image/adminZZang2.jpg}" alt="User Image" id="userImage"
+         width="40px"
+         />
+
+    <div class="modal" id="userModal">
+      <p><strong th:text="${session.loginId}">Username</strong></p>
+      <p class="subtext" th:text="${session.loginId + ' 운영자님'}">운영자님</p>
+      <hr />
+      <button id="myPageButton" class="link-button">내정보</button>
+      <hr />
+      <form th:action="@{/admin/logout}" method="get" id="logoutForm">
+        <button type="button" id="logoutButton" onclick="confirmLogout()">로그아웃</button>
+      </form>
+
+      <script>
+        function confirmLogout() {
+          if(confirm('로그아웃 하시겠습니까?')) {
+            document.getElementById('logoutForm').submit();
+          }
+        }
+      </script>
+    </div>
+  </div>
+</header>

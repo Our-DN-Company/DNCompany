@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.dn.DnProductMapper">
+    <insert id="insertProduct" parameterType="ProductDTO">
+        <selectKey resultType="Long" keyProperty="productId" order="BEFORE">
+            SELECT SEQ_PRODUCT.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_PRICE, PRODUCT_CATEGORY)
+        VALUES (#{productId}, #{productPrice}, #{productCategory})
+    </insert>
+
+    <update id="updateProduct" parameterType="ProductModifyDTO">
+        UPDATE PRODUCT
+        SET PRODUCT_PRICE = #{productPrice}, PRODUCT_CATEGORY =#{productCategory}
+        WHERE PRODUCT_ID = #{productId}
+    </update>
+
+    <!-- 글 삭제 쿼리-->
+    <delete id="deleteProduct" parameterType="Long">
+        DELETE FROM PRODUCT
+        WHERE PRODUCT_ID = #{productId}
+    </delete>
+</mapper>

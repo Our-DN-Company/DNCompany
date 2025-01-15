@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.zip.zipAnswer.ZipAnswerMapper">
+    <!--  댓글 삽입  -->
+    <insert id="insertAnswer" parameterType="ZipAnswerWriteDTO">
+        <selectKey resultType="long" keyProperty="zipAnswerId" order="BEFORE">
+            SELECT SEQ_ZIP_ANSWER.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO ZIP_ANSWER (ZIP_ANSWER_ID, ZIP_ANSWER_CONTENT, USERS_ID, ZIP_ID)
+        VALUES (#{zipAnswerId}, #{zipAnswerContent}, #{usersId}, #{zipId})
+    </insert>
+
+    <!--  게시글 댓글 조회  -->
+    <select id="selectListByZipId" parameterType="long" resultType="ZipAnswerDTO">
+        SELECT ZA.ZIP_ANSWER_ID, ZIP_ANSWER_CONTENT, ZA.ZIP_ANSWER_CREATED_AT, ZA.ZIP_ANSWER_UPDATED_AT, ZA.ZIP_ID,
+               U.USERS_ID, U.NICKNAME
+        FROM ZIP_ANSWER ZA
+                 JOIN USERS U ON ZA.USERS_ID = U.USERS_ID
+        WHERE ZIP_ID = #{zipId}
+        ORDER BY ZA.ZIP_ANSWER_ID DESC
+    </select>
+
+    <!--  댓글 갯수  -->
+    <select id="selectTotalByZipId" parameterType="long" resultType="_int">
+        SELECT COUNT(*)
+        FROM ZIP_ANSWER
+        WHERE ZIP_ID = #{zipId}
+    </select>
+
+    <!--  댓글 수정  -->
+    <update id="updateAnswer" parameterType="ZipAnswerModifyDTO">
+        UPDATE ZIP_ANSWER
+        SET ZIP_ANSWER_CONTENT = #{zipAnswerContent}, ZIP_ANSWER_UPDATED_AT = SYSDATE
+        WHERE ZIP_ANSWER_ID = #{zipAnswerId}
+    </update>
+
+    <!--  댓글 삭제  -->
+    <delete id="deleteByAnswerId" parameterType="long">
+        DELETE FROM ZIP_ANSWER
+        WHERE ZIP_ANSWER_ID = #{zipAnswerId}
+    </delete>
+</mapper>

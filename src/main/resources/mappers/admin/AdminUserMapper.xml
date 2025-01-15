@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.admin.AdminUserMapper">
+
+    <!-- 기존 selectUserData 쿼리 수정 - 맨 아래 ORDER BY 뒤에 페이징 구문 추가 -->
+    <select id="selectUserData" resultType="AdminUserAllBoard" parameterType="AdminUserAllBoard">
+        SELECT
+        u.USERS_ID AS userId,
+        u.LOGIN_ID AS loginId,
+        u.NAME AS name,
+        u.ADDRESS AS address,
+        u.PHONE_NUMBER AS phoneNumber,
+        TO_CHAR(u.BIRTH_DATE, 'YYYY-MM-DD') AS birthDate,
+        u.GENDER AS gender,
+        TO_CHAR(u.SIGN_UP_DATE, 'YYYY-MM-DD') AS signUpDate,
+        (
+        SELECT COUNT(*)
+        FROM ADMIN.REPORT r
+        JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+        WHERE ho.USERS_ID = u.USERS_ID
+        ) AS reportCount,
+        u.POINT AS points
+        FROM ADMIN.USERS u
+        WHERE 1=1
+        <if test="searchLoginId != null and searchLoginId != ''">
+            AND LOWER(u.LOGIN_ID) LIKE '%' || LOWER(#{searchLoginId}) || '%'
+        </if>
+        <if test="searchName != null and searchName != ''">
+            AND u.NAME LIKE '%' || #{searchName} || '%'
+        </if>
+        <if test="age != null">
+            AND TRUNC(MONTHS_BETWEEN(SYSDATE, u.BIRTH_DATE)/12) = #{age}
+        </if>
+        <if test="searchGender != null and searchGender != '' and searchGender != 'all'">
+            AND u.GENDER = #{searchGender}
+        </if>
+        <if test="searchPhoneNumber != null and searchPhoneNumber != ''">
+            AND u.PHONE_NUMBER LIKE '%' || #{searchPhoneNumber} || '%'
+        </if>
+        <if test="searchSignStartDate != null and searchSignEndDate != null
+    and searchSignStartDate != '' and searchSignEndDate != ''">
+            AND u.SIGN_UP_DATE >= TO_DATE(#{searchSignStartDate}, 'YYYY-MM-DD')
+            AND u.SIGN_UP_DATE <![CDATA[<=]]> TO_DATE(#{searchSignEndDate}, 'YYYY-MM-DD')
+        </if>
+        <if test="reportStatus != null and reportStatus != '' and reportStatus != 'all'">
+            <choose>
+                <when test="reportStatus == 'reported'">
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) > 0
+                </when>
+                <when test="reportStatus == 'notReported'">
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) = 0
+                </when>
+            </choose>
+        </if>
+        ORDER BY u.USERS_ID
+        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+    </select>
+
+    <select id="getReportsByUserId" resultType="AdMInUserReportDTO">
+        SELECT
+            r.REPORT_ID as reportId,
+            r.REPORT_TITLE as reportTitle,
+            r.REPORT_CONTENT as reportContent,
+            r.HELP_OFFER_ID as helpOfferId,
+            r.REPORT_CREATED_AT as reportDate,
+            r.REPORT_CHECK_STATUS as reportCheckStatus,
+
+            /* 신고당한 사람 정보 */
+            reported.USERS_ID as userId,
+            reported.NAME as reportedName,
+            reported.LOGIN_ID as reportedLoginId,
+
+            /* 신고한 사람 정보 */
+            reporter.NAME as reporterName,
+            reporter.LOGIN_ID as reporterLoginId,
+
+            /* 정지 정보 */
+            us.USERS_STATUS as status,
+            us.USERS_BAN_AT as banStartDate,
+            us.USERS_PERMIT_AT as banEndDate
+        FROM
+            ADMIN.REPORT r
+                JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                JOIN ADMIN.USERS reported ON ho.USERS_ID = reported.USERS_ID  /* 신고당한 사람 */
+                JOIN ADMIN.HELP_BOARD hb ON ho.HELP_ID = hb.HELP_ID
+                JOIN ADMIN.USERS reporter ON hb.USERS_ID = reporter.USERS_ID  /* 신고한 사람 */
+                LEFT JOIN ADMIN.USERS_STATUS us ON (reported.USERS_ID = us.USERS_ID AND us.REPORT_ID = r.REPORT_ID)
+        WHERE
+            reported.USERS_ID = #{userId}
+        ORDER BY
+            r.REPORT_CREATED_AT DESC
+    </select>
+
+    <update id="updateReportStatus">
+        UPDATE ADMIN.REPORT
+        SET REPORT_CHECK_STATUS = #{status}
+        WHERE REPORT_ID = #{reportId}
+    </update>
+
+
+
+    <update id="updateUserPoints">
+        UPDATE USERS
+        SET POINT = POINT + #{points}
+        WHERE USERS_ID = #{userId}
+    </update>
+    <!-- 포인트 조회 위와 세트임  -->
+    <select id="getCurrentUserPoints" resultType="Integer">
+        SELECT POINT
+            FROM USERS
+        WHERE USERS_ID = #{userId}
+    </select>
+
+    <!-- 페이징 처리를 위한 전체 카운트 쿼리 추가 -->
+    <select id="countUserData" resultType="int" parameterType="AdminUserAllBoard">
+        SELECT COUNT(*)
+        FROM ADMIN.USERS u
+        WHERE 1=1
+        <if test="searchLoginId != null and searchLoginId != ''">
+            AND LOWER(u.LOGIN_ID) LIKE '%' || LOWER(#{searchLoginId}) || '%'
+        </if>
+        <if test="searchName != null and searchName != ''">
+            AND u.NAME LIKE '%' || #{searchName} || '%'
+        </if>
+        <if test="age != null">
+            AND TRUNC(MONTHS_BETWEEN(SYSDATE, u.BIRTH_DATE)/12) = #{age}
+        </if>
+        <if test="searchGender != null and searchGender != '' and searchGender != 'all'">
+            AND u.GENDER = #{searchGender}
+        </if>
+        <if test="searchPhoneNumber != null and searchPhoneNumber != ''">
+            AND u.PHONE_NUMBER LIKE '%' || #{searchPhoneNumber} || '%'
+        </if>
+        <if test="searchSignStartDate != null and searchSignEndDate != null
+    and searchSignStartDate != '' and searchSignEndDate != ''">
+            AND u.SIGN_UP_DATE >= TO_DATE(#{searchSignStartDate}, 'YYYY-MM-DD')
+            AND u.SIGN_UP_DATE <![CDATA[<=]]> TO_DATE(#{searchSignEndDate}, 'YYYY-MM-DD')
+        </if>
+        <if test="reportStatus != null and reportStatus != '' and reportStatus != 'all'">
+            <choose>
+                <when test="reportStatus == 'reported'">
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) > 0
+                </when>
+                <when test="reportStatus == 'notReported'">
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    ) = 0
+                </when>
+            </choose>
+        </if>
+    </select>
+
+<!--    유저 정지 벤 데이터도 받아야함-->
+    <update id="updateUserBanStatus" parameterType="long">
+        MERGE INTO ADMIN.USERS_STATUS US
+        USING DUAL
+        ON (US.USERS_ID = #{userId})
+        WHEN MATCHED THEN
+            UPDATE SET
+                       US.USERS_STATUS = 'SUSPENDED',
+                       US.USERS_BAN_AT = SYSDATE,
+                       US.USERS_PERMIT_AT = SYSDATE + #{banDays}
+        WHEN NOT MATCHED THEN
+            INSERT (
+                STATUS_ID,
+                USERS_ID,
+                USERS_STATUS,
+                USERS_BAN_AT,
+                USERS_PERMIT_AT
+            ) VALUES (
+                         ADMIN.SEQ_USERS_STATUS.NEXTVAL,
+                         #{userId},
+                         'SUSPENDED',
+                         SYSDATE,
+                         SYSDATE + #{banDays}
+                     )
+    </update>
+
+
+
+
+
+</mapper>

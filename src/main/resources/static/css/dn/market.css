@@ -1,0 +1,371 @@
+@media (max-width: 1350px) {
+  .shopLayout_shoppingContainer {
+    width: 90%;
+  }
+}
+
+.shopLayout_shoppingContainer {
+  padding-top: 40px;
+  width: 100%;
+}
+
+.shopLayout_shoppingContents {
+  min-width: 1050px;
+  margin-top: 90px;
+  margin-bottom: 60px;
+  padding: 70px 60px;
+}
+
+/* 검색창 */
+.shopLayout_shoppingTopArea {
+  display: flex;
+  align-items: center;
+  padding-top: 25px;
+  flex-direction: column;
+}
+
+.shopSearch_inputContainer {
+  margin: 0 auto;
+  position: relative;
+  width: 300px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.shopSearch_searchInput {
+  width: 100%;
+  padding: 9px 12px;
+  border: 2px solid rgb(95, 0, 128);
+  border-radius: 24px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.shopSearch_searchIcon {
+  position: absolute;
+  right: 12px;
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* 동물 분류 */
+.shopLayout_animalLabelContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding: 5px 0 15px;
+}
+
+.animalLabel_animalLabelBtn {
+  padding: 5px 9px;
+  display: flex;
+  align-items: center;
+  background: white;
+  color: black;
+  border-radius: 25px;
+  border: 2px solid transparent;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  box-shadow: none;
+  cursor: pointer;
+  font-family: "Ownglyph_ParkDaHyun";
+  font-size: 17px;
+  letter-spacing: 5px;
+}
+
+.animalLabel_radioInput {
+  display: none;
+}
+
+/* 버튼 선택된 상태 */
+.animalLabel_radioInput:checked + .animalLabel_animalLabelBtn {
+  background: rgb(189, 118, 255);
+  color: black;
+  border: 2px solid rgb(189, 118, 255);
+}
+
+/* 물품 카테고리 */
+.categoryHeader_contentHeaderWrapper {
+  width: 100%;
+}
+
+.categoryHeader_contentHeaderBox {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.categoryHeader_contentHeaderList {
+  margin: 0 auto;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+}
+
+.categoryHeader_defaultMenu {
+  display: flex;
+  padding: 15px 15px;
+  color: black;
+  background-color: rgb(189, 118, 255);
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-family: "Ownglyph_ParkDaHyun";
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 5px;
+}
+
+/* 물품 영역 */
+.shopping_shoppingContents {
+  width: 100%;
+  margin: 50px auto;
+  max-width: 1220px;
+  padding: 0 20px;
+}
+
+/* 사진 영역 */
+.productCard_cardImgContainer span{
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: initial;
+  height: initial;
+  background: none;
+  opacity: 1;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  inset: 0px;
+}
+
+/* 사진 영역 */
+.productCard_cardImgContainer img{
+  position: absolute;
+  inset: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 0px;
+  height: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: none;
+  background-size: cover;
+  background-image: none;
+  background-position: center center;
+}
+
+/* 정렬 영역 */
+.shopping_productFilterContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+}
+
+.shopping_productFilterList {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  font-family: Ownglyph_ParkDaHyun;
+  letter-spacing: 1px;
+}
+
+.radio_myRadio {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border: 2px solid #e4e4e6;
+  border-radius: 50%;
+  color: #868688;
+  cursor: pointer;
+}
+
+.radio_myRadio:checked {
+  background-color: #fff;
+  border: 4px solid rgb(189, 118, 255);
+}
+
+.radio_myRadio + label {
+  font-size: 20px;
+  letter-spacing: 1px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+/* 글쓰기 버튼 */
+.write_Btn {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.write_Btn_item {
+  display: flex;
+  border: 0.5px none rgb(95, 0, 128);
+  color: black;
+  padding: 0 12px;
+  border-radius: 10px;
+  background-color: rgb(189, 118, 255);
+  line-height: 34px;
+  text-align: center;
+  font-family: "Ownglyph_ParkDaHyun";
+  letter-spacing: 3px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* 물품 리스트 */
+.shopping_productList {
+  margin-top: 28px;
+}
+
+/* */
+.shopping-list-wrap {
+  height: auto;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column-gap: 20px;
+}
+
+/* 물품 목록 */
+.productCard_productCardContainer {
+  padding: 20px 15px 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  font-size: 14px;
+}
+
+/* 사진 영역 */
+.productCard_cardImgContainer {
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+/* 물품 정보 */
+.productCard_productInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+  padding: 0 5px;
+  letter-spacing: 2px;
+  font-family: "Pretendard-Regular";
+}
+
+.productCard_productBrand {
+  margin-bottom: 5px;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 13px;
+  color: #868688;
+}
+
+.productCard_productName {
+  min-height: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: 400;
+  line-height: 16px;
+  max-height: calc(16px * 2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 경계선 */
+.productCard_productDivider {
+  background-color: #e4e4e6;
+  height: 1px;
+  border: 0;
+}
+
+/* 물품 가격 */
+
+.productCard_priceWrapper {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.productCard_productPrice {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.productCard_wonPrice {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+/* 페이지 영역 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 30px 0;
+}
+
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.page-btn:hover {
+  border-color: rgb(189, 118, 255);
+  color: rgb(189, 118, 255);
+}
+
+.page-btn.active {
+  background: rgb(189, 118, 255);
+  border-color: rgb(189, 118, 255);
+  color: #fff;
+}
+
+.page-btn.prev,
+.page-btn.next {
+  width: 40px;
+}

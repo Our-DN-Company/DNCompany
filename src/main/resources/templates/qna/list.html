@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/qna/list.css}"/>
+    <style>
+        @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
+        @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
+    </style>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+
+<div class="container">
+    <header class="header" th:include="~{fragment/header::header}">
+    </header>
+    <div class="main-wrap">
+        <main>
+            <!-- 여기에 작업 -->
+            <!-- 게시판 영역 -->
+
+            <!-- 검색 영역 -->
+            <div class="community_loungeContents">
+                <div class="community_SearchContainer">
+                    <div class="community_inputContainer">
+                        <form th:action="@{/qna/list}" method="get">
+                            <input
+                                    type="text"
+                                    placeholder="찾으시는 질문이 있으신가요?"
+                                    maxlength="130"
+                                    class="community_searchInput"
+                                    name="keyword"
+                                    th:value="${qnaBoardSearchDTO.keyword}"
+                            />
+                        </form>
+                    </div>
+
+                    <!-- 경계선 -->
+                    <hr class="community_pageDivider"/>
+
+                    <!-- 메인 게시판 -->
+                    <div class="community_loungeContents">
+                        <div class="community_filterBtnWrapper">
+                            <!-- 정렬 -->
+                            <div class="community_radioContainer">
+                                <div class="community_radioWrap">
+                                    <input
+                                            type="radio"
+                                            class="radio_myRadio"
+                                            id="last_date"
+                                            name="question"
+                                            value="last_date"
+                                            checked
+                                    />
+                                    <label for="last_date">최신 순</label>
+                                </div>
+
+                                <div class="community_radioWrap">
+                                    <input
+                                            type="radio"
+                                            class="radio_myRadio"
+                                            id="Date order"
+                                            name="question"
+                                            value="Date order"
+                                    />
+                                    <label for="Date order">날짜 순</label>
+                                </div>
+                            </div>
+
+                            <!-- 글쓰기 버튼 -->
+                            <div class="write_Btn">
+                                <a class="write_Btn_item" th:href="@{/qna/write}" tabindex="0">
+                                    글쓰기
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 글 목록 -->
+                        <div class="community_loungeLeftContent">
+                            <div class="community_loungeList">
+                                <!-- 반복요소 -->
+                                <div class="qaList_qaListContainer" th:each="qna : ${qnaPageDTO.list}">
+                                    <div class="qaList_qaListWrapper">
+                                        <div>
+                                            <div class="qaList_qaListLabelWrapper">
+                                                <div class="qaList_labelListWrapper"></div>
+                                            </div>
+                                            <div class="qaList_qaListTitle">
+                                                <a th:href="@{/qna/detail(qnaId=${qna.qnaId})}"
+                                                   th:text="${qna.qnaTitle}"></a>
+                                            </div>
+                                            <div class="qaList_qaListText" th:text="${qna.qnaContent}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="qaList_qaListAbout">
+                                        <div class="qaList_nickname" th:text="${qna.nickname}"></div>
+                                        <div th:text="${qna.qnaUpdatedAt}">1시간 전</div>
+                                    </div>
+                                    <div class="qaList_labelWrapper">
+                                        <div class="qaList_desktopLabelContainer"></div>
+                                    </div>
+                                    <hr class="qaList_qaListDivider"/>
+                                </div>
+                                <!-- /반복요소 -->
+                                <!-- 샘플 -->
+
+                                <!-- /샘플 -->
+                            </div>
+                        </div>
+
+                        <!-- 페이지 영역 -->
+                        <section class="pagination-section">
+                            <div class="pagination">
+                                <a th:if="${qnaPageDTO.hasPreviousGroup()}"
+                                   th:href="@{/qna/list(page=${qnaPageDTO.startPage - 1},
+                                   searchType=${qnaBoardSearchDTO.searchType},
+                                   keyword=${qnaBoardSearchDTO.keyword})}"
+                                   class="page-btn prev" aria-label="Go to previous group">‹</a>
+
+                                <a class="page-btn"
+                                   th:each="i : ${#numbers.sequence(qnaPageDTO.startPage,qnaPageDTO.endPage)}"
+                                   th:href="@{/qna/list(page=${i},
+                                   searchType=${qnaBoardSearchDTO.searchType},
+                                   keyword=${qnaBoardSearchDTO.keyword})}"
+                                   th:classappend="${i == qnaPageDTO ? ' active ' : ''}"
+                                   th:text="${i}">1</a>
+
+                                <a th:if="${qnaPageDTO.hasNextGroup()}"
+                                   th:href="@{/qna/list(page=${qnaPageDTO.endPage + 1},
+                                   searchType=${qnaBoardSearchDTO.searchType},
+                                   keyword=${qnaBoardSearchDTO.keyword})}"
+                                   class="page-btn next" aria-label="Go to next group">›</a>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+</div>
+</body>
+</html>

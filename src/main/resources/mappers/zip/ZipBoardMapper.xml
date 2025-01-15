@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.zip.ZipMapper">
+    <!--  게시글 삽입  -->
+    <insert id="insertZipBoard" parameterType="ZipBoardWriteDTO">
+        <selectKey resultType="long" keyProperty="zipId" order="BEFORE">
+            SELECT SEQ_ZIP_BOARD.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO ZIP_BOARD (ZIP_ID, USERS_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT)
+        VALUES (#{zipId}, #{usersId}, #{zipPetCategory}, #{zipTitle}, #{zipContent})
+    </insert>
+
+    <!--  게시글 전체 정보  -->
+    <select id="selectAllZipBoards" resultType="ZipBoardListDTO">
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+               U.USERS_ID, U.NICKNAME,
+               (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
+               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+        FROM ZIP_BOARD ZB
+                 JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
+        ORDER BY ZIP_ID DESC
+    </select>
+
+    <!--  게시글 조회수  -->
+    <update id="updateViewCount" parameterType="long">
+        UPDATE ZIP_BOARD
+        SET ZIP_VIEWCOUNT = ZIP_VIEWCOUNT + 1
+        WHERE ZIP_ID = #{zipId}
+    </update>
+
+    <!--  게시글 상세 정보  -->
+    <select id="selectById" parameterType="long" resultType="ZipBoardDetailDTO">
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+               U.USERS_ID, U.NICKNAME,
+               (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
+               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+        FROM ZIP_BOARD ZB
+                 JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
+        WHERE ZIP_ID = #{zipId}
+    </select>
+
+    <!--  게시글 목록 조회  -->
+    <select id="selectAllBoard" resultType="ZipBoardListDTO">
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+               U.USERS_ID, U.NICKNAME,
+               (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
+               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+        FROM ZIP_BOARD ZB
+                 JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
+        ORDER BY ZIP_ID DESC
+    </select>
+
+
+    <!--  게시글 수정  -->
+    <update id="updateZipBoard" parameterType="ZipBoardModifyDTO">
+        UPDATE ZIP_BOARD
+        SET ZIP_PET_CATEGORY = #{zipPetCategory}, ZIP_TITLE = #{zipTitle}, ZIP_CONTENT = #{zipContent}, ZIP_UPDATE_AT = SYSDATE
+        WHERE ZIP_ID = #{zipId}
+    </update>
+
+    <!--  게시글 삭제  -->
+    <delete id="deleteZipBoard" parameterType="long">
+        DELETE  FROM ZIP_BOARD
+        WHERE ZIP_ID = #{zipId}
+    </delete>
+
+    <!--  페이지  -->
+    <select id="selectBySearchCondWithPage" resultType="ZipBoardListDTO">
+        SELECT RNUM, ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT, USERS_ID, NICKNAME,
+        ANSWER_COUNT, LIKE_COUNT
+        FROM (
+        SELECT ROWNUM AS RNUM, ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT,
+        USERS_ID, NICKNAME, ANSWER_COUNT, LIKE_COUNT
+        FROM (
+        SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT,
+        U.USERS_ID, U.NICKNAME,
+        (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
+        (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+        FROM ZIP_BOARD ZB
+        JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
+        <where>
+            <if test="cond.category != null and cond.category != ''">
+                AND ZB.ZIP_PET_CATEGORY = #{cond.category}
+            </if>
+            <if test="cond.keyword != null and cond.keyword != ''">
+                AND (
+                <choose>
+                    <when test="cond.searchType == 'usersId'">
+                        U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
+                    </when>
+                    <when test="cond.searchType == 'title'">
+                        ZB.ZIP_TITLE LIKE '%' || #{cond.keyword} || '%'
+                    </when>
+                    <when test="cond.searchType == 'content'">
+                        ZB.ZIP_CONTENT LIKE '%' || #{cond.keyword} || '%'
+                    </when>
+                </choose>
+                )
+            </if>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="cond.order == 'Order_of_popularity'">
+                LIKE_COUNT DESC
+            </when>
+            <when test="cond.order == 'Date_order'">
+                ANSWER_COUNT DESC
+            </when>
+            <otherwise>
+                ZIP_UPDATE_AT DESC
+            </otherwise>
+        </choose>
+        )
+        <![CDATA[ WHERE ROWNUM <= #{page.page} * #{page.size} ]]>
+        )
+        WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+
+    <select id="countBySearchCondition" resultType="_int">
+        SELECT COUNT(*)
+        FROM ZIP_BOARD ZB
+        JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
+        <where>
+            <if test="cond.category != null and cond.category != ''">
+                AND ZB.ZIP_PET_CATEGORY = #{cond.category}
+            </if>
+            <if test="cond.keyword != null and cond.keyword != ''">
+                AND (
+                <choose>
+                    <when test="cond.searchType == 'usersId'">
+                        U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
+                    </when>
+                    <when test="cond.searchType == 'title'">
+                        ZB.ZIP_TITLE LIKE '%' || #{cond.keyword} || '%'
+                    </when>
+                    <when test="cond.searchType == 'content'">
+                        ZB.ZIP_CONTENT LIKE '%' || #{cond.keyword} || '%'
+                    </when>
+                </choose>
+                )
+            </if>
+        </where>
+    </select>
+</mapper>

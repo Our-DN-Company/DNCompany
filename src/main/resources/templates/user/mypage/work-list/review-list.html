@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}" />
+
+
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script defer th:src="@{/js/common.js}"></script>
+
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+
+    <th:block th:insert="~{fragment/header::header}">
+    </th:block>
+
+    <main>
+        <div class="mypage_list">
+            <div class="mypage_list_title">
+                <p>받은 후기</p>
+                <div class="mypage_list_line"></div></div>
+
+            <table>
+
+                <tr>
+                    <th>순번</th>
+                    <th>제목</th>
+                    <th>작성일</th>
+                </tr>
+                <!-- 쪽지 컨텐츠 -->
+                <tr th:each="mypageReviewList:${pageDTO.list}" th:object="${mypageReviewList}">
+                    <td th:text="*{rnum}">샘플 작성날짜</td>
+                    <td th:text="*{reviewTitle}">샘플 읽음여부</td>
+                    <td th:text="*{reviewCreatedAt}"></td>
+                </tr>
+            </table>
+
+
+            <section class="pagination-section">
+                <div class="pagination">
+                    <a th:if="${pageDTO.hasPreviousGroup()}"
+                       th:href="@{/mypage/list/zip(page=${pageDTO.startPage - 1})}"
+                       class="page-btn prev" aria-label="Go to previous group">‹</a>
+
+                    <a class="page-btn"
+                       th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                       th:href="@{/mypage/list/review(page=${i})}"
+                       th:classappend="${i == pageDTO.page ? ' active' : ''}"
+                       th:text="${i}"></a>
+
+                    <a th:if="${pageDTO.hasNextGroup()}"
+                       th:href="@{/mypage/list/review(page=${pageDTO.endPage + 1})}"
+                       class="page-btn next" aria-label="Go to next group">›</a>
+                </div>
+            </section>
+
+
+        </div>
+    </main>
+
+</div>
+<th:block th:insert="~{fragment/footer::footer}">
+
+</th:block>
+</div>
+</body>
+</html>

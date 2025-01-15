@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" th:href="@{/css/admin/admin_write/common.css}" />
+  <link rel="stylesheet" th:href="@{/css/admin/admin_write/font.css}" />
+  <link rel="stylesheet" th:href="@{/css/admin/admin_write/admin_write.css}" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
+  <script defer th:src="@{/js/admin/admin_write/admin_write.js}"></script>
+</head>
+<body>
+
+<div class="container">
+  <header></header>
+  <div class="main-wrap">
+    <main>
+      <div class="admin_event_container">
+        <div class="admin_event_content">
+          <!-- 폼으로 감싸기 -->
+          <form th:action="@{/admin/event/write}" method="post" enctype="multipart/form-data">
+            <!-- 제목 입력 박스 -->
+            <div>
+              <div>
+                <span class="admin_event_category">Event 글 작성</span>
+                <span class="admin_event_mark">*</span>
+              </div>
+              <input
+                      name="eventTitle"
+                      placeholder="제목을 입력해주세요"
+                      class="admin_event_titleInput"
+                      th:value="${adminEventWriteDTO?.eventTitle}"
+              />
+              <div class="admin_event_alertText"></div>
+            </div>
+
+            <!-- 내용 입력 박스 -->
+            <div class="admin_event_inputWrapper">
+              <textarea
+                      name="eventContent"
+                      placeholder="5자 이상의 글 내용을 입력해주세요"
+                      class="admin_event_input"
+                      id="contentArea"
+                      th:text="${adminEventWriteDTO?.eventContent}"
+              ></textarea>
+              <div class="admin_event_alertText"></div>
+            </div>
+
+            <!-- 파일 업로드 영역 -->
+            <div class="admin_event_fileInputWrapper">
+              <span class="admin_event_category">사진 업로드</span>
+              <div class="admin_event_imgContainer" id="imagePreview"></div>
+              <input
+                      id="uploadFile"
+                      type="file"
+                      name="image"
+                      multiple
+                      accept="image/jpg,image/png,image/jpeg,image/gif"
+                      style="display: none"
+              />
+              <label for="uploadFile" class="admin_event_inputFileBtn">
+                <div class="admin_event_inputFileText">사진 첨부</div>
+                <img th:src="@{/images/icons/camera_icon.svg}" alt="카메라 아이콘"/>
+              </label>
+              <span class="admin_event_imgDesc">개당 업로드 용량: 20MB, 첨부 파일의 경우 사진과 동영상을 합쳐 최대 10개 업로드 가능합니다.</span>
+            </div>
+
+            <div class="admin_event_fileInputWrapper">
+              <span class="admin_event_category">동영상 업로드</span>
+              <div class="admin_event_imgContainer" id="videoPreview"></div>
+              <input
+                      id="uploadVideo"
+                      type="file"
+                      name="video"
+                      accept="video/mp4,video/quicktime"
+                      style="display: none"
+              />
+              <label for="uploadVideo" class="admin_event_inputFileBtn">
+                <div class="admin_event_inputFileText">동영상 첨부</div>
+                <img th:src="@{/images/icons/video_icon.svg}" alt="비디오 아이콘"/>
+              </label>
+              <span class="admin_event_imgDesc">최대 업로드 용량: 65MB, 동영상은 최대 1개 업로드 가능합니다.</span>
+            </div>
+
+            <div class="admin_event_thumbnailText">
+              <ul>
+                <li>동영상과 사진을 동시에 업로드 시, 업로드된 사진 중 첫 번째 순서의 사진이 썸네일로 지정됩니다.</li>
+                <li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
+              </ul>
+            </div>
+
+            <!-- 등록 버튼 -->
+            <button type="submit" class="admin_event_submitBtn">글 등록</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/help/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/help/helplist.css}"/>
+    <link rel="stylesheet" th:href="@{/css/help/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script defer th:src="@{/js/help/list.js}"></script>
+    <script defer th:src="@{/js/help/helpAddress.js}"></script>
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <th:block th:insert="~{fragment/header::header}">
+
+    </th:block>
+    <div class="main-wrap">
+        <main>
+            <!-- 여기에 작업 -->
+
+
+            <div class="filter-section">
+                <form th:action="@{/help/search}" method="get">
+                    <div class="filter-options">
+                        <select name="sido" id="sido" class="filter-select">
+                            <option value="">시/도 선택</option>
+                            <option value="서울">서울특별시</option>
+                            <option value="경기">경기도</option>
+                            <option value="인천">인천광역시</option>
+                        </select>
+                        <select name="gugun" id="gugun" class="filter-select">
+                            <option value="">구/군 선택</option>
+                        </select>
+                        <input type="date" name="careDate" class="filter-date">
+                        <select name="careType" class="filter-select">
+                            <option value="">돌봄 유형</option>
+                            <option value="산책">산책</option>
+                            <option value="병원동행">병원동행</option>
+                            <option value="돌봄">돌봄</option>
+                        </select>
+                        <div class="search-box">
+                            <input type="text" name="keyword" placeholder="검색어를 입력하세요">
+                            <button type="submit">검색</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 게시글 목록 -->
+<!--            <div class="post-list" >-->
+<!--                &lt;!&ndash; 게시글 카드 1 &ndash;&gt;-->
+<!--                <div class="post-card" th:each="help : ${helpList}" th:data-help-id="${help.helpId}" th:onclick="'goToDetail(' + ${help.helpId} + ')'">-->
+<!--                    <div class="post-content">-->
+<!--                        <div class="post-tags">-->
+<!--&lt;!&ndash;                            <span class="tag tag-purple" th:text="${help.helpCareType}">산책</span>&ndash;&gt;-->
+<!--                            <span class="tag tag-purple" th:switch="${help.helpCareType}">-->
+<!--        <th:block th:case="'walk'">산책</th:block>-->
+<!--        <th:block th:case="'hospital'">병원 동행</th:block>-->
+<!--        <th:block th:case="'daycare'">돌봄</th:block>-->
+<!--        <th:block th:case="*" th:text="${help.helpCareType}"></th:block>-->
+<!--    </span>-->
+<!--                        </div>-->
+<!--                        <h3 class="post-title" th:text="${help.helpTitle}">우리 댕댕이 산책 도와주실 분 구해요</h3>-->
+<!--                        <div class="post-info">-->
+<!--                            <span class="location" th:text="${help.helpAddress}">서울시 강남구</span>-->
+<!--                            <span class="time"-->
+<!--                                  th:text="${#temporals.format(help.helpCareDate, 'MM/dd')} + ' ' +-->
+<!--               ${#temporals.format(help.helpStartTime, 'a h')} + '시-' +-->
+<!--               ${#temporals.format(help.helpEndTime, 'h')} + '시'">-->
+<!--                                  >12/15 오후 2시-4시</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="post-side">-->
+<!--                        <div class="point" th:text="${help.helpPoint}+'p'">2,000P</div>-->
+<!--                        <div class="price" th:text="${help.helpPrice}+'원'">40000원</div>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+                <!-- 게시글 목록 -->
+                <div class="post-list" >
+                    <div class="post-card" th:each="help : ${pageDTO.list}" th:data-help-id="${help.helpId}" th:onclick="'goToDetail(' + ${help.helpId} + ')'">
+                        <div class="post-content">
+                            <div class="post-tags">
+            <span class="tag tag-purple" th:switch="${help.helpCareType}">
+                <th:block th:case="'walk'">산책</th:block>
+                <th:block th:case="'hospital'">병원 동행</th:block>
+                <th:block th:case="'daycare'">돌봄</th:block>
+                <th:block th:case="*" th:text="${help.helpCareType}"></th:block>
+            </span>
+                            </div>
+                            <h3 class="post-title" th:text="${help.helpTitle}">우리 댕댕이 산책 도와주실 분 구해요</h3>
+                            <div class="post-info">
+                                <span class="location" th:text="${help.helpAddress}">서울시 강남구</span>
+                                <span class="time" th:text="${#temporals.format(help.helpCareDate, 'MM/dd')} + ' ' +
+                           ${#temporals.format(help.helpStartTime, 'a h')} + '시-' +
+                           ${#temporals.format(help.helpEndTime, 'h')} + '시'">12/15 오후 2시-4시</span>
+                            </div>
+                        </div>
+                        <div class="post-side">
+                            <div class="point" th:text="${help.helpPoint}+'p'">2,000P</div>
+                            <div class="price" th:text="${help.helpPrice}+'원'">40000원</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 페이지네이션 -->
+                <div class="pagination" th:if="${pageDTO != null}">
+                    <!-- 이전 페이지 버튼 -->
+                    <button th:if="${pageDTO.hasPrevious()}"
+                            class="page-button"
+                            th:onclick="'location.href=\'' + @{/help/list(page=${pageDTO.page - 1})} + '\''">&lt;</button>
+
+                    <!-- 페이지 번호 -->
+                    <th:block th:each="pageNum : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                        <button class="page-button"
+                                th:classappend="${pageNum == pageDTO.page} ? 'active'"
+                                th:onclick="'location.href=\'' + @{/help/list(page=${pageNum})} + '\''"
+                                th:text="${pageNum}">1</button>
+                    </th:block>
+
+                    <!-- 다음 페이지 버튼 -->
+                    <button th:if="${pageDTO.hasNext()}"
+                            class="page-button"
+                            th:onclick="'location.href=\'' + @{/help/list(page=${pageDTO.page + 1})} + '\''">&gt;</button>
+                </div>
+                </div>
+        </main>
+    </div>
+    <th:block th:insert="~{fragment/footer::footer}">
+
+    </th:block>
+</div>
+</body>
+</html>

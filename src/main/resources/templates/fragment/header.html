@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../static/css/font.css" />
+  <link rel="stylesheet" href="../../static/css/fragment/header.css" />
+  <script defer src="../../static/js/fragment/header.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <header class="header__main" th:fragment="header">
+    <div id="header__wrap">
+      <div id="header">
+        <h1>
+          <a th:href="@{/}" class="header__img__box"><img src="/images/logo/logo_header.png" alt="로고"
+              class="header__logo__img"></a>
+        </h1>
+        <ul id="gnb" class="">
+          <li>
+            <a th:href="@{/help/list}">CARE</a><img src="/images/feet.png" alt="고양이발" class="header__item__foot" />
+            <div class="snb">
+              <ul>
+                <li><a th:href="@{/help/write}">Help me</a></li>
+                <li><a th:href="@{/help/list}">Help you</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">TALK</a>
+            <div class="snb">
+              <ul>
+                <li><a th:href="@{/dn/market}">댕냥바다</a></li>
+                <li><a th:href="@{/zip/community}">초보Zip</a></li>
+                <li><a th:href="@{/event/list}">우리들의 이벤트</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a th:href="@{/map/hospital}">WHERE</a>
+            <div class="snb">
+              <ul>
+                <li><a th:href="@{/map/hospital}">동물 병원 정보</a></li>
+                <li><a th:href="@{/map/pet-service}">반려 동물 동반 시설</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a th:href="@{/qna/list}">Q&A</a>
+            <div class="snb">
+              <ul></ul>
+            </div>
+          </li>
+        </ul>
+        <nav>
+          <ul th:if="${session.usersId == null}">
+            <li class="nav__item"><a th:href="@{/user/login}">로그인 / 회원가입</a></li>
+            <li class="nav__item"><a th:href="@{/mypage/main}">마이페이지</a></li>
+            <li class="nav__item"><a th:href="@{/user/login}">캘린더</a></li>
+          </ul>
+          <ul th:unless="${session.usersId == null}">
+            <li class="nav__item">
+              <a th:href="@{/mypage/main}" th:text="${session.loginId} + '님'">로그인 / 회원가입</a>
+              <span></span><a class="nav__logout" th:href="@{/user/logout}">로그아웃</a> </li>
+            <li class="nav__item"><a th:href="@{/mypage/main}">마이페이지</a> / <a th:href="@{/user/message}">쪽지</a></li>
+            <li class="nav__item"><a th:href="@{/schedule/calender}">캘린더</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+</body>
+
+</html>

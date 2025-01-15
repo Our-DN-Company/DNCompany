@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.user.MypagePetImageMapper">
+
+    <!--    반려동물 이미지 처리-->
+    <!--    이미지 등록-->
+    <insert id="insertPetImg" parameterType="PetImageDTO">
+        <selectKey resultType="long" order="BEFORE" keyProperty="petImgId">
+            SELECT  SEQ_PET_IMG.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO PET_IMG(PET_IMG_ID, PET_ID, PET_ORIGINAL_IMAGE_NAME, PET_UUID, PET_IMAGE_PATH, PET_EXTENSION)
+        VALUES(#{petImgId},#{petId},#{petOriginalImageName},#{petUuid},#{petImagePath},#{petExtension})
+    </insert>
+
+<!--    <select id="selectPetImageById" parameterType="long" resultType="PetImageDTO">-->
+<!--        SELECT PET_IMG_ID, PET_ID, ORIGINAL_IMAGE_NAME, UUID, IMAGE_PATH, EXTENSION, REG_DATE-->
+<!--        FROM PET_IMG-->
+<!--        WHERE PET_ID = #{petId}-->
+<!--    </select>-->
+    <delete id="deleteByPetId" parameterType="long">
+        DELETE FROM PET_IMG
+        WHERE PET_ID = #{petId}
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

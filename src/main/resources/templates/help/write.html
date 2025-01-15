@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/help/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/help/helpwrite.css}" />
+    <link rel="stylesheet" th:href="@{/css/help/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script defer th:src="@{/js/help/helpwrite.js}"></script>
+    <title>Document</title>
+</head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <th:block th:insert="~{fragment/header::header}">
+
+    </th:block>
+    <div class="main-wrap">
+        <main>
+
+            <!-- 글쓰기 폼 -->
+            <form class="pet-form" id="petForm" th:action="@{/help/write}" method="post">
+                <h1 class="form-title">펫시팅 신청 기본정보</h1>
+
+                <!-- 기본 정보 섹션 -->
+                <div class="form-section">
+                    <h2>기본 정보</h2>
+                    <div class="form-group">
+                        <label>
+                            제목
+                            <span class="required">*</span>
+                        </label>
+                        <input name="helpTitle" type="text" placeholder="예) 우리 댕댕이 산책 도와주실 분 구해요" required>
+                    </div>
+
+                </div>
+
+                <!-- 돌봄 요청 정보 섹션 -->
+                <div class="form-section">
+                    <h2>돌봄 요청 정보</h2>
+                    <div class="form-group">
+                        <label>
+                            돌봄 유형
+                            <span class="required">*</span>
+                        </label>
+                        <select name="helpCareType" required>
+                            <option value="">선택해주세요</option>
+                            <option value="산책">산책</option>
+                            <option value="돌봄">돌봄</option>
+                            <option value="병원동행">병원동행</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            희망 날짜
+                            <span class="required">*</span>
+                        </label>
+                        <div class="date-range">
+                            <div class="date-input">
+                                <label class="sub-label">돌봄일</label>
+                                <input type="date" id="start-date" name="helpCareDate" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            희망 시간
+                            <span class="required">*</span>
+                        </label>
+                        <select name="helpTime" required>
+                            <option value="">선택해주세요</option>
+                            <option value="06-12">오전 (06:00-12:00)</option>
+                            <option value="12-18">오후 (12:00-18:00)</option>
+                            <option value="18-24">저녁 (18:00-24:00)</option>
+                            <option value="00-24">종일 돌봄</option>
+                        </select>
+                    </div>
+                    <!-- 포인트 입력 -->
+                    <div class="form-group">
+                        <label>
+                            포인트
+                            <span class="required">*</span>
+                        </label>
+                        <input type="number"
+                               name="helpPoint"
+                               placeholder="1000~4000 포인트 범위 내"
+                               min="1000"
+                               max="4000"
+                               required>
+                    </div>
+
+                    <!-- 가격 입력 -->
+                    <div class="form-group">
+                        <label>
+                            가격
+                            <span class="required">*</span>
+                        </label>
+                        <input type="number"
+                               name="helpPrice"
+                               placeholder="희망 가격을 입력해주세요"
+                               required>
+                    </div>
+                </div>
+
+                <!-- 반려동물 정보 섹션 -->
+                <div class="form-section">
+                    <h2>반려동물 정보</h2>
+                    <div class="form-group">
+                        <label>
+                            반려동물 선택
+                            <span class="required">*</span>
+                        </label>
+                        <select name="petId" required>
+                            <option value="">선택해주세요</option>
+                            <option th:each="pet : ${petList}" th:text="${pet.petName}" th:value="${pet.petId}">바둑이</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>특이사항</label>
+                        <textarea placeholder="반려동물 및 돌봄 특이사항을 입력해주세요(품종, 중성화 여부, 정확한 시간 등)"
+                                  rows="3"
+                                  name="helpSpecialNote"></textarea>
+                    </div>
+                </div>
+
+                <!-- 위치 정보 섹션 -->
+                <div class="bl_stack form">
+                    <div class="el_ttl">만남 희망 장소</div>
+                    <div class="bl_stack bl_stack--row">
+                        <input
+                                type="text"
+                                class="el_input hp_txt-center"
+                                placeholder=""
+                                readonly
+                                id="zonecode"
+                        />
+                        <button type="button" class="el_btn el_btn--outline hp_shrink-0" id="search-btn">
+                            주소 찾기
+                        </button>
+                    </div>
+                    <input
+                            type="text"
+                            name="helpAddress"
+                            class="el_input"
+                            placeholder=""
+                            readonly
+                            id="roadAddress"
+                    />
+                    <input
+                            type="text"
+                            name="helpAddressDetail"
+                            class="el_input"
+                            placeholder="상세주소를 입력해주세요."
+                            id="roadAddressDetail"
+                    />
+<!--                    <button class="el_btn" id="register-btn" type="button">주소 등록하기</button>-->
+                </div>
+<!--                <div class="bl_stack">-->
+<!--                    <div class="el_ttl">주소 입력 결과</div>-->
+<!--                    <div class="el_ttl">우편번호</div>-->
+<!--                    <div class="el_result"></div>-->
+<!--                    <div class="el_ttl">주소</div>-->
+<!--                    <div class="el_result"></div>-->
+<!--                    <div class="el_ttl">상세주소</div>-->
+<!--                    <div class="el_result"></div>-->
+<!--                </div>-->
+
+                <!-- 제출 버튼 -->
+                <button type="button" class="submit-button" onclick="confirmSubmit(event)">등록하기</button>
+            </form>
+
+        </main>
+    </div>
+    <th:block th:insert="~{fragment/footer::footer}">
+
+    </th:block>
+</div>
+
+</body>
+</html>

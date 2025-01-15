@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/user/schedule/schedule.css}" />
+
+    <!-- js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
+    <script src="fullcalendar/lib/locales-all.js"></script>
+
+    <script type="module" th:src="@{/js/user/schedule/schedule.js}"></script>
+  </head>
+  <body>
+    <!-- 홈페이지 전체 사이즈 -->
+    <div class="container">
+      <!-- 헤더 넣기 -->
+      <th:block th:insert="~{fragment/header::header}">
+
+      </th:block>
+      <div class="main-wrap">
+        <main class="calendarMain">
+          <div id="calendarBox">
+            <p>캘린더</p>
+            <div class="my-schedule-wrap">
+              <div class="my-schedule">
+                <!-- 스케줄이 있는 경우 -->
+                <th:block th:if="${scheduleList != null} and ${!scheduleList.isEmpty()}">
+                  <div class="my-schedule-list" th:each="schedule : ${scheduleList}"
+                       th:if="${schedule.helpCareDate == today} and ${schedule.usersId != null}">
+                    <a href="#">
+                      <span class="my-schedule-list-top" th:text="${schedule.helpTitle}">내 일정1</span>
+                      <div>
+                        <span th:text="'돌봄 날짜: ' + ${schedule.helpCareDate}">2024-01-01</span><br>
+                        <span th:text="'돌봄 종류: ' + ${schedule.helpCareType}">산책</span><br>
+                        <span th:text="'시작 시간: ' + ${schedule.helpStartTime}">06:00</span><br>
+                        <span th:text="'종료 시간: ' + ${schedule.helpEndTime}">12:00</span><br>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="no-schedule" th:unless="${scheduleList != null} or ${scheduleList.isEmpty()}">
+                    <span>오늘은 스케쥴이 없습니다.</span>
+                  </div>
+                </th:block>
+                <!-- 스케줄이 없는 경우 -->
+
+              </div>
+            </div>
+            <div id="calendar"></div>
+          </div>
+        </main>
+      </div>
+      <th:block th:insert="~{fragment/footer::footer}">
+
+      </th:block>
+    </div>
+  </body>
+</html>

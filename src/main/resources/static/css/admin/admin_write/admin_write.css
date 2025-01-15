@@ -1,0 +1,166 @@
+.admin_event_container {
+  margin-top: 110px;
+  width: 100%;
+}
+
+.admin_event_content {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+/* 카테고리 */
+.admin_event_category {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.admin_event_mark {
+  color: red;
+}
+
+/* 제목 입력 */
+.admin_event_titleInput {
+  margin: 10px 0;
+  padding: 0 10px;
+  width: 100%;
+  height: 55px;
+  border: 2px solid #c0c0c0;  /* 테두리 두께 증가 및 색상 진하게 */
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.admin_event_titleInput:focus {
+  border-color: #808080;  /* 포커스 시 더 진한 색상 */
+  outline: none;
+}
+
+.admin_event_alertText {
+  padding-left: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: red;
+  min-height: 18px; /* 에러 메시지가 없을 때도 공간 유지 */
+}
+
+/* 내용 입력 영역 */
+.admin_event_input {
+  margin-bottom: 10px;
+  padding: 20px 10px;
+  width: 100%;
+  height: 300px;
+  resize: none;
+  border: 2px solid #c0c0c0;  /* 테두리 두께 증가 및 색상 진하게 */
+  border-radius: 10px;
+  font-size: 15px;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+.admin_event_input:focus {
+  border-color: #808080;  /* 포커스 시 더 진한 색상 */
+  outline: none;
+}
+
+/* 파일 업로드 영역 */
+.admin_event_fileInputWrapper {
+  margin: 50px 0;
+}
+
+.admin_event_imgContainer {
+  min-height: 112px;
+  margin: 16px 0 20px;
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: white;
+  border: 1px dashed #868688;
+  border-radius: 15px;
+  text-align: center;
+}
+
+/* 이미지 미리보기 스타일 */
+#imagePreview img, #videoPreview video {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.admin_event_inputFileBtn {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 20px;
+  background-color: #f6f6f9;
+  border-radius: 21px;
+  color: black;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.admin_event_inputFileBtn:hover {
+  background-color: #e8e8eb;
+}
+
+.admin_event_imgDesc {
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 13px;
+  color: #909090;
+}
+
+.admin_event_inputFileText {
+  font-size: 14px;
+}
+
+.admin_event_thumbnailText {
+  color: #909090;
+  font-size: 13px;
+  margin: 20px 0;
+}
+
+.admin_event_thumbnailText ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.admin_event_thumbnailText li {
+  margin-bottom: 5px;
+}
+
+/* 제출 버튼 */
+button[type="submit"] {
+  width: 240px;
+  height: 40px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 21px;
+  border: none;
+  margin: 60px auto 100px;
+  display: block;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+  background-color: #e4e4e6;
+  color: #909090;
+  cursor: not-allowed;
+}
+
+/* 폼 전체 스타일 */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

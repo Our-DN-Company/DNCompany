@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_add_update.css}" />
+
+
+
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script defer th:src="@{/js/common.js}"></script>
+    <script defer th:src="@{/js/user/mypage/mypage_add.js}"></script>
+
+
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <th:block th:insert="~{fragment/header::header}">
+    </th:block>
+
+
+
+    <div class="main-wrap">
+        <main>
+            <div class="mypage_pet_add_box">
+
+
+                <form th:action="@{/mypage/add/pet}" method="post" enctype="multipart/form-data">
+                    <p>반려동물 정보 등록</p>
+                    <div class="pet_line"></div>
+                    <div>
+                        <label for="">사진등록</label>
+                        <div id="mypage_add_pet_img_preview"></div>
+                        <input id="mypage_add_pet_img" name="petImg" type="file" accept="img/*"   />
+                    </div>
+                    <div>
+                        <label for="petSpecies">반려동물 분류</label>
+                        <div class="addPetSpeciesBox">
+                            <input
+                                    type="text"
+                                    name="petSpecies"
+                                    class="petSpecies"
+                                    placeholder="입력해주세요"
+                                    required
+                            />
+
+                        </div>
+                    </div>
+                    <div>
+                        <label for="petName">이름 </label>
+                        <input type="text" name="petName" required />
+                    </div>
+
+                    <div class="pet_gender">
+                        <label>성별</label>
+                        <div>
+                            <input
+                                    type="radio"
+                                    id="petGender"
+                                    name="petGender"
+                                    value="F"
+                                    required
+                            />
+                            <label for="petGender">암컷</label>
+
+                            <input
+                                    type="radio"
+                                    id="petGender"
+                                    name="petGender"
+                                    value="M"
+                            />
+                            <label for="petGender">수컷</label>
+
+                            <input
+                                    type="radio"
+                                    id="petGender"
+                                    name="petGender"
+                                    value="N"
+                            />
+                            <label for="petGender">중성화</label>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <label for="petBirthDate">생일 </label>
+                        <input type="date" name="petBirthDate" />
+
+                    </div>
+
+                    <div>
+                        <label for="adoptionDate">입양일 </label>
+                        <input type="date" name="adoptionDate" />
+                    </div>
+
+                    <button type="submit">완료</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <th:block th:insert="~{fragment/footer::footer}">
+
+    </th:block>
+</div>
+</body>
+</html>

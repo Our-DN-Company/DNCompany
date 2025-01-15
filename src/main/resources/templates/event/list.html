@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/event/list.css}"/>
+    <style>
+        @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
+        @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header" th:include="~{fragment/header::header}">
+    </header>
+    <div class="main-wrap">
+        <main>
+            <!-- 여기에 작업 -->
+            <div class="main_searchContainer">
+                <div class="main_mainContents">
+                    <!-- 메인 타이틀 -->
+                    <p class="main_mainTitle">우리들의 이벤트</p>
+                    <div class="main_mainGridContainer">
+                        <!-- 반복 구간 -->
+                        <div class="mainContent_mainContentBox">
+                            <!-- 사진 박스 -->
+                            <div>
+                                <img
+                                        class="mainContent_mainImg"
+                                        src="https://bemypet.kr/_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2020%2F03%2F07075932%2F8bbace76-a331-4176-89db-29903aeca64a.jpeg&w=640&q=75"
+                                />
+                            </div>
+                            <div class="mainContent_mainbox">
+                                <!-- 글 박스 -->
+                                <div class="mainContent_mainContent">
+                                    <div class="mainContent_mainTitle">이벤트 제목</div>
+                                    <div class="mainContent_mainText">이벤트 내용</div>
+                                </div>
+                                <!-- 글 박스 하단 -->
+                                <div class="mainConent_mainInfo">
+                                    <div class="mainContent_subbox">이벤트 장소</div>
+                                    <div class="mainContent_subbox">이벤트 일정</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 반복 구간 -->
+
+                        <!-- 반복 구간 -->
+                        <div class="mainContent_mainContentBox">
+                            <!-- 사진 박스 -->
+                            <div>
+                                <img
+                                        class="mainContent_mainImg"
+                                        src="https://bemypet.kr/_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2020%2F03%2F07075932%2F8bbace76-a331-4176-89db-29903aeca64a.jpeg&w=640&q=75"
+                                />
+                            </div>
+                            <div class="mainContent_mainbox">
+                                <!-- 글 박스 -->
+                                <div class="mainContent_mainContent">
+                                    <div class="mainContent_mainTitle">이벤트 제목</div>
+                                    <div class="mainContent_mainText">이벤트 내용</div>
+                                </div>
+                                <!-- 글 박스 하단 -->
+                                <div class="mainConent_mainInfo">
+                                    <div class="mainContent_subbox">이벤트 장소</div>
+                                    <div class="mainContent_subbox">이벤트 일정</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 반복 구간 -->
+
+                        <!-- 반복 구간 -->
+                        <div class="mainContent_mainContentBox">
+                            <!-- 사진 박스 -->
+                            <div>
+                                <img
+                                        class="mainContent_mainImg"
+                                        src="https://bemypet.kr/_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2020%2F03%2F07075932%2F8bbace76-a331-4176-89db-29903aeca64a.jpeg&w=640&q=75"
+                                />
+                            </div>
+                            <div class="mainContent_mainbox">
+                                <!-- 글 박스 -->
+                                <div class="mainContent_mainContent">
+                                    <div class="mainContent_mainTitle">이벤트 제목</div>
+                                    <div class="mainContent_mainText">이벤트 내용</div>
+                                </div>
+                                <!-- 글 박스 하단 -->
+                                <div class="mainConent_mainInfo">
+                                    <div class="mainContent_subbox">이벤트 장소</div>
+                                    <div class="mainContent_subbox">이벤트 일정</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 반복 구간 -->
+
+                        <!-- 반복 구간 -->
+                        <div class="mainContent_mainContentBox">
+                            <!-- 사진 박스 -->
+                            <div>
+                                <img
+                                        class="mainContent_mainImg"
+                                        src="https://bemypet.kr/_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2020%2F03%2F07075932%2F8bbace76-a331-4176-89db-29903aeca64a.jpeg&w=640&q=75"
+                                />
+                            </div>
+                            <div class="mainContent_mainbox">
+                                <!-- 글 박스 -->
+                                <div class="mainContent_mainContent">
+                                    <div class="mainContent_mainTitle">이벤트 제목</div>
+                                    <div class="mainContent_mainText">이벤트 내용</div>
+                                </div>
+                                <!-- 글 박스 하단 -->
+                                <div class="mainConent_mainInfo">
+                                    <div class="mainContent_subbox">이벤트 장소</div>
+                                    <div class="mainContent_subbox">이벤트 일정</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 반복 구간 -->
+
+                        <!-- 더 보기 버튼 -->
+                        <div class="button_btnContainer">
+                            <button class="button_moreBtn">더 보기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+</div>
+</body>
+</html>

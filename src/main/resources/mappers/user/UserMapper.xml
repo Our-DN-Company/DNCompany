@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.user.UserMapper">
+    <insert id="insertUser" parameterType="UserJoinDTO">
+    <selectKey resultType="long" order="BEFORE" keyProperty="usersId">
+        SELECT SEQ_USERS.nextval FROM DUAL
+    </selectKey>
+        INSERT INTO USERS(USERS_ID, LOGIN_ID, PASSWORD, NAME, EMAIL, PHONE_NUMBER, ZIP_CODE, ADDRESS, ADDRESS_DETAIL, GENDER, BIRTH_DATE)
+        VALUES (#{usersId}, #{loginId}, #{password}, #{name}, #{email}, #{phoneNumber}, #{zipCode}, #{address}, #{addressDetail}, #{gender}, #{birthDate})
+    </insert>
+
+    <select id="selectLoginInfo" parameterType="UserLoginDTO" resultType="UserSessionDTO">
+        SELECT u.USERS_ID, u.LOGIN_ID, u.ROLE,
+               us.USERS_STATUS AS userStatus,
+               us.USERS_BAN_AT AS banStartDate,
+               us.USERS_PERMIT_AT AS banEndDate
+        FROM USERS u
+                 LEFT JOIN USERS_STATUS us ON u.USERS_ID = us.USERS_ID
+        WHERE u.LOGIN_ID = #{loginId} AND u.PASSWORD = #{password}
+    </select>
+
+
+<!--    &lt;!&ndash; 레프트 조인을 이용해서 정지 당한놈들만 추가로 뽑음    &ndash;&gt;-->
+<!--    <select id="selectLoginInfo" parameterType="UserLoginDTO" resultType="UserSessionDTO">-->
+<!--        SELECT-->
+<!--        u.USERS_ID,-->
+<!--        u.LOGIN_ID,-->
+<!--        u.ROLE,-->
+<!--        us.USERS_STATUS AS userStatus,-->
+<!--        us.USERS_BAN_AT AS banStartDate,-->
+<!--        us.USERS_PERMIT_AT AS banEndDate-->
+<!--        FROM-->
+<!--        ADMIN.USERS u-->
+<!--        LEFT JOIN-->
+<!--        ADMIN.USERS_STATUS us ON u.USERS_ID = us.USERS_ID-->
+<!--        WHERE-->
+<!--        u.LOGIN_ID = #{loginId}-->
+<!--        AND u.PASSWORD = #{password}-->
+<!--        AND (-->
+<!--        us.USERS_STATUS IS NULL-->
+<!--        OR us.USERS_STATUS = 'PERMIT'-->
+<!--        OR (-->
+<!--        us.USERS_STATUS = 'SUSPENDED'-->
+<!--        AND us.USERS_PERMIT_AT <![CDATA[<=]]> SYSDATE-->
+<!--        )-->
+<!--        )-->
+<!--    </select>-->
+
+
+
+
+
+
+    <select id="countByLoginId" parameterType="string" resultType="_int">
+--      전체 아이디를 돌려서 개수를 새고 null 이면 같은 아이디가 없으니 회원이 없는 것이고
+--      카운트가 올라가면 같은 아이디가 있는 것이니 회원이 있는 것이다.
+        SELECT COUNT(*)
+        FROM USERS
+        WHERE LOGIN_ID = #{loginId}
+    </select>
+</mapper>

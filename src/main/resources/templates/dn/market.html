@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/dn/market.css}"/>
+    <style>
+        @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
+        @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header" th:include="~{fragment/header::header}">
+    </header>
+    <div class="main-wrap">
+        <main>
+            <!-- 게시판 영역 -->
+            <div class="shopLayout_shoppingContainer">
+                <div class="shopLayout_shoppingContents">
+                    <!-- 쇼핑/검색창 -->
+                    <div class="shopLayout_shoppingTopArea">
+                        <!-- 검색창 -->
+                        <div class="shopSearch_inputContainer">
+                            <div class="shopLayout_shoppingTopArea">
+                                <input type="text" class="shopSearch_searchInput" placeholder="검색" enterkeyhint="search" value/>
+                                <img class="shopSearch_searchIcon" src="https://bemypet.kr/_next/static/media/ICON-24px-Search.318147fc.svg"/>
+                            </div>
+                        </div>
+
+                        <!-- 동물 분류 -->
+                        <div class="shopLayout_animalLabelContainer">
+                            <input type="radio" id="강아지" name="dnPetCategory" class="animalLabel_radioInput" checked/>
+                            <label for="강아지" class="animalLabel_animalLabelBtn">
+                                <div>강아지</div>
+                            </label>
+
+                            <input type="radio" id="고양이" name="dnPetCategory" class="animalLabel_radioInput"/>
+                            <label for="고양이" class="animalLabel_animalLabelBtn">
+                                <div>고양이</div>
+                            </label>
+
+                            <input type="radio" id="소동물" name="dnPetCategory" class="animalLabel_radioInput"/>
+                            <label for="소동물" class="animalLabel_animalLabelBtn">
+                                <div>소동물</div>
+                            </label>
+
+                            <input type="radio" id="기타" name="dnPetCategory" class="animalLabel_radioInput"/>
+                            <label for="기타" class="animalLabel_animalLabelBtn">
+                                <div>기타</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 물품 종류 카테고리 -->
+                    <nav class="categoryHeader_contentHeaderWrapper">
+                        <div class="categoryHeader_contentHeaderBox">
+                            <ul class="categoryHeader_contentHeaderList">
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">간식</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">매트</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">사료</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">식기</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">영양제</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">위생</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">이동장</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">장난감</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">집/하우스</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">패션</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">펫가전</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">하네스/줄</button>
+                                </li>
+                                <li class="categoryHeader_contentHeaderItem">
+                                    <button class="categoryHeader_defaultMenu" name="productCategory">해충방지용품</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <!-- 전체 물품 -->
+                    <div class="shopping_shoppingContents">
+                        <!-- 정렬 -->
+                        <div class="shopping_productFilterContainer">
+                          <span class="shopping_productFilterList">
+                            <input class="radio_myRadio" type="radio" id="인기순" name="productFilter" value="인기순" checked/>
+                            <label for="인기순">인기순</label>
+                          </span>
+                                <span class="shopping_productFilterList">
+                            <input class="radio_myRadio" type="radio" id="최신순" name="productFilter" value="최신순" checked/>
+                            <label for="최신순">최신순</label>
+                          </span>
+                                <span class="shopping_productFilterList">
+                            <input class="radio_myRadio" type="radio" id="낮은 가격순" name="productFilter" value="낮은 가격순" checked/>
+                            <label for="낮은 가격순">낮은 가격순</label>
+                          </span>
+                                <span class="shopping_productFilterList">
+                            <input class="radio_myRadio" type="radio" id="높은 가격순" name="productFilter" value="높은 가격순" checked/>
+                            <label for="높은 가격순">높은 가격순</label>
+                          </span>
+                        </div>
+                        <!-- 글쓰기 버튼 -->
+
+                        <div class="write_Btn">
+                            <a th:href="@{/dn/write}">
+                            <button class="write_Btn_item" tabindex="0" type="button">
+                                글쓰기
+                            </button>
+                            </a>
+                        </div>
+
+                        <!-- 물품 목록 -->
+                        <div class="shopping-list-wrap" >
+                            <div class="shopping_productList" th:each="dnBoard : ${pageDTO.list}" th:object="${dnBoard}">
+                                <!-- 반복 구간 -->
+                                <div class="productCard_productCardContainer">
+                                    <a th:href="@{/dn/detail(dnId=*{dnId})}">
+                                    <!-- 사진 영역 -->
+                                    <div class="productCard_cardImgContainer">
+                                        <span><img th:src="@{/images/logo/logo_banner2.png}" alt="게시글 썸네일" th:if="*{productImgId == null}" /></span>
+                                      <span><img th:src="@{'/upload/dn/' + *{productPath} + '/th_' + *{productUuid} + *{productExtension}}" alt="게시글 썸네일" th:unless="*{productImgId == null}"/>
+                                          <noscript></noscript>
+                                      </span>
+                                    </div>
+
+                                    <!-- 물품 정보 -->
+                                    <div class="productCard_productInfo">
+                                        <div class="productCard_productBrand" th:text="*{productCategory}">물품명</div>
+                                        <div class="productCard_productName" th:text="*{dnTitle}">물품 상세 정보</div>
+                                    </div>
+
+                                    <!-- 경계선 -->
+                                    <hr class="productCard_productDivider"/>
+
+                                    <!-- 물품 가격 -->
+                                    <div class="productCard_productInfo">
+                                        <div class="productCard_priceWrapper">
+                                            <div class="productCard_productPrice" th:text="*{productPrice}">10,000</div>
+                                            <span class="productCard_wonPrice">원</span>
+                                        </div>
+                                    </div>
+                                    </a>
+                                </div>
+                                <!-- 반복 구간 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 페이지 영역 -->
+                    <div class="pagination">
+                        <a th:if="${pageDTO.hasPreviousGroup()}"
+                           th:href="@{/dn/market(page=${pageDTO.startPage - 1})}"
+                           class="page-btn prev">‹
+                        </a>
+                        <a th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                           th:href="@{/dn/market(page=${i})}"
+                           class="page-btn"
+                           th:classappend="${i == pageDTO.page ? 'active' : ''}"
+                           th:text="${i}">1
+                        </a>
+                        <a th:if="${pageDTO.hasNextGroup()}"
+                           th:href="@{/dn/market(page=${pageDTO.endPage + 1})}"
+                           class="page-btn next">&gt;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+</div>
+
+
+</body>
+</html>

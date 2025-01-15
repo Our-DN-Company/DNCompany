@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/help/common.css}" />
+
+  <link rel="stylesheet" th:href="@{/css/help/font.css}" />
+  <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+  <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+  <script defer th:src="@{/js/fragment/header.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/help/helpdetail.css}" />
+  <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+  <th:block th:insert="~{fragment/header::header}">
+
+  </th:block>
+  <div class="main-wrap">
+    <main>
+      <!-- 여기에 작업 -->
+      <div class="container">
+        <article class="pet-detail">
+          <!-- 상단 섹션 -->
+          <header class="detail-header">
+            <div class="tags">
+             <span class="tag" th:classappend="${isRecruiting} ? 'tag-orange' : 'tag-green'"
+                   th:text="${isRecruiting} ? '모집 마감' : '모집중'">
+    </span>
+            </div>
+            <h1 th:text="${helpDetail.helpTitle}">우리 댕댕이 산책 도와주실 분 구해요</h1>
+            <div class="header-info">
+              <div class="writer-info">
+                <span class="writer-name" th:text="'' + ${helpDetail.loginId}">김철수</span>
+              </div>
+              <div class="post-info">
+                <span th:text="'작성일: ' + ${#temporals.format(helpDetail.helpCreatedAt, 'yyyy.MM.dd')}">작성일: 2024.12.13</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- 반려동물 정보 -->
+          <section class="info-section pet-info">
+            <h2>🐾 반려동물 정보</h2>
+            <div class="pet-profile">
+              <div class="pet-details">
+                <dl>
+                  <dt>이름</dt>
+                  <dd th:text="${helpDetail.petName}">코코</dd>
+                  <dt>나이</dt>
+                  <dd th:text="${helpDetail.petAge}">2살</dd>
+                  <dt>종류</dt>
+                  <dd th:text="${helpDetail.petSpecies}">강아지 / 말티즈</dd>
+                  <dt>성별</dt>
+                  <dd th:text="${helpDetail.petGender}">남자아이 (중성화 완료)</dd>
+                </dl>
+              </div>
+            </div>
+          </section>
+
+          <!-- 돌봄 정보 -->
+          <section class="info-section care-info">
+            <h2>📅 돌봄 정보</h2>
+            <div class="care-details">
+              <div class="care-point">
+                <span class="point-amount" th:text="${helpDetail.helpPoint + 'P'}">2,000P</span>
+                <span class="point-text">포인트 제공</span>
+              </div>
+              <div class="care-price">
+              <span class="price-amount" th:text="${helpDetail.helpPrice + '원'}">60000원</span>
+              <span class="price-text">지급</span>
+              </div>
+              <dl>
+                <dt>돌봄 유형</dt>
+                <dd><span class="tag care-type" th:text="${helpDetail.helpCareType}">산책</span></dd>
+                <dt>돌봄 날짜</dt>
+                <dd th:text="${#temporals.format(helpDetail.helpCareDate, 'yyyy년 MM월 dd일')}">2024년 12월 15일</dd>
+                <dt>돌봄 시간</dt>
+                <dd th:text="${#temporals.format(helpDetail.helpStartTime, 'a h시')} + ' - ' + ${#temporals.format(helpDetail.helpEndTime, 'a h시')}">오후 2시 - 4시</dd>
+                <dt>돌봄 장소</dt>
+                <dd th:text="${helpDetail.helpAddress + ' ' + helpDetail.helpAddressDetail}">서울시 강남구 삼성동</dd>
+              </dl>
+            </div>
+          </section>
+
+          <!-- 특이사항 -->
+          <section class="info-section note-info">
+            <h2>📝 특이사항</h2>
+            <p class="note-text" th:text="${helpDetail.helpSpecialNote}">
+              사람을 좋아하는 아이입니다.
+              산책을 매우 좋아하며 다른 강아지들과도 잘 어울립니다.
+              간식은 알러지가 있어서 주시면 안됩니다.
+            </p>
+          </section>
+
+          <!-- 신청하기 버튼 -->
+          <div class="action-buttons">
+            <button class="apply-button" th:onclick="|applyForCare(${helpDetail.helpId})|">돌봄 신청하기</button>
+          </div>
+        </article>
+      </div>
+
+
+      <script>
+        function applyForCare(helpId) {
+          if(confirm('돌봄을 신청하시겠습니까?')) {
+            fetch(`/help/offer/${helpId}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+                    .then(response => response.text())
+                    .then(message => {
+                      alert(message);
+                      // 성공 시 페이지 새로고침 또는 다른 처리
+                      location.reload();
+                    })
+                    .catch(error => {
+                      console.error('신청 실패:', error);
+                      alert('신청 처리 중 오류가 발생했습니다.');
+                    });
+          }
+        }
+      </script>
+    </main>
+  </div>
+  <th:block th:insert="~{fragment/footer::footer}">
+
+  </th:block>
+</div>
+</body>
+</html>

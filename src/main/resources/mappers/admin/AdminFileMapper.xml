@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.admin.AdminFIleMapper">
+
+    <insert id="insertEventBoard" parameterType="AdminFIleDTO">
+        <selectKey keyProperty="eventImgId" resultType="long" order="BEFORE">
+            SELECT SEQ_EVENT_IMG.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO ADMIN.EVENT_IMG (
+        EVENT_IMG_ID,
+        EVENT_ORIGINAL_FILENAME,
+        EVENT_UUID,
+        EVENT_PATH,
+        EVENT_EXTENSION,
+        EVENT_ID
+        ) VALUES (
+        #{eventImgId},
+        #{eventOriginalFilename},
+        #{eventUuid},
+        #{eventPath},
+        #{eventExtension},
+        #{eventBoardId}
+        )
+    </insert>
+
+    <select id="selectOldEventFileDTO" resultType="AdminFIleDTO">
+        SELECT EVENT_IMG_ID, EVENT_ID, EVENT_ORIGINAL_FILENAME, EVENT_UUID, EVENT_PATH, EVENT_EXTENSION, EVENT_REG_DATE
+        FROM EVENT_IMG
+        WHERE EVENT_PATH = TO_CHAR(SYSDATE -1 ,'YYYY/MM/DD')
+    </select>
+
+
+<!--    <select id="selectOldEventFileDTO" resultType="AdminFIleDTO">-->
+<!--        SELECT EVENT_IMG_ID, EVENT_ID, EVENT_ORIGINAL_FILENAME, EVENT_UUID, EVENT_PATH, EVENT_EXTENSION, EVENT_REG_DATE-->
+<!--        FROM EVENT_IMG-->
+<!--        WHERE EVENT_PATH = TO_CHAR(SYSDATE,'YYYY/MM/DD')-->
+<!--    </select>-->
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

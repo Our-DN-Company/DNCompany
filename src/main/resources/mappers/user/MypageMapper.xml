@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.user.MypageMapper">
+    <!--반려동물 정보 등록/수정-->
+    <!-- Insert 반려동물 정보 -->
+    <insert id="insertPet" parameterType="AddPetDTO">
+        <selectKey resultType="long" keyProperty="petId" order="BEFORE">
+            SELECT SEQ_PET.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO PET(PET_ID, PET_SPECIES, PET_NAME,PET_AGE,PET_GENDER, PET_BIRTH_DATE, ADOPTION_DATE, USERS_ID)
+        VALUES (#{petId}, #{petSpecies}, #{petName},
+        (EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM #{petBirthDate}) + 1),
+        #{petGender}, #{petBirthDate, jdbcType=DATE}, #{adoptionDate, jdbcType=DATE}, #{usersId})
+    </insert>
+    <!--미이페이지 메인-->
+    <!--반려동물 정보-->
+    <select id="selectPetList" parameterType="long" resultType="PetListDTO">
+        SELECT P.PET_ID, P.PET_SPECIES, P.PET_NAME, P.PET_AGE, P.PET_GENDER, P.PET_BIRTH_DATE, P.ADOPTION_DATE, P.USERS_ID,
+               PI.PET_IMG_ID, PI.PET_ORIGINAL_IMAGE_NAME, PI.PET_IMAGE_PATH, PI.PET_UUID, PI.PET_EXTENSION
+        FROM PET P
+                 LEFT JOIN PET_IMG PI ON P.PET_ID = PI.PET_ID
+        WHERE P.USERS_ID = #{usersId}
+    </select>
+
+    <!--반려동물 단건 조회-->
+    <select id="selectByPetId" parameterType="long" resultType="PetDetailDTO">
+        SELECT P.PET_ID, P.PET_SPECIES, P.PET_NAME, P.PET_GENDER, P.PET_BIRTH_DATE, P.ADOPTION_DATE, P.USERS_ID,
+               PI.PET_IMG_ID, PI.PET_ORIGINAL_IMAGE_NAME, PI.PET_IMAGE_PATH, PI.PET_UUID, PI.PET_EXTENSION
+        FROM PET P
+                 LEFT JOIN PET_IMG PI ON P.PET_ID = PI.PET_ID
+        WHERE P.PET_ID = #{petId}
+    </select>
+
+    <!--회원정보-->
+    <select id="userProfile" parameterType="long" resultType="userProfileDTO">
+        SELECT U.USERS_ID,
+               U.LOGIN_ID,
+               U.NICKNAME,
+               U.EMAIL,
+               U.PHONE_NUMBER,
+               (SELECT COUNT(*) FROM HELP_BOARD HB WHERE HB.USERS_ID = U.USERS_ID) AS HB_COUNT,
+               (SELECT COUNT(*) FROM HELP_OFFER HO WHERE HO.USERS_ID = U.USERS_ID) AS HO_COUNT,
+               U.POINT
+        FROM USERS U
+        WHERE U.USERS_ID = #{usersId}
+    </select>
+
+    <!--메인페이지 상세내역-->
+    <!--도와주세요-->
+    <select id="MyPageMainHelpMeListById" resultType="HelpMeListDTO" parameterType="long">
+        SELECT RNUM, HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT
+        FROM(
+            SELECT ROWNUM AS RNUM, HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT
+            FROM HELP_BOARD
+            WHERE USERS_ID = #{usersId}
+            ORDER BY HELP_CARE_DATE
+        )
+        <![CDATA[
+        WHERE RNUM <=3
+        ]]>
+
+    </select>
+
+    <!--도와드려요-->
+    <select id="MyPageMainHelpYouListById" resultType="HelpYouListDTO" parameterType="long">
+        SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+        FROM(
+                SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+                FROM HELP_OFFER
+                WHERE USERS_ID = #{usersId}
+                ORDER BY HELP_OFFER_ENROLL_DATE
+            )
+        <![CDATA[
+        WHERE RNUM <=3
+        ]]>
+    </select>
+
+
+
+
+
+    <!--상새내역 자세히보기-->
+    <!-- 도와주세요-->
+    <select id="helpMeListById" parameterType="long" resultType="HelpMeListDTO">
+        SELECT ROWNUM AS RNUM, HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT
+        FROM HELP_BOARD
+        WHERE USERS_ID = #{usersId}
+        ORDER BY HELP_CARE_DATE
+    </select>
+
+    <!--도와드려요-->
+    <select id="helpYouListById" parameterType="long" resultType="HelpYouListDTO">
+        SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+        FROM HELP_OFFER
+        WHERE USERS_ID = #{usersId}
+        ORDER BY HELP_OFFER_ENROLL_DATE
+    </select>
+
+
+    <!--QNA-->
+
+    <select id="qnaListById" parameterType="long" resultType="QnaListDTO">
+        SELECT ROWNUM AS RNUM,
+               qb.QNA_ID,
+               qb.QNA_TITLE,
+               qb.QNA_CREATED_AT,
+
+               (SELECT COUNT(*) FROM QNA_ANSWER qa WHERE qa.QNA_ID = qb.QNA_ID) AS QNA_ANSWER_COUNT,
+               USERS_ID
+        FROM QNA_BOARD qb
+        WHERE USERS_ID = #{usersId}
+    </select>
+
+    <!--초보zip-->
+    <!--게시글-->
+    <select id="MypageZipBoardListById" parameterType="long" resultType="MypageZipBoardListDTO">
+        SELECT ROWNUM AS RNUM, ZIP_ID, ZIP_TITLE, ZIP_CREATED_AT, USERS_ID
+        FROM ZIP_BOARD
+        WHERE USERS_ID = #{usersId}
+    </select>
+
+    <!--댓글-->
+    <select id="MypageZipAnswerListById" parameterType="long" resultType="MypageZipAnswerListDTO">
+        SELECT ROWNUM AS RNUM,
+               za.ZIP_ANSWER_ID,
+               zb.ZIP_TITLE,
+               za.ZIP_ANSWER_CONTENT,
+               za.ZIP_ANSWER_CREATED_AT,
+               za.USERS_ID,
+               zb.ZIP_ID
+        FROM ZIP_ANSWER za
+                 JOIN ZIP_BOARD zb ON za.ZIP_ID = zb.ZIP_ID
+        WHERE za.USERS_ID = #{usersId}
+    </select>
+
+    <!-- 리뷰 -->
+    <!--받은리뷰-->
+    <select id="MypageReviewListById" parameterType="long" resultType="MypageReviewListDTO">
+        SELECT ROWNUM AS RNUM, R.REVIEW_ID, R.REVIEW_TITLE, R.REVIEW_CREATED_AT, HO.USERS_ID
+        FROM REVIEW R
+                 JOIN HELP_OFFER HO ON R.HELP_OFFER_ID = HO.HELP_OFFER_ID
+        WHERE HO.USERS_ID = #{usersId}
+    </select>
+
+
+    <!--댕냥바다-->
+            <!--판매내역-->
+        <select id="MypageDnBoardListById" parameterType="long" resultType="MypageDnBoardListDTO">
+            SELECT ROWNUM AS RNUM, DN_ID,DN_PRDUCT_CATEGORY,DN_TITLE,USERS_ID
+            FROM DN_BOARD
+            WHERE USERS_ID=#{usersId}
+        </select>
+            <!--구입내역-->
+        <select id="MypageDnSellListById" parameterType="long" resultType="MypageDnSellListDTO">
+            SELECT ROWNUM AS RNUM, P.PRODUCT_ID,P.PRODUCT_NAME,P.PRODUCT_PRICE,DS.USERS_ID
+            FROM PRODUCT P
+                     JOIN DN_SELL DS ON P.PRODUCT_ID = DS.PRODUCT_ID
+
+            WHERE DS.USERS_ID=#{usersId}
+        </select>
+
+
+
+
+
+    <!--정보수정-->
+    <!-- 반려동물 수정 -->
+    <update id="updatePetInfo" parameterType="PetModifyDTO">
+        UPDATE PET
+        SET PET_SPECIES = #{petSpecies}, PET_NAME = #{petName}, PET_GENDER = #{petGender}, PET_BIRTH_DATE = #{petBirthDate}, ADOPTION_DATE = #{adoptionDate},
+            PET_AGE = (EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM #{petBirthDate}) + 1)
+        WHERE PET_ID = #{petId}
+    </update>
+
+    <!---회원정보 수정-->
+
+    <select id="selectUserProfileById" parameterType="long" resultType="UpdateUserProfileDTO">
+        SELECT USERS_ID, LOGIN_ID, PASSWORD, NAME, NICKNAME, EMAIL, PHONE_NUMBER, ADDRESS, ADDRESS_DETAIL
+        FROM USERS
+        WHERE USERS_ID=#{usersId}
+    </select>
+
+    <update id="updateUserProfile" parameterType="UpdateUserProfileDTO">
+        UPDATE USERS
+        SET PASSWORD=#{password}, NAME=#{name}, NICKNAME=#{nickname}, EMAIL=#{email}, PHONE_NUMBER=#{phoneNumber},
+            ADDRESS=#{address}, ADDRESS_DETAIL=#{addressDetail},ZIP_CODE=#{zipCode}
+        WHERE USERS_ID=#{usersId}
+    </update>
+    <!--정보 삭제-->
+    <!--반려동물 삭제-->
+    <delete id="deletePetByPetId" parameterType="long">
+        DELETE FROM PET
+        WHERE PET_ID = #{petId}
+    </delete>
+
+
+
+    <!--페이징처리-->
+
+    <select id="qnaListPage" resultType="QnaListDTO">
+       SELECT RNUM,
+              QNA_ID,
+              QNA_TITLE,
+              QNA_CREATED_AT,
+              QNA_ANSWER_COUNT,
+              USERS_ID
+       FROM(
+           SELECT ROWNUM AS RNUM,
+                  QNA_ID,
+                  QNA_TITLE,
+                  QNA_CREATED_AT,
+                  QNA_ANSWER_COUNT,
+                  USERS_ID
+               FROM(
+                SELECT qb.QNA_ID,
+                       qb.QNA_TITLE,
+                       qb.QNA_CREATED_AT,
+                       (SELECT COUNT(*) FROM QNA_ANSWER qa WHERE qa.QNA_ID = qb.QNA_ID) AS QNA_ANSWER_COUNT,
+                       USERS_ID
+                FROM QNA_BOARD qb
+                WHERE USERS_ID = #{usersId}
+                )
+             <![CDATA[
+             WHERE ROWNUM <= #{page.page} * #{page.size}
+             ]]>
+        )
+       WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countQnaList" parameterType="long" resultType="_int">
+        SELECT COUNT(*)
+        FROM QNA_BOARD
+        WHERE USERS_ID=#{usersId}
+    </select>
+
+
+    <!--도와주세요-->
+    <select id="helpMeListPage" resultType="HelpMeListDTO">
+       SELECT  RNUM,HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT
+       FROM(
+        SELECT ROWNUM AS RNUM,HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT
+            FROM(
+   SELECT HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT
+        FROM HELP_BOARD
+        WHERE USERS_ID = #{usersId}
+        ORDER BY HELP_CARE_DATE)
+         <![CDATA[
+        WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+        )
+       WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countHelpMeList" parameterType="long" resultType="_int">
+        SELECT COUNT(*)
+        FROM HELP_BOARD
+        WHERE USERS_ID=#{usersId}
+    </select>
+
+    <!--도와드려요-->
+    <select id="helpYouListPage" resultType="HelpYouListDTO">
+      SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+          FROM(
+        SELECT HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
+        FROM HELP_OFFER
+        WHERE USERS_ID = #{usersId}
+        ORDER BY HELP_OFFER_ENROLL_DATE)
+       <![CDATA[
+      WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+        )
+      WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countHelpYouList" parameterType="long" resultType="_int">
+        SELECT COUNT(*)
+        FROM HELP_OFFER
+        WHERE USERS_ID=#{usersId}
+    </select>
+
+
+    <!--초보zip-->
+    <!--게시물-->
+    <select id="zipBoardListPage" resultType="MypageZipBoardListDTO">
+      SELECT RNUM, ZIP_ID, ZIP_TITLE, ZIP_CREATED_AT, USERS_ID
+          FROM(
+           SELECT ROWNUM AS RNUM, ZIP_ID, ZIP_TITLE, ZIP_CREATED_AT, USERS_ID
+           FROM(SELECT ZIP_ID, ZIP_TITLE, ZIP_CREATED_AT, USERS_ID
+        FROM ZIP_BOARD
+        WHERE USERS_ID = #{usersId})
+       <![CDATA[
+       WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+        )
+       WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countZipBoardList" resultType="_int" parameterType="long" >
+        SELECT COUNT(*)
+        FROM ZIP_BOARD
+        WHERE USERS_ID=#{usersId}
+    </select>
+    <!--댓글-->
+    <select id="zipAnswerListPage" resultType="MypageZipAnswerListDTO">
+       SELECT RNUM,
+              ZIP_ANSWER_ID,
+              ZIP_TITLE,
+              ZIP_ANSWER_CONTENT,
+              ZIP_ANSWER_CREATED_AT,
+              USERS_ID,
+              ZIP_ID
+           FROM(SELECT ROWNUM AS RNUM,
+               ZIP_ANSWER_ID,
+               ZIP_TITLE,
+               ZIP_ANSWER_CONTENT,
+               ZIP_ANSWER_CREATED_AT,
+               USERS_ID,
+               ZIP_ID
+           FROM( SELECT
+               za.ZIP_ANSWER_ID,
+               zb.ZIP_TITLE,
+               za.ZIP_ANSWER_CONTENT,
+               za.ZIP_ANSWER_CREATED_AT,
+               za.USERS_ID,
+               zb.ZIP_ID
+        FROM ZIP_ANSWER za
+                 JOIN ZIP_BOARD zb ON za.ZIP_ID = zb.ZIP_ID
+        WHERE za.USERS_ID = #{usersId})
+         <![CDATA[
+       WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+        )
+       WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countZipAnswerList" resultType="_int" parameterType="long">
+        SELECT COUNT(*)
+        FROM ZIP_ANSWER
+        WHERE USERS_ID=#{usersId}
+    </select>
+
+    <!-- 리뷰 -->
+    <!--받은리뷰-->
+    <select id="reviewListPage"  resultType="MypageReviewListDTO">
+SELECT RNUM, REVIEW_ID, REVIEW_TITLE, REVIEW_CREATED_AT, USERS_ID
+FROM(SELECT  ROWNUM AS RNUM, REVIEW_ID, REVIEW_TITLE, REVIEW_CREATED_AT, USERS_ID
+FROM ( SELECT  R.REVIEW_ID, R.REVIEW_TITLE, R.REVIEW_CREATED_AT, HO.USERS_ID
+        FROM REVIEW R
+                 JOIN HELP_OFFER HO ON R.HELP_OFFER_ID = HO.HELP_OFFER_ID
+        WHERE HO.USERS_ID = #{usersId})
+  <![CDATA[
+WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+        )
+WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countReviewList" resultType="_int" parameterType="long">
+        SELECT COUNT(*)
+        FROM REVIEW
+        WHERE USERS_ID=#{usersId}
+    </select>
+
+       <!--댕냥바다-->
+    <!--판매내역-->
+    <select id="mypageDnBoardListPage"  resultType="MypageDnBoardListDTO">
+        SELECT RNUM, DN_ID, DN_PRDUCT_CATEGORY, DN_TITLE, USERS_ID
+        FROM (SELECT ROWNUM AS RNUM, DN_ID, DN_PRDUCT_CATEGORY, DN_TITLE, USERS_ID
+              FROM (SELECT DN_ID, DN_PRDUCT_CATEGORY, DN_TITLE, USERS_ID
+                    FROM DN_BOARD
+                    WHERE USERS_ID = #{usersId})
+          <![CDATA[
+              WHERE ROWNUM <= #{page.page} * #{page.size}
+        ]]>
+        )
+        WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countMypageDnBoardList" resultType="long" parameterType="_int">
+        SELECT COUNT(*)
+        FROM DN_BOARD
+        WHERE USERS_ID=#{usersId}
+    </select>
+
+    <!--구입내역-->
+    <select id="mypageDnSellListPage"  resultType="MypageDnSellListDTO">
+        SELECT RNUM, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, USERS_ID
+        FROM (SELECT ROWNUM AS RNUM, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, USERS_ID
+              FROM (SELECT P.PRODUCT_ID, P.PRODUCT_NAME, P.PRODUCT_PRICE, DS.USERS_ID
+                    FROM PRODUCT P
+                             JOIN DN_SELL DS ON P.PRODUCT_ID = DS.PRODUCT_ID
+
+                    WHERE DS.USERS_ID = #{usersId})
+                <![CDATA[
+              WHERE ROWNUM <= #{page.page} * #{page.size}
+                 ]]>
+                 )
+         WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countMypageDnSellList" resultType="_int" parameterType="long">
+        SELECT COUNT(*)
+        FROM DN_SELL
+        WHERE USERS_ID=#{usersId}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

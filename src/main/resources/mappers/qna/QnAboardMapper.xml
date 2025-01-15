@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.qna.QnaMapper">
+    <!--  게시글 삽입  -->
+    <insert id="insertQnABoard" parameterType="QnAWriteDTO">
+        <selectKey resultType="long" keyProperty="qnaId" order="BEFORE">
+            SELECT SEQ_QNA_BOARD.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO QNA_BOARD (QNA_ID, USERS_ID, QNA_TITLE, QNA_CONTENT)
+        VALUES (#{qnaId}, #{usersId}, #{qnaTitle}, #{qnaContent})
+    </insert>
+
+    <!--  게시글 전체 정보  -->
+    <select id="selectAllQnABoards" resultType="QnADTO">
+        SELECT QB.QNA_ID, QB.QNA_TITLE, QB.QNA_CONTENT, QB.QNA_UPDATE_AT,
+               U.USERS_ID, U.NICKNAME
+        FROM QNA_BOARD QB
+                 JOIN USERS U ON QB.USERS_ID = U.USERS_ID
+        ORDER BY QNA_ID DESC
+    </select>
+
+    <!--  게시글 상세 정보  -->
+    <select id="QnASelectById" parameterType="long" resultType="QnADetailDTO">
+        SELECT QB.QNA_ID, QB.QNA_TITLE, QB.QNA_CONTENT, QB.QNA_UPDATE_AT,
+               U.USERS_ID, U.NICKNAME
+        FROM QNA_BOARD QB
+                 JOIN USERS U ON QB.USERS_ID = U.USERS_ID
+        WHERE QB.QNA_ID = #{qnaId}
+    </select>
+
+    <!--  게시글 수정  -->
+    <update id="updateQnABoard" parameterType="QnAModifyDTO">
+        UPDATE QNA_BOARD
+        SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}, QNA_UPDATE_AT = SYSDATE
+        WHERE QNA_ID = #{qnaId}
+    </update>
+
+    <!--  게시글 삭제  -->
+    <delete id="deleteQnABoard" parameterType="long">
+        DELETE FROM QNA_BOARD
+        WHERE QNA_ID = #{qnaId}
+    </delete>
+
+    <!--  페이징 처리  -->
+    <select id="selectBySearchCondWithPage" resultType="QnaDTO">
+        SELECT RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT,
+                USERS_ID, NICKNAME, ROLE
+            FROM (
+                SELECT ROWNUM AS RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT,
+                    USERS_ID, NICKNAME, ROLE
+                FROM (
+                    SELECT QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT,
+                        U.USERS_ID, U.NICKNAME, U.ROLE
+                    FROM QNA_BOARD QB
+                        JOIN USERS U ON QB.USERS_ID = U.USERS_ID
+                    <where>
+                        <choose>
+                            <when test="cond.searchType != null and cond.searchType == 'usersId'">
+                                U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
+                            </when>
+                            <when test="cond.searchType != null and cond.searchType == 'title'">
+                                QB.QNA_TITLE LIKE '%' || #{cond.keyword} || '%'
+                            </when>
+                            <when test="cond.searchType != null and cond.searchType == 'content'">
+                                QB.QNA_CONTENT LIKE '%' || #{cond.keyword} || '%'
+                            </when>
+                        </choose>
+                    </where>
+                    ORDER BY QNA_ID DESC
+                )
+            <![CDATA[
+            WHERE ROWNUM <= ${page.page} * #{page.size}
+            ]]>
+        )
+        WHERE RNUM > (#{page.page} - 1 ) * #{page.size}
+    </select>
+
+    <select id="countBySearchCondition" resultType="_int">
+        SELECT COUNT(*)
+        FROM QNA_BOARD QB
+            JOIN USERS U ON QB.USERS_ID = U.USERS_ID
+        <where>
+            <choose>
+                <when test="cond.searchType != null and cond.searchType == 'usersId'">
+                    U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
+                </when>
+                <when test="cond.searchType != null and cond.searchType == 'title'">
+                    QB.QNA_TITLE LIKE '%' || #{cond.keyword} || '%'
+                </when>
+                <when test="cond.searchType != null and cond.searchType == 'content'">
+                    QB.QNA_CONTENT LIKE '%' || #{cond.keyword} || '%'
+                </when>
+            </choose>
+        </where>
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

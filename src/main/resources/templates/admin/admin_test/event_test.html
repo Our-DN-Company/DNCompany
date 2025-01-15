@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>이벤트 게시글 테스트</title>
+  <style>
+    .event-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .event-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+    .event-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .event-meta {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    .event-content {
+      margin-top: 15px;
+    }
+    .event-content img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+<div class="event-container">
+  <h1>이벤트 게시글 테스트 페이지</h1>
+
+  <div th:each="event : ${eventList}" class="event-card">
+    <div class="event-title" th:text="${event.eventTitle}"></div>
+    <div class="event-meta">
+      <p>게시글 ID: <span th:text="${event.eventBoardId}"></span></p>
+      <p>작성일: <span th:text="${#temporals.format(event.eventCreatedAt, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
+      <p>수정일: <span th:text="${#temporals.format(event.eventUpdatedAt, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
+      <p>작성자 ID: <span th:text="${event.usersId}"></span></p>
+    </div>
+    <div class="event-content" th:utext="${event.eventContent}"></div>
+  </div>
+</div>
+</body>
+</html>
