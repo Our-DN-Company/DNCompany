@@ -120,45 +120,7 @@ public class MypageService {
     }
 
 
-//    상세내역 페이지
 
-    public List<HelpMeListDTO> helpMeListById(Long usersId) {
-        return mypageMapper.helpMeListById(usersId);
-    }
-
-    public List<HelpYouListDTO> helpYouListById(Long usersId) {
-        return mypageMapper.helpYouListById(usersId);
-    }
-
-    public List<QnaListDTO> qnaListById(Long usersId) {
-        return mypageMapper.qnaListById(usersId);
-    }
-
-
-
-    public List<MypageZipAnswerListDTO> MypageZipAnswerListById(Long usersId) {
-        return mypageMapper.MypageZipAnswerListById(usersId);
-    }
-
-    public List<MypageZipBoardListDTO> MypageZipBoardListById(Long usersId) {
-        return mypageMapper.MypageZipBoardListById(usersId);
-    }
-
-    public List<MypageReviewListDTO> MypageReviewListById(Long usersId) {
-        return mypageMapper.MypageReviewListById(usersId);
-    }
-
-    public List<MypageReviewListDTO> ReviewReceivedListById(Long usersId) {
-        return mypageMapper.ReviewReceivedListById(usersId);
-    }
-
-    public List<MypageDnBoardListDTO> MypageDnBoardListById(Long usersId) {
-        return mypageMapper.MypageDnBoardListById(usersId);
-    }
-
-    public List<MypageDnSellListDTO> MypageDnSellListById(Long usersId) {
-        return mypageMapper.MypageDnSellListById(usersId);
-    }
 
     //    정보 수정
     //    반려동물 수정
@@ -320,18 +282,10 @@ public class MypageService {
 
     }
 
-    //reviewReceived
-    public PageDTO<MypageReviewListDTO> reviewReceivedListPage(Long usersId, PageRequestDTO pageRequestDTO) {
-        List<MypageReviewListDTO> reviewReceivedList = mypageMapper.reviewReceivedListPage(usersId, pageRequestDTO);
-        int total = mypageMapper.countReviewReceivedList(usersId);
-
-        return new PageDTO<>(pageRequestDTO.getPage(),
-                pageRequestDTO.getSize(),
-                total,
-                reviewReceivedList);
 
 
-    }
+
+
 
     //dnBoard
     public PageDTO<MypageDnBoardListDTO> mypageDnBoardListPage(Long usersId, PageRequestDTO pageRequestDTO) {
