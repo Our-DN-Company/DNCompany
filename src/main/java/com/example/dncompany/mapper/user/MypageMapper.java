@@ -49,9 +49,7 @@ public interface MypageMapper {
 
     List<MypageZipAnswerListDTO> MypageZipAnswerListById(Long usersId);
 
-    List<MypageReviewListDTO> MypageReviewListById(Long usersId);
 
-    List<MypageReviewListDTO> ReviewReceivedListById(Long usersId);
 
     List<MypageDnBoardListDTO> MypageDnBoardListById(Long usersId);
 
@@ -114,11 +112,7 @@ public interface MypageMapper {
 
     int countReviewList(Long usersId);
 
-    //reviewReceived
-    List<MypageReviewListDTO> reviewReceivedListPage(@Param("usersId") Long usersId,
-                                 @Param("page") PageRequestDTO pageRequestDTO);
 
-    int countReviewReceivedList(Long usersId);
 
     //dnBoard
     List<MypageDnBoardListDTO> mypageDnBoardListPage(@Param("usersId") Long usersId,
