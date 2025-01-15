@@ -63,34 +63,34 @@
               />
               <label for="uploadFile" class="admin_event_inputFileBtn">
                 <div class="admin_event_inputFileText">사진 첨부</div>
-                <img th:src="@{/images/icons/camera_icon.svg}" alt="카메라 아이콘"/>
+<!--                <img th:src="@{/images/icons/camera_icon.svg}" alt="카메라 아이콘"/>-->
               </label>
               <span class="admin_event_imgDesc">개당 업로드 용량: 20MB, 첨부 파일의 경우 사진과 동영상을 합쳐 최대 10개 업로드 가능합니다.</span>
             </div>
 
-            <div class="admin_event_fileInputWrapper">
-              <span class="admin_event_category">동영상 업로드</span>
-              <div class="admin_event_imgContainer" id="videoPreview"></div>
-              <input
-                      id="uploadVideo"
-                      type="file"
-                      name="video"
-                      accept="video/mp4,video/quicktime"
-                      style="display: none"
-              />
-              <label for="uploadVideo" class="admin_event_inputFileBtn">
-                <div class="admin_event_inputFileText">동영상 첨부</div>
-                <img th:src="@{/images/icons/video_icon.svg}" alt="비디오 아이콘"/>
-              </label>
-              <span class="admin_event_imgDesc">최대 업로드 용량: 65MB, 동영상은 최대 1개 업로드 가능합니다.</span>
-            </div>
+<!--            <div class="admin_event_fileInputWrapper">-->
+<!--              <span class="admin_event_category">동영상 업로드</span>-->
+<!--              <div class="admin_event_imgContainer" id="videoPreview"></div>-->
+<!--              <input-->
+<!--                      id="uploadVideo"-->
+<!--                      type="file"-->
+<!--                      name="video"-->
+<!--                      accept="video/mp4,video/quicktime"-->
+<!--                      style="display: none"-->
+<!--              />-->
+<!--              <label for="uploadVideo" class="admin_event_inputFileBtn">-->
+<!--                <div class="admin_event_inputFileText">동영상 첨부</div>-->
+<!--                <img th:src="@{/images/icons/video_icon.svg}" alt="비디오 아이콘"/>-->
+<!--              </label>-->
+<!--              <span class="admin_event_imgDesc">최대 업로드 용량: 65MB, 동영상은 최대 1개 업로드 가능합니다.</span>-->
+<!--            </div>-->
 
-            <div class="admin_event_thumbnailText">
-              <ul>
-                <li>동영상과 사진을 동시에 업로드 시, 업로드된 사진 중 첫 번째 순서의 사진이 썸네일로 지정됩니다.</li>
-                <li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
-              </ul>
-            </div>
+<!--            <div class="admin_event_thumbnailText">-->
+<!--              <ul>-->
+<!--                <li>동영상과 사진을 동시에 업로드 시, 업로드된 사진 중 첫 번째 순서의 사진이 썸네일로 지정됩니다.</li>-->
+<!--                <li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>-->
+<!--              </ul>-->
+<!--            </div>-->
 
             <!-- 등록 버튼 -->
             <button type="submit" class="admin_event_submitBtn">글 등록</button>
