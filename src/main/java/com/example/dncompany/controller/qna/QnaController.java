@@ -78,9 +78,10 @@ public class QnaController {
     public String write(QnAWriteDTO qnaWriteDTO,
                         HttpSession session,
                         @SessionAttribute(value = "usersId", required = false) Long usersId) {
-//        log.info("write qnaBoardWriteDTO: {}", qnaBoardWriteDTO);
-        qnaService.addQnaBoard(qnaWriteDTO, usersId);
+        log.info("write qnaBoardWriteDTO: {}", qnaWriteDTO);
+        Long usersId1 = (Long) session.getAttribute("usersId");
 
+        qnaService.addQnaBoard(qnaWriteDTO, usersId1);
         return "redirect:/qna/list";
     }
 
@@ -97,9 +98,15 @@ public class QnaController {
     public String modify(QnAModifyDTO qnaModifyDTO,
                          RedirectAttributes redirectAttributes) {
 
+        try {
+            qnaService.modifyQnaBoard(qnaModifyDTO);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
         redirectAttributes.addAttribute("qnaId", qnaModifyDTO.getQnaId());
 
-        return "redirect:/qna/list";
+        return "redirect:/qna/detail";
     }
 
     // 게시글 삭제

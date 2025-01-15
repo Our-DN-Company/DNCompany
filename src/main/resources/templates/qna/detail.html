@@ -31,21 +31,15 @@
                         <div class="qaDetail_qaDetailTitle">
                             <div class="qaDetail_labelListWrapper" ></div>
                             <h1 class="qaDetail_qaDetailTop" th:text="${qna.qnaTitle}">
-                                4개월 마티즈 파보장염에대해궁굼한게있어요
+
                             </h1>
                         </div>
                         <div class="qaDetail_qaDetailText" th:text="${qna.qnaContent}">
-                            강아지 공장에서 구출된 4개월 남아를 이틀전에 입양했는데요
-                            입양한첫날밤부터 변을 보는데 설사가좀섞여서 나오더니
-                            다음날부터 설사를 심하게 해서 병원에 갔더니
-                            파보장염양성판정이나왔고 항체검사를 했더니 항체도 없다고
-                            하더라구요..입원해서 치료하기로했는데 파보장염을 앐고나면 계속
-                            병을 달고살게되나요? 어떤 후유증이 있는지 어떻게 관리를
-                            해야하는지 궁굼합니다
+
                         </div>
-                        <div class="qaDetail_qaDetailImgBox">
-                            <img class="img_verticalImage" src=""/>
-                        </div>
+<!--                        <div class="qaDetail_qaDetailImgBox">-->
+<!--                            <img class="img_verticalImage" src=""/>-->
+<!--                        </div>-->
 
                         <!-- 작성글 삭제/수정 버튼 -->
                         <div class="delete_modify_Btn" th:if="${session.usersId == qna.usersId}">
@@ -67,7 +61,7 @@
                         <!-- 작성자 정보 -->
                         <div class="qaDetail_qaDetailInfo">
                             <div>
-                                <div class="qaDetail_qaDetailUser" th:text="${qna.nickname}">닉네임</div>
+                                <div class="qaDetail_qaDetailUser" th:text="${qna.nickname}"></div>
                                 <div class="qaDetail_qaDetailDate" th:text="${qna.qnaUpdateAt}">작성 날짜</div>
                             </div>
                         </div>
