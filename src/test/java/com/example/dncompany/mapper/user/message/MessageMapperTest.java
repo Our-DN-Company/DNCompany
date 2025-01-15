@@ -97,21 +97,10 @@ class MessageMapperTest {
         Assertions.assertTrue(resultTo >= 0, "결과는 0 이상이어야 합니다.");
     }
 
-//    @Test
-//    public void testCountByPageWithNoParameters() {
-//        // given
-//        // 파라미터를 null로 설정
-//        Long userFrom = null;
-//        Long userTo = null;
-//
-//        // when
-//        int resultFrom = messageMapper.countByPageFrom(userFrom);
-//        int resultTo = messageMapper.countByPageTo(userTo);
-//
-//        // then
-//        System.out.println("Count by Page From (No Parameters): " + resultFrom);
-//        System.out.println("Count by Page To (No Parameters): " + resultTo);
-//        Assertions.assertTrue(resultFrom >= 0, "결과는 0 이상이어야 합니다.");
-//        Assertions.assertTrue(resultTo >= 0, "결과는 0 이상이어야 합니다.");
-//    }
+    @Test
+    void deletemessageList() {
+        Long messageId = 33L;
+
+    }
+
 }

@@ -42,12 +42,6 @@ public class MessageController {
             return "redirect:/user/login";
         }
 
-        PageDTO<MessagePageDTO> messageWithToPage= messageService.messageWithToPage (pageRequestDTO, userTo);
-        model.addAttribute("messageWithToPage", messageWithToPage);
-
-        PageDTO<MessagePageDTO> messagePageDTOFrom= messageService.messageWithFromPage (pageRequestDTO, userFrom);
-        model.addAttribute("messagePageDTOFrom", messagePageDTOFrom);
-
         return "user/message";
     }
 
