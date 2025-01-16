@@ -8,12 +8,14 @@
     <link rel="stylesheet" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
-    <script defer th:src="@{/js/fragment/header.js}"></script>
+
     <link rel="stylesheet" th:href="@{/css/dn/market.css}"/>
     <style>
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
         @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
     </style>
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script defer th:src="@{/js/dn/dnBoard.js}"></script>
 </head>
 <body>
 <div class="container">
@@ -80,15 +82,15 @@
                             <input class="radio_myRadio" type="radio" id="popular-order" name="productFilter" value="popular-order" th:checked="${searchDTO.order.equals('popular-order')}"/>
                             <label for="popular-order">인기순</label>
                           </span>
-                                <span class="shopping_productFilterList">
+                            <span class="shopping_productFilterList">
                             <input class="radio_myRadio" type="radio" id="last-order" name="productFilter" value="last-order" th:checked="${searchDTO.order.equals('last_order')}"/>
                             <label for="last-order">최신순</label>
                           </span>
-                                <span class="shopping_productFilterList">
+                            <span class="shopping_productFilterList">
                             <input class="radio_myRadio" type="radio" id="price-desc-order" name="productFilter" value="price-desc-order" th:checked="${searchDTO.order.equals('price-desc-order')}"/>
                             <label for="price-desc-order">낮은 가격순</label>
                           </span>
-                                <span class="shopping_productFilterList">
+                            <span class="shopping_productFilterList">
                             <input class="radio_myRadio" type="radio" id="price-asc-order" name="productFilter" value="price-asc-order" th:checked="${searchDTO.order.equals('price-asc-order')}"/>
                             <label for="price-asc-order">높은 가격순</label>
                           </span>

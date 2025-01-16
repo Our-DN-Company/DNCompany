@@ -14,10 +14,13 @@ $('.prouduct_prouductInput').summernote({
 });
 
 {   // 정렬 버튼 처리
+    // 라디오 버튼을 받아와야한다.
     const $radioContainer = document.querySelector('.shopping_productFilterContainer');
 
+    // 주소창에서 값을 받아와 재정의 하는 코드이다.
     $radioContainer.addEventListener("change", (e) => {
         if (e.target.classList.contains("radio_myRadio")) {
+
             const searchParams = new URLSearchParams(location.search);
             searchParams.set("order", e.target.value);
 
