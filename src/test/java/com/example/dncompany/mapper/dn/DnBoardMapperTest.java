@@ -1,6 +1,8 @@
 package com.example.dncompany.mapper.dn;
 
 import com.example.dncompany.dto.dn.*;
+import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,12 +31,16 @@ class DnBoardMapperTest {
     DnBoardWriteDTO dnBoardWriteDTO;
     ProductDTO productDTO;
     DnSellBoardDTO dnSellBoardDTO;
+    DnSearchDTO dnSearchDTO;
+    PageDTO<DnBoardListDTO> dnBoardListDTO;
+    PageRequestDTO pageRequestDTO;
 
     @BeforeEach
     void setUp() {
         dnBoardWriteDTO = new DnBoardWriteDTO();
         productDTO = new ProductDTO();
         dnSellBoardDTO = new DnSellBoardDTO();
+        dnSearchDTO = new DnSearchDTO();
         dnBoardWriteDTO.setUsersId(6L);
         dnBoardWriteDTO.setDnId(1L);
         dnBoardWriteDTO.setDnTitle("테스트용 타이틀이다~~");
@@ -46,6 +52,11 @@ class DnBoardMapperTest {
         dnSellBoardDTO.setDnId(dnBoardWriteDTO.getDnId());
         dnSellBoardDTO.setUsersId(dnBoardWriteDTO.getUsersId());
         dnSellBoardDTO.setProductId(productDTO.getProductId());
+        dnSearchDTO.setOrder("price-desc-order");
+        dnSearchDTO.setKeyword("a");
+        dnSearchDTO.setProductCategory("snack");
+        dnSearchDTO.setDnPetCategory("dog");
+        dnSearchDTO.setSearchType("usersId");
     }
 
     @Test
@@ -85,4 +96,26 @@ class DnBoardMapperTest {
                 .contains("테스트용 타이틀이다~~");
     }
 
+    @Test
+    @DisplayName("전체 조회 한 뒤 검색 조건 추가 테스트")
+    void selectAllDnBoardListCondWithPage() {
+        //given
+        dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
+        dnProductMapper.insertProduct(productDTO);
+        dnBoardMapper.countBySearchCondition(dnSearchDTO);
+        //when
+        List<DnBoardListDTO> boardList = dnBoardMapper.selectAllDnBoardListCondWithPage(pageRequestDTO, dnSearchDTO);
+        //then
+        assertThat(boardList)
+                .isNotEmpty()
+                .extracting("dnTitle")
+                .contains("테스트용 타이틀이다~~");
+        assertThat(boardList).isNotNull()
+                .extracting("productCategory")
+                .isEqualTo("snack");
+        assertThat(boardList).isNotNull()
+                .extracting("dnPetCategory")
+                .isEqualTo("dog");
+
+    }
 }
