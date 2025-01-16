@@ -1,35 +1,26 @@
 import * as smsApi from './modules/smsApi.js';
 import * as  userApi from './modules/userApi.js';
 
-// const h2Element = document.querySelector('.signup__kit h2');
-//
-// document.addEventListener('DOMContentLoaded', function () {
-//   // 예상 경로 설정
-//   const expectedPath = "http://localhost:10000/user/login";
-//
-//   // 현재 페이지로 오기 전의 URL
-//   const referrer = document.referrer;
-//
-//   if (!referrer || referrer === "") {
-//     // referrer가 비어 있는 경우
-//     h2Element.textContent = '추가 정보 입력';
-//     alert("카카오 로그인이 완료되었습니다. 회원 정보를 입력해주세요.");
-//   } else if (referrer !== expectedPath) {
-//     // 예상 경로를 타지 않고 들어온 경우
-//     alert("경로가 잘못되었습니다.");
-//     // 메인 페이지로 리디렉션
-//     window.location.href = "http://localhost:10000/";
-//   }
-// });
+document.addEventListener('DOMContentLoaded', function () {
+  // 예상 경로 설정
+  const expectedPath = "http://localhost:10000/user/login";
 
+  // 현재 페이지로 오기 전의 URL
+  const referrer = document.referrer;
 
-
+  if (referrer !== expectedPath) {
+    // 예상 경로를 타지 않고 들어온 경우
+    alert("잘못된 접근입니다. 다시 접근해주세요.");
+    // 메인 페이지로 리디렉션
+    window.location.href = "http://localhost:10000/";
+  }
+});
 
 
 // 입력 필드와 메시지 DOM 요소 가져오기
 // 아이디
 
-const elInputId = document.querySelector("#loginIdTo");
+const elInputId = document.querySelector("#loginId");
 const elFailureMessageOneId = document.querySelector(".id__notmessage1");
 const elFailureMessageTwoId = document.querySelector(".id__notmessage2");
 const elSuccessMessageId = document.querySelector(".id__okmessage");
@@ -86,17 +77,17 @@ function handleUsernameValidation(value) {
   });
 }
 
-// // 입력 이벤트 핸들러
-// elInputId.addEventListener("input", function () {
-//   const value = elInputId.value;
-//   handleUsernameValidation(value);
-// });
+// 입력 이벤트 핸들러
+elInputId.addEventListener("input", function () {
+  const value = elInputId.value;
+  handleUsernameValidation(value);
+});
 
-// // 아이디 중복 검사 (change 이벤트)
-// elInputId.addEventListener("change", function () {
-//   const value = elInputId.value;
-//   handleUsernameValidation(value);
-// });
+// 아이디 중복 검사 (change 이벤트)
+elInputId.addEventListener("change", function () {
+  const value = elInputId.value;
+  handleUsernameValidation(value);
+});
 
 
 
