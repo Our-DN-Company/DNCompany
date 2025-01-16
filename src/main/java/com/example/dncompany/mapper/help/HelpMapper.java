@@ -35,4 +35,7 @@ public interface HelpMapper {
 
     // 페이징 처리된 목록 조회
     List<HelpListDTO> selectHelpListWithPaging(@Param("page") int page, @Param("size") int size);
+
+    // 게시글 삭제
+    int deleteMyHelpBoard(@Param("helpId") Long helpId, @Param("userId") Long userId);
 }

@@ -11,3 +11,13 @@ function goToDetail(helpId) {
         location.href = `/help/detail?helpId=${helpId}`;
     }
 }
+document.addEventListener('DOMContentLoaded', function() {
+    // 게시글 카드 클릭 이벤트 처리
+    const postCards = document.querySelectorAll('.post-card');
+    postCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const helpId = this.getAttribute('data-help-id');
+            window.location.href = `/help/detail?helpId=${helpId}`;
+        });
+    });
+});
