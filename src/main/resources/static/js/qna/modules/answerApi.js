@@ -28,7 +28,7 @@ export function getAnswerList(qnaId, callback) {
 }
 
 export function patchAnswer(answerId, answerObj, callback) {
-    fetch(`/api/v1/answers/${answerId}`, {
+    fetch(`/api/v1/qnas/answers/${answerId}`, {
         method: "PATCH",
         headers : {'Content-Type': 'application/json'},
         body: JSON.stringify(answerObj)
@@ -41,7 +41,7 @@ export function patchAnswer(answerId, answerObj, callback) {
 }
 
 export function deleteAnswer(answerId, callback) {
-    fetch(`/api/v1/answers/${answerId}`, {
+    fetch(`/api/v1/qnas/answers/${answerId}`, {
         method: "DELETE",
     })
         .then(resp => {

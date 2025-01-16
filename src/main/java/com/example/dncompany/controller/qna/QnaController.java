@@ -96,15 +96,18 @@ public class QnaController {
 
     @PostMapping("/modify")
     public String modify(QnAModifyDTO qnaModifyDTO,
-                         RedirectAttributes redirectAttributes) {
+                         RedirectAttributes redirectAttributes,
+                         @SessionAttribute(value = "usersId", required = false) Long usersId) {
 
         try {
+            qnaModifyDTO.setUsersId(usersId);
             qnaService.modifyQnaBoard(qnaModifyDTO);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
 
         redirectAttributes.addAttribute("qnaId", qnaModifyDTO.getQnaId());
+        redirectAttributes.addAttribute("usersId", usersId);
 
         return "redirect:/qna/detail";
     }

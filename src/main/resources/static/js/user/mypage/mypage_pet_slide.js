@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 0;
 
   // 초기 활성화
-  petLists[currentIndex].classList.add("active");
+    petLists[currentIndex]?.classList.add("active");
+
 
   // 이전 버튼 클릭 이벤트
   prevButton.addEventListener("click", () => {

@@ -60,7 +60,13 @@ public class DnController {
     }
 
     @GetMapping("/write")
-    public String write() {
+    public String write(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                        RedirectAttributes redirectAttributes) {
+        if (usersId == null) {
+            redirectAttributes.addAttribute("hasError", true);
+            redirectAttributes.addFlashAttribute("message", "로그인 후 이용해주세요!");
+            return "redirect:/user/login";
+        }
         return "dn/write";
     }
 

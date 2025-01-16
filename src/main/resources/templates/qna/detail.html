@@ -34,7 +34,7 @@
 
                             </h1>
                         </div>
-                        <div class="qaDetail_qaDetailText" th:text="${qna.qnaContent}">
+                        <div class="qaDetail_qaDetailText" th:utext="${qna.qnaContent}">
 
                         </div>
 <!--                        <div class="qaDetail_qaDetailImgBox">-->
@@ -131,7 +131,7 @@
     <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
 </div>
 <script th:inline="javascript">
-    const loginUsersId = [[${loginUsersId}]];
+    const loginUsersId = [[${session.usersId}]];
 </script>
 </body>
 </html>
