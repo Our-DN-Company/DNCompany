@@ -84,3 +84,18 @@ document.querySelectorAll('.star_rating > .star').forEach(function (star) {
     console.log(`선택한 별점: ${rating}`);
   });
 });
+
+
+
+{
+  const $mypageListContainer = document.querySelector('.mypage_main_help_me');
+
+  $mypageListContainer.addEventListener('click', function (e) {
+    // console.log(e.target);
+    const $tr = e.target.closest('tr');
+    const helpId = $tr.dataset.helpId;
+
+    // console.log(helpId);
+    location.href = `/help/detail?helpId=${helpId}`;
+  });
+}

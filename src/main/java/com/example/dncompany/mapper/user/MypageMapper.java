@@ -27,33 +27,12 @@ public interface MypageMapper {
 
     Optional<UserProfileDTO> userProfile(Long usersId);
 
-    //사진 처리
-
 
     //게시글 요약
 
     List<HelpMeListDTO> MyPageMainHelpMeListById(Long usersId);
 
     List<HelpYouListDTO> MyPageMainHelpYouListById(Long usersId);
-
-
-//   상세내역 자세히보기
-
-    List<HelpMeListDTO> helpMeListById(Long usersId);
-
-    List<HelpYouListDTO> helpYouListById(Long usersId);
-
-    List<QnaListDTO> qnaListById(Long usersId);
-
-    List<MypageZipBoardListDTO> MypageZipBoardListById(Long usersId);
-
-    List<MypageZipAnswerListDTO> MypageZipAnswerListById(Long usersId);
-
-
-
-    List<MypageDnBoardListDTO> MypageDnBoardListById(Long usersId);
-
-    List<MypageDnSellListDTO> MypageDnSellListById(Long usersId);
 
 
     //    정보 수정
