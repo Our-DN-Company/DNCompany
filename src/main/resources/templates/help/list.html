@@ -48,7 +48,8 @@
 
             <!-- 게시글 목록 -->
             <div class="post-list">
-                <div class="post-card" th:each="help : ${pageResult.list}" th:data-help-id="${help.helpId}">
+                <div class="post-card" th:each="help : ${pageResult.list}"
+                     th:data-help-id="${help.helpId}">
                     <div class="post-content">
                         <div class="post-tags">
                             <span class="tag tag-purple" th:switch="${help.helpCareType}">

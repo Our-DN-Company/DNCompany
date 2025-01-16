@@ -75,20 +75,25 @@ public class HelpService {
     public PageDTO<HelpListDTO> getHelpListWithPaging(int page, int size) {
         log.info("페이징 처리 시작 - page: {}, size: {}", page, size);
 
-    // 전체 게시글 수 조회
-    int total = helpMapper.getTotalCount();
+        // 전체 게시글 수 조회
+        int total = helpMapper.getTotalCount();
         log.info("전체 게시글 수: {}", total);
 
-    // 페이징 처리된 목록 조회
-    List<HelpListDTO> list = helpMapper.selectHelpListWithPaging(page, size);
+        // 페이징 처리된 목록 조회
+        List<HelpListDTO> list = helpMapper.selectHelpListWithPaging(page, size);
         log.info("조회된 게시글 수: {}", list.size());
 
-    // PageDTO 생성하여 반환
-    return new PageDTO<>(page, size, total, list);
+        // PageDTO 생성하여 반환
+        return new PageDTO<>(page, size, total, list);
     }
 
+    public void deleteMyHelpBoard(Long helpId, Long userId) {
+        int result = helpMapper.deleteMyHelpBoard(helpId, userId);
+        if (result == 0) {
+            throw new RuntimeException("게시글 삭제에 실패했습니다.");
+        }
 
-
+    }
 }
 
 
