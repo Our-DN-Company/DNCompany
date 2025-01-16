@@ -30,13 +30,13 @@ public class QnaAnswerApi {
         return qnaAnswerService.getListByQnaId(qnaId);
     }
 
-    @PatchMapping("/v1/qna/answers/{answerId}")
+    @PatchMapping("/v1/qnas/answers/{answerId}")
     public void patchAnswer(@PathVariable("answerId") Long answerId,
                             @RequestBody QnaAnswerModifyDTO qnaAnswerModifyDTO) {
         qnaAnswerService.modifyAnswer(qnaAnswerModifyDTO, answerId);
     }
 
-    @DeleteMapping("/v1/qna/answers/{answerId}")
+    @DeleteMapping("/v1/qnas/answers/{answerId}")
     public void deleteAnswer(@PathVariable("answerId") Long answerId){
         qnaAnswerService.removeAnswer(answerId);
     }

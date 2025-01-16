@@ -11,11 +11,13 @@ import com.example.dncompany.exception.qna.QnANotFoundException;
 import com.example.dncompany.mapper.qna.QnaMapper;
 import com.example.dncompany.mapper.zip.ZipMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -41,6 +43,7 @@ public class QnaService {
 
     // 게시글 수정
     public void modifyQnaBoard(QnAModifyDTO qnaModifyDTO) {
+        log.info("모디피로ㅓ그다"+qnaModifyDTO.toString());
         qnaMapper.updateQnABoard(qnaModifyDTO);
     }
 
