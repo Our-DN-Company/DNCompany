@@ -1,13 +1,14 @@
-const $postList = document.querySelectorAll('.mypage_list_box"');
 
-$postList.forEach(post => {
-    post.addEventListener('click', function () {
-        const helpId = this.dataset.helpId;
-        location.href=`/help/detail?helpId=${helpId}`;
-    });
-})
-function goToDetail(helpId) {
-    if(helpId) {
+
+{
+    const $mypageListContainer = document.querySelector('.mypage_main_help_me');
+
+    $mypageListContainer.addEventListener('click', function (e) {
+        // console.log(e.target);
+        const $tr = e.target.closest('tr');
+        const helpId = $tr.dataset.helpId;
+
+        // console.log(helpId);
         location.href = `/help/detail?helpId=${helpId}`;
-    }
+    });
 }
