@@ -205,6 +205,13 @@ td {
   width: 500px;
 }
 
+.petListnullimg{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+
 .mypage_review_button {
   color: white;
   background-color: var(--main-color);
