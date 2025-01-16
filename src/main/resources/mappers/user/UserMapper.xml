@@ -67,6 +67,12 @@
         VALUES (#{usersId}, #{kakaoId})
     </insert>
 
+    <select id="kakaoisduplicateUsersId" parameterType="UserJoinKakaoDTO" resultType="Long">
+        SELECT USERS_ID
+        FROM USERS
+        WHERE KAKAO_ID = #{kakaoId}
+    </select>
+
 </mapper>
 
 

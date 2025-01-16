@@ -17,4 +17,6 @@ public interface UserMapper {
     int countByLoginId(String LoginId);
 
     void insertKakaoIdUsers (UserJoinKakaoDTO userJoinKakaoDTO);
+
+    Long kakaoisduplicateUsersId(Long kakaoId);
 }
