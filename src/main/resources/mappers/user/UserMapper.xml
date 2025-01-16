@@ -58,4 +58,41 @@
         FROM USERS
         WHERE LOGIN_ID = #{loginId}
     </select>
+
+    <insert id="insertKakaoIdUsers" parameterType="UserJoinKakaoDTO">
+        <selectKey resultType="long" order="BEFORE" keyProperty="usersId">
+            SELECT SEQ_USERS.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO USERS(USERS_ID, KAKAO_ID)
+        VALUES (#{usersId}, #{kakaoId})
+    </insert>
+
+    <select id="kakaoisduplicateUsersId" parameterType="long" resultType="UserSessionDTO">
+        SELECT USERS_ID, LOGIN_ID, ROLE
+        FROM USERS
+        WHERE KAKAO_ID = #{kakaoId}
+    </select>
+
+
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

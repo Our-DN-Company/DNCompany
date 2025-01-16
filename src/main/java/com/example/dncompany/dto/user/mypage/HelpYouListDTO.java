@@ -16,4 +16,6 @@ public class HelpYouListDTO {
     private String helpTitle;
     private String loginId;
     private Long helpId;
-    private Long usersId;}
+    private Long usersId;
+
+}

@@ -9,7 +9,9 @@
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
     <link rel="stylesheet" th:href="@{/css/qna/write.css}"/>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
     <script defer th:src="@{/js/qna/modify.js}"></script>
@@ -27,49 +29,51 @@
             <!-- 여기에 작업 -->
             <div class="question_questionContainer">
                 <div class="question_questionContent">
-                    <form th:action="@{/qna/write}" method="post" enctype="multipart/form-data">
-<!--                        &lt;!&ndash; 카테고리 선택 &ndash;&gt;-->
-<!--                        <span class="question_questionCategory">반려동물 카테고리</span>-->
-<!--                        <span class="question_questionMark">*</span>-->
-<!--                        <div class="question_radioWrap">-->
-<!--                            <div>-->
-<!--                                <input-->
-<!--                                        type="radio"-->
-<!--                                        name="zipPetCategory"-->
-<!--                                        id="DOG"-->
-<!--                                        value="DOG"-->
-<!--                                        checked-->
-<!--                                />-->
-<!--                                <label for="DOG">강아지</label>-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <input-->
-<!--                                        type="radio"-->
-<!--                                        name="zipPetCategory"-->
-<!--                                        id="CAT"-->
-<!--                                        value="CAT"-->
-<!--                                />-->
-<!--                                <label for="CAT">고양이</label>-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <input-->
-<!--                                        type="radio"-->
-<!--                                        name="zipPetCategory"-->
-<!--                                        id="SMALL"-->
-<!--                                        value="SMALL"-->
-<!--                                />-->
-<!--                                <label for="SMALL">소동물</label>-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <input-->
-<!--                                        type="radio"-->
-<!--                                        name="zipPetCategory"-->
-<!--                                        id="OTHER"-->
-<!--                                        value="OTHER"-->
-<!--                                />-->
-<!--                                <label for="OTHER">기타</label>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                    <form th:action="@{/qna/modify}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="qnaId" th:value="${qna.qnaId}">
+<!--                        <input type="hidden" name="usersId" th:value="${session.usersId}">-->
+                        <!--                        &lt;!&ndash; 카테고리 선택 &ndash;&gt;-->
+                        <!--                        <span class="question_questionCategory">반려동물 카테고리</span>-->
+                        <!--                        <span class="question_questionMark">*</span>-->
+                        <!--                        <div class="question_radioWrap">-->
+                        <!--                            <div>-->
+                        <!--                                <input-->
+                        <!--                                        type="radio"-->
+                        <!--                                        name="zipPetCategory"-->
+                        <!--                                        id="DOG"-->
+                        <!--                                        value="DOG"-->
+                        <!--                                        checked-->
+                        <!--                                />-->
+                        <!--                                <label for="DOG">강아지</label>-->
+                        <!--                            </div>-->
+                        <!--                            <div>-->
+                        <!--                                <input-->
+                        <!--                                        type="radio"-->
+                        <!--                                        name="zipPetCategory"-->
+                        <!--                                        id="CAT"-->
+                        <!--                                        value="CAT"-->
+                        <!--                                />-->
+                        <!--                                <label for="CAT">고양이</label>-->
+                        <!--                            </div>-->
+                        <!--                            <div>-->
+                        <!--                                <input-->
+                        <!--                                        type="radio"-->
+                        <!--                                        name="zipPetCategory"-->
+                        <!--                                        id="SMALL"-->
+                        <!--                                        value="SMALL"-->
+                        <!--                                />-->
+                        <!--                                <label for="SMALL">소동물</label>-->
+                        <!--                            </div>-->
+                        <!--                            <div>-->
+                        <!--                                <input-->
+                        <!--                                        type="radio"-->
+                        <!--                                        name="zipPetCategory"-->
+                        <!--                                        id="OTHER"-->
+                        <!--                                        value="OTHER"-->
+                        <!--                                />-->
+                        <!--                                <label for="OTHER">기타</label>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
 
                         <!-- 제목 입력 박스 -->
                         <div>
@@ -129,7 +133,11 @@
             </div>
         </main>
     </div>
-    <footer class="footer" th:include="~{fragment/footer::footer}"></footer>
+    <!-- footer 태그 지우고 그 자리에 넣으면 됩니다. -->
+    <th:block th:insert="~{fragment/footer::footer}">
+
+    </th:block>
+    <!-- 여기까지 -->
 </div>
 </body>
 </html>

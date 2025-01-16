@@ -11,7 +11,8 @@
 
 
     <script defer th:src="@{/js/fragment/header.js}"></script>
-    <script th:src="@{/js/user/mypage/mypage_pet_slide.js}" defer=""></script>
+    <script th:src="@{/js/user/mypage/mypage_pet_slide.js}" defer></script>
+    <script defer th:src="@{js/user/mypage/mypage_list.js}"></script>
     <title>Document</title>
 </head>
 <body>
@@ -84,9 +85,8 @@
                                     <button class="mypage_main_pet_button_left"></button>
 
                                     <!-- 반려동물 리스트 -->
+                                    <th:block th:if="${!petList.isEmpty()}">
                                     <div class="mypage_main_pet_list" th:each="pet : ${petList}" th:object="${pet}">
-
-
                                         <div class="mypage_main_pet_content">
                                             <div class="mypage_main_pet_img">
                                                 <img class="mypage_main_pet_image"
@@ -106,7 +106,12 @@
                                             <a th:href="@{/mypage/delete/pet(petId=*{petId})}">삭제</a>
                                         </div>
                                     </div>
-
+                                    </th:block>
+                                    <th:block th:unless="${!petList.isEmpty()}">
+                                    <div class="mypage_main_pet_list">
+                                        <img class="petListnullimg" th:src="@{/images/logo/logo_banner2.png}" alt="반려동물 등록 없을 시 띄우는 로고">
+                                    </div>
+                                    </th:block>
 
                                     <!-- 다음 버튼 -->
                                     <button class="mypage_main_pet_button_right"></button>
@@ -145,12 +150,54 @@
                                         <td th:text="*{helpCreatedAt}"></td>
                                         <td th:text="*{helpCareDate}"></td>
                                         <td>
-                                            <button class="mypage_review_button">후기</button>
-                                            <button class="mypage_review_button">신고</button>
+                                            <button type="button" class="review-btn mypage_review_button">후기</button>
+                                            <button type="button" class="report-btn mypage_review_button">신고</button>
+
                                         </td>
                                     </tr>
 
                                 </table>
+                            </div>
+
+                            <!-- 모달창 -->
+                            <div class="review_modal_box" >
+                                <div class="review__top">
+                                    <p><span>도와주세요</span> 서비스 REVIEW</p>
+                                    <p>리뷰 작성</p>
+                                </div>
+                                <form>
+                                    <div class="review__star">
+                                        <div class="star_rating">
+                                            <p>별점 &nbsp;</p>
+                                            <input type="hidden" id="reviewStringRating" name="reviewStringRating" value="" />
+                                            <span class="star" data-value="1"></span>
+                                            <span class="star" data-value="2"></span>
+                                            <span class="star" data-value="3"></span>
+                                            <span class="star" data-value="4"></span>
+                                            <span class="star" data-value="5"></span>
+                                        </div>
+                                    </div>
+                                    <textarea id="reviewContent" class="content_box" placeholder="리뷰 내용을 작성해주세요."></textarea>
+                                    <div class="review__botton">
+                                        <button type="button" class="review_btn">확인</button>
+                                        <button type="button" class="review_btn review-cancel-btn">취소</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- 신고 모달 -->
+                            <div class="report_modal_box">
+                                <div class="report__top">
+                                    <p>신고하시겠습니까?</p>
+                                    <p>무분별한 신고로 확인되면 제재가 있을 수 있습니다.</p>
+                                </div>
+                                <form>
+                                    <textarea id="reportContent" class="content_box" placeholder="신고 사유를 작성해주세요."></textarea>
+                                    <div class="report__botton">
+                                        <button type="button" class="report_btn">신고</button>
+                                        <button type="button" class="report_btn report-cancel-btn">취소</button>
+                                    </div>
+                                </form>
                             </div>
 
                             <!-- 도와드려요 -->
@@ -170,7 +217,7 @@
                                         <td th:text="*{rnum}">순번</td>
                                         <td th:text="*{helpTitle}">신청날짜</td>
                                         <td th:text="*{loginId}">신청날짜</td>
-                                        <td th:text="*{helpOfferStatus}">상태</td>
+                                        <td th:text="*{helpOfferStatus}"></td>
                                     </tr>
 
                                 </table>

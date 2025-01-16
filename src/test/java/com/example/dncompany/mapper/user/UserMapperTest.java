@@ -1,9 +1,6 @@
 package com.example.dncompany.mapper.user;
 
-import com.example.dncompany.dto.user.UserDTO;
-import com.example.dncompany.dto.user.UserJoinDTO;
-import com.example.dncompany.dto.user.UserLoginDTO;
-import com.example.dncompany.dto.user.UserSessionDTO;
+import com.example.dncompany.dto.user.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserMapperTest {
@@ -20,6 +16,8 @@ class UserMapperTest {
     UserMapper userMapper;
 
     UserJoinDTO userJoinDTO;
+
+    UserJoinKakaoDTO userJoinKakaoDTO;
 
     @BeforeEach
     void setUp() {
@@ -62,5 +60,24 @@ class UserMapperTest {
         int count = userMapper.countByLoginId(userJoinDTO.getLoginId());
         // then
         assertThat(count).isEqualTo(1);
+    }
+
+    @Test
+    void insertKakaoIdUsers() {
+        userJoinKakaoDTO = new UserJoinKakaoDTO();
+        userJoinKakaoDTO.setUsersId(100L);
+        userJoinKakaoDTO.setKakaoId(123456L);
+
+        userMapper.insertKakaoIdUsers(userJoinKakaoDTO);
+
+
+
+
+
+    }
+
+    @Test
+    void kakaoisduplicateUsersId() {
+        userMapper.kakaoisduplicateUsersId(123456L);
     }
 }

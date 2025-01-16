@@ -1,6 +1,7 @@
 package com.example.dncompany.service.user;
 
 import com.example.dncompany.dto.user.UserJoinDTO;
+import com.example.dncompany.dto.user.UserJoinKakaoDTO;
 import com.example.dncompany.dto.user.UserLoginDTO;
 import com.example.dncompany.dto.user.UserSessionDTO;
 import com.example.dncompany.exception.user.LoginFailedException;
@@ -8,11 +9,9 @@ import com.example.dncompany.exception.user.UserDuplicateException;
 import com.example.dncompany.mapper.user.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -76,4 +75,26 @@ public class UserService {
 
         return loginInfo;
     }
+
+
+    public UserSessionDTO addKakaoUser(Long kakaoId) {
+        // 카카오 ID가 이미 존재하는지 확인
+        return userMapper.kakaoisduplicateUsersId(kakaoId)
+                .orElseThrow(() -> new IllegalArgumentException("임시"));
+    }
+
+
+
+    public void addKakaoIdUsers (UserJoinKakaoDTO userJoinKakaoDTO){
+        userMapper.insertKakaoIdUsers(userJoinKakaoDTO);
+    }
+
+
+
+
+
+
+
+
+
 }

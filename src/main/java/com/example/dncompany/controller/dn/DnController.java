@@ -25,21 +25,21 @@ public class DnController {
     @GetMapping("/market")
     public String market(DnSearchDTO searchDTO ,PageRequestDTO pageRequestDTO, Model model) {
 
-        if (searchDTO.getSearchType() == null){
-            searchDTO.setSearchType("title");
-        }
-        if (searchDTO.getKeyword() == null){
-            searchDTO.setKeyword("");
-        }
-        if (searchDTO.getOrder() == null){
-            searchDTO.setOrder("late-date");
-        }
-        if (searchDTO.getDnPetCategory() == null){
-            searchDTO.setDnPetCategory("");
-        }
-        if (searchDTO.getProductCategory() == null){
-            searchDTO.setProductCategory("");
-        }
+//        if (searchDTO.getSearchType() == null){
+//            searchDTO.setSearchType("title");
+//        }
+//        if (searchDTO.getKeyword() == null){
+//            searchDTO.setKeyword("");
+//        }
+//        if (searchDTO.getOrder() == null){
+//            searchDTO.setOrder("late-date");
+//        }
+//        if (searchDTO.getDnPetCategory() == null){
+//            searchDTO.setDnPetCategory("");
+//        }
+//        if (searchDTO.getProductCategory() == null){
+//            searchDTO.setProductCategory("");
+//        }
 
 //        List<DnBoardListDTO> dnBoardList = dnBoardService.getDnBoardList();
         PageDTO<DnBoardListDTO> pageDTO = dnBoardService.getDnBoardsBySearchCondWithPage(pageRequestDTO, searchDTO);
@@ -60,7 +60,13 @@ public class DnController {
     }
 
     @GetMapping("/write")
-    public String write() {
+    public String write(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                        RedirectAttributes redirectAttributes) {
+        if (usersId == null) {
+            redirectAttributes.addAttribute("hasError", true);
+            redirectAttributes.addFlashAttribute("message", "로그인 후 이용해주세요!");
+            return "redirect:/user/login";
+        }
         return "dn/write";
     }
 
