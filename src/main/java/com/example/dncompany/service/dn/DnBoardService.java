@@ -205,7 +205,6 @@ public class DnBoardService {
         List<DnBoardListDTO> boardList = dnBoardMapper.selectAllDnBoardListCondWithPage(pageRequestDTO, dnSearchDTO);
         int total = dnBoardMapper.countBySearchCondition(dnSearchDTO);
 
-
         return new PageDTO<>(pageRequestDTO.getPage(),
                 pageRequestDTO.getSize(),
                 total,

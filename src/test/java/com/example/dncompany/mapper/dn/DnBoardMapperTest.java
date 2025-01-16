@@ -41,6 +41,7 @@ class DnBoardMapperTest {
         productDTO = new ProductDTO();
         dnSellBoardDTO = new DnSellBoardDTO();
         dnSearchDTO = new DnSearchDTO();
+        pageRequestDTO = new PageRequestDTO();
         dnBoardWriteDTO.setUsersId(6L);
         dnBoardWriteDTO.setDnId(1L);
         dnBoardWriteDTO.setDnTitle("테스트용 타이틀이다~~");
@@ -52,11 +53,7 @@ class DnBoardMapperTest {
         dnSellBoardDTO.setDnId(dnBoardWriteDTO.getDnId());
         dnSellBoardDTO.setUsersId(dnBoardWriteDTO.getUsersId());
         dnSellBoardDTO.setProductId(productDTO.getProductId());
-        dnSearchDTO.setOrder("price-desc-order");
-        dnSearchDTO.setKeyword("a");
-        dnSearchDTO.setProductCategory("snack");
-        dnSearchDTO.setDnPetCategory("dog");
-        dnSearchDTO.setSearchType("usersId");
+
     }
 
     @Test
@@ -100,8 +97,25 @@ class DnBoardMapperTest {
     @DisplayName("전체 조회 한 뒤 검색 조건 추가 테스트")
     void selectAllDnBoardListCondWithPage() {
         //given
+        dnSearchDTO.setOrder("price-desc-order");
+        dnSearchDTO.setKeyword("테스트");
+        dnSearchDTO.setProductCategory("간식");
+        dnSearchDTO.setDnPetCategory("강아지");
+
+
+
+        pageRequestDTO.setPage(1);
+        pageRequestDTO.setSize(10);
+
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
         dnProductMapper.insertProduct(productDTO);
+
+        dnSellBoardDTO.setDnId(dnBoardWriteDTO.getDnId());
+        dnSellBoardDTO.setUsersId(dnBoardWriteDTO.getUsersId());
+        dnSellBoardDTO.setProductId(productDTO.getProductId());
+
+        dnBoardMapper.insertSellBoard(dnSellBoardDTO);
+
         dnBoardMapper.countBySearchCondition(dnSearchDTO);
         //when
         List<DnBoardListDTO> boardList = dnBoardMapper.selectAllDnBoardListCondWithPage(pageRequestDTO, dnSearchDTO);
@@ -112,10 +126,10 @@ class DnBoardMapperTest {
                 .contains("테스트용 타이틀이다~~");
         assertThat(boardList).isNotNull()
                 .extracting("productCategory")
-                .isEqualTo("snack");
+                .contains("간식");
         assertThat(boardList).isNotNull()
                 .extracting("dnPetCategory")
-                .isEqualTo("dog");
+                .contains("강아지");
 
     }
 }
