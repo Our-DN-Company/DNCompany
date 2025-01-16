@@ -108,7 +108,7 @@
             JOIN USERS U ON DB.USERS_ID = U.USERS_ID
             LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
             LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
-        <where>
+        <trim prefix="WHERE" prefixOverrides="AND">
             <if test="cond.dnPetCategory != null and cond.dnPetCategory != ''">
                 AND DB.DN_PET_CATEGORY = #{cond.dnPetCategory}
             </if>
@@ -116,21 +116,9 @@
                 AND P.PRODUCT_CATEGORY = #{cond.productCategory}
             </if>
             <if test="cond.keyword != null and cond.keyword != ''">
-                AND (
-                <choose>
-                    <when test="cond.searchType == 'usersId'">
-                        U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
-                    </when>
-                    <when test="cond.searchType == 'title'">
-                        ZB.ZIP_TITLE LIKE '%' || #{cond.keyword} || '%'
-                    </when>
-                    <when test="cond.searchType == 'content'">
-                        ZB.ZIP_CONTENT LIKE '%' || #{cond.keyword} || '%'
-                    </when>
-                </choose>
-                )
+                AND (DB.DN_TITLE LIKE '%' || #{cond.keyword} || '%' OR  DB.DN_CONTENT LIKE '%' || #{cond.keyword} || '%')
             </if>
-        </where>
+        </trim>
     </select>
 
 
@@ -140,61 +128,49 @@
         PRODUCT_CATEGORY, PRODUCT_PRICE, PRODUCT_ID, USERS_ID, LOGIN_ID,
         PRODUCT_IMG_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION, LIKE_COUNT
         FROM (
-        SELECT ROWNUM AS RNUM, DN_ID, DN_CREATED_AT, DN_UPDATED_AT, DN_PET_CATEGORY, DN_TITLE,
-        PRODUCT_CATEGORY, PRODUCT_PRICE, PRODUCT_ID, USERS_ID, LOGIN_ID,
-        PRODUCT_IMG_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION, LIKE_COUNT
-        FROM(
-        SELECT DB.DN_ID, DB.DN_CREATED_AT, DB.DN_UPDATED_AT, DB.DN_PET_CATEGORY, DB.DN_TITLE,
-        P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID, U.LOGIN_ID,
-        PI.PRODUCT_IMG_ID, PI.PRODUCT_ORIGINAL_FILENAME, PI.PRODUCT_UUID, PI.PRODUCT_PATH, PI.PRODUCT_EXTENSION,
-        (SELECT COUNT(*) FROM DN_LIKE DL WHERE DL.DN_ID = DB.DN_ID) AS LIKE_COUNT
-        FROM DN_BOARD DB
-        LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
-        LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
-        LEFT JOIN USERS U ON DB.USERS_ID = U.USERS_ID
-        LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID
-        <where>
-            <if test="cond.dnPetCategory != null and cond.dnPetCategory != ''">
-                AND DB.DN_PET_CATEGORY = #{cond.dnPetCategory}
-            </if>
-            <if test="cond.productCategory != null and cond.productCategory != ''">
-                AND P.PRODUCT_CATEGORY = #{cond.productCategory}
-            </if>
-            <if test="cond.keyword != null and cond.keyword != ''">
-                AND (
+            SELECT ROWNUM AS RNUM, DN_ID, DN_CREATED_AT, DN_UPDATED_AT, DN_PET_CATEGORY, DN_TITLE,
+            PRODUCT_CATEGORY, PRODUCT_PRICE, PRODUCT_ID, USERS_ID, LOGIN_ID,
+            PRODUCT_IMG_ID, PRODUCT_ORIGINAL_FILENAME, PRODUCT_UUID, PRODUCT_PATH, PRODUCT_EXTENSION, LIKE_COUNT
+            FROM(
+                SELECT DB.DN_ID, DB.DN_CREATED_AT, DB.DN_UPDATED_AT, DB.DN_PET_CATEGORY, DB.DN_TITLE,
+                P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_ID, U.USERS_ID, U.LOGIN_ID,
+                PI.PRODUCT_IMG_ID, PI.PRODUCT_ORIGINAL_FILENAME, PI.PRODUCT_UUID, PI.PRODUCT_PATH, PI.PRODUCT_EXTENSION,
+                (SELECT COUNT(*) FROM DN_LIKE DL WHERE DL.DN_ID = DB.DN_ID) AS LIKE_COUNT
+                FROM DN_BOARD DB
+                LEFT JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
+                LEFT JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
+                LEFT JOIN USERS U ON DB.USERS_ID = U.USERS_ID
+                LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID
+                <trim prefix="WHERE" prefixOverrides="AND">
+                    <if test="cond.dnPetCategory != null and cond.dnPetCategory != ''">
+                        AND DB.DN_PET_CATEGORY = #{cond.dnPetCategory}
+                    </if>
+                    <if test="cond.productCategory != null and cond.productCategory != ''">
+                        AND P.PRODUCT_CATEGORY = #{cond.productCategory}
+                    </if>
+                    <if test="cond.keyword != null and cond.keyword != ''">
+                        AND (DB.DN_TITLE LIKE '%' || #{cond.keyword} || '%' OR  DB.DN_CONTENT LIKE '%' || #{cond.keyword} || '%')
+                    </if>
+                </trim>
+                ORDER BY
                 <choose>
-                    <when test="cond.searchType == 'usersId'">
-                        U.USERS_ID LIKE '%' || #{cond.keyword} || '%'
+                    <when test="cond.order == 'popular-order'">
+                        LIKE_COUNT DESC
                     </when>
-                    <when test="cond.searchType == 'title'">
-                        DB.DN_TITLE LIKE '%' || #{cond.keyword} || '%'
+                    <when test="cond.order == 'price-desc-order'">
+                        P.PRODUCT_PRICE DESC
                     </when>
-                    <when test="cond.searchType == 'content'">
-                        DB.DB_CONTENT LIKE '%' || #{cond.keyword} || '%'
+                    <when test="cond.order == 'price-asc-order'">
+                        P.PRODUCT_PRICE ASC
                     </when>
+                    <otherwise>
+                        DB.DN_UPDATED_AT DESC
+                    </otherwise>
                 </choose>
-                )
-            </if>
-        </where>
-        ORDER BY
-        <choose>
-            <when test="cond.order == 'popular-order'">
-                LIKE_COUNT DESC
-            </when>
-            <when test="cond.order == 'price-desc-order'">
-                P.PRODUCT_PRICE DESC
-            </when>
-            <when test="cond.order == 'price-asc-order'">
-                P.PRODUCT_PRICE ASC
-            </when>
-            <otherwise>
-                DB.DN_UPDATED_AT DESC
-            </otherwise>
-        </choose>
-        )
-        <![CDATA[
-                 WHERE ROWNUM <= #{page.page} * #{page.size}
-                 ]]>
+            )
+            <![CDATA[
+                     WHERE ROWNUM <= #{page.page} * #{page.size}
+                     ]]>
         )
         WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
