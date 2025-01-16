@@ -120,6 +120,9 @@ public class UserController {
         System.out.println("code = " + code);
 
         authService.getKakaoLoginInfo(code);
+
+
+
         return "redirect:/user/signup";
 //      유저 테이블에 카카오 인증 칼럼을 추가하고
 //      카카오 인증으로 회원가입하면 칼럼에 인증했다는 기록을 남기고
