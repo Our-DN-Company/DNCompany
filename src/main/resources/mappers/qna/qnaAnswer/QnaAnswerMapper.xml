@@ -6,14 +6,17 @@
         <selectKey resultType="long" keyProperty="qnaAnswerId" order="BEFORE">
             SELECT SEQ_QNA_ANSWER.nextval FROM DUAL
         </selectKey>
-        INSERT INTO QNA_ANSWER (QNA_ANSWER_ID, QNA_ANSWER_CONTENT, QNA_ID)
-        VALUES (#{qnaAnswerId}, #{qnaAnswerContent}, #{qnaId})
+        INSERT INTO QNA_ANSWER (QNA_ANSWER_ID, QNA_ANSWER_CONTENT, QNA_ID, USERS_ID)
+        VALUES (#{qnaAnswerId}, #{qnaAnswerContent}, #{qnaId}, #{usersId})
     </insert>
 
     <!--  게시글 댓글 조회  -->
     <select id="selectListByQnaId" parameterType="long" resultType="QnaAnswerDTO">
-        SELECT QA.QNA_ANSWER_ID, QNA_ANSWER_CONTENT, QA.QNA_ANSWER_CREATED_AT, QA.QNA_ANSWER_UPDATED_AT, QA.QNA_ID
+        SELECT QA.QNA_ANSWER_ID, QNA_ANSWER_CONTENT, QA.QNA_ANSWER_CREATED_AT, QA.QNA_ANSWER_UPDATED_AT, QA.QNA_ID,
+               QA.USERS_ID,
+               U.LOGIN_ID, U.NICKNAME
         FROM QNA_ANSWER QA
+            LEFT JOIN USERS U ON QA.USERS_ID = U.USERS_ID
         WHERE QNA_ID = #{qnaId}
         ORDER BY QA.QNA_ANSWER_ID DESC
     </select>

@@ -309,6 +309,176 @@ td {
 }
 
 
+/* 모달창 리뷰 */
+
+.review_modal_box {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  border-radius: 12px;
+  background-color: #fff;
+  border: 1px solid var(--main-color);
+  padding: 40px 30px;
+}
+
+.review__top {
+  font-size: 16px;
+  font-family: "Pretendard-Regular";
+
+  span {
+    font-family: "Ownglyph_ParkDaHyun";
+    color: var(--main-color);
+    font-size: 20px;
+  }
+
+  p:nth-child(2) {
+    padding: 30px 0;
+    margin-top: 10px;
+  }
+}
+
+.star_rating {
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: "Pretendard-Regular";
+}
+
+.star_rating .star {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  display: inline-block;
+  background: url('/images/user/mypage/empty-star.png') no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+}
+
+.star_rating .star.on {
+  background: url('/images/user/mypage/yellow-star.png') no-repeat;
+  background-size: 100%;
+  filter: brightness(1.5);
+  /* 활성화된 별 강조 효과 */
+}
+
+
+.content_box {
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 10px 0;
+  background: #F3F4F8;
+  border: 0;
+  border-radius: 10px;
+  height: 100px;
+  resize: none;
+  padding: 15px;
+  font-size: 13px;
+  font-family: sans-serif;
+}
+
+.review__botton {
+  width: 100%;
+  border-top: 1px solid rgb(247, 247, 247);
+  -webkit-box-pack: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  margin-top: 10px;
+  gap: 10px;
+
+  .review_btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    border: none;
+    padding: 30px 18px 0px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(95, 0, 128);
+    background: transparent;
+  }
+}
+
+/* 모달창 신고 */
+
+.report_modal_box {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  border-radius: 12px;
+  background-color: #fff;
+  border: 1px solid var(--main-color);
+  padding: 40px 30px;
+}
+
+.report__top {
+  font-size: 16px;
+  font-family: "Pretendard-Regular";
+
+  p:nth-child(2) {
+    font-size: 12px;
+    margin-top: 20px;
+  }
+}
+
+.content_box {
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 10px 0;
+  background: #F3F4F8;
+  border: 0;
+  border-radius: 10px;
+  height: 100px;
+  resize: none;
+  margin-top: 10px;
+  padding: 15px;
+  font-size: 13px;
+  font-family: sans-serif;
+}
+
+.report__botton {
+  width: 100%;
+  border-top: 1px solid rgb(247, 247, 247);
+  -webkit-box-pack: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  margin-top: 10px;
+  gap: 10px;
+
+  .report_btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    border: none;
+    padding: 30px 18px 0px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    background: transparent;
+
+    &:first-child {
+      color: red;
+    }
+  }
+}
+
 
 
 

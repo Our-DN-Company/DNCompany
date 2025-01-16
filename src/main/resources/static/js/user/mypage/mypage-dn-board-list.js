@@ -30,7 +30,7 @@ function displayDnBoardList(dnBoardList) {
 
     dnBoardList.forEach(zip => {
         html += `
-              <tr>
+              <tr onclick="location.href='/dn/detail?dnId=${zip.dnId}'">
                     <td>${dnBoardList.rnum}</td>
                     <td>${dnBoardList.dnProductCategory}</td>
                     <td >${dnBoardList.dnTitle}</td>
