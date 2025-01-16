@@ -1,21 +1,6 @@
 import * as smsApi from './modules/smsApi.js';
 import * as  userApi from './modules/userApi.js';
 
-document.addEventListener('DOMContentLoaded', function () {
-  // 예상 경로 설정
-  const expectedPath = "http://localhost:10000/user/login";
-
-  // 현재 페이지로 오기 전의 URL
-  const referrer = document.referrer;
-
-  if (referrer !== expectedPath) {
-    // 예상 경로를 타지 않고 들어온 경우
-    alert("잘못된 접근입니다. 다시 접근해주세요.");
-    // 메인 페이지로 리디렉션
-    window.location.href = "http://localhost:10000/";
-  }
-});
-
 
 // 입력 필드와 메시지 DOM 요소 가져오기
 // 아이디

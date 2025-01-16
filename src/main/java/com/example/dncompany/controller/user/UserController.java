@@ -1,6 +1,7 @@
 package com.example.dncompany.controller.user;
 
 import com.example.dncompany.dto.user.UserJoinDTO;
+import com.example.dncompany.dto.user.UserJoinKakaoDTO;
 import com.example.dncompany.dto.user.UserLoginDTO;
 import com.example.dncompany.dto.user.UserSessionDTO;
 import com.example.dncompany.exception.user.LoginFailedException;
@@ -116,21 +117,40 @@ public class UserController {
     }
 
     @GetMapping("/auth/kakao/callback")
-    public String kakaoCallback(String code) {
+    public String kakaoCallback(String code, Model model) {
         System.out.println("code = " + code);
 
-        authService.getKakaoLoginInfo(code);
+        // 카카오 로그인 정보를 이용해 카카오 ID를 가져옴
+        Long kakaoId = authService.getKakaoLoginInfo(code);
 
+        // 카카오 ID를 DTO에 설정
+        UserJoinKakaoDTO userJoinKakaoDTO = new UserJoinKakaoDTO();
+        userJoinKakaoDTO.setKakaoId(kakaoId);
 
+        try {
+            // 카카오 사용자를 추가하고, 성공하면 홈으로 리디렉션
+            Long userId = userService.addKakaoUser(userJoinKakaoDTO);
 
-        return "redirect:/user/signup";
-//      유저 테이블에 카카오 인증 칼럼을 추가하고
+            // 사용자가 이미 등록된 경우 홈으로 리디렉션
+            if (userId != null) {
+                return "redirect:/"; // 사용자 등록 여부와 관계없이 홈으로 리디렉션
+            } else {
+                // 실패 시, DTO 정보 출력 후 회원가입 페이지로 리디렉션
+                System.out.println("사용자 추가 실패: " + userJoinKakaoDTO);
+                return "redirect:/user/signup";
+            }
+        } catch (Exception e) {
+            // 예외 발생 시 로그 출력 및 회원가입 페이지로 리디렉션
+            System.out.println("에러 발생: " + e.getMessage());
+            return "redirect:/user/signup";
+        }
+    }
+    //      유저 테이블에 카카오 인증 칼럼을 추가하고
 //      카카오 인증으로 회원가입하면 칼럼에 인증했다는 기록을 남기고
 //      이후 회원가입 창으로 이동시켜 정보를 입력받고
 //      이 정보를 DB에 담은 다음에
 //      이후 카카오 로그인을 했을 때는 DB에 입력 되어 있는 정보를 받아서
 //      로그인 처리를 완료하는 방법이 가능한가.
-    }
 
     @GetMapping("/user/logout")
     public String logout(HttpSession session) {
