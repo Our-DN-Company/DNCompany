@@ -79,88 +79,6 @@
 
 
 
-    <!--상새내역 자세히보기-->
-    <!-- 도와주세요-->
-    <select id="helpMeListById" parameterType="long" resultType="HelpMeListDTO">
-        SELECT ROWNUM AS RNUM, HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT
-        FROM HELP_BOARD
-        WHERE USERS_ID = #{usersId}
-        ORDER BY HELP_CARE_DATE
-    </select>
-
-    <!--도와드려요-->
-    <select id="helpYouListById" parameterType="long" resultType="HelpYouListDTO">
-        SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE, HELP_ID, USERS_ID
-        FROM HELP_OFFER
-        WHERE USERS_ID = #{usersId}
-        ORDER BY HELP_OFFER_ENROLL_DATE
-    </select>
-
-
-    <!--QNA-->
-
-    <select id="qnaListById" parameterType="long" resultType="QnaListDTO">
-        SELECT ROWNUM AS RNUM,
-               qb.QNA_ID,
-               qb.QNA_TITLE,
-               qb.QNA_CREATED_AT,
-
-               (SELECT COUNT(*) FROM QNA_ANSWER qa WHERE qa.QNA_ID = qb.QNA_ID) AS QNA_ANSWER_COUNT,
-               USERS_ID
-        FROM QNA_BOARD qb
-        WHERE USERS_ID = #{usersId}
-    </select>
-
-    <!--초보zip-->
-    <!--게시글-->
-    <select id="MypageZipBoardListById" parameterType="long" resultType="MypageZipBoardListDTO">
-        SELECT ROWNUM AS RNUM, ZIP_ID, ZIP_TITLE, ZIP_CREATED_AT, USERS_ID
-        FROM ZIP_BOARD
-        WHERE USERS_ID = #{usersId}
-    </select>
-
-    <!--댓글-->
-    <select id="MypageZipAnswerListById" parameterType="long" resultType="MypageZipAnswerListDTO">
-        SELECT ROWNUM AS RNUM,
-               za.ZIP_ANSWER_ID,
-               zb.ZIP_TITLE,
-               za.ZIP_ANSWER_CONTENT,
-               za.ZIP_ANSWER_CREATED_AT,
-               za.USERS_ID,
-               zb.ZIP_ID
-        FROM ZIP_ANSWER za
-                 JOIN ZIP_BOARD zb ON za.ZIP_ID = zb.ZIP_ID
-        WHERE za.USERS_ID = #{usersId}
-    </select>
-
-    <!-- 리뷰 -->
-    <!--받은리뷰-->
-    <select id="MypageReviewListById" parameterType="long" resultType="MypageReviewListDTO">
-        SELECT ROWNUM AS RNUM, R.REVIEW_ID, R.REVIEW_TITLE, R.REVIEW_CREATED_AT, HO.USERS_ID
-        FROM REVIEW R
-                 JOIN HELP_OFFER HO ON R.HELP_OFFER_ID = HO.HELP_OFFER_ID
-        WHERE HO.USERS_ID = #{usersId}
-    </select>
-
-
-    <!--댕냥바다-->
-            <!--판매내역-->
-        <select id="MypageDnBoardListById" parameterType="long" resultType="MypageDnBoardListDTO">
-            SELECT ROWNUM AS RNUM, DN_ID,DN_PRDUCT_CATEGORY,DN_TITLE,USERS_ID
-            FROM DN_BOARD
-            WHERE USERS_ID=#{usersId}
-        </select>
-            <!--구입내역-->
-        <select id="MypageDnSellListById" parameterType="long" resultType="MypageDnSellListDTO">
-            SELECT ROWNUM AS RNUM, P.PRODUCT_ID,P.PRODUCT_NAME,P.PRODUCT_PRICE,DS.USERS_ID
-            FROM PRODUCT P
-                     JOIN DN_SELL DS ON P.PRODUCT_ID = DS.PRODUCT_ID
-
-            WHERE DS.USERS_ID=#{usersId}
-        </select>
-
-
-
 
 
     <!--정보수정-->
@@ -186,6 +104,8 @@
             ADDRESS=#{address}, ADDRESS_DETAIL=#{addressDetail},ZIP_CODE=#{zipCode}
         WHERE USERS_ID=#{usersId}
     </update>
+
+
     <!--정보 삭제-->
     <!--반려동물 삭제-->
     <delete id="deletePetByPetId" parameterType="long">

@@ -10,6 +10,7 @@ import com.example.dncompany.mapper.user.MypageMapper;
 import com.example.dncompany.mapper.user.MypagePetImageMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -76,6 +78,8 @@ public class MypageService {
 
         //실제 파일 저장하기(실제 저장처리는 이 한줄이 끝)
         multipartFile.transferTo(file);
+
+
 
 
         mypagePetImageMapper.insertPetImg(petImageDTO);
@@ -165,6 +169,7 @@ public class MypageService {
 
         //실제 파일 저장하기(실제 저장처리는 이 한줄이 끝)
         multipartFile.transferTo(file);
+
 
 
         mypagePetImageMapper.insertPetImg(petImageDTO);
@@ -312,6 +317,8 @@ public class MypageService {
 
 
     }
+
+
 
 }
 

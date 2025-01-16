@@ -10,3 +10,4 @@
         location.href = `/help/detail?helpId=${helpId}`;
     });
 }
+

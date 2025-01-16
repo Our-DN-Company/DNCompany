@@ -11,8 +11,9 @@
 
 
     <script defer th:src="@{/js/fragment/header.js}"></script>
-    <script th:src="@{/js/user/mypage/mypage_pet_slide.js}" defer></script>
-    <script defer th:src="@{js/user/mypage/mypage_list.js}"></script>
+    <script defer th:src="@{/js/user/mypage/mypage_main.js}" ></script>
+
+
     <title>Document</title>
 </head>
 <body>
@@ -143,9 +144,9 @@
                                     </tr>
 
 
-                                    <tr class="main-help-me-list" th:each="help:${mainHelpMeList}" th:object="${help}">
+                                    <tr class="main-help-me-list" th:each="help:${mainHelpMeList}" th:object="${help}" th:data-help-id="${help.helpId}">
                                         <td th:text="*{rnum}"></td>
-                                        <td><a th:href="@{/help/detail(helpId=*{helpId})}" th:text="*{helpTitle}"></a></td>
+                                        <td th:text="*{helpTitle}"></td>
                                         <td th:text="*{helpCareType}"></td>
                                         <td th:text="*{helpCreatedAt}"></td>
                                         <td th:text="*{helpCareDate}"></td>

@@ -61,10 +61,6 @@ class MypageMapperTest {
     @Test
     void helpMeListById() {
 
-        List<HelpMeListDTO> helpMeList = mypageMapper.helpMeListById(6L);
-
-        assertThat(helpMeList)
-                .isNotEmpty();
 
     }
 
