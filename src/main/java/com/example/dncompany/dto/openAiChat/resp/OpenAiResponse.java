@@ -1,4 +1,4 @@
-package org.example.openaiex.resp;
+package com.example.dncompany.dto.openAiChat.resp;
 
 import lombok.Getter;
 import lombok.Setter;

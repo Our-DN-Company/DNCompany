@@ -1,10 +1,10 @@
-package org.example.openaiex.service;
+package com.example.dncompany.service.openAichat;
 
+import com.example.dncompany.dto.openAiChat.req.ChatHistory;
+import com.example.dncompany.dto.openAiChat.req.OpenAiMessage;
+import com.example.dncompany.dto.openAiChat.req.OpenAiRequest;
+import com.example.dncompany.dto.openAiChat.resp.OpenAiResponse;
 import jakarta.servlet.http.HttpSession;
-import org.example.openaiex.req.ChatHistory;
-import org.example.openaiex.req.OpenAiMessage;
-import org.example.openaiex.req.OpenAiRequest;
-import org.example.openaiex.resp.OpenAiResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;

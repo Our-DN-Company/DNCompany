@@ -1,11 +1,10 @@
-package org.example.openaiex.resp;
+package com.example.dncompany.dto.openAiChat.resp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.dncompany.dto.openAiChat.req.OpenAiMessage;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.example.openaiex.req.OpenAiMessage;
 
 @Getter @Setter @ToString
 public class OpenAiChoice {
