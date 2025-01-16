@@ -18,5 +18,5 @@ public interface UserMapper {
 
     void insertKakaoIdUsers (UserJoinKakaoDTO userJoinKakaoDTO);
 
-    Long kakaoisduplicateUsersId(Long kakaoId);
+    Optional<UserSessionDTO> kakaoisduplicateUsersId(Long kakaoId);
 }

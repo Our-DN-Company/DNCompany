@@ -77,22 +77,17 @@ public class UserService {
     }
 
 
-    public Long addKakaoUser(UserJoinKakaoDTO userJoinKakaoDTO) {
+    public UserSessionDTO addKakaoUser(Long kakaoId) {
         // 카카오 ID가 이미 존재하는지 확인
-        Long existingUserId = userMapper.kakaoisduplicateUsersId(userJoinKakaoDTO.getKakaoId());
-
-        if (existingUserId != null) {
-            // 존재하는 경우, 기존 사용자 ID 반환
-            return existingUserId;
-        } else {
-            // 새로운 사용자인 경우, 사용자 추가
-            userMapper.insertKakaoIdUsers(userJoinKakaoDTO);
-            // 새로 추가된 카카오 ID 반환
-            return userJoinKakaoDTO.getKakaoId();
-        }
+        return userMapper.kakaoisduplicateUsersId(kakaoId)
+                .orElseThrow(() -> new IllegalArgumentException("임시"));
     }
 
 
+
+    public void addKakaoIdUsers (UserJoinKakaoDTO userJoinKakaoDTO){
+        userMapper.insertKakaoIdUsers(userJoinKakaoDTO);
+    }
 
 
 
