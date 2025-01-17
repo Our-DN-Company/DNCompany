@@ -7,7 +7,7 @@
         SELECT M.USER_FROM, M.USER_TO, M.MS_CONTENT, M.MESSAGE_ID, M.MS_DATE,
                U.USERS_ID, U.LOGIN_ID
         FROM MESSAGE M
-                 JOIN USERS U ON M.USER_FROM = U.USERS_ID
+                 JOIN USERS U ON M.USER_TO = U.USERS_ID
         WHERE M.USER_FROM = #{userFrom}
         ORDER BY MS_DATE DESC
     </select>
@@ -33,7 +33,7 @@
                          SELECT M.USER_FROM, M.USER_TO, M.MS_CONTENT, M.MESSAGE_ID, M.MS_DATE,
                                 U.USERS_ID, U.LOGIN_ID
                          FROM MESSAGE M
-                                  JOIN USERS U ON M.USER_FROM = U.USERS_ID
+                                  JOIN USERS U ON M.USER_TO = U.USERS_ID
                          WHERE M.USER_FROM = #{userFrom}
                          ORDER BY MS_DATE DESC
                      )

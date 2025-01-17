@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Getter @Setter @ToString
 public class MessagePageDTO {
     private long userFrom;
+    private long userFromLoginId;
     private long userTo;
     private String msContent;
     private long messageId;

@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/css/help/common.css}" />
-    <link rel="stylesheet" th:href="@{/css/help/helpwrite.css}" />
-    <link rel="stylesheet" th:href="@{/css/help/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+
+    <link rel="stylesheet" th:href="@{/css/help/helpwrite.css}" />
+
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <script defer th:src="@{/js/help/helpwrite.js}"></script>
     <title>Document</title>
@@ -19,9 +22,8 @@
     <th:block th:insert="~{fragment/header::header}">
 
     </th:block>
-    <div class="main-wrap">
-        <main>
-
+    <main class="main-wrap">
+        <div class="main-box">
             <!-- 글쓰기 폼 -->
             <form class="pet-form" id="petForm" th:action="@{/help/write}" method="post">
                 <h1 class="form-title">펫시팅 신청 기본정보</h1>
@@ -173,9 +175,8 @@
                 <!-- 제출 버튼 -->
                 <button type="button" class="submit-button" onclick="confirmSubmit(event)">등록하기</button>
             </form>
-
-        </main>
-    </div>
+        </div>
+    </main>
     <th:block th:insert="~{fragment/footer::footer}">
 
     </th:block>

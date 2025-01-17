@@ -57,15 +57,16 @@
         <nav>
           <ul th:if="${session.usersId == null}">
             <li class="nav__item"><a th:href="@{/user/login}">로그인 / 회원가입</a></li>
-            <li class="nav__item"><a th:href="@{/mypage/main}">마이페이지</a></li>
-            <li class="nav__item"><a th:href="@{/user/login}">캘린더</a></li>
           </ul>
           <ul th:unless="${session.usersId == null}">
             <li class="nav__item">
-              <a th:href="@{/mypage/main}" th:text="${session.loginId} + '님'">로그인 / 회원가입</a>
-              <span></span><a class="nav__logout" th:href="@{/user/logout}">로그아웃</a> </li>
-            <li class="nav__item"><a th:href="@{/mypage/main}">마이페이지</a> / <a th:href="@{/user/message}">쪽지</a></li>
-            <li class="nav__item"><a th:href="@{/schedule/calender}">캘린더</a></li>
+              <a th:href="@{/mypage/main}" th:text="${session.loginId} + '님'"></a>
+              <span></span> </li>
+            <li class="nav__item">
+              <a th:href="@{/schedule/calender}"><img src="/images/fragment/calendarIcon.png" alt="캘린더 아이콘"></a>
+              <a th:href="@{/user/message}"><img src="/images/fragment/messageIcon.png" alt="쪽지 아이콘"></a>
+              <a class="nav__logout" th:href="@{/user/logout}"><img src="/images/fragment/offIcon.png" alt="로그아웃 아이콘"></a>
+            </li>
           </ul>
         </nav>
       </div>
