@@ -17,18 +17,18 @@ public class ZipBoardListDTO {
     private String zipTitle;
     private String zipContent;
     private LocalDateTime zipCreatedAt;
-    private LocalDateTime zipUpdatedAt;
+//    private LocalDateTime zipUpdatedAt;
     private int zipViewCount;
     private int zipLikeCount;
     private int answerCount;
     private Long usersId;
     private String nickname;
 
-    public String getCreatedAt () {
-        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
+//    public String getZipCreatedAt () {
+//        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//    }
 
-    public String getUpdatedAt () {
+    public String getZipUpdatedAt () {
         return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
