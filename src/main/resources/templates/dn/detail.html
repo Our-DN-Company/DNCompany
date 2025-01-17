@@ -37,17 +37,18 @@
                             <h1 class="product_qaDetailTop" th:text="*{dnTitle}">물품명</h1>
                         </div>
                         <div class="product_qaDetailText">
-                            <div class="product_detail_left" th:if="*{productImgId != null}">
+                            <div class="product_img_detail" th:if="*{productImgId != null}">
                                 <!-- 상품 이미지 -->
                                 <img th:src="@{'/upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension}}" alt="상품 이미지" class="product_image"/>
                             </div>
-                            <div class="product_detail_left" th:unless="*{productImgId != null}">
+                            <div class="product_img_detail" th:unless="*{productImgId != null}">
                             <!-- 상품 이미지 -->
-                            <img th:src="@{/images/logo/logo_banner2.png}" alt="상품 이미지" class="product_image"/>
+                            <img th:src="@{/images/logo/logo_header2.png}" alt="상품 이미지" class="product_image"/>
                         </div>
                             <div class="product_detail_right">
                                 <!-- 판매 금액 -->
-                                <div class="product_price" th:text="*{productPrice}">₩50,000</div>
+                                <div class="product_price" th:text="*{productName}">₩50,000</div>
+                                <div class="product_price" th:text="'₩ ' + *{productPrice}">₩50,000</div>
                                 <!-- 판매 글 내용 -->
                                 <div class="product_description" th:utext="*{dnContent}">
                                     이 상품은 강아지 간식으로 적합하며, 고품질 원료로
@@ -58,7 +59,6 @@
                                     <span class="favorite_count" th:text="*{likeCount}">0</span>
                                 </button>
                                 <!-- 포인트 사용 텍스트 박스 -->
-                                <input type="text" class="point_input" placeholder="사용할 포인트 입력"/>
                                 <!-- 판매자와 대화 버튼 -->
                                 <button class="chat_button">판매자와 대화</button>
                             </div>

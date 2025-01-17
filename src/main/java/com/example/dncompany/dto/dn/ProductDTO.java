@@ -6,7 +6,8 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 public class ProductDTO {
-    Long productId;
-    int productPrice;
-    String productCategory;
+    private Long productId;
+    private String productName;
+    private int productPrice;
+    private String productCategory;
 }
