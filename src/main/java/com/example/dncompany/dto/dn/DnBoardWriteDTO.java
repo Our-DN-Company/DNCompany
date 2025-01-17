@@ -12,4 +12,5 @@ public class DnBoardWriteDTO {
     private String dnPetCategory;
     private String dnTitle;
     private String dnContent;
+    private Long productId;
 }
