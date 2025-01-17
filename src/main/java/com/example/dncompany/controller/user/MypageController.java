@@ -135,14 +135,7 @@ public class MypageController {
     }
 
     @GetMapping("/list/dn")
-    public String mypageListContent(@SessionAttribute(value = "usersId", required = false) Long usersId,
-                                    PageRequestDTO pageRequestDTO,
-                                    Model model) {
-        PageDTO<MypageDnBoardListDTO> dnBoardPageDTO= mypageService.mypageDnBoardListPage (usersId, pageRequestDTO);
-        model.addAttribute("dnBoardPageDTO", dnBoardPageDTO);
-
-        PageDTO<MypageDnSellListDTO> dnSellPageDTO= mypageService.mypageDnSellListPage (usersId, pageRequestDTO);
-        model.addAttribute("dnSellPageDTO", dnSellPageDTO);
+    public String mypageListContent() {
         return "user/mypage/work-list/dn-list";
     }
 

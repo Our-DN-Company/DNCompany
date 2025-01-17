@@ -1,0 +1,63 @@
+table {
+    border-spacing: 0;
+}
+
+.dn-history-list:hover {
+    background-color: #f0f0f0;
+}
+
+.mypage_list_table{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.mypage-list__sell-container,
+.mypage-list__buy-container{
+    min-height: 400px;
+}
+
+/* 목록 스타일 */
+.dn-product-info-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .dn-product-img-wrap{
+        width: 110px;
+        height: 110px;
+        margin : 0 10px 0 5px;
+        overflow: hidden;
+        border: 1px solid #f0f0f0;
+        padding: 10px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .dn-product-content-wrap{
+        margin-left: 20px;
+
+        p {
+            font-size: 20px;
+            display: flex;
+            gap: 20px;
+
+            .dn-product-info-title{
+                font-weight: bold;
+                width: 100px;
+                text-align: right;
+            }
+            .dn-product-info-content{
+
+            }
+        }
+    }
+}
+
+/* 페이지네이션 스타일 */
+.pagination-section{
+    margin-top: 50px;
+}

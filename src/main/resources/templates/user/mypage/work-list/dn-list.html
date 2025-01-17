@@ -9,10 +9,11 @@
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
 
     <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}"/>
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage-dn-list.css}"/>
 
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <script defer th:src="@{/js/common.js}"></script>
-    <script defer type="module" th:src="@{/js/user/mypage/mypage-dn-sell-list.js}"></script>
+    <script defer type="module" th:src="@{/js/user/mypage/mypage-dn-list.js}"></script>
 
     <title>Document</title>
 </head>
@@ -30,46 +31,67 @@
                 <div class="mypage_list_line"></div>
             </div>
 
+            <div class="mypage-list__sell-container">
+                <p>판매내역</p>
+                <div class="mypage_list_sub_line"></div>
+                <table class="mypage_list_table">
+                    <colgroup>
+                        <col style="width: 8%;"/>
+                        <col style="width: 15%;"/>
+                        <col/>
+                        <col style="width: 20%;"/>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>순번</th>
+                        <th>분류</th>
+                        <th>상품 정보</th>
+                        <th>구매자 정보</th>
+                    </tr>
+                    </thead>
 
-            <p>판매내역</p>
-            <div class="mypage_list_sub_line"></div>
-            <table>
+                    <tbody class="dn-sell-list-tbody">
 
-                <tr>
-                    <th>순번</th>
-                    <th>분류</th>
-                    <th>제목</th>
-
-                </tr>
-
-                <tbody th:class="dn-board-list-tbody">
-
-                </tbody>
+                    </tbody>
 
 
-            </table>
-            <section class="pagination-section">
-                <div class="pagination dn-board-list-pagination">
-                </div>
-            </section>
+                </table>
+                <section class="pagination-section">
+                    <div class="pagination dn-sell-list-pagination">
+                    </div>
+                </section>
+            </div>
 
-            <p>구매내역</p>
-            <div class="mypage_list_sub_line"></div>
-            <table>
-                <tr>
-                    <th>순번</th>
-                    <th>물품</th>
-                    <th>가격</th>
 
+            <div class="mypage-list__buy-container">
+                <p>구매내역</p>
+                <div class="mypage_list_sub_line"></div>
+                <table class="mypage_list_table">
+                    <colgroup>
+                        <col style="width: 8%;"/>
+                        <col style="width: 15%;"/>
+                        <col/>
+                        <col style="width: 20%;"/>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>순번</th>
+                        <th>분류</th>
+                        <th>상품 정보</th>
+                        <th>판매자 정보</th>
+                    </tr>
+                    </thead>
 
                     <!-- 게시물 컨텐츠 -->
-                    <tbody class="dn-sell-list-tbody"></tbody>
-            </table>
+                    <tbody class="dn-buy-list-tbody"></tbody>
+                </table>
 
-            <section class="pagination-section">
-                <div class="pagination dn-sell-list-pagination">
-                </div>
-            </section>
+                <section class="pagination-section">
+                    <div class="pagination dn-buy-list-pagination">
+                    </div>
+                </section>
+            </div>
+
 
         </div>
     </main>

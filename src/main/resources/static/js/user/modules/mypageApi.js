@@ -14,8 +14,8 @@ export function getMypageZipList(page, callback) {
         });
 }
 
-export function getMypageDnBoardList(page, callback) {
-    fetch(`/api/v1/mypage/dn/board?page=${page}`)
+export function getMypageDnBuyList(page, callback) {
+    fetch(`/api/v1/mypage/dn/buy?page=${page}`)
     .then(resp => {
         if(resp.ok){
             return resp.json();
