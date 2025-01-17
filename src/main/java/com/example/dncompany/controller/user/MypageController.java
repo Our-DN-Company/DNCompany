@@ -47,10 +47,16 @@ public class MypageController {
         model.addAttribute("mainHelpYouList", MypageMainHelpYouList);
         log.info("MypageMainHelpYouList: {}", MypageMainHelpYouList);
 
+
+
         return "user/mypage/main";
     }
 
-
+    @PostMapping("/main")
+    public String reviewInfo(Long helpId,ReviewDTO reviewDTO) {
+        mypageService.reviewInfo(reviewDTO,helpId);
+        return "redirect:/mypage/main";
+    }
     @GetMapping("/add/pet")
     public String mypageAddPet() {
         return "user/mypage/add-pet";

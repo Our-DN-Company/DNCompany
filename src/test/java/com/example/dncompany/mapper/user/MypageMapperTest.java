@@ -81,13 +81,21 @@ class MypageMapperTest {
 
     }
 
+    @Test
+    void reviewInfo() {
+        Long usersId = mypageMapper.reviewUsersId(142L);
 
-//    @Test
-//    void reviewInfo() {
-//        reviewDTO = new ReviewDTO();
-//        reviewDTO.setReviewContent("Test");
-//        reviewDTO.setReviewStarRating(5);
-//        reviewDTO.setHelpId(142L);
-//        reviewDTO.setUsersId(24L);
-//    }
+            reviewDTO = new ReviewDTO();
+            reviewDTO.setUsersId(usersId);
+            reviewDTO.setReviewContent("test");
+            reviewDTO.setHelpId(142L);
+            reviewDTO.setReviewStarRating(5);
+
+            mypageMapper.reviewInfo(reviewDTO);
+    }
+
+
+
+
+
 }

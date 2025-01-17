@@ -27,9 +27,10 @@
     <div class="main-wrap">
         <main>
             <div class="mypage_pet_add_box">
-                <p>반려동물 정보 수정</p>
 
                 <form th:action="@{/mypage/update/pet}" method="post" enctype="multipart/form-data">
+                    <p>반려동물 정보 수정</p>
+                    <div class="pet_line"></div>
                     <input type="hidden" name="petId" th:value="${petDetailDTO.petId}">
                     <div>
                         <label for="mypage_add_pet_img">사진등록</label>

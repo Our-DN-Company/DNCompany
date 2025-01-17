@@ -106,6 +106,14 @@ public interface MypageMapper {
                                                         @Param("usersId") Long usersId);
 
     int countDnLikeByUsersId(Long usersId);
+
+
+
+    //리뷰처리
+    void reviewInfo(ReviewDTO reviewDTO);
+
+    Long reviewUsersId(Long helpId);
+
 }
 
 

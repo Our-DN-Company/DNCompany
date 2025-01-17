@@ -324,6 +324,17 @@ public class MypageService {
                 total,
                 likeList);
     }
+
+
+    //review
+
+    public void reviewInfo(ReviewDTO reviewDTO,Long HelpId) {
+        Long usersId = mypageMapper.reviewUsersId(HelpId);
+
+        reviewDTO.setUsersId(usersId);
+        mypageMapper.reviewInfo(reviewDTO);
+
+    }
 }
 
 

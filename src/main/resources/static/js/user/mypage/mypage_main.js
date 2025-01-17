@@ -86,3 +86,13 @@ document.querySelectorAll('.star_rating > .star').forEach(function (star) {
 });
 
 
+{
+  //후기 버튼 helpId 가져오기
+  const $reviewBtn = document.querySelector(".review-btn");
+
+  $reviewBtn.addEventListener("click", () => {
+    const helpId = button.getAttribute('data-help-id'); // 버튼의 helpId 값 가져오기
+    const modalHelpIdInput = document.getElementById('modalHelpId'); // 모달 창의 숨겨진 input
+    modalHelpIdInput.value = helpId; // helpId 값 설정
+  })
+}
