@@ -5,13 +5,13 @@
         <selectKey resultType="Long" keyProperty="productId" order="BEFORE">
             SELECT SEQ_PRODUCT.nextval FROM DUAL
         </selectKey>
-        INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_PRICE, PRODUCT_CATEGORY)
-        VALUES (#{productId}, #{productPrice}, #{productCategory})
+        INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_CATEGORY)
+        VALUES (#{productId},#{productName}, #{productPrice}, #{productCategory})
     </insert>
 
     <update id="updateProduct" parameterType="ProductModifyDTO">
         UPDATE PRODUCT
-        SET PRODUCT_PRICE = #{productPrice}, PRODUCT_CATEGORY =#{productCategory}
+        SET PRODUCT_NAME = #{productName}, PRODUCT_PRICE = #{productPrice}, PRODUCT_CATEGORY =#{productCategory}
         WHERE PRODUCT_ID = #{productId}
     </update>
 
