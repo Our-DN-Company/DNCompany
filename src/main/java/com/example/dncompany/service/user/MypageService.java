@@ -10,8 +10,6 @@ import com.example.dncompany.mapper.user.MypageMapper;
 import com.example.dncompany.mapper.user.MypagePetImageMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnails;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -282,10 +279,10 @@ public class MypageService {
     }
 
 
-    //dnBoard
-    public PageDTO<MypageDnBoardListDTO> mypageDnBoardListPage(Long usersId, PageRequestDTO pageRequestDTO) {
-        List<MypageDnBoardListDTO> dnBoardList = mypageMapper.mypageDnBoardListPage(usersId, pageRequestDTO);
-        int total = mypageMapper.countMypageDnBoardList(usersId);
+    //dnBuy
+    public PageDTO<MypageDnBuyListDTO> mypageDnBuyListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+        List<MypageDnBuyListDTO> dnBoardList = mypageMapper.mypageDnBuyListPage(usersId, pageRequestDTO);
+        int total = mypageMapper.countMypageDnBuyList(usersId);
 
         return new PageDTO<>(pageRequestDTO.getPage(),
                 pageRequestDTO.getSize(),

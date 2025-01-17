@@ -11,4 +11,13 @@ public class MypageDnSellListDTO {
   private  String productName;
   private  Long productPrice;
   private  Long usersId;
+
+  private String productCategory;
+  private String productImgId;
+  private String productPath;
+  private String productUuid;
+  private String productExtension;
+  private String sellerUsersId;
+  private String sellerLoginId;
+  private String sellerNickname;
 }
