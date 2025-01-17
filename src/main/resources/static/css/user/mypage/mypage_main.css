@@ -48,7 +48,7 @@ tr {
 .mypage_main_member_proflie {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     margin-right: 20px;
 
@@ -56,8 +56,7 @@ tr {
 }
 
 .mypage_main_member_name {
-    margin-left: 20px;
-    margin-top: 50px;
+    margin-bottom: 20px;
 
     color: var(--main-color);
     font-family: "Pretendard-Regular";
@@ -308,11 +307,11 @@ tr {
 
 .mypage_main_member_proflie {
     position: relative;
+    margin-bottom: 30px;
 }
 
 .profile_btn_box {
-    position: absolute;
-    margin-bottom: 30px;
+    margin-top: 30px;
     right: 0;
 }
 
