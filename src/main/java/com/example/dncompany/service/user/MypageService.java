@@ -306,6 +306,10 @@ public class MypageService {
 
     }
 
+    public void modifyDnStatusByDnId(Long dnId){
+        mypageMapper.updateDnStatusByDnId(dnId);
+    }
+
 
     // dnLike
     public PageDTO<MypageDnLikeListDTO> getDnLikeListByUsersId(

@@ -143,10 +143,16 @@
                                     <span class="prouduct_prouductCategory">판매글 작성</span>
                                     <span class="prouduct_prouductMark">*</span>
                                 </div>
-                                <input placeholder="제목을 입력해주세요" class="prouduct_titleInput" name="dnTitle" th:utext="*{dnContent}" required/>
+                                <input placeholder="제목을 입력해주세요" class="prouduct_titleInput" name="dnTitle" th:value="*{dnTitle}" required/>
                                 <!-- 박스 하단 여백 -->
                                 <!--                        <div class="prouduct_alertText"></div>-->
                             </div>
+                        </div>
+                        <!-- 내용 입력 박스 -->
+                        <div class="prouduct_prouductInputWrapper">
+                            <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="prouduct_prouductInput" name="dnContent" th:utext="*{dnContent}" required></textarea>
+                            <!-- 박스 하단 여백 -->
+                            <div class="prouduct_alertText"></div>
                         </div>
                         <div class="prouduct_fileInputWrapper">
                             <!-- 사진 업로드 박스 -->
