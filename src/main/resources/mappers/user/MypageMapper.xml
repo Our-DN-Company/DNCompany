@@ -283,24 +283,21 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
    <!--댕냥바다-->
-    <!--판매내역-->
-    <select id="mypageDnBuyListPage"  resultType="MypageDnBuyListDTO">
-        SELECT RNUM, DN_ID, PRODUCT_CATEGORY, DN_TITLE, USERS_ID,
-               PRODUCT_PRICE, PRODUCT_NAME,  BUYER_USERS_ID, BUYER_LOGIN_ID, BUYER_NICKNAME,
+    <!--판매 내역-->
+    <select id="mypageDnSellListPage"  resultType="MypageDnSellListDTO">
+        SELECT RNUM, DN_ID, PRODUCT_CATEGORY, DN_TITLE, USERS_ID, DN_STATUS,
+               PRODUCT_PRICE, PRODUCT_NAME,
                PRODUCT_PATH, PRODUCT_UUID, PRODUCT_EXTENSION
         FROM (
-            SELECT ROWNUM AS RNUM, DN_ID, PRODUCT_CATEGORY, DN_TITLE, USERS_ID,
-                   PRODUCT_PRICE, PRODUCT_NAME,  BUYER_USERS_ID, BUYER_LOGIN_ID, BUYER_NICKNAME,
+            SELECT ROWNUM AS RNUM, DN_ID, PRODUCT_CATEGORY, DN_TITLE, USERS_ID, DN_STATUS,
+                   PRODUCT_PRICE, PRODUCT_NAME,
                    PRODUCT_PATH, PRODUCT_UUID, PRODUCT_EXTENSION
             FROM (
-                SELECT DB.DN_ID, DB.DN_TITLE, DB.USERS_ID,
+                SELECT DB.DN_ID, DB.DN_TITLE, DB.USERS_ID, DB.DN_STATUS,
                        P.PRODUCT_CATEGORY, P.PRODUCT_PRICE, P.PRODUCT_NAME,
-                       U.USERS_ID AS BUYER_USERS_ID, U.LOGIN_ID AS BUYER_LOGIN_ID, U.NICKNAME AS BUYER_NICKNAME,
                        PI.PRODUCT_PATH, PI.PRODUCT_UUID, PI.PRODUCT_EXTENSION
                 FROM DN_BOARD DB
-                    JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
-                    JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
-                    JOIN USERS U ON U.USERS_ID = DS.USERS_ID
+                    LEFT JOIN PRODUCT P ON P.PRODUCT_ID = DB.PRODUCT_ID
                     LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID
                 WHERE DB.USERS_ID = #{usersId}
             )
@@ -311,44 +308,44 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
         WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
-    <select id="countMypageDnBuyList" resultType="_int" parameterType="long">
+    <select id="countMypageDnSellList" resultType="_int" parameterType="long">
         SELECT COUNT(*)
         FROM DN_BOARD
         WHERE USERS_ID=#{usersId}
     </select>
 
-    <!--구입내역-->
-    <select id="mypageDnSellListPage"  resultType="MypageDnSellListDTO">
-        SELECT RNUM, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_CATEGORY,
-               PRODUCT_IMG_ID, PRODUCT_PATH, PRODUCT_UUID, PRODUCT_EXTENSION,
-               SELLER_USERS_ID, SELLER_LOGIN_ID, SELLER_NICKNAME
-        FROM (
-            SELECT ROWNUM AS RNUM, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_CATEGORY,
-                   PRODUCT_IMG_ID, PRODUCT_PATH, PRODUCT_UUID, PRODUCT_EXTENSION,
-                   SELLER_USERS_ID, SELLER_LOGIN_ID, SELLER_NICKNAME
-            FROM (
-                SELECT P.PRODUCT_ID, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_CATEGORY,
-                       PI.PRODUCT_IMG_ID, PI.PRODUCT_PATH, PI.PRODUCT_UUID, PI.PRODUCT_EXTENSION,
-                       U.USERS_ID AS SELLER_USERS_ID, U.LOGIN_ID AS SELLER_LOGIN_ID, U.NICKNAME AS SELLER_NICKNAME
-                FROM PRODUCT P
-                    JOIN DN_SELL DS ON P.PRODUCT_ID = DS.PRODUCT_ID
-                    JOIN DN_BOARD DB ON DB.DN_ID = DS.DN_ID
-                    JOIN USERS U ON DB.USERS_ID = U.USERS_ID
-                    LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID
-                    WHERE DS.USERS_ID = #{usersId}
-                )
-                <![CDATA[
-                WHERE ROWNUM <= #{page.page} * #{page.size}
-                ]]>
-        )
-        WHERE RNUM > (#{page.page} - 1) * #{page.size}
-    </select>
+<!--    &lt;!&ndash;판매 내역&ndash;&gt;-->
+<!--    <select id="mypageDnSellListPage"  resultType="MypageDnSellListDTO">-->
+<!--        SELECT RNUM, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_CATEGORY,-->
+<!--               PRODUCT_IMG_ID, PRODUCT_PATH, PRODUCT_UUID, PRODUCT_EXTENSION,-->
+<!--               SELLER_USERS_ID, SELLER_LOGIN_ID, SELLER_NICKNAME-->
+<!--        FROM (-->
+<!--            SELECT ROWNUM AS RNUM, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_CATEGORY,-->
+<!--                   PRODUCT_IMG_ID, PRODUCT_PATH, PRODUCT_UUID, PRODUCT_EXTENSION,-->
+<!--                   SELLER_USERS_ID, SELLER_LOGIN_ID, SELLER_NICKNAME-->
+<!--            FROM (-->
+<!--                SELECT P.PRODUCT_ID, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_CATEGORY,-->
+<!--                       PI.PRODUCT_IMG_ID, PI.PRODUCT_PATH, PI.PRODUCT_UUID, PI.PRODUCT_EXTENSION,-->
+<!--                       U.USERS_ID AS SELLER_USERS_ID, U.LOGIN_ID AS SELLER_LOGIN_ID, U.NICKNAME AS SELLER_NICKNAME-->
+<!--                FROM PRODUCT P-->
+<!--                    JOIN DN_SELL DS ON P.PRODUCT_ID = DS.PRODUCT_ID-->
+<!--                    JOIN DN_BOARD DB ON DB.DN_ID = DS.DN_ID-->
+<!--                    JOIN USERS U ON DB.USERS_ID = U.USERS_ID-->
+<!--                    LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID-->
+<!--                    WHERE DS.USERS_ID = #{usersId}-->
+<!--                )-->
+<!--                <![CDATA[-->
+<!--                WHERE ROWNUM <= #{page.page} * #{page.size}-->
+<!--                ]]>-->
+<!--        )-->
+<!--        WHERE RNUM > (#{page.page} - 1) * #{page.size}-->
+<!--    </select>-->
 
-    <select id="countMypageDnSellList" resultType="_int" parameterType="long">
-        SELECT COUNT(*)
-        FROM DN_SELL
-        WHERE USERS_ID=#{usersId}
-    </select>
+<!--    <select id="countMypageDnSellList" resultType="_int" parameterType="long">-->
+<!--        SELECT COUNT(*)-->
+<!--        FROM DN_SELL-->
+<!--        WHERE USERS_ID=#{usersId}-->
+<!--    </select>-->
 
     <!-- 댕냥 찜 목록 -->
     <select id="selectDnLikeListByUsersId" resultType="MypageDnLikeListDTO">
@@ -371,9 +368,8 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
                              U.LOGIN_ID AS SELLER_LOGIN_ID, U.NICKNAME AS SELLER_NICKNAME
                       FROM DN_LIKE DL
                                JOIN DN_BOARD DB ON DL.DN_ID = DB.DN_ID
-                               JOIN DN_SELL DS ON DB.DN_ID = DS.DN_ID
-                               JOIN PRODUCT P ON DS.PRODUCT_ID = P.PRODUCT_ID
-                               JOIN USERS U ON U.USERS_ID = DS.USERS_ID
+                               LEFT JOIN PRODUCT P ON DB.PRODUCT_ID = P.PRODUCT_ID
+                               JOIN USERS U ON U.USERS_ID = DB.USERS_ID
                                LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID
                       WHERE DL.USERS_ID = #{usersId}
                   )

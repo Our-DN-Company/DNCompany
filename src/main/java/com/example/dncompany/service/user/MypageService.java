@@ -281,19 +281,19 @@ public class MypageService {
 
 
     //dnBuy
-    public PageDTO<MypageDnBuyListDTO> mypageDnBuyListPage(Long usersId, PageRequestDTO pageRequestDTO) {
-        List<MypageDnBuyListDTO> dnBoardList = mypageMapper.mypageDnBuyListPage(usersId, pageRequestDTO);
-        int total = mypageMapper.countMypageDnBuyList(usersId);
+//    public PageDTO<MypageDnBuyListDTO> mypageDnBuyListPage(Long usersId, PageRequestDTO pageRequestDTO) {
+//        List<MypageDnBuyListDTO> dnBoardList = mypageMapper.mypageDnBuyListPage(usersId, pageRequestDTO);
+//        int total = mypageMapper.countMypageDnBuyList(usersId);
+//
+//        return new PageDTO<>(pageRequestDTO.getPage(),
+//                pageRequestDTO.getSize(),
+//                total,
+//                dnBoardList);
+//
+//
+//    }
 
-        return new PageDTO<>(pageRequestDTO.getPage(),
-                pageRequestDTO.getSize(),
-                total,
-                dnBoardList);
-
-
-    }
-
-    //dnBoard
+    //dnSell
     public PageDTO<MypageDnSellListDTO> mypageDnSellListPage(Long usersId, PageRequestDTO pageRequestDTO) {
         List<MypageDnSellListDTO> dnSellList = mypageMapper.mypageDnSellListPage(usersId, pageRequestDTO);
         int total = mypageMapper.countMypageDnSellList(usersId);

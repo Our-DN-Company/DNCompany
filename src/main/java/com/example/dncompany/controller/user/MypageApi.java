@@ -25,16 +25,14 @@ public class MypageApi {
                                 @SessionAttribute("usersId") Long usersId) {
         PageDTO<MypageZipBoardListDTO> mypageZipBoardListDTOPageDTO = mypageService.zipBoardListPage(usersId, pageRequestDTO);
         return mypageZipBoardListDTOPageDTO;
-
-
     }
 
-    @GetMapping("/v1/mypage/dn/buy")
-    public PageDTO<MypageDnBuyListDTO> getMypageDnBuy(PageRequestDTO pageRequestDTO,
-                                                        @SessionAttribute("usersId") Long usersId){
-        PageDTO<MypageDnBuyListDTO> pageDTO = mypageService.mypageDnBuyListPage(usersId, pageRequestDTO);
-        return pageDTO;
-    }
+//    @GetMapping("/v1/mypage/dn/buy")
+//    public PageDTO<MypageDnBuyListDTO> getMypageDnBuy(PageRequestDTO pageRequestDTO,
+//                                                        @SessionAttribute("usersId") Long usersId){
+//        PageDTO<MypageDnBuyListDTO> pageDTO = mypageService.mypageDnBuyListPage(usersId, pageRequestDTO);
+//        return pageDTO;
+//    }
 
     @GetMapping("/v1/mypage/dn/sell")
     public PageDTO<MypageDnSellListDTO> getMypageDnSell(PageRequestDTO pageRequestDTO,
