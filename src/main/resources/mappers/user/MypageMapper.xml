@@ -380,6 +380,12 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
         INSERT INTO REVIEW(REVIEW_ID, REVIEW_STAR_RATING, REVIEW_CONTENT, REVIEW_CHECK_STATUS,HELP_ID, USERS_ID)
         VALUES (#{reviewId},#{reviewStarRating},#{reviewContent},'정상',#{helpId},#{usersId})
     </insert>
+    
+    <update id="helpMatching" parameterType="HelpMeListDTO">
+        UPDATE HELP_OFFER
+        SET HELP_OFFER_STATUS='ACCEPT'
+        WHERE HELP_ID =#{helpId}  AND USERS_ID=#{usersId}
+    </update>
 
 </mapper>
 
