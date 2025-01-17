@@ -1,5 +1,6 @@
 package com.example.dncompany.mapper.user;
 
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,10 +22,10 @@ class MypageMapperTest {
     @Autowired
     MypageMapper mypageMapper;
     AddPetDTO addPetDTO;
-    UserProfileDTO userProfileDTO;
-    ReviewDTO reviewDTO;
+    HelpYouListDTO helpYouListDTO;
+
     @BeforeEach
-    void setUp(){
+    void setUp() {
         addPetDTO = new AddPetDTO();
 //        addPetDTO.setPetId(6L);
         addPetDTO.setPetName("테스트");
@@ -36,11 +37,10 @@ class MypageMapperTest {
         addPetDTO.setAdoptionDate(LocalDate.of(1990, 1, 1));
 
 
-
     }
 
     @Test
-    void insertPet(){
+    void insertPet() {
         mypageMapper.insertPet(addPetDTO);
 
         List<PetListDTO> petList = mypageMapper.selectPetList(6L);
@@ -66,7 +66,7 @@ class MypageMapperTest {
     }
 
     @Test
-    void mypageMainList(){
+    void mypageMainList() {
 
         List<HelpMeListDTO> helpMeList = mypageMapper.MyPageMainHelpMeListById(6L);
 
@@ -76,26 +76,16 @@ class MypageMapperTest {
 
 
     @Test
-    void updateUserProfileInfo() {
-        Optional<UpdateUserProfileDTO> updateUserProfile = mypageMapper.selectUserProfileById(81L);
+    void updateHelpStatus() {
+        mypageMapper.updateHelpStatus(61L,142L);
+
 
     }
-
-    @Test
-    void reviewInfo() {
-        Long usersId = mypageMapper.reviewUsersId(142L);
-
-            reviewDTO = new ReviewDTO();
-            reviewDTO.setUsersId(usersId);
-            reviewDTO.setReviewContent("test");
-            reviewDTO.setHelpId(142L);
-            reviewDTO.setReviewStarRating(5);
-
-            mypageMapper.reviewInfo(reviewDTO);
-    }
-
-
-
-
-
 }
+
+
+
+
+
+
+

@@ -54,11 +54,7 @@ public class MypageController {
         return "user/mypage/main";
     }
 
-    @PostMapping("/main")
-    public String reviewInfo(Long helpId,ReviewDTO reviewDTO) {
-        mypageService.reviewInfo(reviewDTO,helpId);
-        return "redirect:/mypage/main";
-    }
+
     @GetMapping("/add/pet")
     public String mypageAddPet() {
         return "user/mypage/add-pet";
@@ -175,19 +171,30 @@ public class MypageController {
 
         PageDTO<HelpMeListDTO> pageDTO= mypageService.helpMeListPage (usersId, pageRequestDTO);
         model.addAttribute("pageDTO", pageDTO);
+
+
         return "user/mypage/work-list/helpme-list";
     }
+
 
     @GetMapping("/list/helpyou")
     public String mypageListHelpyou(@SessionAttribute(value = "usersId", required = false) Long usersId,
                                     PageRequestDTO pageRequestDTO,
-                                    Model model) {
-        PageDTO<HelpYouListDTO> pageDTO= mypageService.helpYouListPage (usersId, pageRequestDTO);
+                                    Long helpId,
+                                    Model model
+                                   ) {
+        PageDTO<HelpYouListDTO> pageDTO= mypageService.helpYouListPage (usersId, pageRequestDTO, helpId);
         model.addAttribute("pageDTO", pageDTO);
 
         return "user/mypage/work-list/helpyou-list";
     }
 
+    @PostMapping("/list/helpyou")
+    public String   updateHelpStatus(@RequestParam Long usersId,@RequestParam Long helpId){
+        mypageService.updateHelpStatus(usersId,helpId);
+        return "redirect:/mypage/main";
+
+    }
     @GetMapping("/list/qna")
     public String mypageListQna(@SessionAttribute(value = "usersId", required = false) Long usersId,
                                 PageRequestDTO pageRequestDTO,

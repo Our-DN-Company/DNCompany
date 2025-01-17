@@ -227,8 +227,8 @@ public class MypageService {
     }
 
     //helpYou
-    public PageDTO<HelpYouListDTO> helpYouListPage(Long usersId, PageRequestDTO pageRequestDTO) {
-        List<HelpYouListDTO> helpYouList = mypageMapper.helpYouListPage(usersId, pageRequestDTO);
+    public PageDTO<HelpYouListDTO> helpYouListPage(Long usersId, PageRequestDTO pageRequestDTO, Long helpId) {
+        List<HelpYouListDTO> helpYouList = mypageMapper.helpYouListPage(usersId, pageRequestDTO, helpId);
         int total = mypageMapper.countHelpYouList(usersId);
 
         return new PageDTO<>(pageRequestDTO.getPage(),
@@ -333,6 +333,10 @@ public class MypageService {
         } catch (Exception e) {
             throw new RuntimeException("리뷰 등록 중 오류가 발생했습니다.", e);
         }
+    }
+
+    public void updateHelpStatus(Long usersId,Long helpId) {
+        mypageMapper.updateHelpStatus(usersId,helpId);
     }
 }
 

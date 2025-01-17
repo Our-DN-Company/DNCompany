@@ -179,13 +179,13 @@
 
     <!--도와드려요-->
     <select id="helpYouListPage" resultType="HelpYouListDTO">
-      SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE,LOGIN_ID, HELP_ID,USERS_ID
-FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE,LOGIN_ID, HELP_ID, USERS_ID
+      SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE,LOGIN_ID, HELP_ID,USERS_ID,HELP_USERS_ID
+FROM(SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE,LOGIN_ID, HELP_ID, USERS_ID,HELP_USERS_ID
           FROM(
-                  SELECT HB.USERS_ID,HB.HELP_ID,HO.HELP_OFFER_ID ,HB.HELP_TITLE,HO.HELP_OFFER_STATUS,U.LOGIN_ID
+                  SELECT HB.USERS_ID,HB.HELP_ID,HO.HELP_OFFER_ID ,HB.HELP_TITLE,HO.HELP_OFFER_STATUS,U.LOGIN_ID,HO.USERS_ID AS HELP_USERS_ID
                   FROM HELP_OFFER HO JOIN HELP_BOARD HB ON HO.HELP_ID = HB.HELP_ID
                                      JOIN USERS U ON HO.USERS_ID = U.USERS_ID
-                  WHERE HB.USERS_ID=#{usersId} AND HO.HELP_OFFER_STATUS='PENDING')
+                  WHERE HB.HELP_ID=HO.HELP_ID AND HB.USERS_ID=#{usersId} AND HO.HELP_OFFER_STATUS='PENDING')
        <![CDATA[
       WHERE ROWNUM <= #{page.page} * #{page.size}
         ]]>
@@ -382,6 +382,17 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
                     );
 
     </insert>
+
+
+    <update id="updateHelpStatus" parameterType="HelpYouListDTO">
+        UPDATE HELP_OFFER
+        SET HELP_OFFER_STATUS=
+            CASE
+                WHEN USERS_ID=#{usersId} THEN 'ACCEPT'
+        ELSE 'REJECT' END
+        WHERE HELP_ID =#{helpId}
+    </update>
+
 </mapper>
 
 

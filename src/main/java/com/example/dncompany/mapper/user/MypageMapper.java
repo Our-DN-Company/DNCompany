@@ -70,7 +70,9 @@ public interface MypageMapper {
 
     //Helpyou
     List<HelpYouListDTO> helpYouListPage(@Param("usersId") Long usersId,
-                                 @Param("page") PageRequestDTO pageRequestDTO);
+                                 @Param("page") PageRequestDTO pageRequestDTO,
+                                         @Param("helpId") Long helpId
+                                        );
 
     int countHelpYouList(Long usersId);
 
@@ -109,6 +111,10 @@ public interface MypageMapper {
     int countDnLikeByUsersId(Long usersId);
 
     int insertReview(ReviewWriteDTO reviewWriteDTO);
+
+
+    void updateHelpStatus(Long usersId, Long helpId);
+
 
 }
 
