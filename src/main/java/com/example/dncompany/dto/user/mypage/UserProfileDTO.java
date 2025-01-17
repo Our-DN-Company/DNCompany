@@ -15,7 +15,6 @@ public class UserProfileDTO {
     private String phoneNumber;
     private int hbCount;
     private int hoCount;
-
     private int point;
 
 }
