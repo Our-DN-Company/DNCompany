@@ -222,3 +222,152 @@
   font-size: 13px;
   color: #868688;
 }
+
+/*모달창 CSS*/
+/* 모달창 css*/
+
+.message_modal_box {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 40px 30px;
+  border: 1px solid rgb(95, 0, 128);
+  background-color: #fff;
+  z-index: 900;
+}
+
+.message_receive_modal_box {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 40px 30px;
+  border: 1px solid rgb(95, 0, 128);
+  background-color: #fff;
+  z-index: 900;
+}
+
+
+.message__top {
+  font-size: 20px;
+  font-family: "Pretendard-Regular";
+  padding-bottom: 10px;
+
+  span {
+    font-family: "Ownglyph_ParkDaHyun";
+    color: var(--main-color);
+    font-size: 30px;
+  }
+  &:first-child{
+    margin-bottom: 10px;
+  }
+
+}
+
+#loginIdTo {
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #F3F4F8;
+  border: 0;
+  border-radius: 10px;
+  resize: none;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-family: sans-serif;
+}
+
+.message__receive__title {
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #F3F4F8;
+  border: 0;
+  border-radius: 10px;
+  resize: none;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-family: "Pretendard-Regular";
+}
+
+
+.message__content_box {
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #F3F4F8;
+  border: 0;
+  border-radius: 10px;
+  height: 100px;
+  resize: none;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-family: "Pretendard-Regular";;
+}
+
+.message__botton {
+  width: 100%;
+  border-top: 1px solid rgb(247, 247, 247);
+  -webkit-box-pack: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+
+  .message_btn{
+    display: flex;
+    padding-top: 30px;
+    gap: 10px;
+
+
+    .message_btn_send {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      align-items: center;
+      border: 1px solid rgb(95, 0, 128);
+      padding: 10px 15px 10px 15px;
+      border-radius: 3px;
+      font-size: 16px;
+      font-weight: 600;
+      color: rgb(95, 0, 128);
+      background: transparent;
+      &:hover{
+        color: #fff;
+        background-color: rgb(95, 0, 128);
+      }
+    }
+    .message_btn_close {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      align-items: center;
+      border: 1px solid rgb(95, 0, 128);
+      padding: 10px 15px 10px 15px;
+      border-radius: 3px;
+      font-size: 16px;
+      font-weight: 600;
+      color: rgb(95, 0, 128);
+      background: transparent;
+
+      &:hover {
+        color: #fff;
+        background-color: rgb(95, 0, 128);
+      }
+    }
+  }
+}
