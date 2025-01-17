@@ -44,11 +44,6 @@ public class DnBoardService {
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
         dnProductMapper.insertProduct(productDTO);
 
-        DnSellBoardDTO dnSellBoardDTO = new DnSellBoardDTO();
-        dnSellBoardDTO.setDnId(dnBoardWriteDTO.getDnId());
-        dnSellBoardDTO.setProductId(productDTO.getProductId());
-        dnSellBoardDTO.setUsersId(userId);
-        dnBoardMapper.insertSellBoard(dnSellBoardDTO);
     }
 
     // 게시글 조회 기능
@@ -71,7 +66,6 @@ public class DnBoardService {
 
         dnBoardMapper.deleteDnBoard(dnId);
         dnProductMapper.deleteProduct(productId);
-        dnBoardMapper.deleteDnSell(dnId);
 
     }
 
@@ -85,11 +79,6 @@ public class DnBoardService {
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
         dnProductMapper.insertProduct(productDTO);
 
-        DnSellBoardDTO dnSellBoardDTO = new DnSellBoardDTO();
-        dnSellBoardDTO.setDnId(dnBoardWriteDTO.getDnId());
-        dnSellBoardDTO.setProductId(productDTO.getProductId());
-        dnSellBoardDTO.setUsersId(usersId);
-        dnBoardMapper.insertSellBoard(dnSellBoardDTO);
 
         // 2. 파일 존재 여부 검사
         if (multipartFile == null || multipartFile.isEmpty()) {
