@@ -119,7 +119,10 @@
                                     </div>
                                     <!-- 물품 정보 -->
                                     <div class="productCard_productInfo">
-                                        <div class="productCard_productBrand" th:text="*{productCategory}">물품명</div>
+                                        <div class="product_inner_top">
+                                            <div class="productCard_productBrand" th:text="*{productName}">물품명</div>
+                                        <div class="productCard_productBrand" th:text="*{productCategory}">물품 카테고리</div>
+                                        </div>
                                         <div class="productCard_productName" th:text="*{dnTitle}">물품 상세 정보</div>
                                     </div>
                                     <!-- 경계선 -->

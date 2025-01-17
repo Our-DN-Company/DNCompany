@@ -12,3 +12,13 @@ $('.prouduct_prouductInput').summernote({
         ['view', ['fullscreen', 'codeview', 'help']]
     ]
 });
+
+const elProductPrice = document.querySelector("#productPrice");
+
+elProductPrice.addEventListener("input", function (e) {
+const currentValue = e.target.value;
+
+// 숫자 외 문자 제거
+e.target.value = currentValue.replace(/[^0-9]/g, "");
+
+});

@@ -115,32 +115,38 @@
                             </th:block>
                         </div>
                         <!-- 판매 금액 박스 -->
-                        <div>
-                            <div>
-                                <span class="prouduct_price" >판매 금액</span>
-                                <span class="prouduct_prouductMark">*</span>
+                        <div class="prouduct_info_box">
+                            <div class="prouduct_box">
+                                <div class="product_info">
+                                    <div>
+                                        <span class="prouduct_name">물품 이름</span>
+                                        <span class="prouduct_prouductMark">*</span>
+                                    </div>
+                                    <input placeholder="상품 이름을 입력해주세요" class="prouduct_Input" name="productName" th:value="*{productName}" required/>
+                                    <!-- 박스 하단 여백 -->
+                                    <!--                            <div class="prouduct_alertText"></div>-->
+                                </div>
+                                <div class="product_info">
+                                    <div>
+                                        <span class="prouduct_price">물품 금액</span>
+                                        <span class="prouduct_prouductMark">*</span>
+                                    </div>
+                                    <input placeholder="금액을 입력해주세요" class="prouduct_Input" name="productPrice" th:value="*{productPrice}" required/>
+                                    <!-- 박스 하단 여백 -->
+                                    <!--                            <div class="prouduct_alertText"></div>-->
+                                </div>
                             </div>
-                            <input placeholder="금액을 입력해주세요" class="prouduct_priceInput" name="productPrice" th:value="*{productPrice}"/>
-                            <!-- 박스 하단 여백 -->
-                            <div class="prouduct_alertText"></div>
-                        </div>
 
-                        <!-- 제목 입력 박스 -->
-                        <div>
+                            <!-- 제목 입력 박스 -->
                             <div>
-                                <span class="prouduct_prouductCategory">판매글 작성</span>
-                                <span class="prouduct_prouductMark">*</span>
+                                <div>
+                                    <span class="prouduct_prouductCategory">판매글 작성</span>
+                                    <span class="prouduct_prouductMark">*</span>
+                                </div>
+                                <input placeholder="제목을 입력해주세요" class="prouduct_titleInput" name="dnTitle" th:utext="*{dnContent}" required/>
+                                <!-- 박스 하단 여백 -->
+                                <!--                        <div class="prouduct_alertText"></div>-->
                             </div>
-                            <input placeholder="제목을 입력해주세요" class="prouduct_titleInput" name="dnTitle" th:value="*{dnTitle}" required/>
-                            <!-- 박스 하단 여백 -->
-                            <div class="prouduct_alertText"></div>
-                        </div>
-
-                        <!-- 내용 입력 박스 -->
-                        <div class="prouduct_prouductInputWrapper">
-                            <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="prouduct_prouductInput" name="dnContent" th:utext="*{dnContent}" required></textarea>
-                            <!-- 박스 하단 여백 -->
-                            <div class="prouduct_alertText"></div>
                         </div>
                         <div class="prouduct_fileInputWrapper">
                             <!-- 사진 업로드 박스 -->

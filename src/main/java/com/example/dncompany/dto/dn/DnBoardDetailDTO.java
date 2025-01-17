@@ -14,6 +14,7 @@ public class DnBoardDetailDTO {
     private String dnPetCategory;
     private String dnTitle;
     private String dnContent;
+    private String productName;
     private String productCategory;
     private int productPrice;
     private Long productId;

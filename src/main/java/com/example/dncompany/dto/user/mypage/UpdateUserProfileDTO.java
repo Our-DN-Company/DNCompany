@@ -20,6 +20,23 @@ public class UpdateUserProfileDTO {
     private String addressDetail;
     private String addressExtra;
 
+    private String emailText;
+    private String emailId;
+
+    public String getEmailText() {
+        String[] emailtextlist = this.email.split("@");
+
+        emailText=emailtextlist[0];
+
+
+        return emailText;
+    }
+
+    public String getEmailId() {
+        String[] emailtextlist = this.email.split("@");
+        emailId=emailtextlist[1];
+        return emailId;
+    }
 
 
 

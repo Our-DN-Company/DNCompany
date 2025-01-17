@@ -17,11 +17,5 @@ public class QnADetailDTO {
     private Long usersId;
     private String nickname;
 
-    public String getQnaCreateAt() {
-        return qnaCreateAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
 
-    public String getQnaUpdateAt() {
-        return qnaUpdateAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
 }

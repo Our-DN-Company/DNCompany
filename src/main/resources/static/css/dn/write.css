@@ -98,6 +98,25 @@
   font-family: "Ownglyph_ParkDaHyun";
   letter-spacing: 2px;
 }
+.prouduct_info_box{
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.prouduct_box{
+  display: flex;
+  justify-content: left;
+  gap: 50px;
+}
+.prouduct_name{
+  font-family: "Pretendard-Regular";
+  letter-spacing: 3px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+}
 
 /* 판매 금액 박스 */
 .prouduct_price {
@@ -106,12 +125,12 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;
+  width: 100%;
 }
 
-.prouduct_priceInput {
+.prouduct_Input{
   margin: 10px 0;
   padding: 0 10px;
-  width: 20%;
   height: 55px;
   border: 1px solid #e4e4e6;
   border-radius: 10px;

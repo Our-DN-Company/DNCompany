@@ -114,15 +114,27 @@
                         </th:block>
                     </div>
                     <!-- 판매 금액 박스 -->
-                    <div>
-                        <div>
-                            <span class="prouduct_price">판매 금액</span>
-                            <span class="prouduct_prouductMark">*</span>
+                    <div class="prouduct_info_box">
+                        <div class="prouduct_box">
+                        <div class="product_info">
+                            <div>
+                                <span class="prouduct_name">물품 이름</span>
+                                <span class="prouduct_prouductMark">*</span>
+                            </div>
+                            <input placeholder="상품 이름을 입력해주세요" class="prouduct_Input"  name="productName" required/>
+                            <!-- 박스 하단 여백 -->
+                            <!--                            <div class="prouduct_alertText"></div>-->
                         </div>
-                        <input placeholder="금액을 입력해주세요" class="prouduct_priceInput" name="productPrice"/>
-                        <!-- 박스 하단 여백 -->
-                        <div class="prouduct_alertText"></div>
-                    </div>
+                        <div class="product_info">
+                            <div>
+                                <span class="prouduct_price">물품 금액</span>
+                                <span class="prouduct_prouductMark">*</span>
+                            </div>
+                            <input placeholder="금액을 입력해주세요" class="prouduct_Input" id="productPrice" name="productPrice" required/>
+                            <!-- 박스 하단 여백 -->
+<!--                            <div class="prouduct_alertText"></div>-->
+                        </div>
+                        </div>
 
                     <!-- 제목 입력 박스 -->
                     <div>
@@ -132,7 +144,8 @@
                         </div>
                         <input placeholder="제목을 입력해주세요" class="prouduct_titleInput" name="dnTitle" required/>
                         <!-- 박스 하단 여백 -->
-                        <div class="prouduct_alertText"></div>
+<!--                        <div class="prouduct_alertText"></div>-->
+                    </div>
                     </div>
 
                     <!-- 내용 입력 박스 -->

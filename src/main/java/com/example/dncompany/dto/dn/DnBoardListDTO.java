@@ -13,6 +13,7 @@ public class DnBoardListDTO {
     private LocalDateTime dnUpdatedAt;
     private String dnPetCategory;
     private String dnTitle;
+    private String productName;
     private String productCategory;
     private int productPrice;
     private String productId;

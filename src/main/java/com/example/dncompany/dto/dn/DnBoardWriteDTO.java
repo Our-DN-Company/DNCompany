@@ -6,9 +6,10 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 public class DnBoardWriteDTO {
-    Long dnId;
-    Long usersId;
-    String dnPetCategory;
-    String dnTitle;
-    String dnContent;
+    private Long dnId;
+    private Long usersId;
+    private String productName;
+    private String dnPetCategory;
+    private String dnTitle;
+    private String dnContent;
 }
