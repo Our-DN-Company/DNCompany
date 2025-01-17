@@ -110,7 +110,7 @@ $form.addEventListener('submit', function (e) {
         messageList.forEach(message => {
             html += `
             <div id="messageFromList" class="message__info__title__user">
-                 <p class="info__title__user">${message.userFrom}</p>
+                 <p class="info__title__user">${message.loginId}</p>
                  <p class="info__title__user">${message.msContent}</p>
                  <button class="title__delete__btn" data-message-id="${message.messageId}">삭제</button>
             </div>
