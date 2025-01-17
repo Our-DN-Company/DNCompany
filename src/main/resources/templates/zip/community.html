@@ -50,19 +50,24 @@
                                 <div class="SubView-sub-tab">
                                     <ul class="SubView-sub-tabList">
                                         <li class="SubView-tab-item">
-                                            <a th:href="@{/zip/community(category='DOG', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="DOG">강아지</a>
+                                            <a th:href="@{/zip/community(category='DOG', order=${zipSearchDTO.order})}"
+                                               class="SubView-tab-t1" data-category="DOG">강아지</a>
                                         </li>
                                         <li class="SubView-tab-item">
-                                            <a th:href="@{/zip/community(category='CAT', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="CAT">고양이</a>
+                                            <a th:href="@{/zip/community(category='CAT', order=${zipSearchDTO.order})}"
+                                               class="SubView-tab-t1" data-category="CAT">고양이</a>
                                         </li>
                                         <li class="SubView-tab-item">
-                                            <a th:href="@{/zip/community(category='SMALL', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="SMALL">소동물</a>
+                                            <a th:href="@{/zip/community(category='SMALL', order=${zipSearchDTO.order})}"
+                                               class="SubView-tab-t1" data-category="SMALL">소동물</a>
                                         </li>
                                         <li class="SubView-tab-item">
-                                            <a th:href="@{/zip/community(category='OTHER', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="OTHER">기타</a>
+                                            <a th:href="@{/zip/community(category='OTHER', order=${zipSearchDTO.order})}"
+                                               class="SubView-tab-t1" data-category="OTHER">기타</a>
                                         </li>
                                         <li class="SubView-tab-item">
-                                            <a th:href="@{/zip/community(category='', order=${zipSearchDTO.order})}" class="SubView-tab-t1" data-category="ALL">전체</a>
+                                            <a th:href="@{/zip/community(category='', order=${zipSearchDTO.order})}"
+                                               class="SubView-tab-t1" data-category="ALL">전체</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -143,7 +148,7 @@
                                             </div>
                                             <div class="qaList_qaListTitle">
                                                 <a th:href="@{/zip/detail(zipId=${board.zipId})}"
-                                                   th:text="${board.zipTitle}">리리 팬아트!!</a>
+                                                   th:text="${board.zipTitle}"></a>
                                             </div>
                                             <div class="qaList_qaListText" th:text="${board.zipContent}">
 
@@ -156,12 +161,16 @@
 
                                         <div class="qaList_nickname" th:text="${board.nickname}"></div>
 
-                                        <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">댓글 :
-                                            0
+                                        <div class="qaList_communityType" th:text="'댓글 : ' + ${board.answerCount}">
                                         </div>
-                                        <div th:text="${board.zipUpdatedAt}"></div>
-                                        <div th:text="'조회 수 : ' + ${board.zipViewCount}"></div>
-                                        <div th:text="'추천 수 : ' + ${board.answerCount}"></div>
+                                        <div class="qaList_communityType"
+                                             th:text="'조회 수 : ' + ${board.zipViewCount}"></div>
+                                        <div class="qaList_communityType"
+                                             th:text="'추천 수 : ' + ${board.zipLikeCount}"></div>
+                                        <div class="qaList_communityType"
+                                             th:text="'작성일 : ' + ${board.zipUpdatedAt}">
+                                        </div>
+
                                     </div>
                                     <div class="qaList_labelWrapper">
                                         <div class="qaList_desktopLabelContainer"></div>

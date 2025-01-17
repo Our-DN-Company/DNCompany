@@ -43,7 +43,7 @@
 
     <!--  페이징 처리  -->
     <select id="selectBySearchCondWithPage" resultType="QnaDTO">
-        SELECT RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT,
+        SELECT RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT AS qnaUpdatedAt,
                 USERS_ID, NICKNAME, ROLE
             FROM (
                 SELECT ROWNUM AS RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT,
