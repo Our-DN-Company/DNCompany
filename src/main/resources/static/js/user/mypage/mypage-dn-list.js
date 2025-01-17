@@ -15,6 +15,21 @@ import * as mypageApi from '../modules/mypageApi.js'
     });
 }
 
+{   // 판매 완료 처리
+    const $listTbody = document.querySelector('.dn-sell-list-tbody');
+
+    $listTbody.addEventListener('click', function (e) {
+        if (e.target.classList.contains('sell-complete-btn')) {
+            const dnId = e.target.dataset.dnId;
+            console.log(dnId);
+
+            mypageApi.patchMypageDnSell(dnId, function () {
+                loadSellList(1);
+            });
+        }
+    });
+}
+
 /**
  * 판매 내역 / 페이징 로드 함수
  * 
@@ -30,20 +45,6 @@ function loadSellList(page) {
     });
 }
 
-// /**
-//  * 구매 내역 / 페이징 로드 함수
-//  *
-//  * @param page
-//  */
-// function loadBuyList(page) {
-//     mypageApi.getMypageDnSellList(page, function (data) {
-//         // console.log(data);
-//         const $buyListContainer = document.querySelector('.dn-buy-list-tbody');
-//         const $buyPageGroupContainer = document.querySelector('.dn-buy-list-pagination');
-//         displayDnList(data.list, $buyListContainer);
-//         makeDnPageGroup(data, $buyPageGroupContainer);
-//     });
-// }
 
 /**
  * 내역 리스트 화면 출력 함수
@@ -86,7 +87,9 @@ function displayDnList(dnList, $listContainer) {
                     </div>
                 </td>
                 <td>
-                ${dn.dnStatus == 'PENDING' ? '대기' : '판매 완료'}
+                    ${dn.dnStatus == 'PENDING' ? 
+                    `<div class="sell-complete-btn-container"><button type="button" data-dn-id="${dn.dnId}" class="sell-complete-btn">판매 완료하기</button> </div>` : 
+                    '판매 완료'}
                 </td>
             </tr>
         `;

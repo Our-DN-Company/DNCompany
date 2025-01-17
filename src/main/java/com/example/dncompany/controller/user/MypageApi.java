@@ -8,10 +8,7 @@ import com.example.dncompany.dto.user.mypage.MypageZipBoardListDTO;
 import com.example.dncompany.service.user.MypageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -39,6 +36,11 @@ public class MypageApi {
                                                           @SessionAttribute("usersId") Long usersId){
         PageDTO<MypageDnSellListDTO> pageDTO = mypageService.mypageDnSellListPage(usersId, pageRequestDTO);
         return pageDTO;
+    }
+
+    @PatchMapping("/v1/mypage/dn/sell/{dnId}")
+    public void patchMypageDnSell(@PathVariable Long dnId) {
+        mypageService.modifyDnStatusByDnId(dnId);
     }
 
 }
