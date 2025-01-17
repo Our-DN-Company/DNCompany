@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/css/common.css}" />
-    <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
 
-    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}"/>
 
 
     <script defer th:src="@{/js/fragment/header.js}"></script>
@@ -26,7 +26,8 @@
         <div class="mypage_list">
             <div class="mypage_list_title">
                 <p>QnA</p>
-                <div class="mypage_list_line"></div></div>
+                <div class="mypage_list_line"></div>
+            </div>
             <table>
                 <tr>
                     <th>순번</th>
@@ -41,7 +42,7 @@
 
                     <td th:text="*{rnum}">순번</td>
                     <td><a th:href="@{/qna/detail(qnaId=*{qnaId})}" th:text="*{qnaTitle}"></a></td>
-                    <td th:text="*{qnaCreateAt}" >샘플 작성날짜</td>
+                    <td th:text="*{qnaCreateAt}">샘플 작성날짜</td>
                     <td th:text="*{qnaAnswerCount}">샘플 답변</td>
                 </tr>
 
@@ -68,7 +69,6 @@
 
         </div>
     </main>
-</div>
 <th:block th:insert="~{fragment/footer::footer}">
 
 </th:block>

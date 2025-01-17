@@ -48,7 +48,8 @@
 
             <!-- 게시글 목록 -->
             <div class="post-list">
-                <div class="post-card" th:each="help : ${pageResult.list}" th:data-help-id="${help.helpId}">
+                <div class="post-card" th:each="help : ${pageResult.list}"
+                     th:data-help-id="${help.helpId}">
                     <div class="post-content">
                         <div class="post-tags">
                             <span class="tag tag-purple" th:switch="${help.helpCareType}">
@@ -96,6 +97,7 @@
                         class="page-button"
                         th:href="@{/help/list(page=${pageResult.page + 1})}">&gt;</a>
             </div>
+            <div th:insert="~{/openAiChat/open_ai_chat}"></div>
         </main>
     </div>
     <th:block th:insert="~{fragment/footer::footer}"></th:block>

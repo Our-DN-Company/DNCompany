@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>댕냥컴퍼니 OpenAI 챗봇</title>
+    <link rel="stylesheet" th:href="@{/css/openAiChat/openai_chat.css}">
+</head>
+<body>
+
+<div class="main-content" th:fragment="admin_main_content">
+
+<!--  채팅 버튼-->
+<div class="openai-chat-button" onclick="OpenAIChat.toggleChat()">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMSAxNWEyIDIgMCAwIDEtMiAySDdsLTQgNFY1YTIgMiAwIDAgMSAyLTJoMTRhMiAyIDAgMCAxIDIgMnoiPjwvcGF0aD48L3N2Zz4=" alt="채팅">
+</div>
+
+<!-- 채팅창 -->
+<div class="openai-chat-container" id="openaiChatContainer">
+    <div class="openai-chat-header">
+        <h2>댕냥컴퍼니 OpenAI 챗봇</h2>
+        <button class="openai-close-button" onclick="OpenAIChat.toggleChat()">×</button>
+    </div>
+    <div class="openai-chat-messages" id="openaiChatMessages">
+        <div class="openai-message openai-bot-message">
+            안녕하세요! 댕냥컴퍼니 상담사입니다. <br>무엇을 도와드릴까요?
+        </div>
+    </div>
+    <div class="openai-chat-input">
+        <input type="text" id="openaiMessageInput" placeholder="메시지를 입력하세요...">
+        <button onclick="OpenAIChat.sendMessage()">전송</button>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/openAiChat/open_ai_chat.js}"></script>
+</body>
+</html>

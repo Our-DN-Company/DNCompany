@@ -1,21 +1,6 @@
 import * as smsApi from './modules/smsApi.js';
 import * as  userApi from './modules/userApi.js';
 
-document.addEventListener('DOMContentLoaded', function () {
-  // 예상 경로 설정
-  const expectedPath = "http://localhost:10000/user/login";
-
-  // 현재 페이지로 오기 전의 URL
-  const referrer = document.referrer;
-
-  if (referrer !== expectedPath) {
-    // 예상 경로를 타지 않고 들어온 경우
-    alert("잘못된 접근입니다. 다시 접근해주세요.");
-    // 메인 페이지로 리디렉션
-    window.location.href = "http://localhost:10000/";
-  }
-});
-
 
 // 입력 필드와 메시지 DOM 요소 가져오기
 // 아이디
@@ -614,6 +599,9 @@ function limitValue(inputField, min, max) {
     }
 
     // 입력값 범위 제한
+    if(e.target === elInputYear) {
+      limitValue(e.target, 1500, 2300);
+    }
     if (e.target === elInputMonth) {
       limitValue(e.target, 1, 12); // 01부터 12까지
     }
@@ -656,66 +644,80 @@ document.getElementById("birthDay").addEventListener("input", updateBirthDate);
 const $form = document.querySelector(".signup__input__box");
 
 // 폼 제출 처리
-{
-  $form.addEventListener('submit', function (e) {
-    e.preventDefault();
+$form.addEventListener('submit', function (e) {
+  e.preventDefault();
 
-    console.log("submit@@@@@")
-    // 아이디 검사
-    if (!regexId.test(elInputId.value)) {
-      e.preventDefault();
-      alert('아이디는 영문, 숫자 조합 6~12자로 입력해주세요.');
-      elInputId.focus();
-      return;
-    }
+  console.log("submit@@@@@");
 
-    // 비밀번호 검사
-    if (!regexpw.test(elInputPassword.value)) {
-      e.preventDefault();
-      alert('비밀번호는 영문, 숫자, 특수문자 조합 8~16자로 입력해주세요.');
-      elInputPassword.focus();
-      return;
-    }
+  // 아이디 검사
+  if (!regexId.test(elInputId.value)) {
+    alert('아이디는 영문, 숫자 조합 6~12자로 입력해주세요.');
+    elInputId.focus();
+    return;
+  }
 
-    // 비밀번호 확인 검사
-    if (elInputPassword.value !== elInputPwConfirm.value) {
-      e.preventDefault();
-      alert('비밀번호가 일치하지 않습니다.');
-      elInputPwConfirm.focus();
-      return;
-    }
-    // 이름
-    if (!elInputName.value.trim()) {
-      e.preventDefault();
-      console.log("들어왔다")
-      alert('이름을 입력해주세요.');
-      elInputName.focus(); // 입력 필드에 포커스 맞추기
-      return;
-    }
-    // 아이디 검사
-    if (!emailRegex.test(emailField.value)) {
-      e.preventDefault();
-      alert('이메일 형식을 확인해보세요.');
-      emailField.focus();
-      return;
-    }
+  // 비밀번호 검사
+  if (!regexpw.test(elInputPassword.value)) {
+    alert('비밀번호는 영문, 숫자, 특수문자 조합 8~16자로 입력해주세요.');
+    elInputPassword.focus();
+    return;
+  }
 
-    // 휴대폰 인증 검사
-    if (!isPhoneVerified) {
-      e.preventDefault();
-      alert('휴대폰 인증이 필요합니다.');
-      elInputPwConfirm.focus();
-      return;
-    }
+  // 비밀번호 확인 검사
+  if (elInputPassword.value !== elInputPwConfirm.value) {
+    alert('비밀번호가 일치하지 않습니다.');
+    elInputPwConfirm.focus();
+    return;
+  }
 
-    if (!addr.trim()) {
-      e.preventDefault();
-      alert("주소를 입력해주세요.");
-      address_execDaumPostcode();
-      return; // 주소가 없으면 추가 작업을 멈추고 리턴
-    }
+  // 이름 검사
+  if (!elInputName.value.trim()) {
+    alert('이름을 입력해주세요.');
+    elInputName.focus();
+    return;
+  }
 
-    this.submit();
-    alert("회원가입 완료!")
-  });
-}
+  // 이메일 검사
+  if (!emailRegex.test(emailField.value)) {
+    alert('이메일 형식을 확인해보세요.');
+    emailField.focus();
+    return;
+  }
+
+  // 휴대폰 인증 검사
+  if (!isPhoneVerified) {
+    alert('휴대폰 인증이 필요합니다.');
+    elInputPwConfirm.focus();
+    return;
+  }
+
+  // 주소 검사
+  if (!addr.trim()) {
+    alert("주소를 입력해주세요.");
+    address_execDaumPostcode();
+    return;
+  }
+
+  // 성별 라디오 버튼 체크
+  const genderRadio = document.querySelector('input[name="gender"]:checked');
+  if (!genderRadio) {
+    alert("성별을 선택해주세요.");
+    return;
+  }
+
+  // 생년월일 검사
+  const birthYear = document.getElementById('birthYear').value.trim();
+  const birthMonth = document.getElementById('birthMonth').value.trim();
+  const birthDay = document.getElementById('birthDay').value.trim();
+
+  // 년도, 월, 일 입력 확인
+  if (!birthYear || !birthMonth || !birthDay) {
+    alert('생년월일을 모두 입력해주세요.');
+    return;
+  }
+
+  // 모든 검증을 통과한 후 폼 제출
+  this.submit();
+  alert("회원가입 완료!");
+});
+

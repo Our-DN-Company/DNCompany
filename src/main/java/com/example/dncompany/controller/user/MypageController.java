@@ -146,6 +146,16 @@ public class MypageController {
         return "user/mypage/work-list/dn-list";
     }
 
+    @GetMapping("/list/dn-like")
+    public String mypageListDnLike(@SessionAttribute("usersId") Long usersId,
+                                   PageRequestDTO pageRequestDTO,
+                                   Model model) {
+        PageDTO<MypageDnLikeListDTO> pageDTO = mypageService.getDnLikeListByUsersId(pageRequestDTO, usersId);
+        model.addAttribute("pageDTO", pageDTO);
+
+        return "user/mypage/work-list/dn-like";
+    }
+
     @GetMapping("/list/review")
     public String mypageListEvent(@SessionAttribute(value = "usersId", required = false) Long usersId,
                                   PageRequestDTO pageRequestDTO,

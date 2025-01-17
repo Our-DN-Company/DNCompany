@@ -85,4 +85,19 @@ class HelpServiceTest {
                 .isInstanceOf(HelpNotFoundException.class)
                 .hasMessage("게시글을 찾을 수 없습니다.");
     }
+    @Test
+    @DisplayName("게시글 삭제 테스트")
+    void deleteMyHelpBoard() {
+        // given
+        Long helpId = 124L;
+        Long userId = 1L;
+        when(helpMapper.deleteMyHelpBoard(helpId, userId)).thenReturn(1);  // 삭제 성공을 의미하는 1을 반환하도록 설정
+
+        // when
+        helpService.deleteMyHelpBoard(helpId, userId);
+
+        // then
+        verify(helpMapper, times(1)).deleteMyHelpBoard(helpId, userId);
+    }
+
 }

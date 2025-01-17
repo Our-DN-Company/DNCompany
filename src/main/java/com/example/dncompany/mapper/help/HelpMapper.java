@@ -25,9 +25,12 @@ public interface HelpMapper {
     // 검색 기능 추가
     List<HelpListDTO> searchHelpList(HelpSearchDTO searchDTO);
 
+    // 제안 상태 업데이트
+    void updateHelpOfferStatus(@Param("offerId") Long offerId, @Param("status") String status);
+
+
     // 신청 가능 여부
     int checkHelpOfferExists(Long helpId);
-
 
 
     // 전체 게시글 수 조회
@@ -35,4 +38,7 @@ public interface HelpMapper {
 
     // 페이징 처리된 목록 조회
     List<HelpListDTO> selectHelpListWithPaging(@Param("page") int page, @Param("size") int size);
+
+    // 게시글 삭제
+    int deleteMyHelpBoard(@Param("helpId") Long helpId, @Param("userId") Long userId);
 }

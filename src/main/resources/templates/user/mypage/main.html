@@ -59,18 +59,7 @@
                             <div class="profile_btn_box">
                                 <a class="profile_btn" th:href="@{/mypage/update/profile}">정보수정</a>
                             </div>
-                            <p class="mypage_main_content_title">활동내역 상세보기</p>
-                            <div class="mypage_main_sub_line"></div>
 
-
-                            <div class="mypage_main_content">
-                                <div class="mypage_main_content_button_list">
-                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/zip}">초보zip</a>
-                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/dn}">댕냥바다</a>
-                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/qna}">QnA</a>
-                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/review}">받은 후기</a>
-                                </div>
-                            </div>
                         </div>
                         <!-- (우측) -->
                         <div class="mypage_main_rigth">
@@ -120,7 +109,22 @@
 
                             </div>
                         </div>
+                        <!-- 활동내역 -->
+                        <div class="mypage_activity_list_container">
+                            <p class="mypage_main_content_title">활동내역 상세보기</p>
+                            <div class="mypage_main_sub_line"></div>
 
+
+                            <div class="mypage_main_content">
+                                <div class="mypage_main_content_button_list">
+                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/zip}">초보zip</a>
+                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/dn}">댕냥바다</a>
+                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/dn-like}">찜목록</a>
+                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/qna}">QnA</a>
+                                    <a class="mypage_main_content_button" th:href="@{/mypage/list/review}">받은 후기</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 

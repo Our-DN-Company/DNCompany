@@ -14,6 +14,7 @@ public class AuthService {
     public String getKakaoLoginURI() {
         return authProvider.getLocation();
     }
+
     public Long getKakaoLoginInfo(String accessCode) {
         KakaoTokenResponse kakaoToken = authProvider.getKakaoToken(accessCode);
         KakaoLoginInfoResponse kakaoLoginInfo = authProvider.getKakaoLoginInfo(kakaoToken.getAccessToken());

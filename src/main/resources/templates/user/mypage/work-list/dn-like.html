@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
+
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage-dn-like.css}"/>
+
+    <script defer th:src="@{/js/fragment/header.js}"></script>
+    <script defer th:src="@{/js/common.js}"></script>
+    <script defer th:src="@{/js/user/mypage/mypage-dn-like.js}"></script>
+    <title>Document</title>
+</head>
+<body>
+<!-- 홈페이지 전체 사이즈 -->
+<div class="container">
+    <th:block th:insert="~{fragment/header::header}">
+    </th:block>
+
+    <main>
+        <div class="mypage_list">
+            <div class="mypage_list_title">
+                <p>댕냥바다 찜 목록</p>
+                <div class="mypage_list_line"></div>
+            </div>
+            <table>
+                <colgroup>
+                    <col style="width: 5%"/>
+                    <col style="width: 30%"/>
+                    <col/>
+                    <col style="width: 20%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>순번</th>
+                    <th>제목</th>
+                    <th>상품 정보</th>
+                    <th>판매자 정보</th>
+                </tr>
+                </thead>
+
+                <!-- 컨텐츠 -->
+                <tr class="qna-list" th:each="dn:${pageDTO.list}" th:object="${dn}" th:data-dn-did="${dn.dnId}">
+
+                    <td th:text="*{rnum}">1</td>
+                    <td th:text="*{dnTitle}"></td>
+                    <td>
+                        <div class="like-product-info-container">
+                            <div class="like-product-img-wrap">
+                                <img th:if="*{productImgId == null}" th:src="@{/images/fragment/logo_header4.png}" alt="">
+                                <img th:unless="*{productImgId == null}" th:src="@{'/upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension} }" alt="">
+                            </div>
+                            <div class="like-product-content-wrap">
+                                <p><span class="like-product-info-title">상품명 : </span><span
+                                        class="like-product-info-content" th:text="*{productName}">테스트</span></p>
+                                <p><span class="like-product-info-title">가격 : </span><span
+                                        class="like-product-info-content"> <span th:text="*{productPrice}">10000</span> 원</span></p>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td th:text="${dn.sellerNickname} + '(' + ${dn.sellerLoginId} +')'">샘플 판매자 정보</td>
+                </tr>
+
+
+            </table>
+
+            <section class="pagination-section">
+                <div class="pagination">
+                    <a th:if="${pageDTO.hasPreviousGroup()}"
+                       th:href="@{/mypage/list/dn-like(page=${pageDTO.startPage - 1})}"
+                       class="page-btn prev" aria-label="Go to previous group">‹</a>
+
+                    <a class="page-btn"
+                       th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                       th:href="@{/mypage/list/dn-like(page=${i})}"
+                       th:classappend="${i == pageDTO.page ? ' active' : ''}"
+                       th:text="${i}"></a>
+
+                    <a th:if="${pageDTO.hasNextGroup()}"
+                       th:href="@{/mypage/list/dn-like(page=${pageDTO.endPage + 1})}"
+                       class="page-btn next" aria-label="Go to next group">›</a>
+                </div>
+            </section>
+
+
+        </div>
+    </main>
+    <th:block th:insert="~{fragment/footer::footer}">
+
+    </th:block>
+</div>
+</body>
+</html>
