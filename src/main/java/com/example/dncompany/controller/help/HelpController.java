@@ -151,6 +151,17 @@ public class HelpController {
         model.addAttribute("isRecruiting", isRecruiting);
         return "help/detail";
     }
+//    @GetMapping("/detail")
+//    public String helpDetail(@RequestParam Long helpId, Model model) {
+//        HelpDetailDTO helpDetail = helpService.getHelpDetail(helpId);
+//
+//        // 모집 상태 확인 (수락된 신청이 있는지)
+//        boolean isRecruiting = helpService.checkRecruitingStatus(helpId);
+//
+//        model.addAttribute("helpDetail", helpDetail);
+//        model.addAttribute("isRecruiting", isRecruiting);
+//        return "help/detail";
+//    }
 
     /**
      * 도와주세요 게시글 검색 요청을 처리

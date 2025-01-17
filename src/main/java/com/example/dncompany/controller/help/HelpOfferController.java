@@ -28,8 +28,7 @@ public class HelpOfferController {
     @ResponseBody
     public ResponseEntity<String> helpOffer(
             @PathVariable Long helpId,
-            @SessionAttribute(value = "usersId", required = false) Long usersId,
-            HttpSession session) {
+            @SessionAttribute(value = "usersId", required = false) Long usersId) {
 
 
         log.info("========== 도움 신청 컨트롤러 시작 ==========");
