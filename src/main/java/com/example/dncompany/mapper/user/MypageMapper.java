@@ -105,7 +105,11 @@ public interface MypageMapper {
 
     int countMypageDnSellList(Long usersId);
 
+    // dnLike
+    List<MypageDnLikeListDTO> selectDnLikeListByUsersId(@Param("page") PageRequestDTO pageRequestDTO,
+                                                        @Param("usersId") Long usersId);
 
+    int countDnLikeByUsersId(Long usersId);
 }
 
 

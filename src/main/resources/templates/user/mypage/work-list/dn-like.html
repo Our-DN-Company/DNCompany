@@ -8,12 +8,11 @@
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
 
-    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}"/>
-
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage-dn-like.css}"/>
 
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <script defer th:src="@{/js/common.js}"></script>
-
+    <script defer th:src="@{/js/user/mypage/mypage-dn-like.js}"></script>
     <title>Document</title>
 </head>
 <body>
@@ -29,22 +28,44 @@
                 <div class="mypage_list_line"></div>
             </div>
             <table>
+                <colgroup>
+                    <col style="width: 5%"/>
+                    <col style="width: 30%"/>
+                    <col/>
+                    <col style="width: 20%"/>
+                </colgroup>
+                <thead>
                 <tr>
                     <th>순번</th>
                     <th>제목</th>
-                    <th>작성날짜</th>
-                    <th>답변</th>
+                    <th>상품 정보</th>
+                    <th>판매자 정보</th>
+                </tr>
+                </thead>
+
+                <!-- 컨텐츠 -->
+                <tr class="qna-list" th:each="dn:${pageDTO.list}" th:object="${dn}" th:data-dn-did="${dn.dnId}">
+
+                    <td th:text="*{rnum}">1</td>
+                    <td th:text="*{dnTitle}"></td>
+                    <td>
+                        <div class="like-product-info-container">
+                            <div class="like-product-img-wrap">
+                                <img th:if="*{productImgId == null}" th:src="@{/images/fragment/logo_header4.png}" alt="">
+                                <img th:unless="*{productImgId == null}" th:src="@{'/upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension} }" alt="">
+                            </div>
+                            <div class="like-product-content-wrap">
+                                <p><span class="like-product-info-title">상품명 : </span><span
+                                        class="like-product-info-content" th:text="*{productName}">테스트</span></p>
+                                <p><span class="like-product-info-title">가격 : </span><span
+                                        class="like-product-info-content"> <span th:text="*{productPrice}">10000</span> 원</span></p>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td th:text="${dn.sellerNickname} + '(' + ${dn.sellerLoginId} +')'">샘플 판매자 정보</td>
                 </tr>
 
-                <!-- QnA 컨텐츠 -->
-
-                <tr class="qna-list" th:each="qna:${pageDTO.list}" th:object="${qna}">
-
-                    <td th:text="*{rnum}">순번</td>
-                    <td><a th:href="@{/qna/detail(qnaId=*{qnaId})}" th:text="*{qnaTitle}"></a></td>
-                    <td th:text="*{qnaCreateAt}">샘플 작성날짜</td>
-                    <td th:text="*{qnaAnswerCount}">샘플 답변</td>
-                </tr>
 
             </table>
 
@@ -69,9 +90,9 @@
 
         </div>
     </main>
-<th:block th:insert="~{fragment/footer::footer}">
+    <th:block th:insert="~{fragment/footer::footer}">
 
-</th:block>
+    </th:block>
 </div>
 </body>
 </html>

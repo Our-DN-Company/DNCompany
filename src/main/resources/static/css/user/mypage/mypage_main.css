@@ -4,500 +4,514 @@
 .mypage_main_pet_profile,
 .mypage_main_help_me,
 .mypage_main_help_you,
-.mypage_main_content
-{
-  font-family: "Pretendard-Regular";
+.mypage_main_content {
+    font-family: "Pretendard-Regular";
 }
 
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
 th,
 td {
-  border-bottom: 1px solid #f0f0f0;
-  padding: 10px;
-  text-align: center;
-}
-td {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px;
+    text-align: center;
 }
 
-tr{
-  cursor: pointer;
+td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
+
+tr {
+    cursor: pointer;
+}
+
 .mypage_main {
-  display: flex;
-  /* position: fixed; */
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    /* position: fixed; */
+    align-items: center;
+    justify-content: center;
 
 }
 
 .mypage_main_top {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: center;
 }
 
 .mypage_main_member_proflie {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-right: 20px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
 
 
 }
 
 .mypage_main_member_name {
-  margin-left: 20px;
-  margin-top: 50px;
+    margin-left: 20px;
+    margin-top: 50px;
 
-  color: var(--main-color);
-  font-family: "Pretendard-Regular";
-  span {
-    font-size: 30px;
-  }
+    color: var(--main-color);
+    font-family: "Pretendard-Regular";
+
+    span {
+        font-size: 30px;
+    }
 }
 
 .mypage_main_line {
-  border: 1px solid var(--main-color);
-  margin: 10px 0;
+    border: 1px solid var(--main-color);
+    margin: 10px 0;
 }
-
 
 
 .mypage_main_member_line {
-  border: 1px solid #f0f0f0;
-  margin: 10px 0;
+    border: 1px solid #f0f0f0;
+    margin: 10px 0;
 
-  width: 200px;
+    width: 200px;
 }
+
 .mypage_main_rigth {
-  margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
 }
 
 .mypage_main_pet {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  position: relative;
-  padding: 50px;
-  border: 2px solid #f0f0f0 ;
-  width: 80%;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 30px;
+    border: 2px solid #f0f0f0;
+    width: 80%;
 
 
 }
 
 .mypage_main_pet_box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  padding: 20px;
-  width: 800px;
+    padding: 20px;
+    width: 800px;
 }
 
-.mypage_pet_list_title{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Ownglyph_ParkDaHyun";
-  margin-bottom: 30px;
+.mypage_pet_list_title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Ownglyph_ParkDaHyun";
+    margin-bottom: 30px;
     font-size: 30px;
-  margin-right: 20%;
-
-
 }
+
 .mypage_main_pet_list {
-  display: flex;
+    display: flex;
 
 }
 
 .mypage_main_pet_content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto;
 }
 
 .mypage_main_pet_img {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 200px;
-  height: 200px;
-  margin: 0 20px;
-  border-radius: 50%;
-  overflow: hidden;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    margin: 0 20px;
+    border-radius: 50%;
+    overflow: hidden;
 }
+
 .mypage_main_pet_image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .mypage_main_pet_profile {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .mypage_main_pet_button_left {
-  background-image: url(/images/user/mypage/left-button.png);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  margin-right: 50px;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  border: none;
+    background-image: url(/images/user/mypage/left-button.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    margin-right: 50px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: none;
 }
 
 .mypage_main_pet_button_right {
-  background-image: url(/images/user/mypage/right-button.png);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  margin-left: 50px;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  border: none;
+    background-image: url(/images/user/mypage/right-button.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    margin-left: 50px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: none;
 }
-
+.mypage_main_work{
+    min-height: 500px;
+}
 .mypage_main_work_bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom:100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
 }
 
 .mypage_main_content_title {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 50px;
-  button {
-    border: none;
-  }
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
 
-  p {
-    font-size: 25px;
-  }
+    button {
+        border: none;
+    }
+
+    p {
+        font-size: 25px;
+    }
 }
 
 .mypage_main_content_button_top,
-.pet-btn{
-  background-image: url(/images/user/mypage/+button.png);
-  background-color: transparent;
-  background-repeat: no-repeat;
+.pet-btn {
+    background-image: url(/images/user/mypage/+button.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
 
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-  border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border: none;
 }
 
 .mypage_main_qna,
 .mypage_main_event {
-  width: 500px;
+    width: 500px;
 }
 
-.petListnullimg{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
+.petListnullimg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
 }
 
 .mypage_review_button {
-  color: white;
-  background-color: var(--main-color);
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  font-family:"Pretendard-Regular" ;
-  cursor: pointer;
-}
-.mypage_main_pet_list {
-  display: none;
-}
-
-.mypage_main_pet_list.active {
-  display: block;
-}
-
-.mypage_main_list_dn {
-  margin-top: 20px;
-  margin-bottom: 50px;
-}
-
-
-.mypage_main_content_button_list{
-  display: flex;
-  flex-direction: column;
-}
-
-.pet-btn-box {
-  position: absolute;
-  bottom: 0;
-  right: 20px;
-  display: flex;
-  top: 20px;
-}
-
-
-
-.mypage_main_content_button{
-
-  background-color: var(--main-color);
-  color: white;
-  text-align: center;
-
-  font-family:"Pretendard-Regular";
-  border-radius: 5px;
-  padding: 10px 40px;
-  margin: 5px 20px;
-  cursor: pointer;
-
-}
-
-.mypage_main_content{
-
-  margin: 10px 0;
-
-}
-.mypage_main_content_title{
-  font-size: 20px;
-  font-family: "Ownglyph_ParkDaHyun";
-
-}
-
-
-
-.pet-add-delete-btn{
-  position: absolute;
-
-  right: 10%;
-
-
-  a{
     color: white;
     background-color: var(--main-color);
     border: none;
-    font-family: "Pretendard-Regular";
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
-    font-family:"Pretendard-Regular" ;
+    font-family: "Pretendard-Regular";
     cursor: pointer;
-  }
+}
+
+.mypage_main_pet_list {
+    display: none;
+}
+
+.mypage_main_pet_list.active {
+    display: block;
+}
+
+.mypage_main_list_dn {
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 
-.mypage_main_member_proflie{
-  position: relative;
+.mypage_main_content_button_list {
+    display: flex;
+    flex-direction: column;
 }
 
-.profile_btn_box{
-  position: absolute;
-  margin-bottom: 30px;
-  right: 0;
+.pet-btn-box {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    display: flex;
+    top: 20px;
 }
-.profile_btn{
-  background-color: #f0f0f0;
-  text-align: center;
-  font-family: "Pretendard-Regular";
-  border-radius: 5px;
-  padding: 5px;
-  cursor: pointer;
-  font-size: 15px;
+
+
+.mypage_main_content_button {
+
+    background-color: var(--main-color);
+    color: white;
+    text-align: center;
+
+    font-family: "Pretendard-Regular";
+    border-radius: 5px;
+    padding: 10px 40px;
+    margin: 5px 20px;
+    cursor: pointer;
+
+}
+
+.mypage_main_content {
+
+    margin: 10px 0;
+
+}
+
+.mypage_main_content_title {
+    font-size: 20px;
+    font-family: "Ownglyph_ParkDaHyun";
+
+}
+
+
+.pet-add-delete-btn {
+    position: absolute;
+
+    right: 10%;
+
+
+    a {
+        color: white;
+        background-color: var(--main-color);
+        border: none;
+        font-family: "Pretendard-Regular";
+        padding: 5px;
+        border-radius: 5px;
+        font-family: "Pretendard-Regular";
+        cursor: pointer;
+    }
+}
+
+
+.mypage_main_member_proflie {
+    position: relative;
+}
+
+.profile_btn_box {
+    position: absolute;
+    margin-bottom: 30px;
+    right: 0;
+}
+
+.profile_btn {
+    background-color: #f0f0f0;
+    text-align: center;
+    font-family: "Pretendard-Regular";
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 15px;
 }
 
 
 /* 모달창 리뷰 */
 
 .review_modal_box {
-  display: none;
-  position: fixed;
-  flex-direction: column;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  border-radius: 12px;
-  background-color: #fff;
-  border: 1px solid var(--main-color);
-  padding: 40px 30px;
-  z-index: 9000;
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    border-radius: 12px;
+    background-color: #fff;
+    border: 1px solid var(--main-color);
+    padding: 40px 30px;
+    z-index: 9000;
 }
 
 .review__top {
-  font-size: 16px;
-  background-color: #fff;
-  font-family: "Pretendard-Regular";
+    font-size: 16px;
+    background-color: #fff;
+    font-family: "Pretendard-Regular";
 
-  span {
-    font-family: "Ownglyph_ParkDaHyun";
-    color: var(--main-color);
-    font-size: 20px;
-  }
+    span {
+        font-family: "Ownglyph_ParkDaHyun";
+        color: var(--main-color);
+        font-size: 20px;
+    }
 
-  p:nth-child(2) {
-    padding: 30px 0;
-    margin-top: 10px;
-  }
+    p:nth-child(2) {
+        padding: 30px 0;
+        margin-top: 10px;
+    }
 }
 
 .star_rating {
-  width: 100%;
-  box-sizing: border-box;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  font-family: "Pretendard-Regular";
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: "Pretendard-Regular";
 }
 
 .star_rating .star {
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-  display: inline-block;
-  background: url('/images/user/mypage/empty-star.png') no-repeat;
-  background-size: 100%;
-  cursor: pointer;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    display: inline-block;
+    background: url('/images/user/mypage/empty-star.png') no-repeat;
+    background-size: 100%;
+    cursor: pointer;
 }
 
 .star_rating .star.on {
-  background: url('/images/user/mypage/yellow-star.png') no-repeat;
-  background-size: 100%;
-  filter: brightness(1.5);
-  /* 활성화된 별 강조 효과 */
+    background: url('/images/user/mypage/yellow-star.png') no-repeat;
+    background-size: 100%;
+    filter: brightness(1.5);
+    /* 활성화된 별 강조 효과 */
 }
 
 
 .content_box {
-  width: 100%;
-  box-sizing: border-box;
-  display: inline-block;
-  margin: 10px 0;
-  background: #F3F4F8;
-  border: 0;
-  border-radius: 10px;
-  height: 100px;
-  resize: none;
-  padding: 15px;
-  font-size: 13px;
-  font-family: sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 10px 0;
+    background: #F3F4F8;
+    border: 0;
+    border-radius: 10px;
+    height: 100px;
+    resize: none;
+    padding: 15px;
+    font-size: 13px;
+    font-family: sans-serif;
 }
 
 .review__botton {
-  width: 100%;
-  border-top: 1px solid rgb(247, 247, 247);
-  -webkit-box-pack: start;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  margin-top: 10px;
-  gap: 10px;
-
-  .review_btn {
+    width: 100%;
+    border-top: 1px solid rgb(247, 247, 247);
+    -webkit-box-pack: start;
     display: flex;
-    flex-direction: column;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
-    border: none;
-    padding: 30px 18px 0px 18px;
-    font-size: 16px;
-    font-weight: 600;
-    color: rgb(95, 0, 128);
-    background: transparent;
-  }
+    padding: 0px;
+    margin-top: 10px;
+    gap: 10px;
+
+    .review_btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        border: none;
+        padding: 30px 18px 0px 18px;
+        font-size: 16px;
+        font-weight: 600;
+        color: rgb(95, 0, 128);
+        background: transparent;
+    }
 }
 
 /* 모달창 신고 */
 
 .report_modal_box {
-  display: none;
-  position: fixed;
-  flex-direction: column;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  border-radius: 12px;
-  background-color: #fff;
-  border: 1px solid var(--main-color);
-  padding: 40px 30px;
-  z-index: 9000;
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    border-radius: 12px;
+    background-color: #fff;
+    border: 1px solid var(--main-color);
+    padding: 40px 30px;
+    z-index: 9000;
 }
 
 .report__top {
-  font-size: 16px;
-  font-family: "Pretendard-Regular";
+    font-size: 16px;
+    font-family: "Pretendard-Regular";
 
-  p:nth-child(2) {
-    font-size: 12px;
-    margin-top: 20px;
-  }
+    p:nth-child(2) {
+        font-size: 12px;
+        margin-top: 20px;
+    }
 }
 
 .content_box {
-  width: 100%;
-  box-sizing: border-box;
-  display: inline-block;
-  margin: 10px 0;
-  background: #F3F4F8;
-  border: 0;
-  border-radius: 10px;
-  height: 100px;
-  resize: none;
-  margin-top: 10px;
-  padding: 15px;
-  font-size: 13px;
-  font-family: sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 10px 0;
+    background: #F3F4F8;
+    border: 0;
+    border-radius: 10px;
+    height: 100px;
+    resize: none;
+    margin-top: 10px;
+    padding: 15px;
+    font-size: 13px;
+    font-family: sans-serif;
 }
 
 .report__botton {
-  width: 100%;
-  border-top: 1px solid rgb(247, 247, 247);
-  -webkit-box-pack: start;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  margin-top: 10px;
-  gap: 10px;
+    width: 100%;
+    border-top: 1px solid rgb(247, 247, 247);
+    -webkit-box-pack: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin-top: 10px;
+    gap: 10px;
 
-  .report_btn {
+    .report_btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        border: none;
+        padding: 30px 18px 0px 18px;
+        font-size: 16px;
+        font-weight: 600;
+        background: transparent;
+
+        &:first-child {
+            color: red;
+        }
+    }
+}
+
+
+.pet-image {
+    width: 100%;
+    height: 100%;
+}
+
+/* ------추가------ */
+.mypage_activity_list_container {
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
-    border: none;
-    padding: 30px 18px 0px 18px;
-    font-size: 16px;
-    font-weight: 600;
-    background: transparent;
-
-    &:first-child {
-      color: red;
-    }
-  }
+    width: max-content;
 }
-
-
-.pet-image{
-  width: 100%;
-  height: 100%;
-}
-
-
 
