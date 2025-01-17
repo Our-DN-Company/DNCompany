@@ -304,3 +304,25 @@ header.header_nav nav {
 .post-status-table th {
   background: #f0f0f0;
 }
+
+/* 관리자 페이지에서만 적용될 채팅 버튼 스타일 */
+body .openai-chat-button {
+  background: #00bcd4 !important;
+}
+
+body .openai-chat-input button {
+  background: #00bcd4 !important;
+}
+
+/* 호버 상태도 같은 색상 유지 */
+body .openai-chat-input button:hover {
+  background: #00bcd4 !important;
+}
+
+body .openai-chat-header {
+  background: #00bcd4 !important;
+}
+
+body .openai-user-message {
+  background: #00bcd4 !important;
+}

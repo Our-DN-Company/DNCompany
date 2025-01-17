@@ -10,9 +10,11 @@ function addMessage(message, type) {
     messageDiv.classList.add(type === 'user' ? 'openai-user-message' : 'openai-bot-message');
 
 
+    let formattedMessage = message.replace(/\. /g, '.<br><br>');
+
     // 정규표현식
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const messageWithLinks = message.replace(urlRegex, function(url) {
+    const messageWithLinks = formattedMessage.replace(urlRegex, function(url) {
         return `<a href="${url}" target="_blank" class="openai-chat-link">${url}</a>`;
     });
 
@@ -54,6 +56,8 @@ async function sendMessage() {
         }
 
         const botResponse = await response.text();
+        const contentMatch = botResponse.match(/content=([^)]+)\)\]$/);
+        const content = contentMatch ? contentMatch[1] : botResponse;
         addMessage(botResponse, 'bot');
 
     } catch (error) {
