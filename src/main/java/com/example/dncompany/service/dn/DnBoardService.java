@@ -82,8 +82,6 @@ public class DnBoardService {
         dnBoardWriteDTO.setUsersId(usersId);
         dnBoardWriteDTO.setProductId(productDTO.getProductId());
         dnBoardMapper.insertDnBoard(dnBoardWriteDTO);
-
-
         // 2. 파일 존재 여부 검사
         if (multipartFile == null || multipartFile.isEmpty()) {
             return;

@@ -103,7 +103,7 @@
                                 <label for="userFrom"></label>
                                 <input type="hidden" id="userFrom" name="userFrom" th:value="${session.usersId}">
                                 <label for="loginIdTo"></label>
-                                <input type="text" id="loginIdTo" name="loginIdTo" placeholder="아이디를 입력해주세요.">
+                                <input type="text" id="loginIdTo" name="loginIdTo" placeholder="아이디를 입력해주세요." th:value="${board.loginId}">
                             </div>
                             <div class="message__top">
                                 <p>쪽지 내용</p>

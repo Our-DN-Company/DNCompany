@@ -1,5 +1,5 @@
 import * as likeApi from "./modules/likeApi.js";
-import * as userApi from "../user/modules/userApi";
+// import * as userApi from "../user/modules/userApi";
 import * as messageListApi from "../user/modules/messageListApi.js";
 
 {
@@ -58,15 +58,12 @@ import * as messageListApi from "../user/modules/messageListApi.js";
     });
 }
 
-{
-    const $chatBtn = document.querySelector(".chat_button")
-    $chatBtn?.addEventListener('click', function () {
-        openModal();
-    })
-}
+
+openModal();
+
 
 function openModal() {
-    const $messageSend = document.querySelector('.message__btn');
+    const $messageSend = document.querySelector('.chat_button');
     const $openModal = document.querySelector('.message_modal_box');
     const $closeModal = document.querySelector('.message_btn_close');
     const $form = document.querySelector('.message_form');
