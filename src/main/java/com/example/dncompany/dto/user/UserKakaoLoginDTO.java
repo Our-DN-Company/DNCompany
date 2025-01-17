@@ -5,8 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class UserKakaoLogin {
-    Long usersId;
-    String LoginId;
-    String Password;
+public class UserKakaoLoginDTO {
+    private Long usersId;
+    private String LoginId;
+    private String Password;
 }

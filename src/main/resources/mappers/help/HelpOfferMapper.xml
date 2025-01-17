@@ -6,8 +6,8 @@
         <selectKey keyProperty="helpOfferId" resultType="long" order="BEFORE">
             SELECT SEQ_HELP_OFFER.nextval FROM DUAL
         </selectKey>
-        INSERT INTO HELP_OFFER (HELP_OFFER_ID, HELP_ID, USERS_ID, HELP_OFFER_STATUS, HELP_OFFER_ENROLL_DATE)
-        VALUES (#{helpOfferId}, #{helpId}, #{usersId}, 'ACCEPT', SYSDATE)
+        INSERT INTO HELP_OFFER (HELP_OFFER_ID, HELP_ID, USERS_ID, HELP_OFFER_STATUS)
+        VALUES (#{helpOfferId}, #{helpId}, #{usersId}, 'PENDING')
     </insert>
 
     <select id="isMePostTest" resultType="boolean">
@@ -15,4 +15,6 @@
         FROM HELP_BOARD
         WHERE HELP_ID = #{helpId} AND USERS_ID = #{usersId}
     </select>
+
+
 </mapper>

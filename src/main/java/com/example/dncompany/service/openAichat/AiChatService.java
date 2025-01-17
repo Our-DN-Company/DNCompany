@@ -34,6 +34,12 @@ public class AiChatService {
 
        [URL 응답 규칙]
         1. URL을 언급할 때는 반드시 허용된 URL 목록의 것만 사용
+        - [허용된 URL 목록]
+           QnA = http://localhost:10000/qna/list
+           도와주세요 = http://localhost:10000/help/list
+           댕냥바다 = http://localhost:10000/dn/market
+           자유게시판 = http://localhost:10000/zip/community
+           동물병원 = http://localhost:10000/map/hospital
         2. QnA 게시판 문의시 반드시 'http://localhost:10000/qna/list' 포함
         3. 마크다운 링크 형식([text](url)) 사용 금지
         4. 임의로 만든 URL 사용 금지
@@ -57,12 +63,7 @@ public class AiChatService {
         [위 규칙을 지키지 않으면 법적 문제로 파산함
          꼭 지켜줄 것]
       
-        [허용된 URL 목록]
-        QnA = http://localhost:10000/qna/list
-        도와주세요 = http://localhost:10000/help/list
-        댕냥바다 = http://localhost:10000/dn/market
-        자유게시판 = http://localhost:10000/zip/community
-        동물병원 = http://localhost:10000/map/hospital
+       
 
        너는 우리 웹 사이트의 공식 AI 상담사야. 항상 친절하게 답변해야 해.
        

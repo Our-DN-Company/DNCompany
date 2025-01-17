@@ -1,9 +1,6 @@
 package com.example.dncompany.service.user;
 
-import com.example.dncompany.dto.user.UserJoinDTO;
-import com.example.dncompany.dto.user.UserJoinKakaoDTO;
-import com.example.dncompany.dto.user.UserLoginDTO;
-import com.example.dncompany.dto.user.UserSessionDTO;
+import com.example.dncompany.dto.user.*;
 import com.example.dncompany.exception.user.LoginFailedException;
 import com.example.dncompany.exception.user.UserDuplicateException;
 import com.example.dncompany.mapper.user.UserMapper;
@@ -89,6 +86,15 @@ public class UserService {
         userMapper.insertKakaoIdUsers(userJoinKakaoDTO);
     }
 
+    public UserSessionDTO updateKakaoUserJoin (UserUpdateKakaoDTO userUpdateKakaoDTO){
+        userMapper.updateKakaoLoginUser(userUpdateKakaoDTO);
+
+        UserLoginDTO userLoginDTO = new UserLoginDTO();
+        userLoginDTO.setLoginId(userUpdateKakaoDTO.getLoginId());
+        userLoginDTO.setPassword(userUpdateKakaoDTO.getPassword());
+        return userMapper.selectLoginInfo(userLoginDTO)
+                .orElseThrow( () -> new IllegalArgumentException("임시"));
+    }
 
 
 

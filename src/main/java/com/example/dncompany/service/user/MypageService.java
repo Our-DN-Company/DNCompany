@@ -11,6 +11,7 @@ import com.example.dncompany.mapper.user.MypagePetImageMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,8 +81,6 @@ public class MypageService {
         multipartFile.transferTo(file);
 
 
-
-
         mypagePetImageMapper.insertPetImg(petImageDTO);
     }
 
@@ -122,8 +121,6 @@ public class MypageService {
         return mypageMapper.MyPageMainHelpYouListById(usersId);
 
     }
-
-
 
 
     //    정보 수정
@@ -171,7 +168,6 @@ public class MypageService {
         multipartFile.transferTo(file);
 
 
-
         mypagePetImageMapper.insertPetImg(petImageDTO);
     }
 
@@ -201,7 +197,6 @@ public class MypageService {
         mypageMapper.updateUserProfile(updateUserProfile);
 
     }
-
 
 
     //페이징처리
@@ -260,7 +255,6 @@ public class MypageService {
     }
 
 
-
     //zipBoard
     public PageDTO<MypageZipAnswerListDTO> zipAnswerListPage(Long usersId, PageRequestDTO pageRequestDTO) {
         List<MypageZipAnswerListDTO> zipAnswerList = mypageMapper.zipAnswerListPage(usersId, pageRequestDTO);
@@ -286,10 +280,6 @@ public class MypageService {
 
 
     }
-
-
-
-
 
 
     //dnBoard
@@ -319,7 +309,19 @@ public class MypageService {
     }
 
 
+    // dnLike
+    public PageDTO<MypageDnLikeListDTO> getDnLikeListByUsersId(
+            PageRequestDTO pageRequestDTO,
+            Long usersId
+    ) {
+        List<MypageDnLikeListDTO> likeList = mypageMapper.selectDnLikeListByUsersId(pageRequestDTO, usersId);
+        int total = mypageMapper.countDnLikeByUsersId(usersId);
 
+        return  new PageDTO<>(pageRequestDTO.getPage(),
+                pageRequestDTO.getSize(),
+                total,
+                likeList);
+    }
 }
 
 
