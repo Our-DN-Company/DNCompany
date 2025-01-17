@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter @Setter @ToString
 public class HelpMeListDTO {
@@ -14,5 +15,8 @@ public class HelpMeListDTO {
   private  String helpCareType;
   private  LocalDate helpCareDate;
   private  LocalDate helpCreatedAt;
+  private LocalDateTime helpStartTime;
+  private LocalDateTime helpEndTime;
+  private String helpOfferStatus;
   private  Long userId;
 }
