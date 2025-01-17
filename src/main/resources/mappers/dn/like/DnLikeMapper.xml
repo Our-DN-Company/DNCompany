@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.dn.like.DnLikeMapper">
+    <!-- 좋아요를 누른 멤버가 좋아요를 누르면 삽입되어야함-->
+    <insert id="insertDnLike" parameterType="DnLikeDTO">
+        INSERT INTO DN_LIKE(DN_ID, USERS_ID)
+        VALUES (#{dnId}, #{usersId})
+    </insert>
+
+    <!-- 좋아요를 눌렀는지 여부를 확인하는 조회 쿼리-->
+    <select id="countByUsersIdAndDnId" resultType="_int">
+        SELECT COUNT(*)
+        FROM DN_LIKE
+        WHERE USERS_ID = #{usersId} AND DN_ID = #{dnId}
+    </select>
+
+    <!-- 특정 게시물의 좋아요 개수를 조회하는 쿼리-->
+    <select id="countByDnId" resultType="_int">
+        SELECT COUNT(*)
+        FROM DN_LIKE
+        WHERE DN_ID = #{dnId}
+    </select>
+
+    <!-- 좋아요를 누른 상태에서 다시 누르면 삭제도 해야함-->
+    <delete id="deleteByUsersIdAndDnId">
+        DELETE FROM DN_LIKE
+        WHERE USERS_ID = #{usersId} AND DN_ID = #{dnId}
+    </delete>
+</mapper>

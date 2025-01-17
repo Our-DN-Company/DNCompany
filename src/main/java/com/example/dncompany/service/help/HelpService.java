@@ -7,10 +7,12 @@ import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.dto.page.PageDTO;
 import com.example.dncompany.exception.help.HelpNotFoundException;
 import com.example.dncompany.mapper.help.HelpMapper;
+import com.example.dncompany.mapper.help.HelpOfferMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +26,8 @@ import java.util.Map;
 public class HelpService {
 
     private final HelpMapper helpMapper;
+    private final HelpOfferMapper helpOfferMapper;
+    private final HelpOfferService helpOfferService;
 
 
     // 게시글 등록
@@ -65,9 +69,30 @@ public class HelpService {
         return result;
     }
 
-    // 등록 가능 여부
+     // 등록 가능 여부
     public boolean checkHelpOfferExists(Long helpId) {
         return helpMapper.checkHelpOfferExists(helpId) > 0;
+    }
+//public boolean checkRecruitingStatus(Long helpId) {
+//    // help_offer 테이블에서 해당 게시글의 수락된 제안이 있는지 확인
+//    int acceptedOffers = helpMapper.checkHelpOfferExists(helpId);
+//    return acceptedOffers == 0; // 수락된 제안이 없으면 true(모집중), 있으면 false(모집마감)
+//}
+    @Transactional
+    public void updateOfferStatus(Long offerId, String status) {
+        String offerStatus;
+
+        if("수락".equals(status)) {
+            offerStatus = "ACCEPT";
+        } else if("거절".equals(status)) {
+            offerStatus = "REJECT";
+        } else if("완료".equals(status)) {
+            offerStatus = "COMPLETE";
+        } else {
+            offerStatus = "POSSIBLE"; // 기본 상태
+        }
+
+        helpMapper.updateHelpOfferStatus(offerId, offerStatus);
     }
 
 

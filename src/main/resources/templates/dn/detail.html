@@ -13,7 +13,7 @@
         @import url(https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff);
         @import url(https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2);
     </style>
-    <script defer th:src="@{/js/dn/dnDelete.js}"></script>
+    <script defer type="module" th:src="@{/js/dn/dnDetail.js}"></script>
     <script defer th:src="@{/js/fragment/header.js}"></script>
 </head>
 <body>
@@ -54,7 +54,9 @@
                                     제작되었습니다.
                                 </div>
                                 <!-- 관심 상품 버튼 -->
-                                <button class="favorite_button" th:text="'💖 관심 상품' + *{likeCount}">💖 관심 상품</button>
+                                <button class="favorite_button">💖 관심 상품
+                                    <span class="favorite_count" th:text="*{likeCount}">0</span>
+                                </button>
                                 <!-- 포인트 사용 텍스트 박스 -->
                                 <input type="text" class="point_input" placeholder="사용할 포인트 입력"/>
                                 <!-- 판매자와 대화 버튼 -->

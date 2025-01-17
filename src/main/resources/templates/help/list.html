@@ -97,6 +97,7 @@
                         class="page-button"
                         th:href="@{/help/list(page=${pageResult.page + 1})}">&gt;</a>
             </div>
+            <div th:insert="~{/openAiChat/open_ai_chat}"></div>
         </main>
     </div>
     <th:block th:insert="~{fragment/footer::footer}"></th:block>

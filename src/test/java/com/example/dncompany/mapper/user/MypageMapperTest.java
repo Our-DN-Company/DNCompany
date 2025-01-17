@@ -22,6 +22,7 @@ class MypageMapperTest {
     MypageMapper mypageMapper;
     AddPetDTO addPetDTO;
     UserProfileDTO userProfileDTO;
+    ReviewDTO reviewDTO;
     @BeforeEach
     void setUp(){
         addPetDTO = new AddPetDTO();
@@ -79,4 +80,14 @@ class MypageMapperTest {
         Optional<UpdateUserProfileDTO> updateUserProfile = mypageMapper.selectUserProfileById(81L);
 
     }
+
+
+//    @Test
+//    void reviewInfo() {
+//        reviewDTO = new ReviewDTO();
+//        reviewDTO.setReviewContent("Test");
+//        reviewDTO.setReviewStarRating(5);
+//        reviewDTO.setHelpId(142L);
+//        reviewDTO.setUsersId(24L);
+//    }
 }

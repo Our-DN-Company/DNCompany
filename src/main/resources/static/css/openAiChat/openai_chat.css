@@ -89,6 +89,7 @@ body {
     max-width: 80%;
     word-break: break-word;   /* 추가: 긴 단어 줄바꿈 */
     word-wrap: break-word;
+    white-space: normal;     /* 줄바꿈 허용 */
 }
 
 .openai-user-message {

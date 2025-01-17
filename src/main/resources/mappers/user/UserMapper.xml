@@ -73,6 +73,21 @@
         WHERE KAKAO_ID = #{kakaoId}
     </select>
 
+    <update id="updateKakaoLoginUser" parameterType="UserUpdateKakaoDTO">
+        UPDATE USERS
+        SET USERS_ID=#{usersId}, LOGIN_ID = #{loginId}, PASSWORD = #{password}, NAME = #{name}, EMAIL = #{email}, PHONE_NUMBER = #{phoneNumber},
+            ZIP_CODE = #{zipCode}, ADDRESS = #{address}, ADDRESS_DETAIL = #{addressDetail},
+            GENDER = COALESCE(#{gender}, 'N'), BIRTH_DATE = #{birthDate}
+        WHERE USERS_ID = #{usersId}
+    </update>
+
+
+    <select id="selectAllFromUser" parameterType="Long" resultType="UserUpdateKakaoDTO">
+        SELECT USERS_ID, PASSWORD, NAME, EMAIL, PHONE_NUMBER, ZIP_CODE, ADDRESS, ADDRESS_DETAIL, GENDER, BIRTH_DATE, ROLE
+        FROM USERS
+        WHERE USERS_ID = #{usersId}
+    </select>
+
 
 </mapper>
 
