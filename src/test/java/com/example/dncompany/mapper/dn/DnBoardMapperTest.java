@@ -102,8 +102,6 @@ class DnBoardMapperTest {
         dnSearchDTO.setProductCategory("간식");
         dnSearchDTO.setDnPetCategory("강아지");
 
-
-
         pageRequestDTO.setPage(1);
         pageRequestDTO.setSize(10);
 

@@ -37,7 +37,9 @@
                                 <div class="shopSearch_inputContainer">
                                     <div class="shopLayout_shoppingTopArea">
                                         <input type="text" class="shopSearch_searchInput" placeholder="검색" enterkeyhint="search" th:value="${searchDTO.keyword}"/>
-                                        <img class="shopSearch_searchIcon" src="https://bemypet.kr/_next/static/media/ICON-24px-Search.318147fc.svg"/>
+                                        <button type="submit" class="shopSearch_searchBtn">
+                                            <img class="shopSearch_searchIcon" src="https://bemypet.kr/_next/static/media/ICON-24px-Search.318147fc.svg"/>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -45,10 +47,10 @@
 
                             <!-- 동물 분류 -->
                             <div class="shopLayout_animalLabelContainer">
-                                <a th:href="@{/dn/market(dnPetCategory='dog', order=${searchDTO.order}, dnPetCategory=${searchDTO.dnPetCategory})}" class="SubView-tab-t1" data-category="dog">강아지</a>
-                                <a th:href="@{/dn/market(dnPetCategory='cat', order=${searchDTO.order}, dnPetCategory=${searchDTO.dnPetCategory})}" class="SubView-tab-t1" data-category="cat">고양이</a>
-                                <a th:href="@{/dn/market(dnPetCategory='smallPet', order=${searchDTO.order}, dnPetCategory=${searchDTO.dnPetCategory})}" class="SubView-tab-t1" data-category="smallPet">소동물</a>
-                                <a th:href="@{/dn/market(dnPetCategory='otherPet', order=${searchDTO.order}, dnPetCategory=${searchDTO.dnPetCategory})}" class="SubView-tab-t1" data-category="otherPet">기타</a>
+                                <a th:href="@{/dn/market(dnPetCategory='dog', order=${searchDTO.order}, productCategory=${searchDTO.productCategory})}" class="SubView-tab-t1" data-category="dog">강아지</a>
+                                <a th:href="@{/dn/market(dnPetCategory='cat', order=${searchDTO.order}, productCategory=${searchDTO.productCategory})}" class="SubView-tab-t1" data-category="cat">고양이</a>
+                                <a th:href="@{/dn/market(dnPetCategory='smallPet', order=${searchDTO.order}, productCategory=${searchDTO.productCategory})}" class="SubView-tab-t1" data-category="smallPet">소동물</a>
+                                <a th:href="@{/dn/market(dnPetCategory='otherPet', order=${searchDTO.order}, productCategory=${searchDTO.productCategory})}" class="SubView-tab-t1" data-category="otherPet">기타</a>
                             </div>
                         </div>
 
@@ -80,15 +82,15 @@
                             <input class="radio_myRadio" type="radio" id="popular-order" name="productFilter" value="popular-order" th:checked="${'popular-order'.equals(searchDTO.order)}"/>
                             <label for="popular-order">인기순</label>
                           </span>
-                            <span class="shopping_productFilterList">
+                          <span class="shopping_productFilterList">
                             <input class="radio_myRadio" type="radio" id="last-order" name="productFilter" value="last-order" th:checked="${'last_order'.equals(searchDTO.order)}"/>
                             <label for="last-order">최신순</label>
                           </span>
-                            <span class="shopping_productFilterList">
+                          <span class="shopping_productFilterList">
                             <input class="radio_myRadio" type="radio" id="price-desc-order" name="productFilter" value="price-desc-order" th:checked="${'price-desc-order'.equals(searchDTO.order)}"/>
                             <label for="price-desc-order">낮은 가격순</label>
                           </span>
-                            <span class="shopping_productFilterList">
+                          <span class="shopping_productFilterList">
                             <input class="radio_myRadio" type="radio" id="price-asc-order" name="productFilter" value="price-asc-order" th:checked="${'price-asc-order'.equals(searchDTO.order)}"/>
                             <label for="price-asc-order">높은 가격순</label>
                           </span>
