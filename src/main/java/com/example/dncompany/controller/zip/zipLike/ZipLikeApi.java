@@ -39,7 +39,7 @@ public class ZipLikeApi {
 
     @PutMapping("/v1/zips/{zipId}/likes")
     public LikeResponse putLike(@PathVariable("zipId") Long zipId,
-                                @SessionAttribute(value = "usersId", required = true) Long usersId
+                                @SessionAttribute(value = "usersId", required = false) Long usersId
     ) {
         if (usersId == null) {
             ZipLikeService.ZipLikeResult result = zipLikeService.isLikeByUser(zipId, usersId);

@@ -180,6 +180,7 @@ public class MypageService {
     public UpdateUserProfileDTO selectUserProfileById(Long usersId) {
         return mypageMapper.selectUserProfileById(usersId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원번호입니다"));
+
     }
 
     public void updateUserProfile(UpdateUserProfileDTO updateUserProfile) {

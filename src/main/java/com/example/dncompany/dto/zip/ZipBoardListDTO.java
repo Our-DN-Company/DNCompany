@@ -16,7 +16,7 @@ public class ZipBoardListDTO {
     private String zipCategory; // zip 카테고리 X, 댕냥바다에 추가 해야할거 같음
     private String zipTitle;
     private String zipContent;
-    private LocalDateTime zipCreatedAt;
+//    private LocalDateTime zipCreatedAt;
     private LocalDateTime zipUpdatedAt;
     private int zipViewCount;
     private int zipLikeCount;
@@ -24,11 +24,11 @@ public class ZipBoardListDTO {
     private Long usersId;
     private String nickname;
 
-    public String getCreatedAt () {
-        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
+//    public String getZipCreatedAt () {
+//        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//    }
 
-    public String getUpdatedAt () {
+    public String getZipUpdatedAt () {
         return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 

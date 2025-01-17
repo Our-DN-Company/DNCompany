@@ -47,6 +47,7 @@ public class ZipController {
         PageDTO<ZipBoardListDTO> zipPageDTO = zipService.getZipBoardsBySearchCondWithPage(zipSearchDTO, pageRequestDTO);
 
 //        model.addAttribute("boardList", boardList);
+        log.info(zipPageDTO.toString());
         model.addAttribute("zipPageDTO", zipPageDTO);
         model.addAttribute("zipSearchDTO", zipSearchDTO);
 
