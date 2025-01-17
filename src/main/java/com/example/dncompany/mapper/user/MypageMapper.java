@@ -93,11 +93,11 @@ public interface MypageMapper {
 
 
 
-    //dnBuy
-    List<MypageDnBuyListDTO> mypageDnBuyListPage(@Param("usersId") Long usersId,
-                                                 @Param("page") PageRequestDTO pageRequestDTO);
-
-    int countMypageDnBuyList(Long usersId);
+//    //dnBuy
+//    List<MypageDnBuyListDTO> mypageDnBuyListPage(@Param("usersId") Long usersId,
+//                                                 @Param("page") PageRequestDTO pageRequestDTO);
+//
+//    int countMypageDnBuyList(Long usersId);
 
     //dnSell
     List<MypageDnSellListDTO> mypageDnSellListPage(@Param("usersId") Long usersId,

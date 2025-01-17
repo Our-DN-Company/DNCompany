@@ -13,9 +13,6 @@ public class MypageDnBuyListDTO {
    private Long usersId;
    private int productPrice;
    private String productName;
-   private Long buyerUsersId;
-   private String buyerLoginId;
-   private String buyerNickname;
    private String productPath;
    private String productUuid;
    private String productExtension;

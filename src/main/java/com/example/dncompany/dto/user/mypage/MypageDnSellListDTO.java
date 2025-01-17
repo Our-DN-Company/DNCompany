@@ -6,18 +6,15 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 public class MypageDnSellListDTO {
-  private  int rnum;
-  private  Long productId;
-  private  String productName;
-  private  Long productPrice;
-  private  Long usersId;
-
+  private int rnum;
+  private Long dnId;
   private String productCategory;
-  private String productImgId;
+  private String dnTitle;
+  private String dnStatus;
+  private Long usersId;
+  private int productPrice;
+  private String productName;
   private String productPath;
   private String productUuid;
   private String productExtension;
-  private String sellerUsersId;
-  private String sellerLoginId;
-  private String sellerNickname;
 }
