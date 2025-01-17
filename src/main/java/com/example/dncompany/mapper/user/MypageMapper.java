@@ -2,6 +2,7 @@ package com.example.dncompany.mapper.user;
 
 
 import com.example.dncompany.dto.page.PageRequestDTO;
+import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -107,12 +108,7 @@ public interface MypageMapper {
 
     int countDnLikeByUsersId(Long usersId);
 
-
-
-    //리뷰처리
-    void reviewInfo(ReviewDTO reviewDTO);
-
-    Long reviewUsersId(Long helpId);
+    int insertReview(ReviewWriteDTO reviewWriteDTO);
 
 }
 

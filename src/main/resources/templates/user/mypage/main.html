@@ -155,8 +155,8 @@
                                         <td th:text="*{helpCreatedAt}"></td>
                                         <td th:text="*{helpCareDate}"></td>
                                         <td>
-                                            <button type="button" class="review-btn mypage_review_button" th:data-help-id="*{helpId}">후기</button>
-                                            <button type="button" class="report-btn mypage_review_button" th:data-help-id="*{helpId}">신고</button>
+                                            <button type="button" class="review-btn mypage_review_button">후기</button>
+                                            <button type="button" class="report-btn mypage_review_button">신고</button>
                                         </td>
 
 
@@ -177,8 +177,11 @@
                                     <p><span>도와주세요</span> 서비스 REVIEW</p>
                                     <p>리뷰 작성</p>
                                 </div>
-                                <form th:action="@{/mypage/main}" method="post">
-                                    <input type="hidden" id="modalHelpId" name="helpId" value="">
+                                <form>
+                                    <div>
+                                        <textarea id="reviewTitle" class="title_box" placeholder="제목을 입력 하세요"></textarea>
+                                    </div>
+                                    <div in></div>
                                     <div class="review__star">
                                         <div class="star_rating">
                                             <p>별점 &nbsp;</p>
@@ -192,7 +195,7 @@
                                     </div>
                                     <textarea id="reviewContent" class="content_box" placeholder="리뷰 내용을 작성해주세요."></textarea>
                                     <div class="review__botton">
-                                        <button type="submit" class="review_btn">확인</button>
+                                        <button type="button" class="review_btn">확인</button>
                                         <button type="button" class="review_btn review-cancel-btn">취소</button>
                                     </div>
                                 </form>
