@@ -1,9 +1,6 @@
 package com.example.dncompany.controller.user;
 
-import com.example.dncompany.dto.user.UserJoinDTO;
-import com.example.dncompany.dto.user.UserJoinKakaoDTO;
-import com.example.dncompany.dto.user.UserLoginDTO;
-import com.example.dncompany.dto.user.UserSessionDTO;
+import com.example.dncompany.dto.user.*;
 import com.example.dncompany.exception.user.LoginFailedException;
 import com.example.dncompany.exception.user.UserDuplicateException;
 import com.example.dncompany.service.user.AuthService;
@@ -12,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.model.IModel;
 
 import java.util.Date;
 
@@ -153,9 +152,35 @@ public class UserController {
         }
     }
 
-    @PostMapping("/user/update/kakao")
-    public String kakaoLoginUpdate(){
+    @GetMapping("/user/update/kakao")
+    public String kakaoLoginUpdate() {
+
         return "user/kakaoupdate";
+    }
+
+    @PostMapping("/user/update/kakao")
+    public String kakaoLoginUpdate(UserUpdateKakaoDTO userUpdateKakaoDTO, UserLoginDTO userLoginDTO,
+                                   HttpSession session, RedirectAttributes redirectAttributes) {
+        try {
+            // 사용자 정보 업데이트 후 회원 정보 조회
+            UserSessionDTO loginInfo = userService.updateKakaoUserJoin(userUpdateKakaoDTO);
+
+            // 세션에 사용자 정보 저장
+            session.setAttribute("usersId", loginInfo.getUsersId());
+            session.setAttribute("loginId", loginInfo.getLoginId());
+            session.setAttribute("role", loginInfo.getRole());
+
+            log.info("userLoginDTO: {}", userLoginDTO);
+            log.debug("userLoginDTO: {}", userLoginDTO);
+
+            // 리다이렉트 후 성공 메시지 전달
+            redirectAttributes.addFlashAttribute("success", "사용자 정보가 성공적으로 업데이트되었습니다.");
+            return "redirect:/";  // 메인 페이지로 리다이렉트
+        } catch (Exception e) {
+            log.error("카카오 로그인 업데이트 중 오류 발생", e);
+            redirectAttributes.addFlashAttribute("error", "사용자 정보 업데이트 중 오류가 발생했습니다.");
+            return "redirect:/user/update/kakao";  // 오류 발생 시 업데이트 폼으로 리다이렉트
+        }
     }
 
     //      유저 테이블에 카카오 인증 칼럼을 추가하고
