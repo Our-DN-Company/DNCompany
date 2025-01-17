@@ -139,7 +139,7 @@
                                         <th>신청유형</th>
                                         <th>시작날짜</th>
                                         <th>신청날짜</th>
-                                        <th>후기</th>
+                                        <th>신청 상태</th>
 
                                     </tr>
 
@@ -153,8 +153,15 @@
                                         <td>
                                             <button type="button" class="review-btn mypage_review_button">후기</button>
                                             <button type="button" class="report-btn mypage_review_button">신고</button>
-
                                         </td>
+
+
+
+
+
+
+
+
                                     </tr>
 
                                 </table>
@@ -201,28 +208,28 @@
                                 </form>
                             </div>
 
-                            <!-- 도와드려요 -->
-                            <div class="mypage_main_help_you">
-                                <div class="mypage_main_content_title"><p>도와드려요</p>
-                                    <a class="mypage_main_content_button_top" th:href="@{/mypage/list/helpyou}"></a>
-                                </div>
-                                <div class="mypage_main_line"></div>
-                                <table class="mypage_main_list_top" >
-                                    <tr>
-                                        <td>순번</td>
-                                        <td>신청내용</td>
-                                        <td>산청자</td>
-                                        <td>상태</td>
-                                    </tr>
-                                    <tr class="main-help-you-list" th:each="helpYou : ${mainHelpYouList}" th:object="${helpYou}">
-                                        <td th:text="*{rnum}">순번</td>
-                                        <td th:text="*{helpTitle}">신청날짜</td>
-                                        <td th:text="*{loginId}">신청날짜</td>
-                                        <td th:text="*{helpOfferStatus}"></td>
-                                    </tr>
+<!--                            &lt;!&ndash; 도와드려요 &ndash;&gt;-->
+<!--                            <div class="mypage_main_help_you">-->
+<!--                                <div class="mypage_main_content_title"><p>도와드려요</p>-->
+<!--                                    <a class="mypage_main_content_button_top" th:href="@{/mypage/list/helpyou}"></a>-->
+<!--                                </div>-->
+<!--                                <div class="mypage_main_line"></div>-->
+<!--                                <table class="mypage_main_list_top" >-->
+<!--                                    <tr>-->
+<!--                                        <td>순번</td>-->
+<!--                                        <td>신청내용</td>-->
+<!--                                        <td>산청자</td>-->
+<!--                                        <td>상태</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr class="main-help-you-list" th:each="helpYou : ${mainHelpYouList}" th:object="${helpYou}">-->
+<!--                                        <td th:text="*{rnum}">순번</td>-->
+<!--                                        <td th:text="*{helpTitle}">신청날짜</td>-->
+<!--                                        <td th:text="*{loginId}">신청날짜</td>-->
+<!--                                        <td th:text="*{helpOfferStatus}"></td>-->
+<!--                                    </tr>-->
 
-                                </table>
-                            </div>
+<!--                                </table>-->
+<!--                            </div>-->
 
 
                         </div>

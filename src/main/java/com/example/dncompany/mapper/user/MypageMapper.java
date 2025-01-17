@@ -106,6 +106,10 @@ public interface MypageMapper {
     int countMypageDnSellList(Long usersId);
 
 
+
+
+
+//    void reviewInfo(ReviewDTO reviewDTO);
 }
 
 

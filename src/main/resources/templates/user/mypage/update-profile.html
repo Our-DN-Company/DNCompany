@@ -140,13 +140,13 @@
                                                                             placeholder="예: DNCompany" type="text"
 
                                                                             class="info__box__in__content__email"
-                                                                            value=""/>
+                                                                            th:value="*{emailText}"/>
                                         <div class="info__box__email__at">@</div>
                                         <div class="info__box__email__btn">
                                             <label for="emailTxt"></label><input id="emailTxt" name="emailTxt"
                                                                                  placeholder="선택하기" type="text" required
                                                                                  class="info__box__email__btn__content"
-                                                                                 value="" disabled/>
+                                                                                 th:value="*{emailId}" disabled/>
                                             <button type="button" class="info__box__email__btn__select">
                                                 <img src="/images/user/signup_email.png" alt="이메일 드롭 다운 화살표"/>
                                             </button>
