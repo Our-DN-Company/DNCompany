@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class DnBoardModifyDTO {
     private Long usersId;
-    private Long productName;
+    private String productName;
     private Long dnId;
     private String dnPetCategory;
     private String dnTitle;
