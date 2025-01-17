@@ -3,6 +3,7 @@ package com.example.dncompany.service.user;
 
 import com.example.dncompany.dto.page.PageDTO;
 import com.example.dncompany.dto.page.PageRequestDTO;
+import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 import com.example.dncompany.dto.user.mypage.PetImageDTO;
 import com.example.dncompany.exception.user.UserNotFoundException;
@@ -323,6 +324,15 @@ public class MypageService {
                 pageRequestDTO.getSize(),
                 total,
                 likeList);
+    }
+
+    @Transactional
+    public boolean createReview(ReviewWriteDTO reviewWriteDTO) {
+        try {
+            return mypageMapper.insertReview(reviewWriteDTO) > 0;
+        } catch (Exception e) {
+            throw new RuntimeException("리뷰 등록 중 오류가 발생했습니다.", e);
+        }
     }
 }
 
