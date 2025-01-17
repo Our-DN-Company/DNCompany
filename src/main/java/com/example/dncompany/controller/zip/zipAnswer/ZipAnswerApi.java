@@ -7,6 +7,7 @@ import com.example.dncompany.service.zip.zipAnswer.ZipAnswerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class ZipAnswerApi {
     private final ZipAnswerService zipAnswerService;
 
+
     @PostMapping("/v1/zips/{zipId}/answers")
     public void postAnswer(@RequestBody ZipAnswerWriteDTO zipAnswerWriteDTO,
                            @PathVariable("zipId") Long zipId,
@@ -26,8 +28,17 @@ public class ZipAnswerApi {
     }
 
     @GetMapping("/v1/zips/{zipId}/answers")
-    public List<ZipAnswerDTO> getAnswer(@PathVariable("zipId") Long zipId) {
-        return zipAnswerService.getListByZipId(zipId);
+    public List<ZipAnswerDTO> getAnswer(@PathVariable("zipId") Long zipId
+                                        ) {
+
+//        if (zipContent == null){
+//            redirectAttributes.addFlashAttribute("hasError", true);
+//            redirectAttributes.addFlashAttribute("message", "내용을 입력 해주세요");
+//
+//        }
+
+    return zipAnswerService.getListByZipId(zipId);
+
     }
 
     @PatchMapping("/v1/answers/{answerId}")

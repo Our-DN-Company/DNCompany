@@ -326,16 +326,7 @@
     cursor: pointer;
 }
 
-/* 댓글 수정 삭제 버튼 */
-.edit__edit-btn, .edit__cancel-btn {
-    margin-top: 15px;
-    margin-right: 10px;
-    display: flex;
-    width: 50px;
-    height: 25px;
-    justify-content: center;
-    align-items: center;
-}
+
 
 /* 댓글 내용 */
 .comment_qaComment {
@@ -419,6 +410,12 @@
     }
 
     .edit__edit-btn, .edit__cancel-btn {
-
+        margin-top: 15px;
+        margin-right: 10px;
+        display: flex;
+        width: 50px;
+        height: 25px;
+        justify-content: center;
+        align-items: center;
     }
 }

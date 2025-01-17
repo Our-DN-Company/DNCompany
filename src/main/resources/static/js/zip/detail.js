@@ -27,7 +27,7 @@ import * as likeApi from './modules/likeApi.js'
 
             console.log("clicked");
 
-            const $likeCount = this.querySelector('.like-count');
+            const $likeCount = this.querySelector('.thumbButton_defaultLabel');
 
             likeApi.toggleLike(zipId, function (data) {
                 console.log(data);
