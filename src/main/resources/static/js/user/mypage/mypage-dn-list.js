@@ -15,21 +15,6 @@ import * as mypageApi from '../modules/mypageApi.js'
     });
 }
 
-{   // 구매 리스트 / 페이징 처리
-    loadBuyList(1);
-
-    const $pageGroupContainer = document.querySelector('.dn-buy-list-pagination');
-
-    $pageGroupContainer.addEventListener('click', function (e) {
-        if (e.target.tagName === 'SPAN'){
-            const page = e.target.dataset.page;
-
-            loadBuyList(page);
-        }
-
-    });
-}
-
 /**
  * 판매 내역 / 페이징 로드 함수
  * 
@@ -45,28 +30,28 @@ function loadSellList(page) {
     });
 }
 
-/**
- * 구매 내역 / 페이징 로드 함수
- * 
- * @param page
- */
-function loadBuyList(page) {
-    mypageApi.getMypageDnSellList(page, function (data) {
-        // console.log(data);
-        const $buyListContainer = document.querySelector('.dn-buy-list-tbody');
-        const $buyPageGroupContainer = document.querySelector('.dn-buy-list-pagination');
-        displayDnList(data.list, $buyListContainer);
-        makeDnPageGroup(data, $buyPageGroupContainer);
-    });
-}
+// /**
+//  * 구매 내역 / 페이징 로드 함수
+//  *
+//  * @param page
+//  */
+// function loadBuyList(page) {
+//     mypageApi.getMypageDnSellList(page, function (data) {
+//         // console.log(data);
+//         const $buyListContainer = document.querySelector('.dn-buy-list-tbody');
+//         const $buyPageGroupContainer = document.querySelector('.dn-buy-list-pagination');
+//         displayDnList(data.list, $buyListContainer);
+//         makeDnPageGroup(data, $buyPageGroupContainer);
+//     });
+// }
 
 /**
  * 내역 리스트 화면 출력 함수
  * 
  * @param dnList
- * @param $sellListContainer - 내역 리스트를 삽입할 DOM 요소
+ * @param $listContainer - 내역 리스트를 삽입할 DOM 요소
  */
-function displayDnList(dnList, $sellListContainer) {
+function displayDnList(dnList, $listContainer) {
     let html = '';
 
     dnList.forEach(dn => {
@@ -101,16 +86,13 @@ function displayDnList(dnList, $sellListContainer) {
                     </div>
                 </td>
                 <td>
-                ${dn.sellerUsersId ? 
-                    dn.sellerNickname + '(' + dn.sellerLoginId + ')' :
-                    dn.buyerNickname + '(' + dn.buyerLoginId + ')' 
-                }
+                ${dn.dnStatus == 'PENDING' ? '대기' : '판매 완료'}
                 </td>
             </tr>
         `;
     });
 
-    $sellListContainer.innerHTML = html;
+    $listContainer.innerHTML = html;
 }
 
 /**
