@@ -91,7 +91,7 @@
                         <div class="qaDetail_qaDetailInfo">
                             <div>
                                 <div class="qaDetail_qaDetailUser" th:text="${board.nickname}"></div>
-                                <div class="qaDetail_qaDetailDate" th:text="${board.zipUpdatedAt}"></div>
+                                <div class="qaDetail_qaDetailDate" th:text="'작성일 : ' + ${board.zipUpdatedAt}"></div>
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
 
                     <!-- 댓글 -->
                     <div class="qaDetail_qaDetailAnswerWrapper">
-                        <div class="qaDetail_qaDetailTotal" th:text="'댓글 : ' + ${board.answerCount}">댓글 0</div>
+                        <div class="qaDetail_qaDetailTotal" th:text="'댓글 : ' + ${board.answerCount}"></div>
                         <div class="qaDetail_qaDetailComment">
                             <div class="answer_qaAnswerInputWrapper">
                                 <textarea id="answerContent" placeholder="댓글을 입력해주세요"></textarea>

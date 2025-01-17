@@ -7,13 +7,15 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class ZipBoardDetailDTO {
     private Long zipId;
     private String zipPetCategory;
     private String zipTitle;
     private String zipContent;
-    private LocalDateTime zipCreatedAt;
+    //    private LocalDateTime zipCreatedAt;
     private LocalDateTime zipUpdatedAt;
     private int zipViewCount;
     private int answerCount;
@@ -21,11 +23,11 @@ public class ZipBoardDetailDTO {
     private Long usersId;
     private String nickname;
 
-    public String getCreatedAt () {
-        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
+//    public String getCreatedAt () {
+//        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//    }
 
-    public String getUpdatedAt () {
-        return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
+//    public String getZipUpdatedAt () {
+//        return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//    }
 }
