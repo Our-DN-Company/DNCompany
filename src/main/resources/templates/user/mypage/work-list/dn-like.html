@@ -44,7 +44,7 @@
                 </thead>
 
                 <!-- 컨텐츠 -->
-                <tr class="qna-list" th:each="dn:${pageDTO.list}" th:object="${dn}" th:data-dn-did="${dn.dnId}">
+                <tr class="qna-list" th:each="dn:${pageDTO.list}" th:object="${dn}" th:data-dn-id="${dn.dnId}">
 
                     <td th:text="*{rnum}">1</td>
                     <td th:text="*{dnTitle}"></td>

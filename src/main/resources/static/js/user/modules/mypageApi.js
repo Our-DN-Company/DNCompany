@@ -13,21 +13,7 @@ export function getMypageZipList(page, callback) {
             }
         });
 }
-//
-// export function getMypageDnBuyList(page, callback) {
-//     fetch(`/api/v1/mypage/dn/buy?page=${page}`)
-//     .then(resp => {
-//         if(resp.ok){
-//             return resp.json();
-//         }
-//     })
-//         .then(data => {
-//                 if (callback) {
-//                     callback(data);
-//                 }
-//         })
-// }
-//
+
 
 export function getMypageDnSellList(page, callback) {
     fetch(`/api/v1/mypage/dn/sell?page=${page}`)
@@ -41,4 +27,15 @@ export function getMypageDnSellList(page, callback) {
                 callback(data);
             }
         })
+}
+
+export function patchMypageDnSell(dnId, callback) {
+    fetch(`/api/v1/mypage/dn/sell/${dnId}`, {
+        method: 'PATCH',
+    })
+        .then(resp => {
+            if (resp.ok && callback) {
+                callback();
+            }
+        });
 }
