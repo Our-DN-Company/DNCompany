@@ -91,13 +91,13 @@ class HelpServiceTest {
         // given
         Long helpId = 124L;
         Long userId = 1L;
-        when(helpMapper.deleteMyHelpBoard(helpId, userId)).thenReturn(1);  // 삭제 성공을 의미하는 1을 반환하도록 설정
+        when(helpMapper.deleteHelpBoard(helpId)).thenReturn(1);  // 삭제 성공을 의미하는 1을 반환하도록 설정
 
         // when
-        helpService.deleteMyHelpBoard(helpId, userId);
+        helpService.deleteHelpBoard(helpId);
 
         // then
-        verify(helpMapper, times(1)).deleteMyHelpBoard(helpId, userId);
+        verify(helpMapper, times(1)).deleteHelpBoard(helpId);
     }
 
 }
