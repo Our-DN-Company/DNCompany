@@ -144,7 +144,7 @@
                                         <th>시작날짜</th>
                                         <th>신청날짜</th>
                                         <th>신청 상태</th>
-
+                                        <th>테스트</th>
                                     </tr>
 
 
@@ -161,7 +161,9 @@
                                                     th:data-help-offer-id="*{helpOfferId}">후기</button>
                                             <button type="button" class="report-btn mypage_review_button">신고</button>
                                         </td>
-
+                                        <td>
+                                            <a th:href="@{/mypage/list/helpyou(helpId=*{helpId},usersId=*{usersId})}">테스트</a>
+                                        </td>
 
 
                                     </tr>

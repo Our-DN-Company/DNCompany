@@ -29,6 +29,7 @@ public class MypageController {
 
     @GetMapping("/main")
     public String mypageMain(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                             PageRequestDTO pageRequestDTO,
                              Model model) {
 //        usersId = 6L;
 
@@ -48,9 +49,7 @@ public class MypageController {
         model.addAttribute("mainHelpMeList", MypageMainHelpMeList);
         log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
 
-        List<HelpYouListDTO> MypageMainHelpYouList = mypageService.MyPageMainHelpYouListById(usersId);
-        model.addAttribute("mainHelpYouList", MypageMainHelpYouList);
-        log.info("MypageMainHelpYouList: {}", MypageMainHelpYouList);
+
 
 
 
@@ -170,6 +169,7 @@ public class MypageController {
     @GetMapping("/list/helpme")
     public String mypageListHelpme(@SessionAttribute(value = "usersId", required = false) Long usersId,
                                    PageRequestDTO pageRequestDTO,
+
                                    Model model) {
 
         PageDTO<HelpMeListDTO> pageDTO= mypageService.helpMeListPage (usersId, pageRequestDTO);
@@ -181,11 +181,17 @@ public class MypageController {
 
 
     @GetMapping("/list/helpyou")
-    public String mypageListHelpyou(@SessionAttribute(value = "usersId", required = false) Long usersId,
+    public String mypageListHelpyou(@RequestParam("helpId") Long helpId,
                                     PageRequestDTO pageRequestDTO,
-                                    Long helpId,
+                                    @RequestParam("usersId") Long usersId,
                                     Model model
                                    ) {
+
+        if (usersId == null || helpId == null) {
+            throw new IllegalArgumentException("세션에 유효한 usersId 또는 helpId가 없습니다.");
+
+        }
+
         PageDTO<HelpYouListDTO> pageDTO= mypageService.helpYouListPage (usersId, pageRequestDTO, helpId);
         model.addAttribute("pageDTO", pageDTO);
 
