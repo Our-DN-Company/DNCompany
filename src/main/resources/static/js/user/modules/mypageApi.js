@@ -40,7 +40,7 @@ export function patchMypageDnSell(dnId, callback) {
         });
 }
 
-export function getMypagehelpList(page, callback) {
+export function getMypageHelpList(page, callback) {
     fetch(`/api/v1/mypage/main?page=${page}`)
         .then(resp => {
             if (resp.ok) {
