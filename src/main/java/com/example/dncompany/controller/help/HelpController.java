@@ -183,6 +183,15 @@ public class HelpController {
         model.addAttribute("searchDTO", searchDTO);
         return "help/list";
     }
+    @GetMapping("/delete/help")
+    public String deleteHelp(Long helpId) {
+
+
+
+
+        helpService.deleteHelpBoard(helpId);
+        return "redirect:/help/list";
+    }
 
 
 

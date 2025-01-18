@@ -112,11 +112,11 @@ public class HelpService {
         return new PageDTO<>(page, size, total, list);
     }
 
-    public void deleteMyHelpBoard(Long helpId, Long userId) {
-        int result = helpMapper.deleteMyHelpBoard(helpId, userId);
-        if (result == 0) {
-            throw new RuntimeException("게시글 삭제에 실패했습니다.");
-        }
+    public void deleteHelpBoard(Long helpId) {
+       // int result = helpMapper.deleteHelpBoard(helpId);
+//        if (result == 0) {
+//            throw new RuntimeException("게시글 삭제에 실패했습니다.");
+//        }
 
     }
 }
