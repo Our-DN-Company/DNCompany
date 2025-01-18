@@ -2,11 +2,13 @@ package com.example.dncompany.controller.user;
 
 import com.example.dncompany.dto.page.PageDTO;
 import com.example.dncompany.dto.page.PageRequestDTO;
+import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
 import com.example.dncompany.service.user.MypageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +48,8 @@ public class MypageController {
         List<HelpYouListDTO> MypageMainHelpYouList = mypageService.MyPageMainHelpYouListById(usersId);
         model.addAttribute("mainHelpYouList", MypageMainHelpYouList);
         log.info("MypageMainHelpYouList: {}", MypageMainHelpYouList);
+
+
 
         return "user/mypage/main";
     }
@@ -167,19 +171,30 @@ public class MypageController {
 
         PageDTO<HelpMeListDTO> pageDTO= mypageService.helpMeListPage (usersId, pageRequestDTO);
         model.addAttribute("pageDTO", pageDTO);
+
+
         return "user/mypage/work-list/helpme-list";
     }
+
 
     @GetMapping("/list/helpyou")
     public String mypageListHelpyou(@SessionAttribute(value = "usersId", required = false) Long usersId,
                                     PageRequestDTO pageRequestDTO,
-                                    Model model) {
-        PageDTO<HelpYouListDTO> pageDTO= mypageService.helpYouListPage (usersId, pageRequestDTO);
+                                    Long helpId,
+                                    Model model
+                                   ) {
+        PageDTO<HelpYouListDTO> pageDTO= mypageService.helpYouListPage (usersId, pageRequestDTO, helpId);
         model.addAttribute("pageDTO", pageDTO);
 
         return "user/mypage/work-list/helpyou-list";
     }
 
+    @PostMapping("/list/helpyou")
+    public String   updateHelpStatus(@RequestParam Long usersId,@RequestParam Long helpId){
+        mypageService.updateHelpStatus(usersId,helpId);
+        return "redirect:/mypage/main";
+
+    }
     @GetMapping("/list/qna")
     public String mypageListQna(@SessionAttribute(value = "usersId", required = false) Long usersId,
                                 PageRequestDTO pageRequestDTO,
@@ -191,7 +206,20 @@ public class MypageController {
         return "user/mypage/work-list/qna-list";
     }
 
-
+    // 실패시 html에 상태코드가 안보여서 처리 entity 처리함
+    @PostMapping("review/write")
+    public ResponseEntity<String> createReview(@RequestBody ReviewWriteDTO reviewWriteDTO) {
+        try {
+            boolean result = mypageService.createReview(reviewWriteDTO);
+            if (result) {
+                return ResponseEntity.ok("리뷰가 성공적으로 등록되었습니다.");
+            } else {
+                return ResponseEntity.badRequest().body("리뷰 등록에 실패했습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("서버 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
 
 
 

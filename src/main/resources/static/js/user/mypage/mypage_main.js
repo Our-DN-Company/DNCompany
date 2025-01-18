@@ -82,7 +82,74 @@ document.querySelectorAll('.star_rating > .star').forEach(function (star) {
     // 별점 값 콘솔 출력 (선택사항)
     const rating = this.getAttribute('data-value');
     console.log(`선택한 별점: ${rating}`);
+
   });
+
 });
+
+
+
+// 리뷰 제출 버튼 이벤트
+document.querySelector('.review_btn').addEventListener('click', function() {
+  const reviewTitle = document.getElementById('reviewTitle').value;
+  const reviewContent = document.getElementById('reviewContent').value;
+  // 선택된 별점 가져오기 위에 기능 활용
+  const selectedStars = document.querySelectorAll('.star_rating .star.on');
+  const reviewStarRating = selectedStars.length;
+
+  // 예외 체크
+  if (!reviewTitle.trim()) {
+    alert('제목을 입력해주세요.');
+    return;
+  }
+  if (reviewStarRating === 0) {
+    alert('별점을 선택해주세요.');
+    return;
+  }
+  if (!reviewContent.trim()) {
+    alert('리뷰 내용을 입력해주세요.');
+    return;
+  }
+
+  // ReviewWriteDTO 형식에 맞게 데이터 구성
+  const reviewWriteDTO = {
+    reviewStarRating: reviewStarRating,
+    reviewContent: reviewContent,
+    // helpOfferId:  /* 필요한 값 */,
+    reviewTitle: reviewTitle,
+    // helpId:  /* 필요한 값 */
+  };
+
+  // API 호출
+  fetch('/mypage/review/write', {    // URL 수정됨
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(reviewWriteDTO)
+  })
+      .then(response => {
+        if (response.ok) {
+          alert('리뷰가 성공적으로 등록되었습니다.');
+          reviewModal.style.display = 'none';  // 모달 닫기
+          // 폼 초기화
+          document.getElementById('reviewTitle').value = '';
+          document.getElementById('reviewContent').value = '';
+          document.querySelectorAll('.star_rating .star').forEach(star => {
+            star.classList.remove('on');
+          });
+        } else {
+          alert('리뷰 등록에 실패했습니다.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('서버 오류가 발생했습니다.');
+      });
+});
+
+
+
+
 
 
