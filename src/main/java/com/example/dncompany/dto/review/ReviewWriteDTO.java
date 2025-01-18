@@ -14,7 +14,8 @@ public class ReviewWriteDTO {
     private Long helpOfferId;
     private String reviewTitle;
     private Date reviewCreatedAt;
-    private Integer helpId;
-
+    private Long helpId;
+    private String reviewCheckStatus;
+    private Long usersId;
 
 }

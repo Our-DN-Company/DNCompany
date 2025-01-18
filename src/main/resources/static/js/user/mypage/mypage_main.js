@@ -1,3 +1,6 @@
+let currentHelpOfferId;
+let currentHelpId;
+
 document.addEventListener("DOMContentLoaded", () => {
   const petLists = document.querySelectorAll(".mypage_main_pet_list");
   const prevButton = document.querySelector(".mypage_main_pet_button_left");
@@ -37,8 +40,16 @@ console.log("신고 버튼 리스트:", reportBtns);
 
 // 리뷰 버튼 클릭 시 모달 열기
 reviewBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    console.log("후기 버튼 클릭됨"); // 디버깅 로그
+  btn.addEventListener("click", function() {
+    console.log("후기 버튼 클릭됨");
+
+    // data 속성에서 ID 값들을 가져옴
+    currentHelpOfferId = this.dataset.helpOfferId;
+    currentHelpId = this.dataset.helpId;
+
+    console.log('helpOfferId:', currentHelpOfferId);
+    console.log('helpId:', currentHelpId);
+
     reviewModal.style.display = "flex";
   });
 });
@@ -93,7 +104,6 @@ document.querySelectorAll('.star_rating > .star').forEach(function (star) {
 document.querySelector('.review_btn').addEventListener('click', function() {
   const reviewTitle = document.getElementById('reviewTitle').value;
   const reviewContent = document.getElementById('reviewContent').value;
-  // 선택된 별점 가져오기 위에 기능 활용
   const selectedStars = document.querySelectorAll('.star_rating .star.on');
   const reviewStarRating = selectedStars.length;
 
@@ -111,17 +121,16 @@ document.querySelector('.review_btn').addEventListener('click', function() {
     return;
   }
 
-  // ReviewWriteDTO 형식에 맞게 데이터 구성
   const reviewWriteDTO = {
     reviewStarRating: reviewStarRating,
     reviewContent: reviewContent,
-    // helpOfferId:  /* 필요한 값 */,
+    helpOfferId: currentHelpOfferId,
     reviewTitle: reviewTitle,
-    // helpId:  /* 필요한 값 */
+    helpId: currentHelpId
   };
-
-  // API 호출
-  fetch('/mypage/review/write', {    // URL 수정됨
+  console.log('전송되는 데이터:', reviewWriteDTO);
+     호출
+  fetch('/mypage/review/write', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
