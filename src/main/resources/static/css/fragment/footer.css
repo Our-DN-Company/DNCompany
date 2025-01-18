@@ -39,7 +39,7 @@ footer {
   margin: 0 auto;
   background: #fff;
   overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 1) 0px 4px 5px 0px;
+  box-shadow: rgba(0, 0, 0, 1) -4px 0px 5px 0px;
 }
 /* 푸터 첫줄 */
 .footer-link_wrap {

@@ -134,22 +134,30 @@
 .post-list {
     display: flex;
     flex-direction: column; /* 세로 방향으로 정렬 */
+    justify-content: center;
+    align-items: center;
     gap: 16px;
+   padding-top: 20px;
 }
 
 .post-card {
     background-color: white;
-    border-radius: 8px;
+
     padding: 16px;
     display: flex;
+    width: 1024px;
     justify-content: space-between;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);*/
+    /*box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 4px 0px;*/
+    border-bottom: 1px solid rgb(189, 118, 255, 0.5);
+    /*border: 1px solid rgb(121, 121, 121);*/
+    /*transition: transform 0.2s, box-shadow 0.2s;*/
 }
 
 /* 게시글 카드 호버 효과 */
 .post-card:hover {
     transform: translateY(-2px);
+    border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -194,12 +202,12 @@
 .point {
     font-size: 18px;
     font-weight: 600;
-    color: rgb(95, 0, 128);
+    color: rgb(34, 34, 34);
 }
 .price {
     font-size: 18px;
     font-weight: 600;
-    color: rgb(95, 0, 128);
+    color: rgb(34, 34, 34);
     margin-top: 8px;
 }
 
