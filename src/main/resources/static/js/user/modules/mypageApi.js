@@ -39,3 +39,17 @@ export function patchMypageDnSell(dnId, callback) {
             }
         });
 }
+
+export function getMypagehelpList(page, callback) {
+    fetch(`/api/v1/mypage/main?page=${page}`)
+        .then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            }
+        })
+        .then(data => {
+            if (callback) {
+                callback(data);
+            }
+        });
+}
