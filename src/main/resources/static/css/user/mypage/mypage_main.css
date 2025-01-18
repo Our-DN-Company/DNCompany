@@ -537,6 +537,11 @@ tr {
     }
 }
 
+.help_title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--main-color);
+}
 
 .pet-image {
     width: 100%;
@@ -551,4 +556,5 @@ tr {
     align-items: center;
     width: max-content;
 }
+
 

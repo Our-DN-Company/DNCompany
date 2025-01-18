@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class MypageReviewListDTO {
     private int rnum;
     private Long reviewId;
-    private String reviewTitle;
+    private String reviewContent;
     private LocalDate reviewCreatedAt;
     private Long usersId;
 
