@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // 페이지 변경 함수
-window.changePage = function(page) {
+window.changePage = function (page) {
     const formData = new FormData(document.getElementById('searchForm'));
     formData.append('page', page);
     formData.append('size', document.getElementById('itemsPerPage').value);
@@ -102,34 +102,32 @@ window.openReportModal = function(userId) {
     fetch(`/admin/user/board/reportDetails/${userId}`)
         .then(response => response.json())
         .then(reports => {
+            console.log('받은 신고 데이터:', reports);  // 데이터 확인용
             reportTableBody.innerHTML = '';
 
             reports.forEach(report => {
                 const row = document.createElement('tr');
-                let banPeriod = '-';
-
-                // 정지 상태 배지 설정
-                const statusBadge = `<span class="status-badge ${
-                    report.status === 'SUSPENDED' ? 'status-processed' : 'status-pending'
-                }">${report.status === 'SUSPENDED' ? '정지' : '정상'}</span>`;
-
-                // 정지 기간 설정
-                if (report.status === 'SUSPENDED' && report.banStartDate && report.banEndDate) {
-                    banPeriod = `${formatDateTime(report.banStartDate)} ~ ${formatDateTime(report.banEndDate)}`;
-                }
-
                 row.innerHTML = `
                     <td>${report.reportTitle || '-'}</td>
                     <td>${report.reportContent || '-'}</td>
                     <td>${formatDateTime(report.reportDate)}</td>
                     <td>${report.reporterName || '-'} (${report.reporterLoginId || '-'})</td>
                     <td>${report.reportedName || '-'} (${report.reportedLoginId || '-'})</td>
-                    <td>${report.status}</td>
-                    <td>${report.banStartDate ? new Date(report.banStartDate).toISOString()
-                            .slice(0,19).replace('T', ' ') : '-'} ~
-                    <br> 
-                        (${report.banEndDate ? new Date(report.banEndDate).toISOString()
-                            .slice(0,19).replace('T', ' ') : '-'})
+                    <td>${report.reportCheckStatus === 'X' ? '미처리' : '처리완료'}</td>
+                    <td>${report.banStartDate ? formatDateTime(report.banStartDate) : '-'} ~ 
+                        ${report.banEndDate ? formatDateTime(report.banEndDate) : '-'}</td>
+                    <td>
+                        ${report.reportCheckStatus === 'X' ? `
+                            <div class="ban-action-buttons">
+                                <button onclick="processReport('${userId}', '${report.reportId}', 1)" class="blue-button">1일</button>
+                                <button onclick="processReport('${userId}', '${report.reportId}', 3)" class="blue-button">3일</button>
+                                <button onclick="processReport('${userId}', '${report.reportId}', 7)" class="blue-button">7일</button>
+                                <div class="custom-ban">
+                                    <input type="number" id="customBan-${report.reportId}" min="0" placeholder="일수">
+                                    <button onclick="processCustomBan('${userId}', '${report.reportId}')" class="blue-button">적용</button>
+                                </div>
+                            </div>
+                        ` : '<span class="processed">처리완료</span>'}
                     </td>
                 `;
 
@@ -142,6 +140,49 @@ window.openReportModal = function(userId) {
             console.error('Error:', error);
             alert('신고 내역을 불러오는데 실패했습니다.');
         });
+};
+
+// 모달 신고 처리 함수 급하게 만듬
+// 예외 케이스 버그를 잡는데 시간이 부족함
+window.processReport = function(userId, reportId, days) {
+    fetch(`/admin/user/board/banUser/${userId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            banDays: days,
+            reportId: reportId
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`${days}일 동안 사용자의 활동이 정지되었습니다.`);
+                // 모달 내용 새로고침
+                openReportModal(userId);
+            } else {
+                if (data.message) {
+                    alert(data.message);
+                } else {
+                    alert('활동 정지 적용에 실패했습니다.');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('처리 중 오류가 발생했습니다.');
+        });
+};
+
+// 사용자 정의 정지일수 처리 함수
+window.processCustomBan = function(userId, reportId) {
+    const customDays = document.getElementById(`customBan-${reportId}`).value;
+    const days = parseInt(customDays);
+
+    if (!customDays || isNaN(days) || !Number.isInteger(days) || days < 0) {
+        alert('유효한 정지 일수를 입력해주세요. /(0 이상의 정수를 입력해주세요.)');
+        return;
+    }
+    processReport(userId, reportId, days);
 };
 
 // 날짜 포맷팅 함수
@@ -160,14 +201,14 @@ function formatDateTime(dateTime) {
 }
 
 // 신고 모달 닫기
-window.closeReportModal = function() {
+window.closeReportModal = function () {
     const reportModal = document.getElementById('reportModal');
     reportModal.style.display = "none";
 };
 
 
 // 포인트 수정
-window.applyCustomPoints = function(userId) {
+window.applyCustomPoints = function (userId) {
     const pointInput = document.getElementById(`point-${userId}`);
     const points = parseInt(pointInput.value, 10);
 
@@ -181,7 +222,7 @@ window.applyCustomPoints = function(userId) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ points: points })
+        body: JSON.stringify({points: points})
     })
         .then(response => response.json())
         .then(data => {
@@ -201,16 +242,21 @@ window.applyCustomPoints = function(userId) {
 };
 
 // 리포트 스테이터스 업데이트 추가
-window.applyBan = function(userId, days) {
+window.applyBan = function (userId, days) {
     fetch(`/admin/user/board/reportDetails/${userId}`)
 
         .then(response => response.json())
         .then(reports => {
             const unprocessedReport = reports.find(report => report.reportCheckStatus === 'X');
-            if(unprocessedReport) {
+            if (!unprocessedReport) {
+                alert('처리되지 않은 신고가 없습니다.');
+                return Promise.reject('No unprocessed reports');  // Promise chain 중단
+            }
+
+            if (unprocessedReport) {
                 return fetch(`/admin/user/board/banUser/${userId}`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         banDays: days,
                         reportId: unprocessedReport.reportId
@@ -229,7 +275,7 @@ window.applyBan = function(userId, days) {
 };
 
 // 사용자 정의 정지 일수 적용
-window.applyCustomBan = function(userId) {
+window.applyCustomBan = function (userId) {
     const banInput = document.getElementById(`ban-${userId}`);
     const days = banInput.value;
 
@@ -243,7 +289,7 @@ window.applyCustomBan = function(userId) {
 };
 
 // 모달 외부 클릭 시 닫기
-window.onclick = function(event) {
+window.onclick = function (event) {
     const reportModal = document.getElementById('reportModal');
     if (event.target === reportModal) {
         closeReportModal();

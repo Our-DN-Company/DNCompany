@@ -392,6 +392,32 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
         ELSE 'REJECT' END
         WHERE HELP_ID =#{helpId}
     </update>
+    
+
+    <insert id="insertReport" parameterType="ReportWriteDTO">
+
+        <selectKey resultType="long" order="BEFORE" keyProperty="reportId">
+            SELECT  SEQ_REPORT.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO ADMIN.REPORT (
+            REPORT_ID,
+            REPORT_CONTENT,
+            REPORT_CHECK_STATUS,
+            HELP_OFFER_ID,
+            REPORT_TITLE,
+            REPORT_CREATED_AT,
+            REPORT_DATE
+        )
+            VALUES (
+                     SEQ_REPORT.nextval,
+                     #{reportContent},
+                     'X',
+                     #{helpOfferId},
+                     #{reportTitle},
+                     SYSDATE,
+                     #{reportDate}
+                   )
+    </insert>
 
 </mapper>
 

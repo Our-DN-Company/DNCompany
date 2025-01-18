@@ -22,6 +22,7 @@ public class AdminUserAllBoard {
     private Integer reportCount;
     private Integer points;
 
+
     // 검색 조건으로 사용될 필드
     private Integer age;        // 나이 검색용
     private String searchLoginId;   // 아이디 검색용
@@ -39,6 +40,8 @@ public class AdminUserAllBoard {
     private int page = 1;        // 현재 페이지 (기본값 1)
     private int size = 10;       // 페이지당 데이터 수 (기본값 10)
     private int offset;          // OFFSET 계산을 위한 필드
+
+    private Integer unprocessedCount; //미처리용 조건 추가
 
 
 

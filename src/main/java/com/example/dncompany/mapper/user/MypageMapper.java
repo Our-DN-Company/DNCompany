@@ -2,6 +2,7 @@ package com.example.dncompany.mapper.user;
 
 
 import com.example.dncompany.dto.page.PageRequestDTO;
+import com.example.dncompany.dto.report.ReportWriteDTO;
 import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
@@ -111,6 +112,8 @@ public interface MypageMapper {
     int countDnLikeByUsersId(Long usersId);
 
     int insertReview(ReviewWriteDTO reviewWriteDTO);
+
+    void insertReport(ReportWriteDTO reportWriteDTO);
 
 
     void updateHelpStatus(Long usersId, Long helpId);

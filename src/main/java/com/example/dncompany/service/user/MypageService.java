@@ -3,6 +3,7 @@ package com.example.dncompany.service.user;
 
 import com.example.dncompany.dto.page.PageDTO;
 import com.example.dncompany.dto.page.PageRequestDTO;
+import com.example.dncompany.dto.report.ReportWriteDTO;
 import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 import com.example.dncompany.dto.user.mypage.PetImageDTO;
@@ -337,6 +338,11 @@ public class MypageService {
 
     public void updateHelpStatus(Long usersId,Long helpId) {
         mypageMapper.updateHelpStatus(usersId,helpId);
+    }
+
+    @Transactional
+    public void createReport(ReportWriteDTO reportWriteDTO) {
+        mypageMapper.insertReport(reportWriteDTO);
     }
 }
 

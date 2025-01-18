@@ -56,8 +56,10 @@ reviewBtns.forEach((btn) => {
 
 // 신고 버튼 클릭 시 모달 열기
 reportBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    console.log("신고 버튼 클릭됨"); // 디버깅 로그
+  btn.addEventListener("click", function() {
+    console.log("신고 버튼 클릭됨");
+    // 현재 선택된 helpOfferId 저장
+    currentHelpOfferId = this.closest('.main-help-me-list').dataset.helpOfferId;
     reportModal.style.display = "flex";
   });
 });
@@ -129,7 +131,6 @@ document.querySelector('.review_btn').addEventListener('click', function() {
     helpId: currentHelpId
   };
   console.log('전송되는 데이터:', reviewWriteDTO);
-     호출
   fetch('/mypage/review/write', {
     method: 'POST',
     headers: {
@@ -149,6 +150,54 @@ document.querySelector('.review_btn').addEventListener('click', function() {
           });
         } else {
           alert('리뷰 등록에 실패했습니다.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('서버 오류가 발생했습니다.');
+      });
+});
+
+// 신고 제출 버튼 이벤트
+document.querySelector('.report_btn').addEventListener('click', function() {
+  const reportTitle = document.getElementById('reportTitle').value;
+  const reportContent = document.getElementById('reportContent').value;
+
+  // 입력값 검증
+  if (!reportTitle.trim()) {
+    alert('제목을 입력해주세요.');
+    return;
+  }
+  if (!reportContent.trim()) {
+    alert('신고 내용을 입력해주세요.');
+    return;
+  }
+
+  const reportWriteDTO = {
+    reportContent: reportContent,
+    helpOfferId: currentHelpOfferId,
+    reportTitle: reportTitle,
+    reportDate: new Date()
+  };
+
+  console.log('전송되는 데이터:', reportWriteDTO);
+
+  fetch('/mypage/report/write', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(reportWriteDTO)
+  })
+      .then(response => {
+        if (response.ok) {
+          alert('신고가 성공적으로 등록되었습니다.');
+          reportModal.style.display = 'none';  // 모달 닫기
+          // 폼 초기화
+          document.getElementById('reportTitle').value = '';
+          document.getElementById('reportContent').value = '';
+        } else {
+          alert('신고 등록에 실패했습니다.');
         }
       })
       .catch(error => {

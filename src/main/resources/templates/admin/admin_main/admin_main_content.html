@@ -75,7 +75,9 @@
       <i class="fas fa-exclamation-circle"></i>
       <div class="card-content">
         <h3>미처리 신고</h3>
+        <a th:href="@{/admin/board/list?category=신고}">
         <p class="number" th:text="${cardCounts.getCardReports()}" >7</p>
+          </a>
         <p class="change urgent">처리 필요</p>
       </div>
     </div>
@@ -83,7 +85,9 @@
       <i class="fas fa-question-circle"></i>
       <div class="card-content">
         <h3>미처리 QnA</h3>
-        <p class="number" th:text="${cardCounts.getCardQnAs()}" >23</p>
+        <a th:href="@{/admin/board/list?category=qna}">
+        <p class="number" th:text="${cardCounts.getCardQnAs()} " >23</p>
+          </a>
         <p class="change urgent">처리 필요</p>
       </div>
     </div>
