@@ -62,6 +62,7 @@ import * as messageListApi from "../user/modules/messageListApi.js";
 openModal();
 
 
+
 function openModal() {
     const $messageSend = document.querySelector('.chat_button');
     const $openModal = document.querySelector('.message_modal_box');
@@ -69,9 +70,15 @@ function openModal() {
     const $form = document.querySelector('.message_form');
     const $messageUserTo = document.querySelector("#loginIdTo");
 
+
 // 모달 팝업 열기
     $messageSend.addEventListener('click', function () {
-        $openModal.style.display = 'flex';
+        if(!usersId == null) {
+            $openModal.style.display = 'flex';
+        } else {
+            alert("로그인이 필요한 서비스입니다!")
+            window.location.href = "/user/login";
+        }
     });
 
 // 모달 팝업 닫기
