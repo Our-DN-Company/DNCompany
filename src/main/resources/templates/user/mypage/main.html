@@ -12,6 +12,7 @@
 
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <script defer th:src="@{/js/user/mypage/mypage_main.js}" ></script>
+    <script defer th:src="@{/js/user/mypage/mypage_main_list.js}"></script>
 
 
     <title>Document</title>
@@ -143,14 +144,15 @@
                                         <th>신청유형</th>
                                         <th>시작날짜</th>
                                         <th>신청날짜</th>
-                                        <th>신청 상태</th>
+                                        <th>후기</th>
+                                        <th>테스트</th>
 
                                     </tr>
 
 
-                                    <tr class="main-help-me-list" th:each="help:${mainHelpMeList}" th:object="${help}" th:data-help-id="${help.helpId}">
+                                    <tr class="help-me-list" th:each="helpMe :${pageDTO.list}" th:object="${helpMe}" th:data-help-id="${helpMe.helpId}">
                                         <td th:text="*{rnum}"></td>
-                                        <td th:text="*{helpTitle}"></td>
+                                        <td ><a th:href="@{/help/detail(helpId=*{helpId})}" th:text="*{helpTitle}"></a></td>
                                         <td th:text="*{helpCareType}"></td>
                                         <td th:text="*{helpCreatedAt}"></td>
                                         <td th:text="*{helpCareDate}"></td>
@@ -158,17 +160,29 @@
                                             <button type="button" class="review-btn mypage_review_button">후기</button>
                                             <button type="button" class="report-btn mypage_review_button">신고</button>
                                         </td>
-
-
-
-
-
-
-
-
+                                        <td>
+                                            <a th:href="@{/mypage/list/helpyou(helpId=*{helpId},usersId=*{usersId})}">테스트</a>
+                                        </td>
                                     </tr>
-
                                 </table>
+
+                                <section class="pagination-section">
+                                    <div class="pagination">
+                                        <a th:if="${pageDTO.hasPreviousGroup()}"
+                                           th:href="@{/mypage/list/qna(page=${pageDTO.startPage - 1})}"
+                                           class="page-btn prev" aria-label="Go to previous group">‹</a>
+
+                                        <a class="page-btn"
+                                           th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                                           th:href="@{/mypage/list/qna(page=${i})}"
+                                           th:classappend="${i == pageDTO.page ? ' active' : ''}"
+                                           th:text="${i}"></a>
+
+                                        <a th:if="${pageDTO.hasNextGroup()}"
+                                           th:href="@{/mypage/list/qna(page=${pageDTO.endPage + 1})}"
+                                           class="page-btn next" aria-label="Go to next group">›</a>
+                                    </div>
+                                </section>
                             </div>
 
                             <!-- 모달창 -->
