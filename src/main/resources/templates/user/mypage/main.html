@@ -57,7 +57,9 @@
 
                             </ul>
                             <div class="profile_btn_box">
-                                <a class="profile_btn" th:href="@{/mypage/update/profile}">정보수정</a>
+                                <a class="profile_btn" th:href="@{/mypage/update/profile}">
+                                    <img src="/images/user/mypage/information.png" alt="정보수정 아이콘" class="infoBtn">
+                                </a>
                             </div>
 
                         </div>
@@ -90,11 +92,13 @@
                                                 <li th:text="'생일: ' + *{petBirthDate}"> 2022-01-01</li>
                                                 <li th:text="'입양일: ' + *{adoptionDate}"> 2022-03-01</li>
                                             </ul>
+
                                         </div>
                                         <div class="pet-add-delete-btn">
                                             <a th:href="@{/mypage/update/pet(petId=*{petId})}">수정</a>
                                             <a th:href="@{/mypage/delete/pet(petId=*{petId})}">삭제</a>
                                         </div>
+
                                     </div>
                                     </th:block>
                                     <th:block th:unless="${!petList.isEmpty()}">
@@ -111,7 +115,7 @@
                         </div>
                         <!-- 활동내역 -->
                         <div class="mypage_activity_list_container">
-                            <p class="mypage_main_content_title">활동내역 상세보기</p>
+                            <p class="mypage_main_content_title">활동내역</p>
                             <div class="mypage_main_sub_line"></div>
 
 
@@ -144,7 +148,7 @@
                                         <th>시작날짜</th>
                                         <th>신청날짜</th>
                                         <th>신청 상태</th>
-                                        <th>테스트</th>
+                                        <th>선택</th>
                                     </tr>
 
 
@@ -162,7 +166,9 @@
                                             <button type="button" class="report-btn mypage_review_button">신고</button>
                                         </td>
                                         <td>
-                                            <a th:href="@{/mypage/list/helpyou(helpId=*{helpId},usersId=*{usersId})}">테스트</a>
+                                            <button type="button" class="testBtn">
+                                            <a th:href="@{/mypage/list/helpyou(helpId=*{helpId},usersId=*{usersId})}"><img src="/images/user/mypage/more.png" alt="더보기" class="testBtnImg"></a>
+                                            </button>
                                         </td>
 
 
