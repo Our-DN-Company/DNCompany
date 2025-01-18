@@ -42,9 +42,11 @@ public class MypageController {
 
         //상세내역 요약
 
+        List<HelpMeListDTO> MypageMainHelpMeList = mypageService.MyPageMainHelpMeListById(usersId);
+        model.addAttribute("mainHelpMeList", MypageMainHelpMeList);
+        log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
 
-        PageDTO<HelpMeListDTO> pageDTO= mypageService.helpMeListPage (usersId, pageRequestDTO);
-        model.addAttribute("pageDTO", pageDTO);
+
 
 
 
