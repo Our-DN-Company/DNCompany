@@ -148,24 +148,22 @@
                                     </tr>
 
 
-                                    <tr class="main-help-me-list" th:each="help:${mainHelpMeList}" th:object="${help}" th:data-help-id="${help.helpId}">
+                                    <tr class="main-help-me-list" th:each="help:${mainHelpMeList}" th:object="${help}"
+                                        th:data-help-id="${help.helpId}" th:data-help-offer-id="${help.helpOfferId}">
                                         <td th:text="*{rnum}"></td>
                                         <td th:text="*{helpTitle}"></td>
                                         <td th:text="*{helpCareType}"></td>
                                         <td th:text="*{helpCreatedAt}"></td>
                                         <td th:text="*{helpCareDate}"></td>
                                         <td>
-                                            <button type="button" class="review-btn mypage_review_button">후기</button>
+                                            <button type="button" class="review-btn mypage_review_button"
+                                                    th:data-help-id="*{helpId}"
+                                                    th:data-help-offer-id="*{helpOfferId}">후기</button>
                                             <button type="button" class="report-btn mypage_review_button">신고</button>
                                         </td>
                                         <td>
                                             <a th:href="@{/mypage/list/helpyou(helpId=*{helpId},usersId=*{usersId})}">테스트</a>
                                         </td>
-
-
-
-
-
 
 
                                     </tr>

@@ -18,5 +18,6 @@ public class HelpMeListDTO {
   private LocalDateTime helpStartTime;
   private LocalDateTime helpEndTime;
   private String helpOfferStatus;
-  private  Long usersId;
+  private  Long userId;
+  private Long helpOfferId;
 }

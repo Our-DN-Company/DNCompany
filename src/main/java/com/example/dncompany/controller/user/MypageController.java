@@ -6,8 +6,10 @@ import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
 import com.example.dncompany.service.user.MypageService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -214,8 +217,19 @@ public class MypageController {
 
     // 실패시 html에 상태코드가 안보여서 처리 entity 처리함
     @PostMapping("review/write")
-    public ResponseEntity<String> createReview(@RequestBody ReviewWriteDTO reviewWriteDTO) {
+    public ResponseEntity<String> createReview(@RequestBody ReviewWriteDTO reviewWriteDTO,
+                                               @SessionAttribute(value = "usersId", required = false) Long usersId) {
         try {
+            // 세션 체크
+            if (usersId == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+            }
+
+            // usersId 설정
+            reviewWriteDTO.setUsersId(usersId);
+
+            //서비스가 조건이 걸려있음
+            // 그래서 boolean으로 판별 가능
             boolean result = mypageService.createReview(reviewWriteDTO);
             if (result) {
                 return ResponseEntity.ok("리뷰가 성공적으로 등록되었습니다.");
@@ -223,10 +237,10 @@ public class MypageController {
                 return ResponseEntity.badRequest().body("리뷰 등록에 실패했습니다.");
             }
         } catch (Exception e) {
+            log.error("리뷰 등록 중 오류 발생", e);  // 로그 추가
             return ResponseEntity.internalServerError().body("서버 오류가 발생했습니다: " + e.getMessage());
         }
     }
-
 
 
 
