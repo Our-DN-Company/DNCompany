@@ -52,6 +52,7 @@ public class MessageController {
         // 세션에서 로그인한 사용자 ID를 가져오기
         Long userId = (Long) session.getAttribute("usersId");
 
+
         // messageSendDTO에 userFrom 설정
         messageSendDTO.setUserFrom(userId);
 
