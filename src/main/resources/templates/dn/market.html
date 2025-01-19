@@ -131,8 +131,12 @@
                                     <!-- 물품 가격 -->
                                     <div class="productCard_productInfo">
                                         <div class="productCard_priceWrapper">
-                                            <div class="productCard_productPrice" th:text="*{productPrice}">10,000</div>
-                                            <span class="productCard_wonPrice">원</span>
+                                            <div class="productCard_price">
+                                                <div class="productCard_productPrice" th:text="*{productPrice}">10,000원</div>
+                                                <span class="productCard_wonPrice">원</span>
+                                            </div>
+                                                <div class="productCard_dn_status pending" th:if="*{dnStatus == 'PENDING'}"> 판매중 </div>
+                                                <div class="productCard_dn_status complete" th:if="*{dnStatus == 'COMPLETE'}"> 거래완료 </div>
                                         </div>
                                     </div>
                                     </a>

@@ -358,6 +358,11 @@
   display: flex;
   gap: 3px;
   align-items: center;
+  justify-content: space-between;
+}
+
+.productCard_price{
+  display: flex;
 }
 
 .productCard_productPrice {
@@ -370,6 +375,26 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 22px;
+}
+
+.productCard_dn_status{
+  width: 60px;
+  height: 20px;
+  line-height: 20px;
+  background: #4CAF50;
+  border-radius: 5px;
+  color: white;
+  align-content: center;
+  display: flex;
+  justify-content: center;
+}
+
+.productCard_dn_status.pending {
+  background: rgb(189, 118, 255); /* 판매중 상태 색상 */
+}
+
+.productCard_dn_status.complete {
+  background: #4CAF50; /* 거래완료 상태 색상 */
 }
 
 /* 페이지 영역 */
