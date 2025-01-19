@@ -50,10 +50,10 @@
     <!--메인페이지 상세내역-->
     <!--도와주세요-->
     <select id="MyPageMainHelpMeListById" resultType="HelpMeListDTO" parameterType="long">
-        SELECT RNUM, HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT,HELP_START_TIME,HELP_END_TIME, IS_ACCEPTED
+        SELECT RNUM, HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT,HELP_START_TIME,HELP_END_TIME, IS_ACCEPTED,REVIEW_COUNT
         FROM(
                 SELECT ROWNUM AS RNUM, HB.HELP_ID, HB.USERS_ID, HB.HELP_TITLE, HB.HELP_CARE_TYPE, HB.HELP_CARE_DATE,
-                       HB.HELP_CREATED_AT, HB.HELP_START_TIME, HB.HELP_END_TIME,
+                       HB.HELP_CREATED_AT, HB.HELP_START_TIME, HB.HELP_END_TIME,(SELECT COUNT(*)FROM REVIEW R WHERE HB.HELP_ID=R.HELP_ID) AS REVIEW_COUNT,
                        CASE
                            WHEN EXISTS (
                                SELECT 1
@@ -63,6 +63,7 @@
                            ) THEN 1
                            ELSE 0
                            END AS IS_ACCEPTED
+
                 FROM HELP_BOARD HB
                 WHERE HB.USERS_ID = #{usersId}
                 ORDER BY RNUM
