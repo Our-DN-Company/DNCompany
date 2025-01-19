@@ -35,6 +35,7 @@ public class MypageService {
     @Value("${pet.file.upload-path}")
     private String uploadPath;
 
+    //반려동물 등록
     public void addPet(AddPetDTO addPetDTO,
                        Long usersId,
                        MultipartFile multipartFile) throws IOException {
@@ -183,7 +184,7 @@ public class MypageService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원번호입니다"));
 
     }
-
+    //회원정보 수정
     public void updateUserProfile(UpdateUserProfileDTO updateUserProfile) {
 
         if (updateUserProfile.getAddressDetail() == null) {
@@ -334,9 +335,14 @@ public class MypageService {
             throw new RuntimeException("리뷰 등록 중 오류가 발생했습니다.", e);
         }
     }
+        @Transactional
+    public void updateHelpStatus(Long helpId,Long helpOfferId, HelpYouListDTO helpYouListDTO) {
 
-    public void updateHelpStatus(Long usersId,Long helpId) {
-        mypageMapper.updateHelpStatus(usersId,helpId);
+
+
+        mypageMapper.updateHelpStatus(helpId,helpOfferId,helpYouListDTO);
+
+
     }
 }
 

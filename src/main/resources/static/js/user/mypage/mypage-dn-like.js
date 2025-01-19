@@ -1,4 +1,4 @@
-{
+{// 클릭시 디테일 페이지로 이동
     const $table = document.querySelector('table');
 
     $table.addEventListener('click', (e) => {
