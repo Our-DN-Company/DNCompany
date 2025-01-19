@@ -335,9 +335,11 @@ public class MypageService {
             throw new RuntimeException("리뷰 등록 중 오류가 발생했습니다.", e);
         }
     }
-
+        @Transactional
     public void updateHelpStatus(Long helpId,Long helpOfferId, HelpYouListDTO helpYouListDTO) {
         mypageMapper.updateHelpStatus(helpId,helpOfferId,helpYouListDTO);
+
+
     }
 }
 

@@ -204,7 +204,7 @@ public class MypageController {
     @PostMapping("/list/helpyou")
     public String   updateHelpStatus(@RequestParam Long helpOfferId,@RequestParam Long helpId,HelpYouListDTO helpYouListDTO){
         mypageService.updateHelpStatus(helpOfferId,helpId,helpYouListDTO);
-        log.debug("updateHelpStatus: {}", helpOfferId);
+        log.debug("updateHelpStatus: {}", helpYouListDTO);
         return "redirect:/mypage/main";
 
     }
