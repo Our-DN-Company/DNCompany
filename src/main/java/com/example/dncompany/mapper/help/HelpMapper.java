@@ -40,5 +40,7 @@ public interface HelpMapper {
     List<HelpListDTO> selectHelpListWithPaging(@Param("page") int page, @Param("size") int size);
 
     // 게시글 삭제
-    void deleteHelpBoard(@Param("helpId") Long helpId);
+    int deleteHelpBoard(@Param("helpId") Long helpId, @Param("usersId") Long usersId);
+
+
 }

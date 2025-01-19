@@ -85,19 +85,40 @@ class HelpServiceTest {
                 .isInstanceOf(HelpNotFoundException.class)
                 .hasMessage("게시글을 찾을 수 없습니다.");
     }
+//    @Test
+//    @DisplayName("게시글 삭제 테스트")
+//    void deleteHelpBoard() {
+//        // given
+//        Long helpId = 124L;
+//        Long usersId = 1L;
+//        when(helpMapper.deleteHelpBoard(helpId, usersId)).thenReturn(1);  // 삭제 성공을 의미하는 1을 반환하도록 설정
+//
+//        // when
+//        helpService.deleteHelpBoard(helpId, usersId);
+//
+//        // then
+//        verify(helpMapper, times(1)).deleteHelpBoard(helpId, usersId);
+//    }
+
     @Test
     @DisplayName("게시글 삭제 테스트")
-    void deleteMyHelpBoard() {
+    void deleteHelpBoard() {     // 메서드명 변경
         // given
         Long helpId = 124L;
-        Long userId = 1L;
-//        when(helpMapper.deleteHelpBoard(helpId)).thenReturn(1);  // 삭제 성공을 의미하는 1을 반환하도록 설정
+        Long usersId = 1L;
+
+        // HelpDetailDTO mock 데이터 추가
+        HelpDetailDTO helpDetail = new HelpDetailDTO();
+        helpDetail.setUsersId(usersId);
+
+        when(helpMapper.selectHelpDetail(helpId)).thenReturn(Optional.of(helpDetail));
+        when(helpMapper.deleteHelpBoard(helpId, usersId)).thenReturn(1);
 
         // when
-        helpService.deleteHelpBoard(helpId);
+        helpService.deleteHelpBoard(helpId, usersId);
 
         // then
-        verify(helpMapper, times(1)).deleteHelpBoard(helpId);
+        verify(helpMapper, times(1)).deleteHelpBoard(helpId, usersId);
     }
 
 }
