@@ -1,6 +1,7 @@
 package com.example.dncompany.mapper.user.message;
 
 import com.example.dncompany.dto.user.message.MessagePageDTO;
+import com.example.dncompany.dto.user.message.MessagereceiveDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,8 @@ class MessageMapperTest {
     MessageMapper messageMapper;
 
     MessagePageDTO messagePageDTO;
+
+    MessagereceiveDTO messagereceiveDTO;
 
     @BeforeEach
     void setUp() {
@@ -103,4 +106,15 @@ class MessageMapperTest {
 
     }
 
+    @Test
+    void selectMessage() {
+        // given
+        MessagereceiveDTO messagereceiveDTO = new MessagereceiveDTO();
+        // when
+        List<MessagereceiveDTO> messageReceiveList = messageMapper.selectMessage(messagereceiveDTO.getMessageId());
+        // then
+        assertThat(messageReceiveList).isNotEmpty()
+                .extracting("messageId")
+                .contains (66L);
+    }
 }

@@ -110,25 +110,42 @@
                     </div>
                     </form>
                     </div>
-                <!-- 쪽지 확인하기 -->
-                <div class="message_receive_modal_box">
+                <!-- 받은 쪽지 확인하기 -->
+                <div class="message_receive_modal_box received-modal" style="display: none;">
                     <div class="message_recive">
                         <div class="message__top">
-                            <p><span>쪽지</span> 보내기</p>
+                            <p>받은 <span>쪽지</span></p>
                         </div>
                         <div class="message__top">
                             <p>쪽지 보낸 사람</p>
-                            <div class="message__receive__title">
-                            </div>
+                            <div class="message__receive__title modal-sender"></div>
                         </div>
                         <div class="message__top">
                             <p>쪽지 내용</p>
-
-                            <div class="message__content_box">
-
+                            <div class="message__content_box modal-content"></div>
+                        </div>
+                        <div class="message__botton">
+                            <div class="message_btn">
+                                <input type="reset" class="message_receive__btn_close" value="닫기">
                             </div>
                         </div>
+                    </div>
+                </div>
 
+                <!-- 보낸 쪽지 확인하기 -->
+                <div class="message_receive_modal_box sent-modal" style="display: none;">
+                    <div class="message_recive">
+                        <div class="message__top">
+                            <p>보낸 <span>쪽지</span></p>
+                        </div>
+                        <div class="message__top">
+                            <p>쪽지 받은 사람</p>
+                            <div class="message__receive__title modal-receiver"></div>
+                        </div>
+                        <div class="message__top">
+                            <p>쪽지 내용</p>
+                            <div class="message__content_box modal-content"></div>
+                        </div>
                         <div class="message__botton">
                             <div class="message_btn">
                                 <input type="reset" class="message_receive__btn_close" value="닫기">
