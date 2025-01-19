@@ -41,7 +41,7 @@
                     <td th:text="*{rnum}">순번</td>
                     <td th:text="*{helpTitle}">신청날짜</td>
                     <td th:text="*{loginId}">신청날짜</td>
-                    <td><form th:action="@{/mypage/list/helpyou}" method="post">
+                    <td><form th:action="@{/mypage/list/helpyou}" onclick="matchingConfirm()" method="post">
                         <input type="hidden" th:name="helpId" th:value="*{helpId}" />
                         <input type="hidden" th:name="helpOfferId" th:value="*{helpOfferId}" />
                         <button class="help-you-btn" type="submit">수락하기</button>

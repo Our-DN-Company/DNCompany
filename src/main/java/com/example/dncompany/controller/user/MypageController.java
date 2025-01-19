@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.Date;
@@ -48,7 +49,6 @@ public class MypageController {
         List<HelpMeListDTO> MypageMainHelpMeList = mypageService.MyPageMainHelpMeListById(usersId);
         model.addAttribute("mainHelpMeList", MypageMainHelpMeList);
 //        log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
-
 
 
 
@@ -202,9 +202,20 @@ public class MypageController {
     }
 
     @PostMapping("/list/helpyou")
-    public String   updateHelpStatus(@RequestParam Long helpOfferId,@RequestParam Long helpId,HelpYouListDTO helpYouListDTO){
-        mypageService.updateHelpStatus(helpOfferId,helpId,helpYouListDTO);
-        log.debug("updateHelpStatus: {}", helpYouListDTO);
+    public String   updateHelpStatus(@RequestParam Long helpOfferId,@RequestParam Long helpId,HelpYouListDTO helpYouListDTO,
+                                     RedirectAttributes redirectAttributes){
+
+        try {
+            helpYouListDTO.setHelpId(helpId);
+            helpYouListDTO.setHelpOfferId(helpOfferId);
+            mypageService.updateHelpStatus(helpOfferId,helpId,helpYouListDTO);
+        } catch (Exception e) {
+           log.error(e.getMessage());
+        }
+
+        redirectAttributes.addAttribute("helpId", helpId);
+        redirectAttributes.addAttribute("helpOfferId", helpOfferId);
+
         return "redirect:/mypage/main";
 
     }

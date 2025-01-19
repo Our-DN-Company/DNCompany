@@ -45,6 +45,8 @@
         WHERE U.USERS_ID = #{usersId}
     </select>
 
+
+
     <!--메인페이지 상세내역-->
     <!--도와주세요-->
     <select id="MyPageMainHelpMeListById" resultType="HelpMeListDTO" parameterType="long">
@@ -56,7 +58,7 @@
             ORDER BY RNUM
         )
         <![CDATA[
-        WHERE RNUM <=15
+        WHERE RNUM <=3
         ]]>
 
 
@@ -72,7 +74,7 @@
 
 
         <![CDATA[
-        WHERE RNUM <=15
+        WHERE RNUM <=3
         ]]>
     </select>
 

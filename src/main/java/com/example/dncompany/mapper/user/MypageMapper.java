@@ -23,6 +23,8 @@ public interface MypageMapper {
     //정보출력
     List<PetListDTO> selectPetList(Long usersId);
 
+
+
     // 수정페이지 진입시 조회
     Optional<PetDetailDTO> selectByPetId(Long petId);
 

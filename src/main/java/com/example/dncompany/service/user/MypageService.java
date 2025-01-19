@@ -337,6 +337,9 @@ public class MypageService {
     }
         @Transactional
     public void updateHelpStatus(Long helpId,Long helpOfferId, HelpYouListDTO helpYouListDTO) {
+
+
+
         mypageMapper.updateHelpStatus(helpId,helpOfferId,helpYouListDTO);
 
 
