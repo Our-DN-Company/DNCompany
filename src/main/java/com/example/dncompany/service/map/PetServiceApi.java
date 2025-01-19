@@ -16,10 +16,12 @@ public class PetServiceApi {
     @Value("${api.pet-service.key}")
     private String petServiceApiKey;
 
+
     public PetServiceResponse getPetServiceAPI() {
         // Base URL
         String baseUrl = "https://api.odcloud.kr/api/15111389/v1/uddi:41944402-8249-4e45-9e9d-a52d0a7db1cc";
 
+//        PetServiceResponse petServiceResponsePageAndPerPage = new PetServiceResponse();
         // Build URI with query parameters
         String finalUrl = UriComponentsBuilder.fromHttpUrl(baseUrl)
                 .queryParam("page", 1)
@@ -37,7 +39,6 @@ public class PetServiceApi {
                 .retrieve()
                 .body(PetServiceResponse.class);
 
-        System.out.println("petServiceResponse = " + petServiceResponse);
         return petServiceResponse;
     }
 

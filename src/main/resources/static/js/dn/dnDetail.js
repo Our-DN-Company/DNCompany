@@ -71,9 +71,10 @@ function openModal() {
     const $messageUserTo = document.querySelector("#loginIdTo");
 
 
-// 모달 팝업 열기
+    // 모달 팝업 열기
     $messageSend.addEventListener('click', function () {
-        if(!usersId == null) {
+        console.log(usersId)
+        if(!(usersId == null)) {
             $openModal.style.display = 'flex';
         } else {
             alert("로그인이 필요한 서비스입니다!")

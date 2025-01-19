@@ -10,7 +10,6 @@ export function petServiceMapApi(callback) {
         })
         .then(data => {
             if (callback) {
-                console.log(data)
                 callback(data);
             } else {
                 console.error('콜백 함수를 호출하지 못했습니다.', data);
