@@ -2,6 +2,7 @@ package com.example.dncompany.mapper.user.message;
 
 import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.user.message.MessagePageDTO;
+import com.example.dncompany.dto.user.message.MessagereceiveDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,6 +21,8 @@ public interface MessageMapper {
         int countByTotalTo(@Param("userTo") Long userTo);
 
         void deletemessageList(Long messageId);
+
+        List<MessagereceiveDTO> selectMessage(Long messageId);
 
 
 }
