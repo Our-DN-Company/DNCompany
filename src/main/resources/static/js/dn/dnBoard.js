@@ -14,4 +14,26 @@ const $radioContainer = document.querySelector('.shopping_productFilterContainer
     });
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    // 현재 URL의 쿼리 파라미터 추출
+    const params = new URLSearchParams(window.location.search);
+
+    // dnPetCategory와 productCategory 값 확인
+    const dnPetCategory = params.get("dnPetCategory");
+    const productCategory = params.get("productCategory");
+
+    // 모든 a 태그를 선택
+    const links = document.querySelectorAll(".SubView-tab-t1");
+
+    links.forEach(link => {
+        const category = link.dataset.category;
+
+        // 현재 카테고리 값과 URL 파라미터 값을 비교해 active 클래스 추가
+        if (category === dnPetCategory || category === productCategory) {
+            link.classList.add("active");
+        }
+    });
+});
+
+
 
