@@ -160,15 +160,24 @@
                                         <td th:text="*{helpCreatedAt}"></td>
                                         <td th:text="*{helpCareDate}"></td>
                                         <td>
+                                               <div th:if="${today.isAfter(help.helpEndTime) and !(help.reviewCount>0) } " >
                                             <button type="button" class="review-btn mypage_review_button"
                                                     th:data-help-id="*{helpId}">후기</button>
-                                            <button type="button" class="report-btn mypage_review_button">신고</button>
+                                            <button type="button" class="report-btn mypage_review_button" >신고</button>
+                                               </div>
+                                            <div th:if="${help.reviewCount>0}">
+                                                작성 완료
+                                            </div>
+
                                         </td>
 
                                         <td>
                                             <button type="button" class="testBtn" th:if="*{!isAccepted}">
                                             <a th:href="@{/mypage/list/helpyou(helpId=*{helpId})}"><img src="/images/user/mypage/more.png" alt="더보기" class="testBtnImg"></a>
                                             </button>
+                                            <span th:unless="*{!isAccepted}">
+                                                매칭완료
+                                            </span>
                                         </td>
 
 
