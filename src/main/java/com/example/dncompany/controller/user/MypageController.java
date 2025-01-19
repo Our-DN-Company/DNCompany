@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -48,7 +49,8 @@ public class MypageController {
         model.addAttribute("mainHelpMeList", MypageMainHelpMeList);
 //        log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
 
-
+        LocalDateTime today = LocalDateTime.now();
+        model.addAttribute("today", today);
 
 
         return "user/mypage/main";
