@@ -57,7 +57,9 @@
 
                             </ul>
                             <div class="profile_btn_box">
-                                <a class="profile_btn" th:href="@{/mypage/update/profile}">정보수정</a>
+                                <a class="profile_btn" th:href="@{/mypage/update/profile}">
+                                    <img src="/images/user/mypage/information.png" alt="정보수정 아이콘" class="infoBtn">
+                                </a>
                             </div>
 
                         </div>
@@ -90,11 +92,13 @@
                                                 <li th:text="'생일: ' + *{petBirthDate}"> 2022-01-01</li>
                                                 <li th:text="'입양일: ' + *{adoptionDate}"> 2022-03-01</li>
                                             </ul>
+
                                         </div>
                                         <div class="pet-add-delete-btn">
                                             <a th:href="@{/mypage/update/pet(petId=*{petId})}">수정</a>
                                             <a th:href="@{/mypage/delete/pet(petId=*{petId})}">삭제</a>
                                         </div>
+
                                     </div>
                                     </th:block>
                                     <th:block th:unless="${!petList.isEmpty()}">
@@ -111,7 +115,7 @@
                         </div>
                         <!-- 활동내역 -->
                         <div class="mypage_activity_list_container">
-                            <p class="mypage_main_content_title">활동내역 상세보기</p>
+                            <p class="mypage_main_content_title">활동내역</p>
                             <div class="mypage_main_sub_line"></div>
 
 
@@ -143,27 +147,30 @@
                                         <th>신청유형</th>
                                         <th>시작날짜</th>
                                         <th>신청날짜</th>
-                                        <th>신청 상태</th>
-
+                                        <th>상태</th>
+                                        <th>신청자</th>
                                     </tr>
 
 
-                                    <tr class="main-help-me-list" th:each="help:${mainHelpMeList}" th:object="${help}" th:data-help-id="${help.helpId}">
+                                    <tr class="main-help-me-list" th:each="help:${mainHelpMeList}" th:object="${help}"
+                                        th:data-help-id="${help.helpId}" th:data-help-offer-id="${help.helpOfferId}">
                                         <td th:text="*{rnum}"></td>
-                                        <td th:text="*{helpTitle}"></td>
+                                        <td class="help_title"><a th:href="@{/help/detail(helpId=*{helpId})}" th:text="*{helpTitle}"></a></td>
                                         <td th:text="*{helpCareType}"></td>
                                         <td th:text="*{helpCreatedAt}"></td>
                                         <td th:text="*{helpCareDate}"></td>
                                         <td>
-                                            <button type="button" class="review-btn mypage_review_button">후기</button>
+                                            <button type="button" class="review-btn mypage_review_button"
+                                                    th:data-help-id="*{helpId}"
+                                                    th:data-help-offer-id="*{helpOfferId}">후기</button>
                                             <button type="button" class="report-btn mypage_review_button">신고</button>
                                         </td>
 
-
-
-
-
-
+                                        <td>
+                                            <button type="button" class="testBtn">
+                                            <a th:href="@{/mypage/list/helpyou(helpId=*{helpId},usersId=*{usersId})}"><img src="/images/user/mypage/more.png" alt="더보기" class="testBtnImg"></a>
+                                            </button>
+                                        </td>
 
 
                                     </tr>
@@ -216,28 +223,8 @@
                                 </form>
                             </div>
 
-<!--                            &lt;!&ndash; 도와드려요 &ndash;&gt;-->
-<!--                            <div class="mypage_main_help_you">-->
-<!--                                <div class="mypage_main_content_title"><p>도와드려요</p>-->
-<!--                                    <a class="mypage_main_content_button_top" th:href="@{/mypage/list/helpyou}"></a>-->
-<!--                                </div>-->
-<!--                                <div class="mypage_main_line"></div>-->
-<!--                                <table class="mypage_main_list_top" >-->
-<!--                                    <tr>-->
-<!--                                        <td>순번</td>-->
-<!--                                        <td>신청내용</td>-->
-<!--                                        <td>산청자</td>-->
-<!--                                        <td>상태</td>-->
-<!--                                    </tr>-->
-<!--                                    <tr class="main-help-you-list" th:each="helpYou : ${mainHelpYouList}" th:object="${helpYou}">-->
-<!--                                        <td th:text="*{rnum}">순번</td>-->
-<!--                                        <td th:text="*{helpTitle}">신청날짜</td>-->
-<!--                                        <td th:text="*{loginId}">신청날짜</td>-->
-<!--                                        <td th:text="*{helpOfferStatus}"></td>-->
-<!--                                    </tr>-->
 
-<!--                                </table>-->
-<!--                            </div>-->
+
 
 
                         </div>
@@ -248,7 +235,6 @@
 
         </main>
     </div>
-    <footer></footer>
     <th:block th:insert="~{fragment/footer::footer}">
 
     </th:block>

@@ -7,7 +7,16 @@
 .mypage_main_content {
     font-family: "Pretendard-Regular";
 }
+.mypage_main_member_proflie{
+    li{
+    margin-bottom: 10px;
+    }
+}
 
+.mypage_main_pet_profile{
+    font-family: "Ownglyph_ParkDaHyun";
+    font-size: 20px;
+}
 
 table {
     width: 100%;
@@ -43,6 +52,7 @@ tr {
 .mypage_main_top {
     display: flex;
     justify-content: center;
+    padding-bottom: 30px;
 }
 
 .mypage_main_member_proflie {
@@ -113,7 +123,7 @@ tr {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Ownglyph_ParkDaHyun";
+    font-family: "Pretendard-Regular";
     margin-bottom: 30px;
     font-size: 30px;
 }
@@ -222,13 +232,31 @@ tr {
 }
 
 .mypage_review_button {
-    color: white;
-    background-color: var(--main-color);
-    border: none;
-    padding: 10px;
+    color: var(--main-color);
+    background-color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid var(--main-color);
+    font-family: "Pretendard-Regular";
+    cursor: pointer;
+    &:hover{
+        color: #fff;
+        background-color: var(--main-color);
+    }
+}
+
+.testBtn{
+    color: var(--main-color);
+    background-color: #fff;
+    padding: 8px 12px;
     border-radius: 5px;
     font-family: "Pretendard-Regular";
     cursor: pointer;
+    border: none;
+    .testBtnImg{
+        width: 15px;
+        height: 15px;
+    }
 }
 
 .mypage_main_pet_list {
@@ -265,7 +293,7 @@ tr {
     color: white;
     text-align: center;
 
-    font-family: "Pretendard-Regular";
+    font-family: "Ownglyph_ParkDaHyun";
     border-radius: 5px;
     padding: 10px 40px;
     margin: 5px 20px;
@@ -281,26 +309,30 @@ tr {
 
 .mypage_main_content_title {
     font-size: 20px;
-    font-family: "Ownglyph_ParkDaHyun";
+    font-family: "Pretendard-Regular";
 
 }
 
 
 .pet-add-delete-btn {
     position: absolute;
-
+    font-family: "Ownglyph_ParkDaHyun";
     right: 10%;
 
 
     a {
-        color: white;
-        background-color: var(--main-color);
-        border: none;
+        color: var(--main-color);
+        background-color: #fff;
+        border: 1px solid var(--main-color);
         font-family: "Pretendard-Regular";
         padding: 5px;
         border-radius: 5px;
         font-family: "Pretendard-Regular";
         cursor: pointer;
+        &:hover{
+            color: #fff;
+            background-color: var(--main-color);
+        }
     }
 }
 
@@ -311,18 +343,23 @@ tr {
 }
 
 .profile_btn_box {
-    margin-top: 30px;
     right: 0;
 }
 
+
+
 .profile_btn {
-    background-color: #f0f0f0;
     text-align: center;
     font-family: "Pretendard-Regular";
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
     font-size: 15px;
+}
+
+.infoBtn{
+    width: 50px;
+    height: 50px;
 }
 
 
@@ -349,7 +386,8 @@ tr {
     font-family: "Pretendard-Regular";
 
     span {
-        font-family: "Ownglyph_ParkDaHyun";
+
+        font-family: "Pretendard-Regular";
         color: var(--main-color);
         font-size: 20px;
     }
@@ -367,7 +405,7 @@ tr {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    font-family: "Pretendard-Regular";
+
 }
 
 .star_rating .star {
@@ -499,6 +537,11 @@ tr {
     }
 }
 
+.help_title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--main-color);
+}
 
 .pet-image {
     width: 100%;
@@ -509,8 +552,9 @@ tr {
 .mypage_activity_list_container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     width: max-content;
 }
+
 

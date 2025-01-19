@@ -64,3 +64,26 @@ section{
    }
  }
 }
+
+
+
+
+.help-you-null{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  img{
+    width: 60%;
+  }
+}
+
+.help-you-btn{
+  color: white;
+  background-color: var(--main-color);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}

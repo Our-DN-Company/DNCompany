@@ -36,7 +36,7 @@
                     <th>신청유형</th>
                     <th>시작날짜</th>
                     <th>신청날짜</th>
-<!--                    <th>후기</th>-->
+
 
                 </tr>
 
@@ -47,25 +47,25 @@
                     <td th:text="*{helpCareType}"></td>
                     <td th:text="*{helpCreatedAt}"></td>
                     <td th:text="*{helpCareDate}"></td>
-<!--                    <td><button class="mypage_review_button">후기</button>-->
-<!--                        <button class="mypage_review_button">신고</button></td>-->
+
+
                 </tr>
             </table>
 
             <section class="pagination-section">
                 <div class="pagination">
                     <a th:if="${pageDTO.hasPreviousGroup()}"
-                       th:href="@{/mypage/list/qna(page=${pageDTO.startPage - 1})}"
+                       th:href="@{/mypage/list/helpme(page=${pageDTO.startPage - 1})}"
                        class="page-btn prev" aria-label="Go to previous group">‹</a>
 
                     <a class="page-btn"
                        th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
-                       th:href="@{/mypage/list/qna(page=${i})}"
+                       th:href="@{/mypage/list/helpme(page=${i})}"
                        th:classappend="${i == pageDTO.page ? ' active' : ''}"
                        th:text="${i}"></a>
 
                     <a th:if="${pageDTO.hasNextGroup()}"
-                       th:href="@{/mypage/list/qna(page=${pageDTO.endPage + 1})}"
+                       th:href="@{/mypage/list/helpme(page=${pageDTO.endPage + 1})}"
                        class="page-btn next" aria-label="Go to next group">›</a>
                 </div>
             </section>
@@ -73,10 +73,10 @@
 
         </div>
     </main>
-</div>
-<th:block th:insert="~{fragment/footer::footer}">
+    <th:block th:insert="~{fragment/footer::footer}">
 
-</th:block>
+    </th:block>
 </div>
+
 </body>
 </html>

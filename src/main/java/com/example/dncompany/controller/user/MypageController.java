@@ -6,15 +6,19 @@ import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
 import com.example.dncompany.service.user.MypageService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -26,28 +30,26 @@ public class MypageController {
 
     @GetMapping("/main")
     public String mypageMain(@SessionAttribute(value = "usersId", required = false) Long usersId,
+                             PageRequestDTO pageRequestDTO,
                              Model model) {
-//        usersId = 6L;
+
 
         if(usersId == null) {
             return "redirect:/user/login";
         }
         //정보출력
         List<PetListDTO> petList = mypageService.selectPetList(usersId);
-        log.info("petList: {}", petList);
+//        log.info("petList: {}", petList);
         model.addAttribute("petList", petList);
         UserProfileDTO userProfile = mypageService.userProfile(usersId);
         model.addAttribute("userProfile", userProfile);
 
-        //상세내역 요약
+        //도와주세요
 
         List<HelpMeListDTO> MypageMainHelpMeList = mypageService.MyPageMainHelpMeListById(usersId);
         model.addAttribute("mainHelpMeList", MypageMainHelpMeList);
-        log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
+//        log.info("MypageMainHelpMeList: {}", MypageMainHelpMeList);
 
-        List<HelpYouListDTO> MypageMainHelpYouList = mypageService.MyPageMainHelpYouListById(usersId);
-        model.addAttribute("mainHelpYouList", MypageMainHelpYouList);
-        log.info("MypageMainHelpYouList: {}", MypageMainHelpYouList);
 
 
 
@@ -56,7 +58,13 @@ public class MypageController {
 
 
     @GetMapping("/add/pet")
-    public String mypageAddPet() {
+    public String mypageAddPet(@SessionAttribute(value = "usersId", required = false) Long usersId) {
+
+        if(usersId == null) {
+            return "redirect:/user/login";
+        }
+
+
         return "user/mypage/add-pet";
     }
 
@@ -67,16 +75,12 @@ public class MypageController {
                                @RequestParam(value = "petImg",required = false) MultipartFile multipartFile) {
 
 
-//            usersId = 6L;
-//        log.debug("addPetDTO: {}", addPetDTO);
-//        log.debug("imgFile={}",multipartFile.isEmpty());
 
         try {
             mypageService.addPet(addPetDTO,usersId,multipartFile);
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-
 
 
         return "redirect:/mypage/main";
@@ -98,7 +102,7 @@ public class MypageController {
 
     @PostMapping("/update/pet")
     public String mypageUpdatePet(PetModifyDTO petModifyDTO, @RequestParam("petImg") MultipartFile multipartFile) {
-        log.info("petModifyDTO: {}", petModifyDTO);
+//        log.info("petModifyDTO: {}", petModifyDTO);
         try {
             mypageService.modifyPetInfo(petModifyDTO, multipartFile);
         } catch (IOException e) {
@@ -119,10 +123,10 @@ public class MypageController {
 
     @PostMapping("/update/profile")
     public String mypageUpdateProfile(UpdateUserProfileDTO updateUserProfileDTO){
-        log.debug("updateUserProfileDTO: {}", updateUserProfileDTO);
+//        log.debug("updateUserProfileDTO: {}", updateUserProfileDTO);
 
         mypageService.updateUserProfile(updateUserProfileDTO);
-        log.debug("updateUserProfileDTO: {}", updateUserProfileDTO);
+//        log.debug("updateUserProfileDTO: {}", updateUserProfileDTO);
         return "redirect:/mypage/main";
     }
 
@@ -167,6 +171,7 @@ public class MypageController {
     @GetMapping("/list/helpme")
     public String mypageListHelpme(@SessionAttribute(value = "usersId", required = false) Long usersId,
                                    PageRequestDTO pageRequestDTO,
+
                                    Model model) {
 
         PageDTO<HelpMeListDTO> pageDTO= mypageService.helpMeListPage (usersId, pageRequestDTO);
@@ -178,20 +183,39 @@ public class MypageController {
 
 
     @GetMapping("/list/helpyou")
-    public String mypageListHelpyou(@SessionAttribute(value = "usersId", required = false) Long usersId,
+    public String mypageListHelpyou(@RequestParam("helpId") Long helpId,
                                     PageRequestDTO pageRequestDTO,
-                                    Long helpId,
+                                    @RequestParam("usersId") Long usersId,
+
                                     Model model
                                    ) {
-        PageDTO<HelpYouListDTO> pageDTO= mypageService.helpYouListPage (usersId, pageRequestDTO, helpId);
+
+        if (usersId == null || helpId == null) {
+            throw new IllegalArgumentException("세션에 유효한 usersId 또는 helpId가 없습니다.");
+
+        }
+
+        PageDTO<HelpYouListDTO> pageDTO= mypageService.helpYouListPage (usersId,pageRequestDTO, helpId);
         model.addAttribute("pageDTO", pageDTO);
 
         return "user/mypage/work-list/helpyou-list";
     }
 
     @PostMapping("/list/helpyou")
-    public String   updateHelpStatus(@RequestParam Long usersId,@RequestParam Long helpId){
-        mypageService.updateHelpStatus(usersId,helpId);
+    public String   updateHelpStatus(@RequestParam Long helpOfferId,@RequestParam Long helpId,HelpYouListDTO helpYouListDTO,
+                                     RedirectAttributes redirectAttributes){
+
+        try {
+            helpYouListDTO.setHelpId(helpId);
+            helpYouListDTO.setHelpOfferId(helpOfferId);
+            mypageService.updateHelpStatus(helpOfferId,helpId,helpYouListDTO);
+        } catch (Exception e) {
+           log.error(e.getMessage());
+        }
+
+        redirectAttributes.addAttribute("helpId", helpId);
+        redirectAttributes.addAttribute("helpOfferId", helpOfferId);
+
         return "redirect:/mypage/main";
 
     }
@@ -208,8 +232,19 @@ public class MypageController {
 
     // 실패시 html에 상태코드가 안보여서 처리 entity 처리함
     @PostMapping("review/write")
-    public ResponseEntity<String> createReview(@RequestBody ReviewWriteDTO reviewWriteDTO) {
+    public ResponseEntity<String> createReview(@RequestBody ReviewWriteDTO reviewWriteDTO,
+                                               @SessionAttribute(value = "usersId", required = false) Long usersId) {
         try {
+            // 세션 체크
+            if (usersId == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+            }
+
+            // usersId 설정
+            reviewWriteDTO.setUsersId(usersId);
+
+            //서비스가 조건이 걸려있음
+            // 그래서 boolean으로 판별 가능
             boolean result = mypageService.createReview(reviewWriteDTO);
             if (result) {
                 return ResponseEntity.ok("리뷰가 성공적으로 등록되었습니다.");
@@ -217,10 +252,10 @@ public class MypageController {
                 return ResponseEntity.badRequest().body("리뷰 등록에 실패했습니다.");
             }
         } catch (Exception e) {
+            log.error("리뷰 등록 중 오류 발생", e);  // 로그 추가
             return ResponseEntity.internalServerError().body("서버 오류가 발생했습니다: " + e.getMessage());
         }
     }
-
 
 
 
