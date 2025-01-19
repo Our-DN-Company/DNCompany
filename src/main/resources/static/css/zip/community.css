@@ -114,6 +114,11 @@
   }
 }
 
+.SubView-tab-t1.active {
+  color: rgb(95, 0, 128);
+  font-weight: 600;
+}
+
 /* 이벤트 영역 */
 .community_eventTitle {
   margin: 30px 0 10px 5px;
@@ -386,7 +391,7 @@
 
 .qaList_qaListDivider {
   margin: 12px 0 0;
-  background-color: #e4e4e6;
+  background-color: rgba(189, 118, 255, 0.3);
   height: 1px;
   border: 0;
 }
