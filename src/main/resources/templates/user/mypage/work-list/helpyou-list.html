@@ -13,6 +13,7 @@
 
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <script defer th:src="@{/js/common.js}"></script>
+    <script defer th:src="@{/js/user/mypage/helpyou-list.js}"></script>
 
     <title>Document</title>
 </head>
@@ -28,7 +29,7 @@
             <div class="mypage_list_title">
                 <p>도와드려요</p>
                 <div class="mypage_list_line"></div></div>
-            <th:block th:if="${!pageDTO.list.isEmpty()}">
+            <th:block th:if="${!pageDTO.list.isEmpty()} ">
             <table>
                 <tr>
                     <td>순번</td>
@@ -42,8 +43,8 @@
                     <td th:text="*{loginId}">신청날짜</td>
                     <td><form th:action="@{/mypage/list/helpyou}" th:method="post">
                         <input type="hidden" th:name="helpId" th:value="*{helpId}" />
-                        <input type="hidden" th:name="usersId" th:value="*{usersId}" />
-                        <button class="help-you-btn" type="submit">수락하기</button>
+                        <input type="hidden" th:name="helpOfferId" th:value="*{helpOfferId}" />
+                        <button class="help-you-btn" onclick="matchingConfirm()" type="submit">수락하기</button>
                     </form>
                     </td>
                 </tr>

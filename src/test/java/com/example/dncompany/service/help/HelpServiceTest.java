@@ -91,7 +91,7 @@ class HelpServiceTest {
         // given
         Long helpId = 124L;
         Long userId = 1L;
-        when(helpMapper.deleteHelpBoard(helpId)).thenReturn(1);  // 삭제 성공을 의미하는 1을 반환하도록 설정
+//        when(helpMapper.deleteHelpBoard(helpId)).thenReturn(1);  // 삭제 성공을 의미하는 1을 반환하도록 설정
 
         // when
         helpService.deleteHelpBoard(helpId);

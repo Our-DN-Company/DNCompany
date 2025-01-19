@@ -113,7 +113,7 @@ public interface MypageMapper {
     int insertReview(ReviewWriteDTO reviewWriteDTO);
 
 
-    void updateHelpStatus(Long usersId, Long helpId);
+    void updateHelpStatus(Long helpId,Long helpOfferId,HelpYouListDTO helpYouListDTO);
 
 
 }

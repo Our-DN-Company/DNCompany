@@ -77,7 +77,7 @@ class MypageMapperTest {
 
     @Test
     void updateHelpStatus() {
-        mypageMapper.updateHelpStatus(61L,142L);
+        mypageMapper.updateHelpStatus(142L,161L,helpYouListDTO);
 
 
     }

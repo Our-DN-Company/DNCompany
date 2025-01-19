@@ -101,9 +101,5 @@ birthDayInput.addEventListener("change", () => {
   }
 });
 
-{//TODO:이름, 반려동물 분류 문자열만 받기
-
-
-}
 
 

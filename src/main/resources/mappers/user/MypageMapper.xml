@@ -388,7 +388,7 @@ WHERE RNUM > (#{page.page} - 1) * #{page.size}
         UPDATE HELP_OFFER
         SET HELP_OFFER_STATUS=
             CASE
-                WHEN USERS_ID=#{usersId} THEN 'ACCEPT'
+                WHEN HELP_OFFER_ID=#{helpOfferId} THEN 'ACCEPT'
         ELSE 'REJECT' END
         WHERE HELP_ID =#{helpId}
     </update>
