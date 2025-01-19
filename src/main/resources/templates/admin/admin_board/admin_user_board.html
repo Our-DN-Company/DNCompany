@@ -50,6 +50,7 @@
                 <option value="all">전체</option>
                 <option value="reported">신고된 회원</option>
                 <option value="notReported">신고되지 않은 회원</option>
+                <option value="unprocessed">미처리 신고</option>  <!-- 추가 -->
             </select>
         </div>
         <div class="filter">
@@ -101,7 +102,12 @@
                 <td th:text="${user.birthDate}"></td>
                 <td th:text="${user.gender}"></td>
                 <td th:text="${user.signUpDate}"></td>
-                <td><a href="#" th:onclick="'openReportModal(\'' + ${user.userId} + '\')'" th:text="${user.reportCount}"></a></td>
+                <td>
+                    <a href="#" th:onclick="'openReportModal(\'' + ${user.userId} + '\')'">
+                        <span th:text="${user.reportCount}"></span>
+                        <span th:if="${user.unprocessedCount > 0}" style="color: red;">(미처리)</span>
+                    </a>
+                </td>
                 <td><span class="current-points" th:text="${user.points}"></span></td>
                 <td>
                     <input class="small-input" th:id="'point-' + ${user.userId}" placeholder="포인트"
@@ -159,6 +165,7 @@
                     <th>신고대상자</th>
                     <th>처리상태</th>
                     <th>정지기간</th>
+                    <th>신고처리</th>
                 </tr>
                 </thead>
                 <tbody id="reportTableBody">

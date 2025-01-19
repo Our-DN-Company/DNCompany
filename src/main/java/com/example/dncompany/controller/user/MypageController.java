@@ -2,6 +2,7 @@ package com.example.dncompany.controller.user;
 
 import com.example.dncompany.dto.page.PageDTO;
 import com.example.dncompany.dto.page.PageRequestDTO;
+import com.example.dncompany.dto.report.ReportWriteDTO;
 import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
@@ -252,6 +253,17 @@ public class MypageController {
             return ResponseEntity.internalServerError().body("서버 오류가 발생했습니다: " + e.getMessage());
         }
     }
+
+    @PostMapping("report/write")
+    public ResponseEntity<String> createReport(@RequestBody ReportWriteDTO reportWriteDTO) {
+        try {
+            mypageService.createReport(reportWriteDTO);
+            return ResponseEntity.ok("신고가 성공적으로 등록되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("신고 등록 중 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
+
 
 
 

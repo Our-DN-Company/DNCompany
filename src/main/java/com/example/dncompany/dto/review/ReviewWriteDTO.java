@@ -17,5 +17,6 @@ public class ReviewWriteDTO {
     private Long helpId;
     private String reviewCheckStatus;
     private Long usersId;
+    private String reviewAiAssessment;
 
 }

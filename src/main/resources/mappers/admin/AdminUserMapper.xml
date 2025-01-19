@@ -19,6 +19,13 @@
         JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
         WHERE ho.USERS_ID = u.USERS_ID
         ) AS reportCount,
+        (
+        SELECT COUNT(*)
+        FROM ADMIN.REPORT r
+        JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+        WHERE ho.USERS_ID = u.USERS_ID
+        AND r.REPORT_CHECK_STATUS = 'X'
+        ) AS unprocessedCount,
         u.POINT AS points
         FROM ADMIN.USERS u
         WHERE 1=1
@@ -59,6 +66,15 @@
                     JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
                     WHERE ho.USERS_ID = u.USERS_ID
                     ) = 0
+                </when>
+                <when test="reportStatus == 'unprocessed'">
+                    AND (
+                    SELECT COUNT(*)
+                    FROM ADMIN.REPORT r
+                    JOIN ADMIN.HELP_OFFER ho ON r.HELP_OFFER_ID = ho.HELP_OFFER_ID
+                    WHERE ho.USERS_ID = u.USERS_ID
+                    AND r.REPORT_CHECK_STATUS = 'X'
+                    ) > 0
                 </when>
             </choose>
         </if>
@@ -162,7 +178,7 @@
     </select>
 
 <!--    유저 정지 벤 데이터도 받아야함-->
-    <update id="updateUserBanStatus" parameterType="long">
+    <update id="updateUserBanStatus" parameterType="map">
         MERGE INTO ADMIN.USERS_STATUS US
         USING DUAL
         ON (US.USERS_ID = #{userId})
@@ -170,20 +186,23 @@
             UPDATE SET
                        US.USERS_STATUS = 'SUSPENDED',
                        US.USERS_BAN_AT = SYSDATE,
-                       US.USERS_PERMIT_AT = SYSDATE + #{banDays}
+                       US.USERS_PERMIT_AT = SYSDATE + #{banDays},
+                       US.REPORT_ID = #{reportId}
         WHEN NOT MATCHED THEN
             INSERT (
                 STATUS_ID,
                 USERS_ID,
                 USERS_STATUS,
                 USERS_BAN_AT,
-                USERS_PERMIT_AT
+                USERS_PERMIT_AT,
+                REPORT_ID
             ) VALUES (
                          ADMIN.SEQ_USERS_STATUS.NEXTVAL,
                          #{userId},
                          'SUSPENDED',
                          SYSDATE,
-                         SYSDATE + #{banDays}
+                         SYSDATE + #{banDays},
+                         #{reportId}
                      )
     </update>
 
