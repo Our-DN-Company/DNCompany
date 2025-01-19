@@ -11,6 +11,8 @@
 
 .product_qaDetailQuestion {
   padding-bottom: 22px;
+  display: flex;
+  flex-direction: column;
 }
 
 .product_labelListWrapper {
@@ -46,14 +48,13 @@
 .product_qaDetailText {
   display: flex;
   width: 100%;
-  height: 200px;
+  height: 800px;
   gap: 20px;
   margin-top: 20px;
+  align-items: center;
 }
 
 /* 왼쪽: 상품 이미지 */
-
-
 .product_img_detail {
   position: relative;
   height: 199px;
@@ -82,6 +83,26 @@
   gap: 10px;
 }
 
+.product_dn_status{
+  width: 80px;
+  height: 20px;
+  line-height: 20px;
+  background: #4CAF50;
+  border-radius: 5px;
+  color: white;
+  align-content: center;
+  display: flex;
+  justify-content: center;
+}
+
+.product_dn_status.pending {
+  background: rgb(189, 118, 255); /* 판매중 상태 색상 */
+}
+
+.product_dn_status.complete {
+  background: #4CAF50; /* 거래완료 상태 색상 */
+}
+
 /* 판매 금액 스타일 */
 .product_price {
   font-size: 20px;
@@ -91,6 +112,8 @@
 
 /* 상품 설명 스타일 */
 .product_description {
+  width: 100%;
+  height: 600px;
   font-size: 14px;
   color: #555;
   line-height: 1.5;

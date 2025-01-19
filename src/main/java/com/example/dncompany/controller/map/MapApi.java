@@ -20,7 +20,6 @@ public class MapApi {
 
     @GetMapping("/v1/pet-service")
     public PetServiceResponse getPetService() {
-        log.info("MapApi: Received request for /v1/pet-service");
         return petServiceApi.getPetServiceAPI();
     }
 }
