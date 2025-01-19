@@ -1,6 +1,7 @@
 package com.example.dncompany.service.user;
 
 
+import com.example.dncompany.dto.openAiChat.GeminiResponse;
 import com.example.dncompany.dto.page.PageDTO;
 import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.report.ReportWriteDTO;
@@ -10,6 +11,7 @@ import com.example.dncompany.dto.user.mypage.PetImageDTO;
 import com.example.dncompany.exception.user.UserNotFoundException;
 import com.example.dncompany.mapper.user.MypageMapper;
 import com.example.dncompany.mapper.user.MypagePetImageMapper;
+import com.example.dncompany.service.openAichat.GeminiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +35,7 @@ import java.util.UUID;
 public class MypageService {
     private final MypageMapper mypageMapper;
     private final MypagePetImageMapper mypagePetImageMapper;
+    private final GeminiService geminiService;
 
     @Value("${pet.file.upload-path}")
     private String uploadPath;
@@ -330,11 +334,113 @@ public class MypageService {
     @Transactional
     public boolean createReview(ReviewWriteDTO reviewWriteDTO) {
         try {
+            String prompt = String.format(
+                    "다음 리뷰의 감성을 분석해주세요. 별점: %d, 내용: %s\n" +
+                            "**기본 로직**\n" +
+                            "*대답은 꼭 GOOD,NOMAL,BAD 로만 말할 것\n" +
+                            "*  **별점:**\n" +
+                            "  *  5점에 가까울수록 GOOD 가능성 상승, 3점에 가까울수록 NOMAL 가능성 상승, 1점에 가까울수록 BAD 가능성 상승\n" +
+                            "  *  특히 1점은 BAD 가능성을 크게 높임\n" +
+                            "*  **리뷰 내용:** 텍스트 감성 분석을 통해 긍정적, 중립적, 부정적 감성 정도를 파악\n" +
+                            "  *  긍정적 감성: GOOD 가능성 상승, NOMAL 가능성 약간 상승 또는 유지, BAD 가능성 하락\n" +
+                            "  *  중립적 감성: NOMAL 가능성 상승, GOOD 가능성 약간 하락 또는 유지, BAD 가능성 약간 하락 또는 유지\n" +
+                            "  *  부정적 감성: BAD 가능성 상승, NOMAL 가능성 하락, GOOD 가능성 하락\n" +
+                            "\n" +
+                            "**세부 로직 및 예시**\n" +
+                            "\n" +
+                            "각 조건에 따른 세부 로직과 예시를 좀 더 상세하게 설명하겠습니다.\n" +
+                            "\n" +
+                            "**1. GOOD 가능성 판별**\n" +
+                            "\n" +
+                            "*  **별점:**\n" +
+                            "  *  5점: GOOD 가능성 매우 높음, NOMAL/BAD 가능성 매우 낮음\n" +
+                            "  *  4점: GOOD 가능성 높음, NOMAL 가능성 약간, BAD 가능성 낮음\n" +
+                            "  *  3점: GOOD 가능성 보통, NOMAL 가능성 높음, BAD 가능성 낮음\n" +
+                            "  *  2점 이하: GOOD 가능성 낮음, NOMAL/BAD 가능성 높음\n" +
+                            "*  **리뷰 내용:**\n" +
+                            "  *  긍정적 키워드 (예: 친절, 시간 약속 잘 지킴, 만족, 최고): GOOD 가능성 상승\n" +
+                            "  *  부정적 키워드 (예: 불친절, 시간 약속 안 지킴, 불만족, 최악): GOOD 가능성 하락, NOMAL/BAD 가능성 상승\n" +
+                            "  *  중립적 키워드: GOOD 가능성 약간 하락 또는 유지, NOMAL 가능성 상승\n" +
+                            "*  **예시:**\n" +
+                            "  *  별점 5, \"시간 약속 잘 지키고 친절합니다.\": GOOD\n" +
+                            "  *  별점 4, \"보너스도 주시고 친절했지만 시간 약속을 지키지 않아 아쉽습니다.\": NOMAL\n" +
+                            "  *  별점 2, \"최악입니다. 노쇼했습니다.\": BAD\n" +
+                            "\n" +
+                            "**2. NORMAL 가능성 판별**\n" +
+                            "\n" +
+                            "*  **별점:**\n" +
+                            "  *  3점: NOMAL 가능성 매우 높음, GOOD/BAD 가능성 보통\n" +
+                            "  *  4점, 2점: NOMAL 가능성 높음, GOOD/BAD 가능성 보통\n" +
+                            "  *  5점, 1점: NOMAL 가능성 낮음, GOOD/BAD 가능성 높음\n" +
+                            "*  **리뷰 내용:**\n" +
+                            "  *  긍정적 키워드: NOMAL 가능성 약간 상승 또는 유지, GOOD 가능성 상승\n" +
+                            "  *  부정적 키워드: NOMAL 가능성 상승 또는 유지, BAD 가능성 상승\n" +
+                            "  *  중립적 키워드: NOMAL 가능성 상승, GOOD/BAD 가능성 약간 하락 또는 유지\n" +
+                            "*  **예시:**\n" +
+                            "  *  별점 3, \"그냥 보통입니다.\": NOMAL\n" +
+                            "  *  별점 4, \"친절했지만 시간 약속은 좀 아쉬웠어요.\": NOMAL\n" +
+                            "  *  별점 2, \"불친절하고 시간도 안 지켰어요.\": BAD\n" +
+                            "\n" +
+                            "**3. BAD 가능성 판별**\n" +
+                            "\n" +
+                            "*  **별점:**\n" +
+                            "  *  1점: BAD 가능성 매우 높음, GOOD/NOMAL 가능성 매우 낮음\n" +
+                            "  *  2점: BAD 가능성 높음, NOMAL 가능성 약간, GOOD 가능성 낮음\n" +
+                            "  *  3점: BAD 가능성 보통, NOMAL 가능성 높음, GOOD 가능성 낮음\n" +
+                            "  *  4점 이상: BAD 가능성 낮음, GOOD/NOMAL 가능성 높음\n" +
+                            "*  **리뷰 내용:**\n" +
+                            "  *  긍정적 키워드: BAD 가능성 하락, GOOD/NOMAL 가능성 상승\n" +
+                            "  *  부정적 키워드: BAD 가능성 상승, GOOD/NOMAL 가능성 하락\n" +
+                            "  *  중립적 키워드: BAD 가능성 약간 상승 또는 유지, NOMAL 가능성 상승\n" +
+                            "*  **예시:**\n" +
+                            "  *  별점 1, \"최악입니다. 노쇼했습니다.\": BAD\n" +
+                            "  *  별점 2, \"불친절하고 시간 약속도 안 지켰어요.\": BAD\n" +
+                            "  *  별점 3, \"시간 약속은 안 지켰지만 그래도 친절하긴 했어요.\": NOMAL\n" +
+                            "\n" +
+                            "**결론:**\n" +
+                            "\n" +
+                            "*  **각 가능성(GOOD, NOMAL, BAD)은 별점과 리뷰 내용의 긍정/중립/부정 감성 정도에 따라 가중치가 부여되어 계산**\n" +
+                            "*  **각 리뷰에 대한 최종 판정은 가장 높은 가능성을 가진 것으로 결정**합니다.\n" +
+                            "*  **예외 상황** : 리뷰 내용이 모호하거나, 감성 분석이 어려울 경우, 별점의 가중치를 높여 판별합니다."+
+                            "결과는 반드시 'GOOD', 'NORMAL', 'BAD' 중 하나로만 답변해주세요.",
+                    reviewWriteDTO.getReviewStarRating(),
+                    reviewWriteDTO.getReviewContent()
+            );
+
+            log.debug("AI 분석 요청: {}", prompt);
+            GeminiResponse response = geminiService.generateText(prompt);
+            log.debug("AI 응답: {}", response);
+
+            String aiAssessment = "NORMAL";  // 기본값 설정
+
+            if (response != null &&
+                    response.getCandidates() != null &&
+                    !response.getCandidates().isEmpty() &&
+                    response.getCandidates().get(0).getContent() != null &&
+                    response.getCandidates().get(0).getContent().getParts() != null &&
+                    !response.getCandidates().get(0).getContent().getParts().isEmpty()) {
+
+                String result = response.getCandidates().get(0)
+                        .getContent()
+                        .getParts().get(0)
+                        .getText()
+                        .trim()
+                        .toUpperCase();
+
+                if (Arrays.asList("GOOD", "NORMAL", "BAD").contains(result)) {
+                    aiAssessment = result;
+                }
+            }
+
+            reviewWriteDTO.setReviewAiAssessment(aiAssessment);
             return mypageMapper.insertReview(reviewWriteDTO) > 0;
+
         } catch (Exception e) {
+            log.error("리뷰 등록 중 오류 발생: ", e);
             throw new RuntimeException("리뷰 등록 중 오류가 발생했습니다.", e);
         }
     }
+
 
     public void updateHelpStatus(Long usersId,Long helpId) {
         mypageMapper.updateHelpStatus(usersId,helpId);
