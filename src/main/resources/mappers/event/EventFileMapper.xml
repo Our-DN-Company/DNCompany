@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dncompany.mapper.event.file.EventFileMapper">
+    <insert id="insertFile" parameterType="EventFileDTO">
+        <selectKey resultType="long" order="BEFORE" keyProperty="eventImgId">
+            SELECT SEQ_EVENT_IMG.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO EVENT_IMG(EVENT_IMG_ID, EVENT_ID, EVENT_ORIGINAL_FILENAME, EVENT_UUID, EVENT_PATH, EVENT_EXTENSION)
+        VALUES (#{eventImgId}, #{EventId}, #{eventOriginalFilename}, #{eventUuid}, #{eventPath}, #{eventExtension})
+    </insert>
+
+    <select id="selectByEventId" parameterType="long" resultType="EventFileDTO">
+        SELECT EVENT_IMG_ID, EVENT_ID, EVENT_ORIGINAL_FILENAME, EVENT_UUID, EVENT_PATH, EVENT_EXTENSION, EVENT_REG_DATE
+        FROM EVENT_IMG
+        WHERE EVENT_IMG_ID = #{eventImgId}
+    </select>
+
+    <delete id="deleteByEventId" parameterType="long">
+        DELETE FROM EVENT_IMG
+        WHERE EVENT_IMG_ID = #{eventImgId}
+    </delete>
+</mapper>
