@@ -84,4 +84,18 @@
         WHERE MESSAGE_ID = ${messageId}
     </delete>
 
+    <select id="selectMessage" parameterType="long" resultType="MessagereceiveDTO">
+        SELECT MESSAGE_ID, MS_CONTENT
+        FROM MESSAGE
+        WHERE MESSAGE_ID = #{messageId}
+    </select>
+
+
+
+
+
+
+
+
+
 </mapper>

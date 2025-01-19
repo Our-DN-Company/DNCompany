@@ -32,7 +32,7 @@
                 <tr>
                     <th>순번</th>
                     <th>제목</th>
-                    <th>작성날짜</th>
+
                     <th>답변</th>
                 </tr>
 
@@ -42,7 +42,6 @@
 
                     <td th:text="*{rnum}">순번</td>
                     <td><a th:href="@{/qna/detail(qnaId=*{qnaId})}" th:text="*{qnaTitle}"></a></td>
-                    <td th:text="*{qnaCreateAt}">샘플 작성날짜</td>
                     <td th:text="*{qnaAnswerCount}">샘플 답변</td>
                 </tr>
 

@@ -12,11 +12,6 @@
         VALUES(#{petImgId},#{petId},#{petOriginalImageName},#{petUuid},#{petImagePath},#{petExtension})
     </insert>
 
-<!--    <select id="selectPetImageById" parameterType="long" resultType="PetImageDTO">-->
-<!--        SELECT PET_IMG_ID, PET_ID, ORIGINAL_IMAGE_NAME, UUID, IMAGE_PATH, EXTENSION, REG_DATE-->
-<!--        FROM PET_IMG-->
-<!--        WHERE PET_ID = #{petId}-->
-<!--    </select>-->
 
     <delete id="deleteByPetId" parameterType="long">
         DELETE FROM PET_IMG

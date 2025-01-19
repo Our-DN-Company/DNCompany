@@ -36,7 +36,7 @@
                                 <input type="hidden" name="order" th:value="${searchDTO.order}"/>
                                 <div class="shopSearch_inputContainer">
                                     <div class="shopLayout_shoppingTopArea">
-                                        <input type="text" class="shopSearch_searchInput" placeholder="검색" enterkeyhint="search" th:value="${searchDTO.keyword}"/>
+                                        <input type="text" class="shopSearch_searchInput" placeholder="구매를 원하는 물건이 있나요?" maxlength="130" enterkeyhint="search" th:value="${searchDTO.keyword}"/>
                                         <button type="submit" class="shopSearch_searchBtn">
                                             <img class="shopSearch_searchIcon" src="https://bemypet.kr/_next/static/media/ICON-24px-Search.318147fc.svg"/>
                                         </button>
@@ -46,13 +46,14 @@
 
 
                             <!-- 동물 분류 -->
+                            <div class="category_box">
                             <div class="shopLayout_animalLabelContainer">
                                 <a th:href="@{/dn/market(dnPetCategory='dog', order=${searchDTO.order}, productCategory=${searchDTO.productCategory})}" class="SubView-tab-t1" data-category="dog">강아지</a>
                                 <a th:href="@{/dn/market(dnPetCategory='cat', order=${searchDTO.order}, productCategory=${searchDTO.productCategory})}" class="SubView-tab-t1" data-category="cat">고양이</a>
                                 <a th:href="@{/dn/market(dnPetCategory='smallPet', order=${searchDTO.order}, productCategory=${searchDTO.productCategory})}" class="SubView-tab-t1" data-category="smallPet">소동물</a>
                                 <a th:href="@{/dn/market(dnPetCategory='otherPet', order=${searchDTO.order}, productCategory=${searchDTO.productCategory})}" class="SubView-tab-t1" data-category="otherPet">기타</a>
                             </div>
-                        </div>
+
 
                         <!-- 물품 종류 카테고리 -->
                         <nav class="categoryHeader_contentHeaderWrapper">
@@ -74,6 +75,7 @@
                                 </div>
                             </div>
                         </nav>
+                        </div>
                     <!-- 전체 물품 -->
                     <div class="shopping_shoppingContents">
                         <!-- 정렬 -->
@@ -131,8 +133,12 @@
                                     <!-- 물품 가격 -->
                                     <div class="productCard_productInfo">
                                         <div class="productCard_priceWrapper">
-                                            <div class="productCard_productPrice" th:text="*{productPrice}">10,000</div>
-                                            <span class="productCard_wonPrice">원</span>
+                                            <div class="productCard_price">
+                                                <div class="productCard_productPrice" th:text="*{productPrice}">10,000원</div>
+                                                <span class="productCard_wonPrice">원</span>
+                                            </div>
+                                                <div class="productCard_dn_status pending" th:if="*{dnStatus == 'PENDING'}"> 판매중 </div>
+                                                <div class="productCard_dn_status complete" th:if="*{dnStatus == 'COMPLETE'}"> 거래완료 </div>
                                         </div>
                                     </div>
                                     </a>

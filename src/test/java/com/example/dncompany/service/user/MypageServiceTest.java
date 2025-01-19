@@ -7,7 +7,4 @@ import static org.junit.jupiter.api.Assertions.*;
 class MypageServiceTest {
 
 
-    @Test
-    void updateUserProfileById() {
-    }
 }

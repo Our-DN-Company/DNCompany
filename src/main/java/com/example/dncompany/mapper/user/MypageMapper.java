@@ -24,6 +24,8 @@ public interface MypageMapper {
     //정보출력
     List<PetListDTO> selectPetList(Long usersId);
 
+
+
     // 수정페이지 진입시 조회
     Optional<PetDetailDTO> selectByPetId(Long petId);
 
@@ -116,7 +118,7 @@ public interface MypageMapper {
     void insertReport(ReportWriteDTO reportWriteDTO);
 
 
-    void updateHelpStatus(Long usersId, Long helpId);
+    void updateHelpStatus(@Param("helpId") Long helpId, @Param("helpOfferId") Long helpOfferId);
 
 
 }

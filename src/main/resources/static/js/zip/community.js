@@ -60,6 +60,27 @@
 //     return `${Math.floor(betweenTimeDay / 365)}년 전`;
 // }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const tabLinks = document.querySelectorAll(".SubView-tab-t1");
+
+    // 현재 URL에서 category 값을 가져옴
+    const currentCategory = new URL(window.location.href).searchParams.get("category");
+
+    // 새로고침 후 URL의 category 값과 data-category 값을 비교하여 active 추가
+    tabLinks.forEach((tab) => {
+        if (tab.dataset.category === currentCategory) {
+            tab.classList.add("active");
+        }
+
+        // 탭 클릭 시 active 클래스 업데이트
+        tab.addEventListener("click", function () {
+            tabLinks.forEach((link) => link.classList.remove("active"));
+            this.classList.add("active");
+        });
+    });
+});
+
+
 
 
 

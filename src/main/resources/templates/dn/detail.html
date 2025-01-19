@@ -46,9 +46,11 @@
                             <img th:src="@{/images/logo/logo_header2.png}" alt="상품 이미지" class="product_image"/>
                         </div>
                             <div class="product_detail_right">
+                                <div class="product_dn_status pending" th:if="*{dnStatus == 'PENDING'}"> 판매중 </div>
+                                <div class="product_dn_status complete" th:if="*{dnStatus == 'COMPLETE'}"> 거래완료 </div>
                                 <!-- 판매 금액 -->
                                 <div class="product_price" th:text="*{productName}">₩50,000</div>
-                                <div class="product_price" th:text="'₩ ' + *{productPrice}">₩50,000</div>
+                                <div class="product_price" th:text="'판매 금액 : ₩ ' + *{productPrice}">₩50,000</div>
                                 <!-- 판매 글 내용 -->
                                 <div class="product_description" th:utext="*{dnContent}">
                                     이 상품은 강아지 간식으로 적합하며, 고품질 원료로
@@ -129,6 +131,7 @@
 <script th:inline="javascript">
     const dnId = [[${board.dnId}]];
     const productId = [[${board.productId}]];
+    const usersId = [[${session.usersId}]];
 </script>
 </body>
 </html>

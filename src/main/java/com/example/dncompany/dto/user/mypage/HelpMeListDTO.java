@@ -17,7 +17,7 @@ public class HelpMeListDTO {
   private  LocalDate helpCreatedAt;
   private LocalDateTime helpStartTime;
   private LocalDateTime helpEndTime;
-  private String helpOfferStatus;
+  private boolean isAccepted;
+  private int reviewCount;
   private  Long usersId;
-  private Long helpOfferId;
 }

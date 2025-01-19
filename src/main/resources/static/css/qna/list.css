@@ -1,15 +1,20 @@
 /* 커뮤니티 영역 */
 .community_loungeContents {
-  max-width: 1024px;
+  width: 1024px;
   margin: 0 auto;
   padding: 0 27px;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* 검색 영역 */
 .community_SearchContainer {
   margin: 100px auto;
-  width: 100%;
-  max-width: 808px;
+  width: 1024px;
+  max-width: 1024px;
 }
 
 .community_inputContainer {
@@ -41,24 +46,32 @@
 /* 글쓰기 버튼 */
 .write_Btn {
   display: flex;
+  width: 1024px;
+  justify-content: right;
   align-items: center;
+  padding-right: 20px;
   margin-right: 40px;
-  justify-content: flex-end;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--main-font-color);
 }
 
 .write_Btn_item {
-  position: absolute;
-  border: 0.5px none rgb(95, 0, 128);
-  color: black;
+
+  border: 1px solid rgb(95, 0, 128);
+  color: rgb(95, 0, 128);
   padding: 0 12px;
   border-radius: 10px;
-  background-color: rgb(189, 118, 255);
+  background-color: #fff;
   line-height: 34px;
   text-align: center;
-  font-family: Ownglyph_ParkDaHyun;
+  font-family: "Pretendard-Regular";
   letter-spacing: 3px;
   font-size: 20px;
   cursor: pointer;
+  &:hover{
+    color: #fff;
+    background-color: rgb(95, 0, 128);
+  }
 }
 
 .SubView-sub {
@@ -200,9 +213,8 @@
 }
 
 .community_filterBtnWrapper {
-  max-width: 808px;
+  width: 1024px;
   margin-top: 20px;
-  justify-content: space-between;
 }
 
 .community_radioContainer {
@@ -239,7 +251,7 @@
 /* 작성글 목록 */
 .community_loungeLeftContent {
   position: relative;
-  max-width: 808px;
+  width: 1024px;
   display: flex;
   justify-content: space-between;
   gap: 20px;

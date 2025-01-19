@@ -141,13 +141,14 @@ document.querySelector('.review_btn').addEventListener('click', function() {
       .then(response => {
         if (response.ok) {
           alert('리뷰가 성공적으로 등록되었습니다.');
-          reviewModal.style.display = 'none';  // 모달 닫기
+          reviewModal.style.display = 'none';// 모달 닫기
           // 폼 초기화
           document.getElementById('reviewTitle').value = '';
           document.getElementById('reviewContent').value = '';
           document.querySelectorAll('.star_rating .star').forEach(star => {
             star.classList.remove('on');
           });
+
         } else {
           alert('리뷰 등록에 실패했습니다.');
         }

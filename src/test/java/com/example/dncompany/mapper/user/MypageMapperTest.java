@@ -8,6 +8,8 @@ import com.example.dncompany.service.openAichat.GeminiService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Slf4j
 @Transactional
 class MypageMapperTest {
-
 
     @Autowired
     MypageMapper mypageMapper;
@@ -83,16 +84,17 @@ class MypageMapperTest {
     @Test
     void mypageMainList() {
 
-        List<HelpMeListDTO> helpMeList = mypageMapper.MyPageMainHelpMeListById(6L);
+        List<HelpMeListDTO> helpMeList = mypageMapper.MyPageMainHelpMeListById(81L);
 
         assertThat(helpMeList)
                 .isNotEmpty();
+        log.debug(helpMeList.toString());
     }
 
 
     @Test
     void updateHelpStatus() {
-        mypageMapper.updateHelpStatus(61L,142L);
+        mypageMapper.updateHelpStatus(142L,161L);
 
 
     }

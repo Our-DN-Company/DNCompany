@@ -112,12 +112,26 @@ public class HelpService {
         return new PageDTO<>(page, size, total, list);
     }
 
-    public void deleteHelpBoard(Long helpId) {
-       // int result = helpMapper.deleteHelpBoard(helpId);
-//        if (result == 0) {
-//            throw new RuntimeException("게시글 삭제에 실패했습니다.");
-//        }
 
+    @Transactional
+    public void deleteHelpBoard(Long helpId, Long usersId) {
+        // 게시글 존재 여부 및 작성자 확인
+        HelpDetailDTO help = helpMapper.selectHelpDetail(helpId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 게시글입니다."));
+
+        // 작성자 검증
+        if (!help.getUsersId().equals(usersId)) {
+            throw new RuntimeException("삭제 권한이 없습니다.");
+        }
+
+        log.info("게시글 삭제 시작 - helpId: {}, usersId: {}", helpId, usersId);
+
+        int result = helpMapper.deleteHelpBoard(helpId, usersId);
+        if (result == 0) {
+            throw new RuntimeException("게시글 삭제에 실패했습니다.");
+        }
+
+        log.info("게시글 삭제 완료 - helpId: {}", helpId);
     }
 }
 
