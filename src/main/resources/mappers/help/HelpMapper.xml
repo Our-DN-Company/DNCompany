@@ -96,5 +96,6 @@
     <delete id="deleteHelpBoard">
         DELETE FROM HELP_BOARD
         WHERE HELP_ID = #{helpId}
+        AND USERS_ID=#{usersId}
     </delete>
 </mapper>
