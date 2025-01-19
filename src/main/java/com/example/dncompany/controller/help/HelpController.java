@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.model.IModel;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -183,17 +185,25 @@ public class HelpController {
         model.addAttribute("searchDTO", searchDTO);
         return "help/list";
     }
-    @GetMapping("/delete/help")
-    public String deleteHelp(Long helpId) {
 
-
-
-
-        helpService.deleteHelpBoard(helpId);
+//    @GetMapping("/delete/help")
+//    public String deleteHelp(Long helpId, @SessionAttribute(value = "usersId", required = false) Long usersId) {
+//        helpService.deleteHelpBoard(helpId, usersId);
+//        return "redirect:/help/list";
+//
+//    }
+@GetMapping("/delete/help")
+public String deleteHelp(Long helpId,
+                         @SessionAttribute(value = "usersId", required = false) Long usersId,
+                         RedirectAttributes redirectAttributes) {
+    try {
+        helpService.deleteHelpBoard(helpId, usersId);
         return "redirect:/help/list";
+    } catch (RuntimeException e) {
+        redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        return "redirect:/help/detail?helpId=" + helpId;
     }
-
-
+}
 
     }
 
