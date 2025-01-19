@@ -327,7 +327,6 @@ public class MypageService {
                 likeList);
     }
 
-    @Transactional
     public boolean createReview(ReviewWriteDTO reviewWriteDTO) {
         try {
             return mypageMapper.insertReview(reviewWriteDTO) > 0;
@@ -335,14 +334,10 @@ public class MypageService {
             throw new RuntimeException("리뷰 등록 중 오류가 발생했습니다.", e);
         }
     }
-        @Transactional
-    public void updateHelpStatus(Long helpId,Long helpOfferId, HelpYouListDTO helpYouListDTO) {
 
 
-
-        mypageMapper.updateHelpStatus(helpId,helpOfferId,helpYouListDTO);
-
-
+    public void modifyHelpStatus(Long helpId, Long helpOfferId) {
+        mypageMapper.updateHelpStatus(helpId, helpOfferId);
     }
 }
 

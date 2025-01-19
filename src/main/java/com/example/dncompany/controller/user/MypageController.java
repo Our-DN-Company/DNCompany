@@ -6,7 +6,6 @@ import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
 import com.example.dncompany.service.user.MypageService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -185,14 +183,12 @@ public class MypageController {
     @GetMapping("/list/helpyou")
     public String mypageListHelpyou(@RequestParam("helpId") Long helpId,
                                     PageRequestDTO pageRequestDTO,
-                                    @RequestParam("usersId") Long usersId,
-
+                                    @SessionAttribute("usersId") Long usersId,
                                     Model model
                                    ) {
 
         if (usersId == null || helpId == null) {
             throw new IllegalArgumentException("세션에 유효한 usersId 또는 helpId가 없습니다.");
-
         }
 
         PageDTO<HelpYouListDTO> pageDTO= mypageService.helpYouListPage (usersId,pageRequestDTO, helpId);
@@ -202,19 +198,17 @@ public class MypageController {
     }
 
     @PostMapping("/list/helpyou")
-    public String   updateHelpStatus(@RequestParam Long helpOfferId,@RequestParam Long helpId,HelpYouListDTO helpYouListDTO,
+    public String   updateHelpStatus(@RequestParam Long helpOfferId,@RequestParam Long helpId,
                                      RedirectAttributes redirectAttributes){
 
         try {
-            helpYouListDTO.setHelpId(helpId);
-            helpYouListDTO.setHelpOfferId(helpOfferId);
-            mypageService.updateHelpStatus(helpOfferId,helpId,helpYouListDTO);
+            mypageService.modifyHelpStatus(helpId, helpOfferId);
         } catch (Exception e) {
            log.error(e.getMessage());
         }
 
-        redirectAttributes.addAttribute("helpId", helpId);
-        redirectAttributes.addAttribute("helpOfferId", helpOfferId);
+//        redirectAttributes.addAttribute("helpId", helpId);
+//        redirectAttributes.addAttribute("helpOfferId", helpOfferId);
 
         return "redirect:/mypage/main";
 
