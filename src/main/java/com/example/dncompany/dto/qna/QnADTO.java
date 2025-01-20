@@ -23,7 +23,7 @@ public class QnADTO {
 //    }
 
     public String getQnaUpdateAt() {
-        return qnaUpdateAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return qnaUpdateAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String getQnaContent() {

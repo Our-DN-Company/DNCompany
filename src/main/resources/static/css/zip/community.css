@@ -397,11 +397,6 @@
 }
 
 /* 페이지 영역 */
-.pagination-section {
-  display: flex;
-  justify-content: center;
-}
-
 .pagination {
   display: flex;
   justify-content: center;
@@ -421,4 +416,20 @@
   text-decoration: none;
   font-size: 14px;
   transition: all 0.3s;
+}
+
+.page-btn:hover {
+  border-color: rgb(189, 118, 255);
+  color: rgb(189, 118, 255);
+}
+
+.page-btn.active {
+  background: rgb(189, 118, 255);
+  border-color: rgb(189, 118, 255);
+  color: #fff;
+}
+
+.page-btn.prev,
+.page-btn.next {
+  width: 40px;
 }

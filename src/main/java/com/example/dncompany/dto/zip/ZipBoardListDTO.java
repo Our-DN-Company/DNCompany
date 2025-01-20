@@ -29,7 +29,7 @@ public class ZipBoardListDTO {
 //    }
 
     public String getZipUpdatedAt () {
-        return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String getZipContent() {

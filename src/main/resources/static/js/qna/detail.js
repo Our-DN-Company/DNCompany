@@ -6,12 +6,29 @@ import * as answerApi from './modules/answerApi.js'
 
 
     {
+        // 댓글 처리
         const $answerWriteBtn = document.querySelector('#answerWriteBtn');
         const $answerContent = document.querySelector('#answerContent');
+        const isLogin = Boolean(loginUsersId);
 
-        // 댓글 작성
+        // 비 로그인시 로그인 페이지로 이동
         $answerWriteBtn.addEventListener('click', (e) => {
-            const content = $answerContent.value;
+            if (!isLogin) {
+                alert('로그인이 필요합니다.');
+                location.href = '/user/login';
+                return;
+            }
+
+            // 댓글 작성
+            const content = $answerContent.value.trim();
+
+            if (!content) {
+                alert('댓글 작성 해주세요');
+                $answerContent.value = '';
+                $answerContent.focus();
+                return;
+            }
+
             const answerObj = {
                 qnaAnswerContent: content
             };
