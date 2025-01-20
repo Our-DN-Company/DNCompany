@@ -279,17 +279,30 @@
 
     <!-- 리뷰 -->
     <!--받은리뷰-->
-    <select id="reviewListPage"  resultType="MypageReviewListDTO">
-SELECT RNUM, REVIEW_ID, REVIEW_CONTENT, REVIEW_CREATED_AT, USERS_ID
-FROM(SELECT  ROWNUM AS RNUM, REVIEW_ID, REVIEW_CONTENT, REVIEW_CREATED_AT, USERS_ID
-FROM ( SELECT  R.REVIEW_ID, R.REVIEW_CONTENT, R.REVIEW_CREATED_AT, R.USERS_ID
-        FROM REVIEW R
-        WHERE R.USERS_ID = #{usersId})
-  <![CDATA[
-WHERE ROWNUM <= #{page.page} * #{page.size}
-        ]]>
-        )
-WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    <select id="reviewListPage" resultType="MypageReviewListDTO">
+        SELECT
+            RNUM, REVIEW_ID, REVIEW_CONTENT, REVIEW_CREATED_AT, USERS_ID, REVIEW_AI_ASSESSMENT
+        FROM(
+                SELECT
+                    ROWNUM AS RNUM,
+                    REVIEW_ID,
+                    REVIEW_CONTENT,
+                    REVIEW_CREATED_AT,
+                    USERS_ID,
+                    REVIEW_AI_ASSESSMENT
+                FROM (
+                         SELECT
+                             R.REVIEW_ID,
+                             R.REVIEW_CONTENT,
+                             R.REVIEW_CREATED_AT,
+                             R.USERS_ID,
+                             R.REVIEW_AI_ASSESSMENT
+                         FROM REVIEW R
+                         WHERE R.USERS_ID = #{usersId}
+                     )
+        <![CDATA[ WHERE ROWNUM <= #{page.page} * #{page.size} ]]>
+    )
+        WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
     <select id="countReviewList" resultType="_int" parameterType="long">

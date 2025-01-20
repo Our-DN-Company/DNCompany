@@ -27,5 +27,4 @@
              )
         WHERE <![CDATA[ ROWNUM <= 2 ]]>
     </select>
-
 </mapper>

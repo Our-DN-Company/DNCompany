@@ -23,7 +23,7 @@
     <th:block th:insert="~{fragment/header::header}">
     </th:block>
 
-    <main>
+    <main class="main-wrap">
         <div class="mypage_list">
             <div class="mypage_list_title">
                 <p>받은 후기</p>
@@ -40,14 +40,20 @@
                 <tr class="review-list" th:each="mypageReviewList:${pageDTO.list}" th:object="${mypageReviewList}">
                     <td th:text="*{rnum}">샘플 작성날짜</td>
 
-                    <td th:text="*{reviewContent}">샘플 읽음여부</td>
+
+
+                    <td th:class="*{reviewAiAssessment == 'GOOD' ? 'text-green' :
+               reviewAiAssessment == 'NORMAL' ? 'text-black' :
+               reviewAiAssessment == 'BAD' ? 'text-red' : ''}"
+                        th:text="*{reviewContent}">샘플 읽음여부</td>
+
                     <td th:text="*{reviewCreatedAt}"></td>
                 </tr>
             </table>
 
 
             <section class="pagination-section">
-                <div class="pagination">
+                <div class="pagination" >
                     <span th:if="${pageDTO.hasPreviousGroup()}"
                        th:href="@{/mypage/list/zip(page=${pageDTO.startPage - 1})}"
                        class="page-btn prev" aria-label="Go to previous group">‹</span>
@@ -67,11 +73,10 @@
 
         </div>
     </main>
+    <th:block th:insert="~{fragment/footer::footer}">
 
+    </th:block>
 </div>
-<th:block th:insert="~{fragment/footer::footer}">
 
-</th:block>
-</div>
 </body>
 </html>

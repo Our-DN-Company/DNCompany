@@ -17,6 +17,11 @@ td {
   text-align: center;
 }
 
+.main-wrap{
+  margin-top: 20px;
+  min-height: 800px;
+}
+
 .mypage_pet_add_box {
   display: flex;
   justify-content: center;
