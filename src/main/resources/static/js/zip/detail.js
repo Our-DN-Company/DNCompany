@@ -32,7 +32,7 @@ import * as likeApi from './modules/likeApi.js'
             likeApi.toggleLike(zipId, function (data) {
                 console.log(data);
                 if (!data.success) {
-                    alert(data.message);
+                    alert('data.message');
                     return;
                 }
 
