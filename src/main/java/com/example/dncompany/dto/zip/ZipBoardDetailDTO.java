@@ -21,7 +21,7 @@ public class ZipBoardDetailDTO {
     private int answerCount;
     private int likeCount;
     private Long usersId;
-    private String nickname;
+    private String loginId;
 
 //    public String getCreatedAt () {
 //        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

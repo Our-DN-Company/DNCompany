@@ -32,6 +32,9 @@ public class EventBoardDTO {
 
     public String getEventContent() {
         String regEx = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
+        if (this.eventContent == null) {
+            return "";
+        }
         return this.eventContent.replaceAll(regEx, "");
     }
 }

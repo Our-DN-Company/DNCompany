@@ -13,8 +13,7 @@
     <!--  게시글 댓글 조회  -->
     <select id="selectListByQnaId" parameterType="long" resultType="QnaAnswerDTO">
         SELECT QA.QNA_ANSWER_ID, QNA_ANSWER_CONTENT, QA.QNA_ANSWER_CREATED_AT, QA.QNA_ANSWER_UPDATED_AT, QA.QNA_ID,
-               QA.USERS_ID,
-               U.LOGIN_ID, U.NICKNAME
+               U.USERS_ID, U.LOGIN_ID
         FROM QNA_ANSWER QA
             LEFT JOIN USERS U ON QA.USERS_ID = U.USERS_ID
         WHERE QNA_ID = #{qnaId}
