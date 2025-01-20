@@ -5,9 +5,11 @@ import com.example.dncompany.dto.help.HelpDetailDTO;
 import com.example.dncompany.dto.help.HelpSearchDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
 import com.example.dncompany.dto.page.PageDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.exception.help.HelpNotFoundException;
 import com.example.dncompany.mapper.help.HelpMapper;
 import com.example.dncompany.mapper.help.HelpOfferMapper;
+import com.example.dncompany.service.sms.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -24,10 +26,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class HelpService {
-
     private final HelpMapper helpMapper;
-    private final HelpOfferMapper helpOfferMapper;
-    private final HelpOfferService helpOfferService;
 
 
     // 게시글 등록
@@ -62,22 +61,21 @@ public class HelpService {
     }
 
     // 검색
-    public List<HelpListDTO> searchHelpList(HelpSearchDTO searchDTO) {
+    public PageDTO<HelpListDTO> searchHelpList(HelpSearchDTO searchDTO, PageRequestDTO pageRequestDTO) {
         log.info("검색 서비스 호출 - 검색조건: {}", searchDTO);
-        List<HelpListDTO> result = helpMapper.searchHelpList(searchDTO);
-        log.info("검색 결과: {}", result);
-        return result;
+        List<HelpListDTO> helpList = helpMapper.searchHelpList(searchDTO, pageRequestDTO);
+        log.info("검색 결과: {}", helpList);
+        int total = 10;
+
+        PageDTO<HelpListDTO> pageDTO = new PageDTO<>(pageRequestDTO.getPage(), pageRequestDTO.getSize(), total, helpList);
+        return pageDTO;
     }
 
      // 등록 가능 여부
     public boolean checkHelpOfferExists(Long helpId) {
         return helpMapper.checkHelpOfferExists(helpId) > 0;
     }
-//public boolean checkRecruitingStatus(Long helpId) {
-//    // help_offer 테이블에서 해당 게시글의 수락된 제안이 있는지 확인
-//    int acceptedOffers = helpMapper.checkHelpOfferExists(helpId);
-//    return acceptedOffers == 0; // 수락된 제안이 없으면 true(모집중), 있으면 false(모집마감)
-//}
+
     @Transactional
     public void updateOfferStatus(Long offerId, String status) {
         String offerStatus;

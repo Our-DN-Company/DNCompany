@@ -4,6 +4,7 @@ import com.example.dncompany.dto.help.HelpDetailDTO;
 import com.example.dncompany.dto.help.HelpOfferListDTO;
 import com.example.dncompany.mapper.help.HelpMapper;
 import com.example.dncompany.mapper.help.HelpOfferMapper;
+import com.example.dncompany.service.sms.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class HelpOfferService {
 
     private final HelpOfferMapper helpOfferMapper;
     private final HelpMapper helpMapper; // HELP_BOARD 조회
+
 
     // 도움 신청하기
     public void registerHelpOffer(Long helpId, Long usersId) {
@@ -33,32 +35,12 @@ public class HelpOfferService {
        helpOfferListDTO.setHelpOfferStatus("ACCEPT");
 
         helpOfferMapper.insertHelpOffer(helpOfferListDTO);
+
+
         log.info("생성된 helpOfferId: {}", helpOfferListDTO.getHelpOfferId());
         log.info("========== 도움 신청 서비스 종료 ==========");
     }
-    // 도움 신청하기
-//    public void registerHelpOffer(Long helpId, Long usersId) {
-//        log.info("========== 도움 신청 서비스 시작 ==========");
-//        log.info("helpId: {}, usersId: {}", helpId, usersId);
-//
-//        // 본인 게시글인지만 체크
-//        HelpDetailDTO helpDetail = helpMapper.selectHelpDetail(helpId)
-//                .orElseThrow(() -> new IllegalStateException("존재하지 않는 게시글입니다."));
-//
-//        if (helpDetail.getUsersId().equals(usersId)) {
-//            throw new IllegalStateException("본인이 작성한 게시글에는 신청할 수 없습니다.");
-//        }
-//
-//        // 신청 처리
-//        HelpOfferListDTO helpOfferListDTO = new HelpOfferListDTO();
-//        helpOfferListDTO.setHelpId(helpId);
-//        helpOfferListDTO.setUsersId(usersId);
-//        helpOfferListDTO.setOfferStatus("POSSIBLE");  // 초기 상태는 POSSIBLE로 설정
-//
-//        helpOfferMapper.insertHelpOffer(helpOfferListDTO);
-//        log.info("생성된 helpOfferId: {}", helpOfferListDTO.getOfferId());
-//        log.info("========== 도움 신청 서비스 종료 ==========");
-//    }
+
     // 본인 글은 본인이 신청 못하도록
     public void registerNotHelpOffer(Long helpId, Long usersId) {
         // 게시글 작성자 확인
