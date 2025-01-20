@@ -61,11 +61,21 @@ body {
 /* 채팅창 헤더 */
 .openai-chat-header {
     background: rgb(95, 0, 128);
-    color: white;
+    color: #fff;
     padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    h2 {
+        font-size: 15px;
+        font-family: "Pretendard-Regular";
+    }
+
+}
+
+.openai-chat-header span{
+    font-size: 30px;
+    font-family: "Ownglyph_ParkDaHyun";
 }
 
 .openai-close-button {
@@ -90,6 +100,11 @@ body {
     word-break: break-word;   /* 추가: 긴 단어 줄바꿈 */
     word-wrap: break-word;
     white-space: normal;     /* 줄바꿈 허용 */
+    span{
+        font-size: 20px;
+        color: rgb(95, 0, 128);
+        font-family: "Ownglyph_ParkDaHyun";
+    }
 }
 
 .openai-user-message {
@@ -98,6 +113,7 @@ body {
     color: white;
     padding: 10px 15px;
     border-radius: 15px 15px 0 15px;
+    font-family: "Pretendard-Regular";
 }
 
 .openai-bot-message {
@@ -105,6 +121,7 @@ body {
     background: #f0f0f0;
     padding: 10px 15px;
     border-radius: 15px 15px 15px 0;
+    font-family: "Pretendard-Regular";
 }
 
 /* 입력 영역 */
@@ -130,6 +147,7 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: "Pretendard-Regular";
 }
 
 .openai-chat-input button:hover {
