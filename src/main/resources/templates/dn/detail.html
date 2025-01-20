@@ -31,21 +31,63 @@
                     <div class="product_qaDetailQuestion" th:object="${board}">
                         <div class="product_qaDetailTitle">
                             <div class="product_labelListWrapper" >
-                                <button class="mylabel_activeLabel" th:text="*{dnPetCategory}">강아지</button>
-                                <button class="mylabel_activeLabel" th:text="*{productCategory}">간식</button>
+                                <button class="mylabel_activeLabel"
+                                        th:switch="*{dnPetCategory}">
+                                    <span th:case="'dog'">강아지</span>
+                                    <span th:case="'cat'">고양이</span>
+                                    <span th:case="'smallPet'">소동물</span>
+                                    <span th:case="'otherPet'">기타</span>
+                                </button>
+                                <button class="mylabel_activeLabel"
+                                        th:switch="*{productCategory}">
+                                    <span th:case="'snack'">간식</span>
+                                    <span th:case="'mat'">매트</span>
+                                    <span th:case="'feed'">사료</span>
+                                    <span th:case="'dish'">식기</span>
+                                    <span th:case="'nutrition'">영양제</span>
+                                    <span th:case="'health'">위생</span>
+                                    <span th:case="'cage'">이동장</span>
+                                    <span th:case="'toy'">장난감</span>
+                                    <span th:case="'house'">집/하우스</span>
+                                    <span th:case="'fashion'">패션</span>
+                                    <span th:case="'petAppliances'">펫가전</span>
+                                    <span th:case="'snood'">하네스/줄</span>
+                                    <span th:case="'pestPreventionProducts'">해충방지용품</span>
+                                </button>
                             </div>
+
+                            <div class="product_top">
                             <h1 class="product_qaDetailTop" th:text="*{dnTitle}">물품명</h1>
-                        </div>
-                        <div class="product_qaDetailText">
-                            <div class="product_img_detail" th:if="*{productImgId != null}">
-                                <!-- 상품 이미지 -->
-                                <img th:src="@{'/upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension}}" alt="상품 이미지" class="product_image"/>
+                            <div class="product_qaDetailInfo">
+                                <div>
+                                    <a href="" class="product_infoWrapper">
+                                        <img src="/images/dn/profileIcon.png" alt="dn detail 프로필사진"/>
+                                        <div class="product_qaDetailUser" th:text="*{loginId}">삼색이짱짱</div>
+                                        <div class="product_qaDetailDate" th:text="*{dbUpdatedAt}">2024.12.17</div>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="product_img_detail" th:unless="*{productImgId != null}">
-                            <!-- 상품 이미지 -->
-                            <img th:src="@{/images/logo/logo_header2.png}" alt="상품 이미지" class="product_image"/>
+                            </div>
                         </div>
+
+<!--                        <div class="product_qaDetailText">
+                            <div class="product_img_detail" th:if="*{productImgId != null}">
+                                &lt;!&ndash; 상품 이미지 &ndash;&gt;
+                                <img th:src="@{'/upload/dn/' + *{productPath} + '/' + *{productUuid} + *{productExtension}}" alt="상품 이미지" class="product_image"/>
+                            </div>-->
+<!--                            <div class="product_img_detail" th:unless="*{productImgId != null}">-->
+<!--                            &lt;!&ndash; 상품 이미지 &ndash;&gt;-->
+<!--                            <img th:src="@{/images/logo/logo_header2.png}" alt="상품 이미지" class="product_image"/>-->
+<!--                        </div>-->
                             <div class="product_detail_right">
+                                <div class="dnDetailBtm">
+                                    <button class="favorite_button">💖 관심 상품
+                                        <span class="favorite_count" th:text="*{likeCount}">0</span>
+                                    </button>
+                                    <!-- 포인트 사용 텍스트 박스 -->
+                                    <!-- 판매자와 대화 버튼 -->
+                                    <button class="chat_button">판매자와 대화</button>
+                                </div>
                                 <div class="product_dn_status pending" th:if="*{dnStatus == 'PENDING'}"> 판매중 </div>
                                 <div class="product_dn_status complete" th:if="*{dnStatus == 'COMPLETE'}"> 거래완료 </div>
                                 <!-- 판매 금액 -->
@@ -57,25 +99,12 @@
                                     제작되었습니다.
                                 </div>
                                 <!-- 관심 상품 버튼 -->
-                                <button class="favorite_button">💖 관심 상품
-                                    <span class="favorite_count" th:text="*{likeCount}">0</span>
-                                </button>
-                                <!-- 포인트 사용 텍스트 박스 -->
-                                <!-- 판매자와 대화 버튼 -->
-                                <button class="chat_button">판매자와 대화</button>
+
                             </div>
-                        </div>
+<!--                        </div>-->
 
                         <!-- 작성자 정보 -->
-                        <div class="product_qaDetailInfo">
-                            <div>
-                                <a href="" class="product_infoWrapper">
-                                    <img src="https://bff-images.bemypet.kr/media/medias/profile_image/927-image_picker4881577713905119062.jpg"/>
-                                    <div class="product_qaDetailUser" th:text="*{loginId}">삼색이짱짱</div>
-                                    <div class="product_qaDetailDate" th:text="*{dbUpdatedAt}">2024.12.17</div>
-                                </a>
-                            </div>
-                        </div>
+
                         <!-- 작성글 삭제/수정 버튼 -->
                         <div class="delete_modify_Btn">
                             <div class="delete_Btn">

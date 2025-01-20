@@ -58,8 +58,9 @@ reviewBtns.forEach((btn) => {
 reportBtns.forEach((btn) => {
   btn.addEventListener("click", function() {
     console.log("신고 버튼 클릭됨");
-    // 현재 선택된 helpOfferId 저장
-    currentHelpOfferId = this.closest('.main-help-me-list').dataset.helpOfferId;
+    console.log("버튼의 전체 dataset:", this.dataset);  // 모든 data 속성 확인
+    currentHelpOfferId = this.dataset.helpOfferId;
+    console.log('설정된 helpOfferId:', currentHelpOfferId); // 값이 제대로 설정되었는지 확인
     reportModal.style.display = "flex";
   });
 });
@@ -164,6 +165,7 @@ document.querySelector('.report_btn').addEventListener('click', function() {
   const reportTitle = document.getElementById('reportTitle').value;
   const reportContent = document.getElementById('reportContent').value;
 
+  console.log('현재 helpOfferId 값:', currentHelpOfferId); // 전송 직전의 값 확인
   // 입력값 검증
   if (!reportTitle.trim()) {
     alert('제목을 입력해주세요.');
@@ -178,7 +180,7 @@ document.querySelector('.report_btn').addEventListener('click', function() {
     reportContent: reportContent,
     helpOfferId: currentHelpOfferId,
     reportTitle: reportTitle,
-    reportDate: new Date()
+    reportDate: new Date().toISOString()
   };
 
   console.log('전송되는 데이터:', reportWriteDTO);
