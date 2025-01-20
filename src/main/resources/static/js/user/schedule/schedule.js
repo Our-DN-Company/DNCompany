@@ -54,7 +54,7 @@ function insertSchedule(data) {
 
             // alert("Views : " + info.view.type);
 
-            info.el.style.borderColor = "black";
+            info.el.style.borderColor = rgb(95, 0, 128, 0.1);
         },
 
         // 캘린더 사이즈 조절
