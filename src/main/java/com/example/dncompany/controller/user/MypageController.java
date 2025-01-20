@@ -6,6 +6,7 @@ import com.example.dncompany.dto.report.ReportWriteDTO;
 import com.example.dncompany.dto.review.ReviewWriteDTO;
 import com.example.dncompany.dto.user.mypage.*;
 
+import com.example.dncompany.service.sms.SmsService;
 import com.example.dncompany.service.user.MypageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MypageController {
     public final MypageService mypageService;
+    private final SmsService smsService;
+
 
     @GetMapping("/main")
     public String mypageMain(@SessionAttribute(value = "usersId", required = false) Long usersId,
@@ -201,17 +204,17 @@ public class MypageController {
     }
 
     @PostMapping("/list/helpyou")
-    public String   updateHelpStatus(@RequestParam Long helpOfferId,@RequestParam Long helpId,
-                                     RedirectAttributes redirectAttributes){
+    public String   updateHelpStatus(@RequestParam Long helpOfferId,
+                                     @RequestParam Long helpId){
 
         try {
             mypageService.modifyHelpStatus(helpId, helpOfferId);
+            // 신청자에게 문자 발송 처리
+            smsService.sendAlarmToHelper(helpOfferId);
         } catch (Exception e) {
            log.error(e.getMessage());
         }
 
-//        redirectAttributes.addAttribute("helpId", helpId);
-//        redirectAttributes.addAttribute("helpOfferId", helpOfferId);
 
         return "redirect:/mypage/main";
 

@@ -25,7 +25,7 @@
     <main class="main-wrap">
             <!-- 필터 섹션 -->
             <div class="filter-section">
-                <form th:action="@{/help/search}" method="get">
+                <form th:action="@{/help/list}" method="get">
                     <div class="filter-options">
                         <select name="sido" id="sido" class="filter-select">
                             <option value="">시/도 선택</option>
@@ -53,7 +53,7 @@
 
             <!-- 게시글 목록 -->
             <div class="post-list">
-                <div class="post-card" th:each="help : ${pageResult.list}"
+                <div class="post-card" th:each="help : ${pageDTO.list}"
                      th:data-help-id="${help.helpId}">
                     <div class="post-content">
                         <div class="post-tags">
@@ -83,24 +83,24 @@
             </div>
 
             <!-- 페이지네이션 -->
-            <div class="pagination" th:if="${pageResult != null}">
+            <div class="pagination" th:if="${pageDTO != null}">
                 <!-- 이전 페이지 버튼 -->
-                <a th:if="${pageResult.hasPrevious()}"
+                <a th:if="${pageDTO.hasPrevious()}"
                         class="page-button"
-                        th:href="@{/help/list(page=${pageResult.page - 1})}">&lt;</a>
+                        th:href="@{/help/list(page=${pageDTO.page - 1})}">&lt;</a>
 
                 <!-- 페이지 번호 -->
-                <th:block th:each="pageNum : ${#numbers.sequence(pageResult.startPage, pageResult.endPage)}">
+                <th:block th:each="pageNum : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
                     <a class="page-button"
-                            th:classappend="${pageNum == pageResult.page} ? 'active'"
+                            th:classappend="${pageNum == pageDTO.page} ? 'active'"
                             th:href="@{/help/list(page=${pageNum})}"
                             th:text="${pageNum}">1</a>
                 </th:block>
 
                 <!-- 다음 페이지 버튼 -->
-                <a th:if="${pageResult.hasNext()}"
+                <a th:if="${pageDTO.hasNext()}"
                         class="page-button"
-                        th:href="@{/help/list(page=${pageResult.page + 1})}">&gt;</a>
+                        th:href="@{/help/list(page=${pageDTO.page + 1})}">&gt;</a>
             </div>
             <div th:insert="~{/openAiChat/open_ai_chat}"></div>
         </main>

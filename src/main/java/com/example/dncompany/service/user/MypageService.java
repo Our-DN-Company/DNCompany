@@ -12,6 +12,7 @@ import com.example.dncompany.exception.user.UserNotFoundException;
 import com.example.dncompany.mapper.user.MypageMapper;
 import com.example.dncompany.mapper.user.MypagePetImageMapper;
 import com.example.dncompany.service.openAichat.GeminiService;
+import com.example.dncompany.service.sms.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -452,7 +453,6 @@ public class MypageService {
         mypageMapper.updateHelpStatus(helpId, helpOfferId);
     }
 
-    @Transactional
     public void createReport(ReportWriteDTO reportWriteDTO) {
         mypageMapper.insertReport(reportWriteDTO);
     }

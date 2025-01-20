@@ -16,5 +16,15 @@
         WHERE HELP_ID = #{helpId} AND USERS_ID = #{usersId}
     </select>
 
+    <!-- 헬퍼에게 문자 보내기위한 정보 -->
+    <select id="selectByIdForHelperSms" resultType="HelpOfferSmsDTO" parameterType="long">
+        SELECT HB.HELP_TITLE, HB.HELP_CARE_DATE, HB.HELP_START_TIME, HB.HELP_ADDRESS, HB.HELP_ADDRESS_DETAIL,
+               U.USERS_ID, U.PHONE_NUMBER
+        FROM HELP_OFFER HO
+                 JOIN HELP_BOARD HB ON HB.HELP_ID = HO.HELP_ID
+                 JOIN USERS U ON U.USERS_ID = HO.USERS_ID
+        WHERE HO.HELP_OFFER_ID = #{helpOfferId}
+    </select>
+
 
 </mapper>

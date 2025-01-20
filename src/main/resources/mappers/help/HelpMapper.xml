@@ -33,29 +33,44 @@
 
     <select id="searchHelpList" parameterType="HelpSearchDTO" resultType="HelpListDTO">
         /* 검색 쿼리 실행 */
-        SELECT
-        HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
-        HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT
-        FROM HELP_BOARD
-        <where>
-            <if test="sido != null and sido != ''">
-                AND HELP_ADDRESS LIKE '%' || #{sido} || '%'
-                <if test="gugun != null and gugun != ''">
-                    AND HELP_ADDRESS LIKE '%' || #{gugun} || '%'
-                </if>
-            </if>
-            <if test="careDate != null">
-                AND HELP_CARE_DATE = #{careDate}
-            </if>
-            <if test="careType != null and careType != ''">
-                AND HELP_CARE_TYPE = #{careType}
-            </if>
-            <if test="keyword != null and keyword != ''">
-                AND (HELP_TITLE LIKE '%' || #{keyword} || '%'
-                OR HELP_SPECIAL_NOTE LIKE '%' || #{keyword} || '%')
-            </if>
-        </where>
-        ORDER BY HELP_CREATED_AT DESC
+        SELECT RNUM, HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
+            HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT,
+            HELP_START_TIME, HELP_END_TIME
+        FROM (
+            SELECT ROWNUM AS RNUM, HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
+                HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT,
+                HELP_START_TIME, HELP_END_TIME
+            FROM (
+                SELECT
+                    HELP_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_ADDRESS,
+                    HELP_POINT, HELP_PRICE, HELP_CARE_DATE, HELP_CREATED_AT,
+                    HELP_START_TIME, HELP_END_TIME
+                FROM HELP_BOARD
+                <trim prefix="WHERE" prefixOverrides="AND">
+                    <if test="cond.sido != null and cond.sido != ''">
+                        AND HELP_ADDRESS LIKE '%' || #{cond.sido} || '%'
+                        <if test="cond.gugun != null and cond.gugun != ''">
+                            AND HELP_ADDRESS LIKE '%' || #{cond.gugun} || '%'
+                        </if>
+                    </if>
+                    <if test="cond.careDate != null">
+                        AND HELP_CARE_DATE = #{cond.careDate}
+                    </if>
+                    <if test="cond.careType != null and cond.careType != ''">
+                        AND HELP_CARE_TYPE = #{cond.careType}
+                    </if>
+                    <if test="cond.keyword != null and cond.keyword != ''">
+                        AND (HELP_TITLE LIKE '%' || #{cond.keyword} || '%'
+                        OR HELP_SPECIAL_NOTE LIKE '%' || #{cond.keyword} || '%')
+                    </if>
+                </trim>
+                ORDER BY HELP_CREATED_AT DESC
+                )
+            <![CDATA[
+            WHERE ROWNUM <= #{page.page} * #{page.size}
+            ]]>
+        )
+        WHERE RNUM > (#{page.page} - 1) * #{page.size}
     </select>
 
     <select id="checkHelpOfferExists" resultType="int">
