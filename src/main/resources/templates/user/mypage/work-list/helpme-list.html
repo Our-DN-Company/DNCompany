@@ -40,14 +40,12 @@
 
                 </tr>
 
-
                 <tr class="help-me-list" th:each="helpMe :${pageDTO.list}" th:object="${helpMe}" th:data-help-id="${helpMe.helpId}">
                     <td th:text="*{rnum}"></td>
                     <td ><a th:href="@{/help/detail(helpId=*{helpId})}" th:text="*{helpTitle}"></a></td>
                     <td th:text="*{helpCareType}"></td>
                     <td th:text="*{helpCreatedAt}"></td>
                     <td th:text="*{helpCareDate}"></td>
-
 
                 </tr>
             </table>

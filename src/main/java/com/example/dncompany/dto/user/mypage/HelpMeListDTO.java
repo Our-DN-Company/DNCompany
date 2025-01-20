@@ -20,4 +20,5 @@ public class HelpMeListDTO {
   private boolean isAccepted;
   private int reviewCount;
   private  Long usersId;
+  private Long helpOfferId;
 }
