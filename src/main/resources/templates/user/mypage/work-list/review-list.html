@@ -9,10 +9,12 @@
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}">
 
     <link rel="stylesheet" th:href="@{/css/user/mypage/mypage_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mypage/mypage-review-list.css}" />
 
 
     <script defer th:src="@{/js/fragment/header.js}"></script>
     <script defer th:src="@{/js/common.js}"></script>
+    <script defer th:type="module" th:src="@{/js/user/mypage/mypage-review-list.js}"></script>
 
     <title>Document</title>
 </head>
@@ -30,22 +32,34 @@
                 <div class="mypage_list_line"></div></div>
 
             <table>
+                <colgroup>
+                    <col style="width:5%" />
+                    <col style="width:10%" />
+                    <col />
+                    <col style="width:15%" />
+                </colgroup>
 
                 <tr>
                     <th>순번</th>
-                    <th>내용</th>
+                    <th>만족도</th>
+                    <th>제목</th>
                     <th>작성일</th>
                 </tr>
                 <!-- 쪽지 컨텐츠 -->
-                <tr class="review-list" th:each="mypageReviewList:${pageDTO.list}" th:object="${mypageReviewList}">
+                <tr class="review-list" th:each="mypageReviewList:${pageDTO.list}" th:object="${mypageReviewList}" th:data-review-id="*{reviewId}">
                     <td th:text="*{rnum}">샘플 작성날짜</td>
+                    <td>
+                        <th:block th:switch="*{reviewAiAssessment}">
+                            <span class="review-emoji" th:case="BAD">🙄</span>
+                            <span class="review-emoji" th:case="NORMAL">🙂</span>
+                            <span class="review-emoji" th:case="GOOD">😍</span>
+                        </th:block>
+                    </td>
 
 
 
-                    <td th:class="*{reviewAiAssessment == 'GOOD' ? 'text-green' :
-               reviewAiAssessment == 'NORMAL' ? 'text-black' :
-               reviewAiAssessment == 'BAD' ? 'text-red' : ''}"
-                        th:text="*{reviewContent}">샘플 읽음여부</td>
+                    <td th:text="*{reviewTitle}">
+                    </td>
 
                     <td th:text="*{reviewCreatedAt}"></td>
                 </tr>
@@ -54,23 +68,48 @@
 
             <section class="pagination-section">
                 <div class="pagination" >
-                    <span th:if="${pageDTO.hasPreviousGroup()}"
+                    <a th:if="${pageDTO.hasPreviousGroup()}"
                        th:href="@{/mypage/list/zip(page=${pageDTO.startPage - 1})}"
-                       class="page-btn prev" aria-label="Go to previous group">‹</span>
+                       class="page-btn prev" aria-label="Go to previous group">‹</a>
 
-                    <span class="page-btn"
+                    <a class="page-btn"
                        th:each="i : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
                        th:href="@{/mypage/list/review(page=${i})}"
                        th:classappend="${i == pageDTO.page ? ' active' : ''}"
-                       th:text="${i}"></span>
+                       th:text="${i}"></a>
 
-                    <span th:if="${pageDTO.hasNextGroup()}"
+                    <a th:if="${pageDTO.hasNextGroup()}"
                        th:href="@{/mypage/list/review(page=${pageDTO.endPage + 1})}"
-                       class="page-btn next" aria-label="Go to next group">›</span>
+                       class="page-btn next" aria-label="Go to next group">›</a>
                 </div>
             </section>
 
 
+        </div>
+
+        <!-- 모달 창 -->
+        <div class="review-modal-box">
+            <div class="review-modal-form">
+                <div class="review-modal__top">
+                    <p>받은 <span>리뷰</span></p>
+                </div>
+                <div class="review-modal__top">
+                    <p>리뷰 제목 / 작성자</p>
+                    <div class="review-modal__tw-box">
+                        <div class="review-modal__title"></div>
+                        <div class="review-modal__writer"></div>
+                    </div>
+                </div>
+                <div class="review-modal__top">
+                    <p>리뷰 내용 <span class="review-modal-emoji"></span></p>
+                    <div class="review-content_box review-modal__content"></div>
+                </div>
+                <div class="review__button">
+                    <div class="review_btn">
+                        <input type="reset" class="review-modal-close-btn" value="닫기">
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <th:block th:insert="~{fragment/footer::footer}">

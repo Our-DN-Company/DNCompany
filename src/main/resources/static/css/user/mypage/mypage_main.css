@@ -435,7 +435,7 @@ tr {
 .star_rating .star.on {
     background: url('/images/user/mypage/yellow-star.png') no-repeat;
     background-size: 100%;
-    filter: brightness(1.5);
+    filter: brightness(1.0);
     /* 활성화된 별 강조 효과 */
 }
 
