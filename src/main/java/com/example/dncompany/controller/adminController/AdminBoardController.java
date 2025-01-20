@@ -54,6 +54,7 @@ public class AdminBoardController {
 
         // 전체 데이터 수와 페이징된 데이터 가져오기
         int totalCount = adminBoardService.getTotalBoardCount(searchDTO);
+
         List<?> boards = adminBoardService.getBoardBySearchCondition(searchDTO);
 
         // 페이징 정보 계산

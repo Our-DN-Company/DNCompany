@@ -95,13 +95,14 @@
                                             </div>
                                             <div class="qaList_qaListTitle">
                                                 <a th:href="@{/qna/detail(qnaId=${qna.qnaId})}"
-                                                   th:text="${qna.qnaTitle}"></a>
+                                                   th:text="${qna.qnaTitle}"
+                                                   class="restricted-link"></a>
                                             </div>
-                                            <div class="qaList_qaListText" th:text="${qna.qnaContent}"></div>
+<!--                                            <div class="qaList_qaListText" th:text="${qna.qnaContent}"></div>-->
                                         </div>
                                     </div>
                                     <div class="qaList_qaListAbout">
-                                        <div class="qaList_nickname" th:text="${qna.nickname}"></div>
+                                        <div class="qaList_nickname" th:text="${qna.loginId}"></div>
                                         <div class="qaList_qnaType" th:text="'작성일 : ' + ${qna.qnaUpdateAt}"></div>
                                     </div>
                                     <div class="qaList_labelWrapper">

@@ -13,9 +13,9 @@
     <!--  게시글 전체 정보  -->
     <select id="selectAllZipBoards" resultType="ZipBoardListDTO">
         SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT AS zipUpdatedAt, ZB.ZIP_VIEWCOUNT,
-               U.USERS_ID, U.NICKNAME,
+               U.USERS_ID, U.LOGIN_ID,
                (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
-               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS ZIP_LIKECOUNT
         FROM ZIP_BOARD ZB
                  JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
         ORDER BY ZIP_ID DESC
@@ -31,9 +31,9 @@
     <!--  게시글 상세 정보  -->
     <select id="selectById" parameterType="long" resultType="ZipBoardDetailDTO">
         SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT AS zipUpdatedAt, ZB.ZIP_VIEWCOUNT,
-               U.USERS_ID, U.NICKNAME,
+               U.USERS_ID, U.LOGIN_ID,
                (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
-               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS ZIP_LIKECOUNT
         FROM ZIP_BOARD ZB
                  JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
         WHERE ZIP_ID = #{zipId}
@@ -42,9 +42,9 @@
     <!--  게시글 목록 조회  -->
     <select id="selectAllBoard" resultType="ZipBoardListDTO">
         SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT AS zipUpdatedAt, ZB.ZIP_VIEWCOUNT,
-               U.USERS_ID, U.NICKNAME,
+               U.USERS_ID, U.LOGIN_ID,
                (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE  ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
-               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+               (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE  ZL.ZIP_ID = ZB.ZIP_ID) AS ZIP_LIKECOUNT
         FROM ZIP_BOARD ZB
                  JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
         ORDER BY ZIP_ID DESC
@@ -66,16 +66,16 @@
 
     <!--  페이지  -->
     <select id="selectBySearchCondWithPage" resultType="ZipBoardListDTO">
-        SELECT RNUM, ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT AS zipUpdatedAt , USERS_ID, NICKNAME, ZIP_VIEWCOUNT,
-            ANSWER_COUNT, LIKE_COUNT
+        SELECT RNUM, ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT AS zipUpdatedAt , USERS_ID, LOGIN_ID, ZIP_VIEWCOUNT,
+            ANSWER_COUNT, ZIP_LIKECOUNT
         FROM (
             SELECT ROWNUM AS RNUM, ZIP_ID, ZIP_PET_CATEGORY, ZIP_TITLE, ZIP_CONTENT, ZIP_UPDATE_AT, ZIP_VIEWCOUNT,
-                USERS_ID, NICKNAME, ANSWER_COUNT, LIKE_COUNT
+                USERS_ID, LOGIN_ID, ANSWER_COUNT, ZIP_LIKECOUNT
             FROM (
                 SELECT ZB.ZIP_ID, ZB.ZIP_PET_CATEGORY, ZB.ZIP_TITLE, ZB.ZIP_CONTENT, ZB.ZIP_UPDATE_AT, ZB.ZIP_VIEWCOUNT,
-                U.USERS_ID, U.NICKNAME,
+                U.USERS_ID, U.LOGIN_ID,
                     (SELECT COUNT(*) FROM ZIP_ANSWER ZA WHERE ZA.ZIP_ID = ZB.ZIP_ID) AS ANSWER_COUNT,
-                    (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE ZL.ZIP_ID = ZB.ZIP_ID) AS LIKE_COUNT
+                    (SELECT COUNT(*) FROM ZIP_LIKE ZL WHERE ZL.ZIP_ID = ZB.ZIP_ID) AS ZIP_LIKECOUNT
                 FROM ZIP_BOARD ZB
                     JOIN USERS U ON ZB.USERS_ID = U.USERS_ID
         <where>
@@ -101,7 +101,7 @@
         ORDER BY
         <choose>
             <when test="cond.order == 'Order_of_popularity'">
-                LIKE_COUNT DESC
+                ZIP_LIKECOUNT DESC
             </when>
             <when test="cond.order == 'views_order'">
                 ZIP_VIEWCOUNT DESC

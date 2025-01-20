@@ -6,12 +6,29 @@ import * as answerApi from './modules/answerApi.js'
 
 
     {
+        // 댓글 처리
         const $answerWriteBtn = document.querySelector('#answerWriteBtn');
         const $answerContent = document.querySelector('#answerContent');
+        const isLogin = Boolean(loginUsersId);
 
-        // 댓글 작성
+        // 비 로그인시 로그인 페이지로 이동
         $answerWriteBtn.addEventListener('click', (e) => {
-            const content = $answerContent.value;
+            if (!isLogin) {
+                alert('로그인이 필요합니다.');
+                location.href = '/user/login';
+                return;
+            }
+
+            // 댓글 작성
+            const content = $answerContent.value.trim();
+
+            if (!content) {
+                alert('댓글 작성 해주세요');
+                $answerContent.value = '';
+                $answerContent.focus();
+                return;
+            }
+
             const answerObj = {
                 qnaAnswerContent: content
             };
@@ -131,7 +148,7 @@ import * as answerApi from './modules/answerApi.js'
             html += `
          <div class="comment_qaDetailComment" data-answer-id="${answer.qnaAnswerId}">
             <div class="comment_qaCommentIdWrapper">
-                <div class="comment_qaCommentId">${answer.nickname}</div>
+                <div class="comment_qaCommentId">${answer.loginId}</div>
                 ${answer.usersId === loginUsersId ? `
                 <div class="comment_edit_delete">
                     <div class="comment_delete">
@@ -141,7 +158,7 @@ import * as answerApi from './modules/answerApi.js'
                         <img src="/images/qna/icon-pencil.png" class="comment-edit-btn" data-answer-id="${answer.qnaAnswerId}"/>
                     </div>
                 </div>
-                <div class="comment_qaCommentDate">${answer.qnaAnswerCreatedAt}</div>
+                <div class="comment_qaCommentDate">${answer.qnaAnswerUpdatedAt}</div>
                 ` : ''}
                 
             </div>

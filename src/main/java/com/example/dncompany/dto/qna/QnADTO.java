@@ -16,18 +16,21 @@ public class QnADTO {
     private LocalDateTime qnaUpdateAt;
     private String qnaCheckStatus;
     private Long usersId;
-    private String nickname;
+    private String loginId;
 
 //    public String getQnaCreateAt() {
 //        return qnaCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 //    }
 
     public String getQnaUpdateAt() {
-        return qnaUpdateAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return qnaUpdateAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String getQnaContent() {
         String regEx = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
+        if (this.qnaContent == null) {
+            return "";
+        }
         return this.qnaContent.replaceAll(regEx, "");
     }
 

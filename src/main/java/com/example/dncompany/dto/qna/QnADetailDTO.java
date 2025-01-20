@@ -15,7 +15,7 @@ public class QnADetailDTO {
 //    private LocalDateTime qnaCreateAt;
     private LocalDateTime qnaUpdateAt;
     private Long usersId;
-    private String nickname;
+    private String loginId;
 
     public String getQnaUpdateAt() {
         return qnaUpdateAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

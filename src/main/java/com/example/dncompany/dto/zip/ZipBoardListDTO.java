@@ -22,18 +22,21 @@ public class ZipBoardListDTO {
     private int zipLikeCount;
     private int answerCount;
     private Long usersId;
-    private String nickname;
+    private String loginId;
 
 //    public String getZipCreatedAt () {
 //        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 //    }
 
     public String getZipUpdatedAt () {
-        return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String getZipContent() {
         String regEx = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
+        if (this.zipContent == null) {
+            return "";
+        }
         return this.zipContent.replaceAll(regEx, "");
     }
 }
