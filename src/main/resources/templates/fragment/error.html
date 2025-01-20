@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/fragment/error.css}">
+  <title>에러 페이지</title>
+  <style>
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="error-container">
+    <h1>잘못된 접근입니다.</h1>
+    <p>아래 버튼을 눌러 다른 페이지로 이동하세요!</p>
+    <div>
+      <a href="/user/login">로그인</a>
+      <a href="/">메인 페이지</a>
+    </div>
+    <img src="/images/logo/logo_banner.png" alt="에러페이지 로고 베너" class="ErrorBanner" />
+  </div>
+</div>
+</body>
+</html>
