@@ -401,6 +401,7 @@ document.getElementById('postListBody').addEventListener('click', function(e) {
 
         // 선택된 체크박스 확인
         const checkedBoxes = document.querySelectorAll('.post-checkbox:checked');
+        console.log(checkedBoxes);
 
         if (checkedBoxes.length === 0) {
             alert('삭제할 게시글을 선택해주세요.');
@@ -416,7 +417,8 @@ document.getElementById('postListBody').addEventListener('click', function(e) {
             qnaIds: [],      // QnA 게시글 ID들이 들어갈 빈 배열
             reportIds: [],
             helpIds: [],
-            eventIds: []
+            eventIds: [],
+            zipIds: []
         };
 
         checkedBoxes.forEach(checkbox => {
@@ -438,6 +440,9 @@ document.getElementById('postListBody').addEventListener('click', function(e) {
                     break;
                 case 'EVENT':
                     selectedPosts.eventIds.push(postId);
+                    break;
+                case 'ZIP':
+                    selectedPosts.zipIds.push(postId);
                     break;
             }
         });
