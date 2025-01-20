@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dncompany.mapper.event.EventBoardMapper">
     <!-- 이벤튼 게시글 삽입 -->
-    <insert id="insertEventBoard" parameterType="EventBoardWriteDTO">
-        <selectKey resultType="long" keyProperty="eventId" order="BEFORE">
-            SELECT SEQ_EVENT_BOARD.nextval FROM DUAL
-        </selectKey>
-        INSERT INTO EVENT_BOARD (EVENT_ID, EVENT_TITLE, EVENT_CONTENT, USERS_ID)
-        VALUES (#{eventId}, #{eventTitle}, #{eventContent}, #{usersId})
-    </insert>
+<!--    <insert id="insertEventBoard" parameterType="EventBoardWriteDTO">-->
+<!--        <selectKey resultType="long" keyProperty="eventId" order="BEFORE">-->
+<!--            SELECT SEQ_EVENT_BOARD.nextval FROM DUAL-->
+<!--        </selectKey>-->
+<!--        INSERT INTO EVENT_BOARD (EVENT_ID, EVENT_TITLE, EVENT_CONTENT, USERS_ID)-->
+<!--        VALUES (#{eventId}, #{eventTitle}, #{eventContent}, #{usersId})-->
+<!--    </insert>-->
 
     <!--  이벤트 게시글 전체 정보  -->
     <select id="selectAllEventBoards" resultType="EventBoardDTO">
@@ -33,17 +33,17 @@
     </select>
 
     <!--  이벤트 게시글 수정  -->
-    <update id="updateEventBoard" parameterType="EventBoardModifyDTO">
-        UPDATE EVENT_BOARD
-        SET EVENT_TITLE = #{eventTitle}, EVENT_CONTENT = #{eventContent}, EVENT_UPDATE_AT = SYSDATE
-        WHERE EVENT_ID = #{eventId}
-    </update>
+<!--    <update id="updateEventBoard" parameterType="EventBoardModifyDTO">-->
+<!--        UPDATE EVENT_BOARD-->
+<!--        SET EVENT_TITLE = #{eventTitle}, EVENT_CONTENT = #{eventContent}, EVENT_UPDATE_AT = SYSDATE-->
+<!--        WHERE EVENT_ID = #{eventId}-->
+<!--    </update>-->
 
     <!--  이벤트 게시글 삭제  -->
-    <delete id="deleteEventBoard" parameterType="long">
-        DELETE FROM EVENT_BOARD
-        WHERE EVENT_ID =#{eventId}
-    </delete>
+<!--    <delete id="deleteEventBoard" parameterType="long">-->
+<!--        DELETE FROM EVENT_BOARD-->
+<!--        WHERE EVENT_ID =#{eventId}-->
+<!--    </delete>-->
 
     <!--  이벤트 페이징  -->
     <select id="selectByPage" resultType="EventBoardDTO">
@@ -68,6 +68,12 @@
                 ]]>
              )
             WHERE RNUM > (#{page.page} - 1) * #{page.size}
+    </select>
+
+    <select id="countByCondition" resultType="_int">
+        SELECT COUNT(*)
+        FROM EVENT_BOARD EB
+        JOIN USERS U ON EB.USERS_ID = U.USERS_ID
     </select>
 
 </mapper>
