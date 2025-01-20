@@ -281,24 +281,29 @@
     <!--받은리뷰-->
     <select id="reviewListPage" resultType="MypageReviewListDTO">
         SELECT
-            RNUM, REVIEW_ID, REVIEW_CONTENT, REVIEW_CREATED_AT, USERS_ID, REVIEW_AI_ASSESSMENT
+            RNUM, REVIEW_ID, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, USERS_ID, REVIEW_STAR_RATING, REVIEW_AI_ASSESSMENT
         FROM(
                 SELECT
                     ROWNUM AS RNUM,
                     REVIEW_ID,
+                    REVIEW_TITLE,
                     REVIEW_CONTENT,
                     REVIEW_CREATED_AT,
                     USERS_ID,
+                    REVIEW_STAR_RATING,
                     REVIEW_AI_ASSESSMENT
                 FROM (
                          SELECT
                              R.REVIEW_ID,
+                             R.REVIEW_TITLE,
                              R.REVIEW_CONTENT,
                              R.REVIEW_CREATED_AT,
                              R.USERS_ID,
+                             R.REVIEW_STAR_RATING,
                              R.REVIEW_AI_ASSESSMENT
                          FROM REVIEW R
                          WHERE R.USERS_ID = #{usersId}
+                         ORDER BY R.REVIEW_ID DESC
                      )
         <![CDATA[ WHERE ROWNUM <= #{page.page} * #{page.size} ]]>
     )
@@ -309,6 +314,15 @@
         SELECT COUNT(*)
         FROM REVIEW
         WHERE USERS_ID=#{usersId}
+    </select>
+
+    <!-- 리뷰 상세 -->
+    <select id="selectReviewById" parameterType="long" resultType="MypageReviewDetailDTO">
+        SELECT R.REVIEW_ID, R.REVIEW_STAR_RATING, R.REVIEW_CONTENT, R.HELP_OFFER_ID, R.REVIEW_TITLE, R.REVIEW_CREATED_AT, R.HELP_ID, R.REVIEW_CHECK_STATUS, R.REVIEW_AI_ASSESSMENT,
+               U.USERS_ID, U.LOGIN_ID, U.NICKNAME
+        FROM REVIEW R
+            JOIN USERS U ON U.USERS_ID = R.USERS_ID
+        WHERE R.REVIEW_ID = #{reviewId}
     </select>
 
    <!--댕냥바다-->

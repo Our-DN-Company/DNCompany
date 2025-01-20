@@ -27,7 +27,7 @@ public class ZipBoardDetailDTO {
 //        return zipCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 //    }
 
-//    public String getZipUpdatedAt () {
-//        return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//    }
+    public String getZipUpdatedAt () {
+        return zipUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 }
