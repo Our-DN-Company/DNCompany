@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -284,6 +285,11 @@ public class MypageService {
                 reviewList);
 
 
+    }
+
+    public MypageReviewDetailDTO findReviewById(Long reviewId){
+        return mypageMapper.selectReviewById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않은 리뷰ID : " + reviewId));
     }
 
 
