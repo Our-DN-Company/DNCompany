@@ -19,7 +19,9 @@
 </head>
 <body>
 <div class="container">
-    <th:block th:insert="~{fragment/header::header}"></th:block>
+    <th:block th:insert="~{fragment/header::header}">
+
+    </th:block>
     <main class="main-wrap">
             <!-- 필터 섹션 -->
             <div class="filter-section">
@@ -74,8 +76,8 @@
                         </div>
                     </div>
                     <div class="post-side">
-                        <div class="point" th:text="${help.helpPoint}+'p'">2,000P</div>
-                        <div class="price" th:text="${help.helpPrice}+'원'">40000원</div>
+                        <div class="pointPriceLine"><div class="point" th:text="${help.helpPoint}">2,000 </div> <img src="/images/help/pIcon.png" alt="포인트 아이콘" class="postIcon"></div>
+                        <div class="pointPriceLine"><div class="price" th:text="${help.helpPrice}">40000 </div> <img src="/images/help/wonIcon.png" alt="원 아이콘" class="postIcon"></div>
                     </div>
                 </div>
             </div>

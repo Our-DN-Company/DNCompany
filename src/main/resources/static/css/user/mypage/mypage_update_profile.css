@@ -20,6 +20,11 @@
     border: 1px solid #dbdbdb;
 }
 
+.main-wrap{
+    margin-top: 20px;
+    min-height: 800px;
+}
+
 .update_profile_kit {
     text-align: center;
     font-family: "Pretendard-Regular";
