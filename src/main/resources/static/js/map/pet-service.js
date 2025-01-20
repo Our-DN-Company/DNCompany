@@ -16,6 +16,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 // 마커를 담을 배열입니다
 var markers = [];
 var currentInfowindow = null;  // 열린 인포윈도우를 추적하는 변수
+var currentCustomOverlay = null;
 
 // 2. 지도 로드
 function resizeMap() {
@@ -144,6 +145,7 @@ function displayPlaces(places) {
     const markerMap = new Map();
     places.forEach(function (location) {
         const markerPosition = new kakao.maps.LatLng(location.lat, location.lng);
+        const markerKey = `${location.lat},${location.lng}`; // 고유 키 생성 (lat,lng 조합)
 
         const marker = new kakao.maps.Marker({
             position: markerPosition,
@@ -152,29 +154,76 @@ function displayPlaces(places) {
         });
 
         // Map 객체에 장소와 마커를 매핑
-        markerMap.set(location.store_name, marker);
+        markerMap.set(markerKey, marker);
 
         // 마커에 클릭 이벤트를 등록하여 인포윈도우를 표시
         kakao.maps.event.addListener(marker, 'click', function () {
-            // 기존 인포윈도우가 열려 있으면 닫기
-            if (currentInfowindow) currentInfowindow.close();
+            // // 기존 인포윈도우가 열려 있으면 닫기
+            // if (currentInfowindow) currentInfowindow.close();
+            //
+            // const content = `
+            //     <div class="custom-info-window">
+            //         <strong class="store-name">${location.store_name}</strong><br>
+            //         <span class="address">주소: ${location.address_road_name}</span><br>
+            //         <span class="phone">${location.phone_number || "전화번호 없음"}</span>
+            //     </div>
+            // `;
+            //
+            // const infowindow = new kakao.maps.InfoWindow({
+            //     content: content,
+            //     removable: true
+            // });
+            // infowindow.open(map, marker);
+            // currentInfowindow = infowindow;  // 열린 인포윈도우 추적
+            // // 마커 클릭 시 해당 마커의 위치로 지도 중심 이동
+            // map.setCenter(markerPosition);
 
-            const content = `
-                <div class="custom-info-window">
-                    <strong class="store-name">${location.store_name}</strong><br>
-                    <span class="address">주소: ${location.address_road_name}</span><br>
-                    <span class="phone">${location.phone_number || "전화번호 없음"}</span>
-                </div>
-            `;
+            // 기존 커스텀 오버레이가 열려 있으면 닫기
+            if (currentCustomOverlay) currentCustomOverlay.setMap(null);
+            const customContent = document.createElement("div");
+            customContent.className = "wrap";
+            customContent.innerHTML = `
+                <div class="wrap">
+                    <div class="info-custom">
+                        <div class="title"> ${location.store_name}
+                            <div class="close" onclick="closeOverlay()" title="닫기"></div>
+                        </div>
+                        <div class="body">
+                            <div class="desc">
+                                <div class="ellipsis">주소 : ${location.address_road_name}</div>
+                                <div class="jibun ellipsis">지번 : ${location.address_jibun_name}</div>
+                                <span class="phone">${location.phone_number || "전화번호 없음"}</span>
+                                <div>
+                                    <a href="${location.homepage_url !== '정보없음' ? location.homepage_url : '#'}" 
+                                       target="${location.homepage_url !== '정보없음' ? '_blank' : '_self'}" 
+                                       class="link"
+                                       onclick="${location.homepage_url === '정보없음' ? 'alert(&quot;해당 장소는 홈페이지 제공이 되지 않습니다.&quot;); return false;' : ''}">
+                                       홈페이지
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
 
-            const infowindow = new kakao.maps.InfoWindow({
-                content: content,
-                removable: true
+            // 닫기 버튼에 클릭 이벤트 추가
+            const closeBtn = customContent.querySelector(".close");
+            closeBtn.addEventListener("click", function () {
+                overlay.setMap(null);
+                currentCustomOverlay = null; // 현재 열려 있는 오버레이 추적 변수 초기화
             });
-            infowindow.open(map, marker);
-            currentInfowindow = infowindow;  // 열린 인포윈도우 추적
-            // 마커 클릭 시 해당 마커의 위치로 지도 중심 이동
-            map.setCenter(markerPosition);
+
+            // 마커 위에 커스텀오버레이를 표시합니다
+            // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+            const overlay = new kakao.maps.CustomOverlay({
+                content: customContent,
+                map: map,
+                position: markerPosition
+            });
+
+            currentCustomOverlay = overlay; // 열린 인포윈도우 추적
+            overlay.setMap(map); // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+            map.setCenter(markerPosition); // 마커 클릭 시 해당 위치로 지도 중심 이동
         });
 
         // 생성된 마커를 배열에 추가
@@ -191,6 +240,8 @@ function updatePlacesList(places, markerMap) {
     // , index
     places.forEach(function(place) {
         const listItem = document.createElement('li');
+        const markerKey = `${place.lat},${place.lng}`; // 고유 키 생성
+
         listItem.textContent = place.store_name;
         listItem.className = 'item';
         listItem.innerHTML = `
@@ -203,7 +254,7 @@ function updatePlacesList(places, markerMap) {
                 `;
         // 리스트 항목 클릭 이벤트 추가
         listItem.addEventListener("click", function () {
-            const marker = markerMap.get(place.store_name);
+            const marker = markerMap.get(markerKey);
             if (marker) {
                 kakao.maps.event.trigger(marker, "click"); // 마커의 클릭 이벤트를 트리거
             }
