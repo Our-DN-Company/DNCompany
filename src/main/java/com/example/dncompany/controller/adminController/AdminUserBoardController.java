@@ -100,7 +100,7 @@ public class AdminUserBoardController {
             @RequestBody Map<String, Long> request) {
 
 
-        if (userId == 1) {
+        if (userId == 2) {
             Map<String, Object> response = new HashMap<>();
             response.put("success", false);
             response.put("message", "어드민은 무적이라네");

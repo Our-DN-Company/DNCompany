@@ -45,6 +45,7 @@ reviewBtns.forEach((btn) => {
 
     // data 속성에서 ID 값들을 가져옴
     currentHelpOfferId = this.dataset.helpOfferId;
+    console.log(this);
     currentHelpId = this.dataset.helpId;
 
     console.log('helpOfferId:', currentHelpOfferId);
