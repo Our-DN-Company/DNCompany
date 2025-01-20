@@ -61,6 +61,7 @@ tr {
     justify-content: flex-end;
     align-items: center;
     margin-right: 20px;
+    font-size: 12px;
 
 
 }
@@ -68,11 +69,13 @@ tr {
 .mypage_main_member_name {
     margin-bottom: 20px;
 
+
     color: var(--main-color);
     font-family: "Pretendard-Regular";
 
     span {
         font-size: 30px;
+        font-family: "Ownglyph_ParkDaHyun";
     }
 }
 
@@ -292,10 +295,10 @@ tr {
     background-color: var(--main-color);
     color: white;
     text-align: center;
-
+    width: 100px;
     font-family: "Ownglyph_ParkDaHyun";
     border-radius: 5px;
-    padding: 10px 40px;
+    padding: 10px 20px;
     margin: 5px 20px;
     cursor: pointer;
 
