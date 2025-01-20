@@ -79,15 +79,16 @@
 
     <!--도와드려요-->
     <select id="MyPageMainHelpYouListById" resultType="HelpYouListDTO" parameterType="long">
-        SELECT RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE, HELP_ID, USERS_ID,LOGIN_ID
-        FROM( SELECT ROWNUM AS RNUM,HB.USERS_ID,HB.HELP_ID,HO.HELP_OFFER_ID ,HB.HELP_TITLE,HO.HELP_OFFER_STATUS,U.LOGIN_ID
-              FROM HELP_OFFER HO JOIN HELP_BOARD HB ON HO.HELP_ID = HB.HELP_ID
-                                 JOIN USERS U ON HO.USERS_ID = U.USERS_ID
-              WHERE HB.USERS_ID=#{usersId} AND HO.HELP_OFFER_STATUS='FENDING')
-
-
+        SELECT ROWNUM AS RNUM, HELP_OFFER_ID, HELP_OFFER_STATUS,HELP_TITLE, HELP_ID, USERS_ID,LOGIN_ID
+        FROM(
+            SELECT HB.USERS_ID,HB.HELP_ID,HO.HELP_OFFER_ID ,HB.HELP_TITLE,HO.HELP_OFFER_STATUS,U.LOGIN_ID
+            FROM HELP_OFFER HO JOIN HELP_BOARD HB ON HO.HELP_ID = HB.HELP_ID
+                JOIN USERS U ON HO.USERS_ID = U.USERS_ID
+            WHERE HB.USERS_ID=#{usersId} AND HO.HELP_OFFER_STATUS='FENDING'
+            ORDER BY HELP_OFFER_ID DESC
+        )
         <![CDATA[
-        WHERE RNUM <=3
+        WHERE ROWNUM <=3
         ]]>
     </select>
 
@@ -179,7 +180,7 @@
                 SELECT HELP_ID, USERS_ID, HELP_TITLE, HELP_CARE_TYPE, HELP_CARE_DATE, HELP_CREATED_AT
                 FROM HELP_BOARD
                 WHERE USERS_ID = #{usersId}
-                ORDER BY HELP_CARE_DATE
+                ORDER BY HELP_CARE_DATE DESC
             )
             <![CDATA[
             WHERE ROWNUM <= #{page.page} * #{page.size}
@@ -392,6 +393,7 @@
                                JOIN USERS U ON U.USERS_ID = DB.USERS_ID
                                LEFT JOIN PRODUCT_IMG PI ON P.PRODUCT_ID = PI.PRODUCT_ID
                       WHERE DL.USERS_ID = #{usersId}
+                      ORDER BY DL.DN_ID
                   )
             <![CDATA[
              WHERE ROWNUM <= #{page.page} * #{page.size}

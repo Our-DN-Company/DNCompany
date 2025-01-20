@@ -142,6 +142,7 @@
 
 .post-card {
     background-color: white;
+    cursor: pointer;
 
     padding: 16px;
     display: flex;
@@ -252,3 +253,5 @@
     color: white;
     border-color: rgb(95, 0, 128);
 }
+
+

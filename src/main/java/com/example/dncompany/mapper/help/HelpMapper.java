@@ -4,6 +4,7 @@ import com.example.dncompany.dto.help.HelpListDTO;
 import com.example.dncompany.dto.help.HelpDetailDTO;
 import com.example.dncompany.dto.help.HelpSearchDTO;
 import com.example.dncompany.dto.help.HelpWriteDTO;
+import com.example.dncompany.dto.page.PageRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,7 +24,8 @@ public interface HelpMapper {
     Optional<HelpDetailDTO> selectHelpDetail(Long helpId);
 
     // 검색 기능 추가
-    List<HelpListDTO> searchHelpList(HelpSearchDTO searchDTO);
+    List<HelpListDTO> searchHelpList(@Param("cond") HelpSearchDTO searchDTO,
+                                     @Param("page") PageRequestDTO pageRequestDTO);
 
     // 제안 상태 업데이트
     void updateHelpOfferStatus(@Param("offerId") Long offerId, @Param("status") String status);
