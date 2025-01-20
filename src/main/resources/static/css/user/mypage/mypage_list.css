@@ -18,6 +18,12 @@ td {
 td {
   cursor: pointer;
 }
+
+.main-wrap{
+  margin-top: 20px;
+  min-height: 800px;
+}
+
 .mypage_list {
   display: flex;
   flex-direction: column;
