@@ -12,7 +12,7 @@
 
     <!--  게시글 전체 정보  -->
     <select id="selectAllQnABoards" resultType="QnADTO">
-        SELECT QB.QNA_ID, QB.QNA_TITLE, QB.QNA_CONTENT, QB.QNA_UPDATE_AT,
+        SELECT QB.QNA_ID, QB.QNA_TITLE, QB.QNA_CONTENT, QB.QNA_UPDATE_AT AS qnaUpdateAt,
                U.USERS_ID, U.NICKNAME
         FROM QNA_BOARD QB
                  JOIN USERS U ON QB.USERS_ID = U.USERS_ID
@@ -21,7 +21,7 @@
 
     <!--  게시글 상세 정보  -->
     <select id="QnASelectById" parameterType="long" resultType="QnADetailDTO">
-        SELECT QB.QNA_ID, QB.QNA_TITLE, QB.QNA_CONTENT, QB.QNA_UPDATE_AT,
+        SELECT QB.QNA_ID, QB.QNA_TITLE, QB.QNA_CONTENT, QB.QNA_UPDATE_AT AS qnaUpdateAt,
                U.USERS_ID, U.NICKNAME
         FROM QNA_BOARD QB
                  JOIN USERS U ON QB.USERS_ID = U.USERS_ID
@@ -43,7 +43,7 @@
 
     <!--  페이징 처리  -->
     <select id="selectBySearchCondWithPage" resultType="QnaDTO">
-        SELECT RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT AS qnaUpdatedAt,
+        SELECT RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT AS qnaUpdateAt,
                 USERS_ID, NICKNAME, ROLE
             FROM (
                 SELECT ROWNUM AS RNUM, QNA_ID, QNA_TITLE, QNA_CONTENT, QNA_UPDATE_AT,

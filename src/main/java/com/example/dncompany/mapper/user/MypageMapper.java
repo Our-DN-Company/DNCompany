@@ -97,6 +97,8 @@ public interface MypageMapper {
 
     int countReviewList(Long usersId);
 
+    Optional<MypageReviewDetailDTO> selectReviewById(Long reviewId);
+
 
 
     //dnSell

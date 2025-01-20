@@ -62,7 +62,7 @@
                         <div class="qaDetail_qaDetailInfo">
                             <div>
                                 <div class="qaDetail_qaDetailUser" th:text="${qna.nickname}"></div>
-                                <div class="qaDetail_qaDetailDate" th:text="${qna.qnaUpdateAt}">작성 날짜</div>
+                                <div class="qaDetail_qaDetailDate" th:text="'작성일 : ' + ${qna.qnaUpdateAt}">작성 날짜</div>
                             </div>
                         </div>
                     </div>

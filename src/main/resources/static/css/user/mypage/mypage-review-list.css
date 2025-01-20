@@ -1,0 +1,207 @@
+table {
+    border-spacing: 0;
+}
+
+tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* 모달 창 */
+
+.review-modal-box {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    border-radius: 12px;
+    background-color: #fff;
+    padding: 40px 30px;
+    border: 1px solid rgb(95, 0, 128);
+    background-color: #fff;
+    z-index: 900;
+}
+
+
+.review-modal__top {
+    font-size: 20px;
+    font-family: "Pretendard-Regular";
+    padding-bottom: 10px;
+
+    span {
+        font-family: "Ownglyph_ParkDaHyun";
+        color: var(--main-color);
+        font-size: 30px;
+    }
+    &:first-child{
+        margin-bottom: 10px;
+    }
+
+    .review-modal-emoji{
+        font-size: 20px;
+    }
+}
+
+.review-modal__tw-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-modal__title {
+    width: 75%;
+    box-sizing: border-box;
+    display: inline-block;
+    background: #F3F4F8;
+    border: 0;
+    border-radius: 10px;
+    resize: none;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-family: "Pretendard-Regular";
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.review-modal__writer{
+    width: 22%;
+    box-sizing: border-box;
+    display: inline-block;
+    /*background: #F3F4F8;*/
+    border: 0;
+    /*border-radius: 10px;*/
+    resize: none;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-family: "Pretendard-Regular";
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.review-content_box {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    background: #F3F4F8;
+    border: 0;
+    border-radius: 10px;
+    height: 200px;
+    resize: none;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-family: "Pretendard-Regular";
+
+    max-height: 450px;
+    overflow: auto;
+}
+
+
+.review__button {
+    width: 100%;
+    border-top: 1px solid rgb(247, 247, 247);
+    -webkit-box-pack: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+
+    .review_btn{
+        display: flex;
+        padding-top: 30px;
+        gap: 10px;
+    }
+}
+
+.review-modal-close-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    border: 1px solid rgb(95, 0, 128);
+    padding: 10px 15px 10px 15px;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(95, 0, 128);
+    background: transparent;
+
+    &:hover {
+        color: #fff;
+        background-color: rgb(95, 0, 128);
+    }
+}
+
+/* 페이징 처리 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 30px 0;
+}
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.page-btn:hover {
+    border-color: rgb(189, 118, 255);
+    color: rgb(189, 118, 255);
+}
+
+.page-btn.active {
+    background: rgb(189, 118, 255);
+    border-color: rgb(189, 118, 255);
+    color: #fff;
+}
+
+.page-btn.prev,
+.page-btn.next {
+    width: 40px;
+}
+
+/* 별점 */
+.star_rating {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.star_rating .star {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    display: inline-block;
+    background: url('/images/user/mypage/empty-star.png') no-repeat;
+    background-size: 100%;
+    cursor: pointer;
+}
+
+.star_rating .star.on {
+    background: url('/images/user/mypage/yellow-star.png') no-repeat;
+    background-size: 100%;
+    filter: brightness(1.0);
+    /* 활성화된 별 강조 효과 */
+}
