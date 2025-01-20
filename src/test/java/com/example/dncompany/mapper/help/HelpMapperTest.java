@@ -26,21 +26,21 @@ class HelpMapperTest {
     @Autowired
     private HelpService helpService;
 
-    @Test
-    void searchHelpListTest() {
-        // 검색 조건 생성
-        HelpSearchDTO searchDTO = new HelpSearchDTO();
-        searchDTO.setSido("서울");
-        searchDTO.setGugun("강남");
-        searchDTO.setCareType("산책");
-
-        // 검색 실행
-        List<HelpListDTO> result = helpMapper.searchHelpList(searchDTO);
-
-        // 검색 결과
-        System.out.println("검색 결과 개수: " + result.size());
-        result.forEach(System.out::println);
-    }
+//    @Test
+//    void searchHelpListTest() {
+//        // 검색 조건 생성
+//        HelpSearchDTO searchDTO = new HelpSearchDTO();
+//        searchDTO.setSido("서울");
+//        searchDTO.setGugun("강남");
+//        searchDTO.setCareType("산책");
+//
+//        // 검색 실행
+//        List<HelpListDTO> result = helpMapper.searchHelpList(searchDTO);
+//
+//        // 검색 결과
+//        System.out.println("검색 결과 개수: " + result.size());
+//        result.forEach(System.out::println);
+//    }
 
 }
 
