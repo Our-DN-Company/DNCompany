@@ -37,6 +37,7 @@ relayout();
 
 // 3. 페이지 처리 함수 불러오기
 // pagination 데이터 변수 정의
+
 var pagination = {
     current: 1, // 현재 페이지 번호
     perPage: 10, // 한 페이지당 가져올 데이터 개수
@@ -109,6 +110,7 @@ petServiceMapApi(function (mapApi) {
             alert("검색어를 입력해주세요.");
             return;
         }
+        keyword = keyword.trim();
 
         // mapApi.data에서 키워드로 필터링
         var filteredData = mapApi.data.filter(function (place) {
@@ -135,6 +137,7 @@ petServiceMapApi(function (mapApi) {
         const markerMap = new Map();
         places.forEach(function(location) {
             const markerPosition = new kakao.maps.LatLng(location.lat, location.lng);
+            const markerKey = `${location.lat},${location.lng}`; // 고유 키 생성 (lat,lng 조합)
 
             const marker = new kakao.maps.Marker({
                 position: markerPosition,
@@ -142,8 +145,8 @@ petServiceMapApi(function (mapApi) {
                 title: location.store_name
             });
 
-            // Map 객체에 장소와 마커를 매핑
-            markerMap.set(location.store_name, marker);
+            // Map 객체에 장소 위치와 마커를 매핑
+            markerMap.set(markerKey, marker);
 
             // 마커에 클릭 이벤트를 등록하여 인포윈도우를 표시
             kakao.maps.event.addListener(marker, 'click', function() {
@@ -182,9 +185,10 @@ petServiceMapApi(function (mapApi) {
             const placesList = document.getElementById('placesList');
             placesList.innerHTML = ''; // 기존 리스트 초기화
 
-            // , index
             places.forEach(function(place) {
                 const listItem = document.createElement('li');
+                const markerKey = `${place.lat},${place.lng}`; // 고유 키 생성
+
                 listItem.textContent = place.store_name;
                 listItem.className = 'item';
                 listItem.innerHTML = `
@@ -192,12 +196,12 @@ petServiceMapApi(function (mapApi) {
                         <h5>${place.store_name}</h5>
                         <span>도로명 주소 : ${place.address_road_name}</span>
                         <span>지번 : ${place.address_jibun_name}</span>
-                        <span>${place.phone_number || '전화번호 없음'}</span>
+                        <span>전화번호 : ${place.phone_number || '전화번호 없음'}</span>
                     </div>
                 `;
                 // 리스트 항목 클릭 이벤트 추가
                 listItem.addEventListener("click", function () {
-                    const marker = markerMap.get(place.store_name);
+                    const marker = markerMap.get(markerKey);
                     if (marker) {
                         kakao.maps.event.trigger(marker, "click"); // 마커의 클릭 이벤트를 트리거
                     }
