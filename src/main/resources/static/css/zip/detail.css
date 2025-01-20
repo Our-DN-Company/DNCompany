@@ -31,7 +31,7 @@
     font-size: 20px;
     text-align: center;
     background-color: rgb(189, 118, 255);
-    color: black;
+    color: #fff;
     border: none;
     border-radius: 8px;
     display: inline-block;
@@ -79,6 +79,13 @@
     gap: 10px;
 }
 
+.thumbButton_thumbButton{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+
 .thumbButton_thumbButtonWrapper {
     display: flex;
     gap: 10px;
@@ -90,11 +97,14 @@
     justify-content: center;
     align-items: center;
     gap: 3px;
-    width: 60px;
-    height: 60px;
+    width: 75px;
+    height: 75px;
+    background-color: #fff;
+    border: none;
     border-radius: 50%;
-    border: 1px solid #d4d2d9;
 }
+
+
 
 /* 작성글 삭제/수정 버튼 */
 .delete_modify_Btn {
@@ -117,11 +127,11 @@
     letter-spacing: 1px;
     position: absolute;
     display: flex;
-    border: 1px solid #fffdf4;
-    color: black;
+    border: 1px solid rgb(95, 0, 128);
+    color: #fff;
     padding: 0 10px;
     border-radius: 15px;
-    background-color: lightcoral;
+    background-color: rgb(95, 0, 128);
     line-height: 34px;
     text-align: center;
     cursor: pointer;
@@ -141,11 +151,11 @@
     letter-spacing: 1px;
     position: absolute;
     display: flex;
-    border: 1px solid #fffdf4;
-    color: black;
+    border: 1px solid rgb(95, 0, 128);
+    color: rgb(95, 0, 128);
     padding: 0 12px;
     border-radius: 15px;
-    background-color: rgb(189, 118, 255);
+    background-color: #fff;
     line-height: 34px;
     text-align: center;
     cursor: pointer;
@@ -271,7 +281,7 @@
     border: none;
     margin-left: 10px;
     background-color: rgb(189, 118, 255);
-    color: black;
+    color: #fff;
 }
 
 /* 댓글 리스트 */
