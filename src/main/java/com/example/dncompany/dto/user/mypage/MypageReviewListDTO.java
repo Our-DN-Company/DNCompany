@@ -13,5 +13,7 @@ public class MypageReviewListDTO {
     private String reviewContent;
     private LocalDate reviewCreatedAt;
     private Long usersId;
+    private String reviewAiAssessment;
+
 
 }
