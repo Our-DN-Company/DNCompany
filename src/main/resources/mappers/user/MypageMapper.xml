@@ -281,7 +281,7 @@
     <!--받은리뷰-->
     <select id="reviewListPage" resultType="MypageReviewListDTO">
         SELECT
-            RNUM, REVIEW_ID, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, USERS_ID, REVIEW_AI_ASSESSMENT
+            RNUM, REVIEW_ID, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, USERS_ID, REVIEW_STAR_RATING, REVIEW_AI_ASSESSMENT
         FROM(
                 SELECT
                     ROWNUM AS RNUM,
@@ -290,6 +290,7 @@
                     REVIEW_CONTENT,
                     REVIEW_CREATED_AT,
                     USERS_ID,
+                    REVIEW_STAR_RATING,
                     REVIEW_AI_ASSESSMENT
                 FROM (
                          SELECT
@@ -298,6 +299,7 @@
                              R.REVIEW_CONTENT,
                              R.REVIEW_CREATED_AT,
                              R.USERS_ID,
+                             R.REVIEW_STAR_RATING,
                              R.REVIEW_AI_ASSESSMENT
                          FROM REVIEW R
                          WHERE R.USERS_ID = #{usersId}
