@@ -36,6 +36,7 @@
                     <col style="width:5%" />
                     <col style="width:10%" />
                     <col />
+                    <col style="width:20%" />
                     <col style="width:15%" />
                 </colgroup>
 
@@ -43,10 +44,11 @@
                     <th>순번</th>
                     <th>만족도</th>
                     <th>제목</th>
+                    <th>별점</th>
                     <th>작성일</th>
                 </tr>
                 <!-- 쪽지 컨텐츠 -->
-                <tr class="review-list" th:each="mypageReviewList:${pageDTO.list}" th:object="${mypageReviewList}" th:data-review-id="*{reviewId}">
+                <tr class="review-list" th:each="review:${pageDTO.list}" th:object="${review}" th:data-review-id="*{reviewId}">
                     <td th:text="*{rnum}">샘플 작성날짜</td>
                     <td>
                         <th:block th:switch="*{reviewAiAssessment}">
@@ -59,6 +61,16 @@
 
 
                     <td th:text="*{reviewTitle}">
+                    </td>
+
+                    <td>
+                        <div class="review__star">
+                            <div class="star_rating">
+                                <span class="star"
+                                      th:each="i : ${#numbers.sequence(1,5)}"
+                                      th:classappend="${i <= review.reviewStarRating ? 'on' : ''}"></span>
+                            </div>
+                        </div>
                     </td>
 
                     <td th:text="*{reviewCreatedAt}"></td>

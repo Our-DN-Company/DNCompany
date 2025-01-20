@@ -177,3 +177,31 @@ tr:hover {
 .page-btn.next {
     width: 40px;
 }
+
+/* 별점 */
+.star_rating {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.star_rating .star {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    display: inline-block;
+    background: url('/images/user/mypage/empty-star.png') no-repeat;
+    background-size: 100%;
+    cursor: pointer;
+}
+
+.star_rating .star.on {
+    background: url('/images/user/mypage/yellow-star.png') no-repeat;
+    background-size: 100%;
+    filter: brightness(1.0);
+    /* 활성화된 별 강조 효과 */
+}

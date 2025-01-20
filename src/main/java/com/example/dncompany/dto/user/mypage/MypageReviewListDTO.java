@@ -15,6 +15,6 @@ public class MypageReviewListDTO {
     private LocalDate reviewCreatedAt;
     private Long usersId;
     private String reviewAiAssessment;
-
+    private Integer reviewStarRating;
 
 }
