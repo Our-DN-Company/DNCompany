@@ -22,15 +22,14 @@
       <th:block th:insert="~{fragment/header::header}">
 
       </th:block>
-      <div class="main-wrap">
-        <main>
+      <main class="main-wrap">
+        <div class="main-wrap-map">
           <p>반려동물 동반 가능 시설 정보</p>
           <!-- 지도 정보 -->
           <div class="map_wrap">
             <div id="map"></div>
             <div id="menu_wrap" class="bg_white">
               <div class="option-wrap">
-
                 <form onsubmit="event.preventDefault(); searchPlaces(document.getElementById('keyword').value);">
                     <div class="option">
                       <input
@@ -64,8 +63,8 @@
             </div>
           </div>
           <div th:insert="~{/openAiChat/open_ai_chat}"></div>
-        </main>
-      </div>
+        </div>
+      </main>
       <th:block th:insert="~{fragment/footer::footer}">
 
       </th:block>

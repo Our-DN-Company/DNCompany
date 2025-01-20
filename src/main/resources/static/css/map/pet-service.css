@@ -1,4 +1,4 @@
-.main-wrap {
+.main-wrap-map {
   margin-top: 100px;
   padding: 80px 50px;
   border: 2px solid #e8e8e8;
@@ -198,17 +198,18 @@
 #placesList .item .marker_15 {
   background-position: 0 -654px;
 }
+
 #pagination {
   margin: 10px auto;
   text-align: center;
 }
-.pagination a {
+#pagination a {
   margin: 0 5px;
   text-decoration: none;
-  color: #007bff;
+  color: rgb(121,121,121);
 }
 
-.pagination a.on {
+#pagination a.on {
   font-weight: bold;
   color: #000;
 }

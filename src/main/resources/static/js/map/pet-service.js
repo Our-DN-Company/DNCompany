@@ -68,16 +68,32 @@ function fetchPlaces(page, perPage) {
 
 // 검색결과 목록 하단에 페이지번호를 표시하는 함수
 function displayPagination(pagination) {
-    var paginationEl = document.getElementById('pagination'),
-        fragment = document.createDocumentFragment();
+    const paginationEl = document.getElementById('pagination');
+    const fragment = document.createDocumentFragment();
+    const groupSize = 5; // 한 번에 표시할 페이지 수
+    const currentGroup = Math.ceil(pagination.current / groupSize); // 현재 페이지 그룹 계산
+    const startPage = (currentGroup - 1) * groupSize + 1; // 현재 그룹의 시작 페이지
+    const endPage = Math.min(startPage + groupSize - 1, pagination.last); // 현재 그룹의 끝 페이지
 
     // 기존 페이지 번호 초기화
     while (paginationEl.hasChildNodes()) {
         paginationEl.removeChild(paginationEl.lastChild);
     }
 
-    for (var i = 1; i <= pagination.last; i++) {
-        var el = document.createElement('a');
+    // 이전 그룹 버튼 추가
+    if (startPage > 1) {
+        const prevGroupButton = document.createElement('a');
+        prevGroupButton.href = "#";
+        prevGroupButton.innerHTML = "이전";
+        prevGroupButton.onclick = function () {
+            pagination.gotoPage(startPage - 1);
+        };
+        fragment.appendChild(prevGroupButton);
+    }
+
+    // 현재 그룹의 페이지 번호 추가
+    for (let i = startPage; i <= endPage; i++) {
+        const el = document.createElement('a');
         el.href = "#";
         el.innerHTML = i;
 
@@ -93,6 +109,19 @@ function displayPagination(pagination) {
 
         fragment.appendChild(el);
     }
+
+    // 다음 그룹 버튼 추가
+    if (endPage < pagination.last) {
+        const nextGroupButton = document.createElement('a');
+        nextGroupButton.href = "#";
+        nextGroupButton.innerHTML = "다음";
+        nextGroupButton.onclick = function () {
+            pagination.gotoPage(endPage + 1);
+        };
+        fragment.appendChild(nextGroupButton);
+    }
+
+    // 추가된 요소를 DOM에 적용
     paginationEl.appendChild(fragment);
 }
 
@@ -131,12 +160,12 @@ function displayPlaces(places) {
             if (currentInfowindow) currentInfowindow.close();
 
             const content = `
-                        <div style="padding:5px;">
-                            <strong>${location.store_name}</strong><br>
-                            주소: ${location.address_road_name}<br>
-                            전화번호: ${location.phone_number || "전화번호 없음"}
-                        </div>
-                    `;
+                <div class="custom-info-window">
+                    <strong class="store-name">${location.store_name}</strong><br>
+                    <span class="address">주소: ${location.address_road_name}</span><br>
+                    <span class="phone">${location.phone_number || "전화번호 없음"}</span>
+                </div>
+            `;
 
             const infowindow = new kakao.maps.InfoWindow({
                 content: content,
@@ -190,8 +219,7 @@ petServiceMapApi(function (mapApi) {
     pagination.current = 1; // 현재 페이지 초기화
     fetchPlaces(pagination.current, pagination.perPage);
 
-    function
-    searchPlaces(keyword) {
+    function searchPlaces(keyword) {
         if (!keyword || keyword.trim() === "") {
             alert("검색어를 입력해주세요.");
             return;
@@ -202,12 +230,23 @@ petServiceMapApi(function (mapApi) {
             console.error("Invalid mapApi data");
             return;
         }
+        console.log("mapApi.data before filtering:", mapApi.data);
 
         // mapApi.data에서 키워드로 필터링
         var filteredData = mapApi.data.filter(function (place) {
-            return place && // place가 null 또는 undefined가 아닌지 확인
-                (place.store_name.includes(keyword)|| // 키워드가 store_name에 포함된 항목만 반환
-                place.address_road_name.includes(keyword));  // 키워드가 address_road_name에 포함된 항목만 반환
+            if (!place) {
+                console.warn("Null or undefined place encountered:", place);
+                return false;
+            }
+            if (!place.store_name || !place.address_road_name) {
+                console.warn("Missing fields in place object:", place);
+                return false;
+            }
+            return (
+                place.store_name.includes(keyword) ||
+                place.address_road_name.includes(keyword) ||
+                place.category_business_store_name.includes(keyword)
+            );
         });
 
         // 필터링된 데이터 확인 (디버깅용)
