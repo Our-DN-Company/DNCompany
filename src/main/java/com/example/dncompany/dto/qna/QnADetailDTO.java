@@ -12,10 +12,12 @@ public class QnADetailDTO {
     private Long qnaId;
     private String qnaTitle;
     private String qnaContent;
-    private LocalDateTime qnaCreateAt;
+//    private LocalDateTime qnaCreateAt;
     private LocalDateTime qnaUpdateAt;
     private Long usersId;
     private String nickname;
 
-
+    public String getQnaUpdateAt() {
+        return qnaUpdateAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 }

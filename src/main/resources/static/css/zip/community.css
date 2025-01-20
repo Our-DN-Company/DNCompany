@@ -354,6 +354,7 @@
   gap: 40px;
   font-size: 13px;
   line-height: 16px;
+
   color: #868688;
 }
 
@@ -371,10 +372,12 @@
 
 .qaList_nickname {
   color: black;
+  font-weight: 700;
 }
 
 .qaList_communityType {
   font-size: 13px;
+  font-weight: 700;
 }
 
 .qaList_labelWrapper {

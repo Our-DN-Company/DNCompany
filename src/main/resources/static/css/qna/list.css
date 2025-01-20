@@ -364,13 +364,19 @@
   border-radius: 50%;
 }
 
+.qaList_qaListAbout {
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .qaList_nickname {
   color: black;
 }
 
-.qaList_communityType {
-  color: black;
-}
+/*.qaList_qnaType {*/
+/*  font-size: 13px;*/
+/*  font-weight: 700;*/
+/*}*/
 
 .qaList_labelWrapper {
   padding-right: 16px;

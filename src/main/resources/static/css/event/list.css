@@ -76,16 +76,17 @@
 
 /* 하단 정보 박스 */
 .mainConent_mainInfo {
+    font-family: "Pretendard-Regular";
     display: flex;
     gap: 10px;
     justify-content: space-between;
-    font-size: 12px;
     color: #868688;
     letter-spacing: 2px;
 }
 
 .mainContent_subbox {
-    flex: 1;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 /* 페이지 영역 */

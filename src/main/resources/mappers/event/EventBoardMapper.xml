@@ -12,7 +12,7 @@
 
     <!--  이벤트 게시글 전체 정보  -->
     <select id="selectAllEventBoards" resultType="EventBoardDTO">
-        SELECT EB.EVENT_ID, EB.EVENT_TITLE, EB.EVENT_UPDATE_AT, EB.EVENT_CONTENT,
+        SELECT EB.EVENT_ID, EB.EVENT_TITLE, EB.EVENT_CREATED_AT AS eventCreatedAt, EB.EVENT_CONTENT,
                U.USERS_ID,
                EI.EVENT_IMG_ID, EI.EVENT_ORIGINAL_FILENAME, EI.EVENT_UUID, EI.EVENT_PATH, EI.EVENT_EXTENSION
         FROM EVENT_BOARD EB
@@ -23,7 +23,7 @@
 
     <!-- 이벤트 게시글 상세 정보  -->
     <select id="selectById" parameterType="long" resultType="EventBoardDetailDTO">
-        SELECT EB.EVENT_ID, EB.EVENT_TITLE, EB.EVENT_UPDATE_AT, EB.EVENT_CONTENT,
+        SELECT EB.EVENT_ID, EB.EVENT_TITLE, EB.EVENT_CREATED_AT AS eventCreatedAt, EB.EVENT_CONTENT,
                U.USERS_ID,
                EI.EVENT_IMG_ID, EI.EVENT_ORIGINAL_FILENAME, EI.EVENT_UUID, EI.EVENT_PATH, EI.EVENT_EXTENSION
         FROM EVENT_BOARD EB

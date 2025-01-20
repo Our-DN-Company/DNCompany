@@ -12,7 +12,7 @@
 
     <!--  게시글 댓글 조회  -->
     <select id="selectListByZipId" parameterType="long" resultType="ZipAnswerDTO">
-        SELECT ZA.ZIP_ANSWER_ID, ZIP_ANSWER_CONTENT, ZA.ZIP_ANSWER_CREATED_AT, ZA.ZIP_ANSWER_UPDATED_AT, ZA.ZIP_ID,
+        SELECT ZA.ZIP_ANSWER_ID, ZIP_ANSWER_CONTENT, ZA.ZIP_ANSWER_CREATED_AT, ZA.ZIP_ANSWER_UPDATED_AT AS zipAnswerUpdatedAt, ZA.ZIP_ID,
                U.USERS_ID, U.NICKNAME
         FROM ZIP_ANSWER ZA
                  JOIN USERS U ON ZA.USERS_ID = U.USERS_ID

@@ -13,7 +13,7 @@ public class QnADTO {
     private String qnaTitle;
     private String qnaContent;
 //    private LocalDateTime qnaCreatedAt;
-    private LocalDateTime qnaUpdatedAt;
+    private LocalDateTime qnaUpdateAt;
     private String qnaCheckStatus;
     private Long usersId;
     private String nickname;
@@ -23,7 +23,7 @@ public class QnADTO {
 //    }
 
     public String getQnaUpdateAt() {
-        return qnaUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return qnaUpdateAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public String getQnaContent() {
