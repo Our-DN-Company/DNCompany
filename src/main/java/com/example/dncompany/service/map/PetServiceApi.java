@@ -20,12 +20,17 @@ public class PetServiceApi {
     public PetServiceResponse getPetServiceAPI() {
         // Base URL
         String baseUrl = "https://api.odcloud.kr/api/15111389/v1/uddi:41944402-8249-4e45-9e9d-a52d0a7db1cc";
+        PetServiceResponse response = new PetServiceResponse();
+
+        for(int i = 1; i <= 10; i++) {
+            response.setPage(i);
+        };
 
 //        PetServiceResponse petServiceResponsePageAndPerPage = new PetServiceResponse();
         // Build URI with query parameters
         String finalUrl = UriComponentsBuilder.fromHttpUrl(baseUrl)
                 .queryParam("page", 1)
-                .queryParam("perPage", 10)
+                .queryParam("perPage", 1000)
                 .queryParam("returnType", "JSON") // 선택 사항
                 .toUriString();
 

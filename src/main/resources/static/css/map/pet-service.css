@@ -1,4 +1,4 @@
-.main-wrap {
+.main-wrap-map {
   margin-top: 100px;
   padding: 80px 50px;
   border: 2px solid #e8e8e8;
@@ -198,17 +198,155 @@
 #placesList .item .marker_15 {
   background-position: 0 -654px;
 }
+
 #pagination {
   margin: 10px auto;
   text-align: center;
 }
-.pagination a {
+#pagination a {
   margin: 0 5px;
   text-decoration: none;
-  color: #007bff;
+  color: rgb(121,121,121);
 }
 
-.pagination a.on {
+#pagination a.on {
   font-weight: bold;
   color: #000;
+}
+
+/*인포윈도우 설정*/
+.custom-info-window {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  font-family: Arial, sans-serif;
+}
+
+.custom-info-window .store-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.custom-info-window .address,
+.custom-info-window .phone {
+  font-size: 14px;
+  color: #555;
+}
+
+.custom-info-window {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: scale(0.9);
+  opacity: 0.8;
+}
+.custom-info-window:hover {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/*커스텀 오버레이 설정*/
+.wrap {
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+  width: 288px;
+  height: 132px;
+  margin-left: -144px;
+  text-align: left;
+  font-size: 12px;
+  font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+  line-height: 1.5;
+}
+
+.wrap * {
+  padding: 0;
+  margin: 0;
+}
+
+.wrap .info-custom {
+  width: 286px;
+  height: 120px;
+  border-radius: 5px;
+  border-bottom: 2px solid #ccc;
+  border-right: 1px solid #ccc;
+  overflow: hidden;
+  background: #fff;
+}
+
+.wrap .info-custom:nth-child(1) {
+  border: 0;
+  box-shadow: 0px 1px 2px #888;
+}
+
+.info-custom .title {
+  padding: 5px 0 0 10px;
+  height: 30px;
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.info-custom .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #888;
+  width: 17px;
+  height: 17px;
+  background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.info-custom .close:hover {
+  cursor: pointer;
+}
+
+.info-custom .body {
+  position: relative;
+  overflow: hidden;
+}
+
+.info-custom .desc {
+  position: relative;
+  margin: 13px 0 0 90px;
+  height: 75px;
+}
+
+.desc .ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.desc .jibun {
+  font-size: 11px;
+  color: #888;
+  margin-top: -2px;
+}
+
+.info-custom .img {
+  position: absolute;
+  top: 6px;
+  left: 5px;
+  width: 73px;
+  height: 71px;
+  border: 1px solid #ddd;
+  color: #888;
+  overflow: hidden;
+}
+
+.info-custom:after {
+  content: '';
+  position: absolute;
+  margin-left: -12px;
+  left: 50%;
+  bottom: 0;
+  width: 22px;
+  height: 12px;
+  background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+
+.info-custom .link {
+  color: #5085BB;
 }

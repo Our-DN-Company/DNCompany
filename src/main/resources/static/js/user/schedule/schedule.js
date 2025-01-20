@@ -48,13 +48,13 @@ function insertSchedule(data) {
         // info.event.title : info내부에 있는 event 객체에서  title을 가져옴
         eventClick: function (info) {
             // 이벤트에 있는 title을 출력
-            alert("내 일정 " + info.event.title);
+            // alert("내 일정 " + info.event.title);
             // 해당 이벤트의 x,y 좌표를 출력해줌
-            alert("Coordinates" + info.jsEvent.pageX + "," + info.jsEvent.pageY);
+            // alert("Coordinates" + info.jsEvent.pageX + "," + info.jsEvent.pageY);
 
-            alert("Views : " + info.view.type);
+            // alert("Views : " + info.view.type);
 
-            info.el.style.borderColor = "black";
+            info.el.style.borderColor = rgb(95, 0, 128, 0.1);
         },
 
         // 캘린더 사이즈 조절

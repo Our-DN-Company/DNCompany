@@ -16,6 +16,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 // 마커를 담을 배열입니다
 var markers = [];
 var currentInfowindow = null;  // 열린 인포윈도우를 추적하는 변수
+var currentCustomOverlay = null;
 
 // 2. 지도 로드
 function resizeMap() {
@@ -68,16 +69,32 @@ function fetchPlaces(page, perPage) {
 
 // 검색결과 목록 하단에 페이지번호를 표시하는 함수
 function displayPagination(pagination) {
-    var paginationEl = document.getElementById('pagination'),
-        fragment = document.createDocumentFragment();
+    const paginationEl = document.getElementById('pagination');
+    const fragment = document.createDocumentFragment();
+    const groupSize = 5; // 한 번에 표시할 페이지 수
+    const currentGroup = Math.ceil(pagination.current / groupSize); // 현재 페이지 그룹 계산
+    const startPage = (currentGroup - 1) * groupSize + 1; // 현재 그룹의 시작 페이지
+    const endPage = Math.min(startPage + groupSize - 1, pagination.last); // 현재 그룹의 끝 페이지
 
     // 기존 페이지 번호 초기화
     while (paginationEl.hasChildNodes()) {
         paginationEl.removeChild(paginationEl.lastChild);
     }
 
-    for (var i = 1; i <= pagination.last; i++) {
-        var el = document.createElement('a');
+    // 이전 그룹 버튼 추가
+    if (startPage > 1) {
+        const prevGroupButton = document.createElement('a');
+        prevGroupButton.href = "#";
+        prevGroupButton.innerHTML = "이전";
+        prevGroupButton.onclick = function () {
+            pagination.gotoPage(startPage - 1);
+        };
+        fragment.appendChild(prevGroupButton);
+    }
+
+    // 현재 그룹의 페이지 번호 추가
+    for (let i = startPage; i <= endPage; i++) {
+        const el = document.createElement('a');
         el.href = "#";
         el.innerHTML = i;
 
@@ -93,14 +110,163 @@ function displayPagination(pagination) {
 
         fragment.appendChild(el);
     }
+
+    // 다음 그룹 버튼 추가
+    if (endPage < pagination.last) {
+        const nextGroupButton = document.createElement('a');
+        nextGroupButton.href = "#";
+        nextGroupButton.innerHTML = "다음";
+        nextGroupButton.onclick = function () {
+            pagination.gotoPage(endPage + 1);
+        };
+        fragment.appendChild(nextGroupButton);
+    }
+
+    // 추가된 요소를 DOM에 적용
     paginationEl.appendChild(fragment);
+}
+
+// 검색시 기존 마커는 제거하는 로직
+function clearMarkers() {
+    markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
+    markers = [];
+}
+
+function displayPlaces(places) {
+    // 검색 전 기존 마커 지우는 로직
+    clearMarkers();
+
+    // 필터링된 장소 확인 (디버깅용)
+    console.log("Displaying Places:", places);
+
+    // JSON 데이터를 기반으로 마커를 생성하고 지도에 표시
+    const markerMap = new Map();
+    places.forEach(function (location) {
+        const markerPosition = new kakao.maps.LatLng(location.lat, location.lng);
+        const markerKey = `${location.lat},${location.lng}`; // 고유 키 생성 (lat,lng 조합)
+
+        const marker = new kakao.maps.Marker({
+            position: markerPosition,
+            map: map,
+            title: location.store_name
+        });
+
+        // Map 객체에 장소와 마커를 매핑
+        markerMap.set(markerKey, marker);
+
+        // 마커에 클릭 이벤트를 등록하여 인포윈도우를 표시
+        kakao.maps.event.addListener(marker, 'click', function () {
+            // // 기존 인포윈도우가 열려 있으면 닫기
+            // if (currentInfowindow) currentInfowindow.close();
+            //
+            // const content = `
+            //     <div class="custom-info-window">
+            //         <strong class="store-name">${location.store_name}</strong><br>
+            //         <span class="address">주소: ${location.address_road_name}</span><br>
+            //         <span class="phone">${location.phone_number || "전화번호 없음"}</span>
+            //     </div>
+            // `;
+            //
+            // const infowindow = new kakao.maps.InfoWindow({
+            //     content: content,
+            //     removable: true
+            // });
+            // infowindow.open(map, marker);
+            // currentInfowindow = infowindow;  // 열린 인포윈도우 추적
+            // // 마커 클릭 시 해당 마커의 위치로 지도 중심 이동
+            // map.setCenter(markerPosition);
+
+            // 기존 커스텀 오버레이가 열려 있으면 닫기
+            if (currentCustomOverlay) currentCustomOverlay.setMap(null);
+            const customContent = document.createElement("div");
+            customContent.className = "wrap";
+            customContent.innerHTML = `
+                <div class="wrap">
+                    <div class="info-custom">
+                        <div class="title"> ${location.store_name}
+                            <div class="close" onclick="closeOverlay()" title="닫기"></div>
+                        </div>
+                        <div class="body">
+                            <div class="desc">
+                                <div class="ellipsis">주소 : ${location.address_road_name}</div>
+                                <div class="jibun ellipsis">지번 : ${location.address_jibun_name}</div>
+                                <span class="phone">${location.phone_number || "전화번호 없음"}</span>
+                                <div>
+                                    <a href="${location.homepage_url !== '정보없음' ? location.homepage_url : '#'}" 
+                                       target="${location.homepage_url !== '정보없음' ? '_blank' : '_self'}" 
+                                       class="link"
+                                       onclick="${location.homepage_url === '정보없음' ? 'alert(&quot;해당 장소는 홈페이지 제공이 되지 않습니다.&quot;); return false;' : ''}">
+                                       홈페이지
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+
+            // 닫기 버튼에 클릭 이벤트 추가
+            const closeBtn = customContent.querySelector(".close");
+            closeBtn.addEventListener("click", function () {
+                overlay.setMap(null);
+                currentCustomOverlay = null; // 현재 열려 있는 오버레이 추적 변수 초기화
+            });
+
+            // 마커 위에 커스텀오버레이를 표시합니다
+            // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+            const overlay = new kakao.maps.CustomOverlay({
+                content: customContent,
+                map: map,
+                position: markerPosition
+            });
+
+            currentCustomOverlay = overlay; // 열린 인포윈도우 추적
+            overlay.setMap(map); // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+            map.setCenter(markerPosition); // 마커 클릭 시 해당 위치로 지도 중심 이동
+        });
+
+        // 생성된 마커를 배열에 추가
+        markers.push(marker);
+    });
+    // 장소 리스트 업데이트 함수 호출
+    updatePlacesList(places, markerMap);
+}
+
+function updatePlacesList(places, markerMap) {
+    const placesList = document.getElementById('placesList');
+    placesList.innerHTML = ''; // 기존 리스트 초기화
+
+    // , index
+    places.forEach(function(place) {
+        const listItem = document.createElement('li');
+        const markerKey = `${place.lat},${place.lng}`; // 고유 키 생성
+
+        listItem.textContent = place.store_name;
+        listItem.className = 'item';
+        listItem.innerHTML = `
+                    <div class="info">
+                        <h5>${place.store_name}</h5>
+                        <span>도로명 주소 : ${place.address_road_name}</span>
+                        <span>지번 : ${place.address_jibun_name}</span>
+                        <span>${place.phone_number || '전화번호 없음'}</span>
+                    </div>
+                `;
+        // 리스트 항목 클릭 이벤트 추가
+        listItem.addEventListener("click", function () {
+            const marker = markerMap.get(markerKey);
+            if (marker) {
+                kakao.maps.event.trigger(marker, "click"); // 마커의 클릭 이벤트를 트리거
+            }
+        });
+        placesList.appendChild(listItem);
+    });
 }
 
 // 4. callback으로 받은 Json 데이터를 mapApi에 저장
 petServiceMapApi(function (mapApi) {
     // 초기 로드 시 모든 장소의 마커를 표시
     displayPlaces(mapApi.data);
-
     pagination.current = 1; // 현재 페이지 초기화
     fetchPlaces(pagination.current, pagination.perPage);
 
@@ -109,103 +275,43 @@ petServiceMapApi(function (mapApi) {
             alert("검색어를 입력해주세요.");
             return;
         }
+        keyword = keyword.trim();
+
+        if (!mapApi || !Array.isArray(mapApi.data)) {
+            console.error("Invalid mapApi data");
+            return;
+        }
+        console.log("mapApi.data before filtering:", mapApi.data);
 
         // mapApi.data에서 키워드로 필터링
         var filteredData = mapApi.data.filter(function (place) {
-            return place.store_name.includes(keyword)|| // 키워드가 store_name에 포함된 항목만 반환
-                place.address_road_name.includes(keyword);  // 키워드가 address_road_name에 포함된 항목만 반환
+            if (!place) {
+                console.warn("Null or undefined place encountered:", place);
+                return false;
+            }
+            if (!place.store_name || !place.address_road_name) {
+                console.warn("Missing fields in place object:", place);
+                return false;
+            }
+            return (
+                place.store_name.includes(keyword) ||
+                place.address_road_name.includes(keyword) ||
+                place.category_business_store_name.includes(keyword)
+            );
         });
 
-        // 검색된 장소를 지도에 표시
-        displayPlaces(filteredData);
-    }
+        // 필터링된 데이터 확인 (디버깅용)
+        console.log("Filtered Data:", filteredData);
 
-    // 검색시 기존 마커는 제거하는 로직
-    function clearMarkers() {
-        markers.forEach(function(marker) {
-            marker.setMap(null);
-        });
-        markers = [];
-    }
-
-    function displayPlaces(places) {
-        // 검색 전 기존 마커 지우는 로직
-        clearMarkers();
-        // JSON 데이터를 기반으로 마커를 생성하고 지도에 표시
-        const markerMap = new Map();
-        places.forEach(function(location) {
-            const markerPosition = new kakao.maps.LatLng(location.lat, location.lng);
-
-            const marker = new kakao.maps.Marker({
-                position: markerPosition,
-                map: map,
-                title: location.store_name
-            });
-
-            // Map 객체에 장소와 마커를 매핑
-            markerMap.set(location.store_name, marker);
-
-            // 마커에 클릭 이벤트를 등록하여 인포윈도우를 표시
-            kakao.maps.event.addListener(marker, 'click', function() {
-                // 기존 인포윈도우가 열려 있으면 닫기
-                if (currentInfowindow) currentInfowindow.close();
-
-                const content = `
-                        <div style="padding:5px;">
-                            <strong>${location.store_name}</strong><br>
-                            주소: ${location.address_road_name}<br>
-                            전화번호: ${location.phone_number || "전화번호 없음"}
-                        </div>
-                    `;
-
-                const infowindow = new kakao.maps.InfoWindow({
-                    content: content,
-                    removable: true
-                });
-                infowindow.open(map, marker);
-                currentInfowindow = infowindow;  // 열린 인포윈도우 추적
-                // 마커 클릭 시 해당 마커의 위치로 지도 중심 이동
-                map.setCenter(markerPosition);
-            });
-
-            // 생성된 마커를 배열에 추가
-            markers.push(marker);
-        });
-
-        // 장소 리스트 업데이트 함수 호출
-        updatePlacesList(places, markerMap);
-
-        // searchPlaces를 전역으로 노출
-        window.searchPlaces = searchPlaces;
-
-        function updatePlacesList(places, markerMap) {
-            const placesList = document.getElementById('placesList');
-            placesList.innerHTML = ''; // 기존 리스트 초기화
-
-            // , index
-            places.forEach(function(place) {
-                const listItem = document.createElement('li');
-                listItem.textContent = place.store_name;
-                listItem.className = 'item';
-                listItem.innerHTML = `
-                    <div class="info">
-                        <h5>${place.store_name}</h5>
-                        <span>도로명 주소 : ${place.address_road_name}</span>
-                        <span>지번 : ${place.address_jibun_name}</span>
-                        <span>${place.phone_number || '전화번호 없음'}</span>
-                    </div>
-                `;
-                // 리스트 항목 클릭 이벤트 추가
-                listItem.addEventListener("click", function () {
-                    const marker = markerMap.get(place.store_name);
-                    if (marker) {
-                        kakao.maps.event.trigger(marker, "click"); // 마커의 클릭 이벤트를 트리거
-                    }
-                });
-                placesList.appendChild(listItem);
-            });
+        if (filteredData.length === 0) {
+            alert("검색 결과가 없습니다.");
+        } else {
+            // 검색된 장소를 지도에 표시
+            displayPlaces(filteredData);
         }
     }
+    // searchPlaces를 전역으로 노출
+    window.searchPlaces = searchPlaces;
 });
 
 
