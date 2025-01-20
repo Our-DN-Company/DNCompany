@@ -30,19 +30,20 @@
             <div id="map"></div>
             <div id="menu_wrap" class="bg_white">
               <div class="option-wrap">
-                <form onsubmit="searchPlaces(document.getElementById('keyword').value); return false;">
-                  <div class="option">
-                    <input
-                      type="text"
-                      value=""
-                      id="keyword"
-                      size="15"
-                      placeholder="동물병원"
-                    />
+
+                <form onsubmit="event.preventDefault(); searchPlaces(document.getElementById('keyword').value);">
+                    <div class="option">
+                      <input
+                              type="text"
+                              value=""
+                              id="keyword"
+                              size="15"
+                              placeholder="동물병원"
+                      />
                     <button type="submit">
                       <img th:src="@{/images/map/search-icon.png}" alt="검색하기"/>
                     </button>
-                  </div>
+                    </div>
                 </form>
               </div>
               <hr />
