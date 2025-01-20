@@ -14,5 +14,5 @@ public class QnaAnswerDTO {
     private LocalDate qnaAnswerUpdatedAt;
     private Long qnaId;
     private Long usersId;
-    private String nickname;
+    private String loginId;
 }

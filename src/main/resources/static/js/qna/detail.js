@@ -148,7 +148,7 @@ import * as answerApi from './modules/answerApi.js'
             html += `
          <div class="comment_qaDetailComment" data-answer-id="${answer.qnaAnswerId}">
             <div class="comment_qaCommentIdWrapper">
-                <div class="comment_qaCommentId">${answer.nickname}</div>
+                <div class="comment_qaCommentId">${answer.loginId}</div>
                 ${answer.usersId === loginUsersId ? `
                 <div class="comment_edit_delete">
                     <div class="comment_delete">
@@ -158,7 +158,7 @@ import * as answerApi from './modules/answerApi.js'
                         <img src="/images/qna/icon-pencil.png" class="comment-edit-btn" data-answer-id="${answer.qnaAnswerId}"/>
                     </div>
                 </div>
-                <div class="comment_qaCommentDate">${answer.qnaAnswerCreatedAt}</div>
+                <div class="comment_qaCommentDate">${answer.qnaAnswerUpdatedAt}</div>
                 ` : ''}
                 
             </div>

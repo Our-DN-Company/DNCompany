@@ -15,7 +15,7 @@ public class ZipAnswerDTO {
     private LocalDate zipAnswerUpdatedAt;
     private Long zipId;
     private Long usersId;
-    private String nickname;
+    private String loginId;
 
 //    public String getZipAnswerUpdatedAt () {
 //        return zipAnswerUpdatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
