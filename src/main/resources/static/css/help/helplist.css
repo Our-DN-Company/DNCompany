@@ -178,6 +178,9 @@
 .tag-purple {
     background-color: rgb(189, 118, 255);
     color: white;
+    font-family: "Ownglyph_ParkDaHyun";
+    font-size: 15px;
+    letter-spacing: 2px;
 }
 /* 게시글 제목 스타일 */
 .post-title {
@@ -196,19 +199,36 @@
 
 /* 게시글 포인트 스타일 */
 .post-side {
-    text-align: right;
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    justify-content: flex-start; /* 수평 정렬 왼쪽 */
+    gap: 10px; /* 항목 간의 간격 */
+}
+
+.pointPriceLine{
+    display: flex;
+    align-content: normal;
+    justify-content: left;
+}
+
+.postIcon{
+    width:20px;
+    height:20px;
+    vertical-align: middle;
+    margin-left: 4px;
 }
 
 .point {
     font-size: 18px;
     font-weight: 600;
     color: rgb(34, 34, 34);
+
 }
 .price {
     font-size: 18px;
     font-weight: 600;
     color: rgb(34, 34, 34);
-    margin-top: 8px;
+
 }
 
 /* 페이지네이션 컨테이너 */

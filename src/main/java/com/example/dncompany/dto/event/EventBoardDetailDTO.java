@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter @Setter @ToString
 public class EventBoardDetailDTO {
@@ -13,4 +14,8 @@ public class EventBoardDetailDTO {
     String eventContent;
     LocalDateTime eventCreatedAt;
     Long usersId;
+
+    public String getEventCreatedAt() {
+        return eventCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 }

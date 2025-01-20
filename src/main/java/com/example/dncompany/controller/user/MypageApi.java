@@ -4,6 +4,7 @@ import com.example.dncompany.dto.page.PageDTO;
 import com.example.dncompany.dto.page.PageRequestDTO;
 import com.example.dncompany.dto.user.mypage.MypageDnBuyListDTO;
 import com.example.dncompany.dto.user.mypage.MypageDnSellListDTO;
+import com.example.dncompany.dto.user.mypage.MypageReviewDetailDTO;
 import com.example.dncompany.dto.user.mypage.MypageZipBoardListDTO;
 import com.example.dncompany.service.user.MypageService;
 import lombok.RequiredArgsConstructor;
@@ -43,4 +44,31 @@ public class MypageApi {
         mypageService.modifyDnStatusByDnId(dnId);
     }
 
+    @GetMapping("/v1/mypage/reviews/{reviewId}")
+    public MypageReviewDetailDTO getMypageReviews(@PathVariable Long reviewId) {
+        MypageReviewDetailDTO foundReview = mypageService.findReviewById(reviewId);
+        log.info("review found: {}", foundReview);
+        return foundReview;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

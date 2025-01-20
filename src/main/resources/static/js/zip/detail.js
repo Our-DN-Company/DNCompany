@@ -186,7 +186,7 @@ import * as likeApi from './modules/likeApi.js'
                         <img src="/images/zip/icon-pencil.png" class="comment-edit-btn" data-answer-id="${answer.zipAnswerId}"/>
                     </div>
                 </div>
-                <div class="comment_qaCommentDate">${answer.zipAnswerCreatedAt}</div>
+                <div class="comment_qaCommentDate">${answer.zipAnswerUpdatedAt}</div>
                 ` : ''}
                 
             </div>

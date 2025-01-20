@@ -1,9 +1,10 @@
+
 let currentPage = 1; // 현재 페이지
 let isLoading = false; // 로딩 상태
 let hasNext = true; // 다음 페이지 여부
 
 document.addEventListener("DOMContentLoaded", () => {
-    const $listContainer = document.querySelector(".community_loungeList"); // 게시글 리스트 영역
+    const $listContainer = document.querySelector(".main_mainGridContainer"); // 게시글 리스트 영역
     const $paginationContainer = document.querySelector(".pagination-section"); // 페이지네이션 영역
 
     function initPagination() {
@@ -52,37 +53,30 @@ document.addEventListener("DOMContentLoaded", () => {
         await loadPage(currentPage + 1);
     }
 
-    // function renderList(data) {
-    //     if (!Array.isArray(data)) return;
-    //
-    //     $listContainer.innerHTML = "";
-    //
-    //     data.forEach((item) => {
-    //         const $item = document.createElement("div");
-    //         $item.className = "qaList_qaListWrapper";
-    //         $item.innerHTML = `
-    //             <div>
-    //                 <div class="qaList_qaListTitle">
-    //                     <a href="/qna/detail?qnaId=${item.qnaId}">${item.qnaTitle}</a>
-    //                 </div>
-    //                 <div class="qaList_qaListText">${item.qnaContent}</div>
-    //             </div>
-    //         `;
-    //         $listContainer.appendChild($item);
-    //     });
-    // }
+    function renderList(data) {
+        if (!Array.isArray(data)) return;
+
+        $listContainer.innerHTML = "";
+
+        data.forEach((item) => {
+            const $item = document.createElement("div");
+            $item.className = "qaList_qaListWrapper";
+            $item.innerHTML = `
+                <div>
+                    <div class="qaList_qaListTitle">
+                        <a href="/qna/detail?qnaId=${item.qnaId}">${item.qnaTitle}</a>
+                    </div>
+                    <div class="qaList_qaListText">${item.qnaContent}</div>
+                </div>
+            `;
+            $listContainer.appendChild($item);
+        });
+    }
 
     initPagination();
 
     loadPage(currentPage);
 
-
-    const writeButton = document.querySelector(".write_Btn_item");
-    if (writeButton) {
-        writeButton.addEventListener("click", () => {
-            window.location.href = "/qna/write";
-        });
-    }
 });
 
 
