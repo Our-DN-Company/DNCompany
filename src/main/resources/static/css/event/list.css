@@ -1,122 +1,131 @@
-.main_mainGridContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 20px;
-  padding-bottom: 50px;
-  text-align: justify;
-}
-
 .main_searchContainer {
-  margin: 100px 0;
-  width: 100%;
+    margin: 100px 0;
+    width: 100%;
 }
 
 .main_mainContents {
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 0 27px;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 27px;
 }
 
 .main_mainTitle {
-  margin-bottom: 45px;
-  font-size: 30px;
-  text-align: left;
-  font-family: "Pretendard-Regular";
-  letter-spacing: 3px;
+    margin-bottom: 45px;
+    font-size: 30px;
+    text-align: left;
+    font-family: "Pretendard-Regular";
+    letter-spacing: 3px;
 }
 
 .main_mainGridContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 .mainContent_mainContentBox {
-  display: inline-block;
-  width: 350px;
-  box-sizing: border-box;
-  margin-bottom: 30px;
+    display: inline-block;
+    width: 350px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
 }
 
 /* 이미지 스타일 */
 .mainContent_mainImg {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 /* 글 박스 스타일 */
 .mainContent_mainbox {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .mainContent_mainContent {
-  text-align: left;
+    text-align: left;
 }
 
 .mainContent_mainTitle {
-  font-family: "Pretendard-Regular";
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: black;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  letter-spacing: 3px;
+    font-family: "Pretendard-Regular";
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: black;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    letter-spacing: 3px;
 }
 
 .mainContent_mainText {
-  font-size: 14px;
-  color: black;
-  line-height: 1.6;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin-bottom: 10px;
-  letter-spacing: 2px;
+    font-size: 14px;
+    color: black;
+    line-height: 1.6;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
 }
 
 /* 하단 정보 박스 */
 .mainConent_mainInfo {
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #868688;
-  letter-spacing: 2px;
+    font-family: "Pretendard-Regular";
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    color: #868688;
+    letter-spacing: 2px;
 }
 
 .mainContent_subbox {
-  flex: 1;
-  text-align: center;
+    font-size: 13px;
+    font-weight: 700;
 }
 
-/* 더보기 버튼 */
-.button_btnContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  bottom: -50px;
-  margin-top: 50px;
+/* 페이지 영역 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 30px 0;
 }
 
-.button_moreBtn {
-  width: 330px;
-  height: 40px;
-  background-color: rgb(189, 118, 255);
-  border-radius: 21px;
-  border: none;
-  margin: 0 auto;
-  display: block;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 700;
-  font-family: Ownglyph_ParkDaHyun;
-  letter-spacing: 7px;
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s;
 }
+
+.page-btn:hover {
+    border-color: rgb(189, 118, 255);
+    color: rgb(189, 118, 255);
+}
+
+.page-btn.active {
+    background: rgb(189, 118, 255);
+    border-color: rgb(189, 118, 255);
+    color: #fff;
+}
+
+.page-btn.prev,
+.page-btn.next {
+    width: 40px;
+}
+
+
+
