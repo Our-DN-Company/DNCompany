@@ -1,3 +1,13 @@
+.container {
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    height: 80vh; /* 화면 전체 높이 */
+    text-align: center;
+}
+
+
 .error-container {
     text-align: center;
     padding: 40px;
@@ -24,17 +34,19 @@
     padding: 12px 24px;
     text-decoration: none;
     background-color: #fff;
-    color: var(--main-color);
+    color: rgb(95, 0, 128);
+    border: 1px solid rgb(95, 0, 128);
     border-radius: 4px;
     margin-right: 12px;
 }
 
 .error-container a:hover {
-    background-color: #00a792;
+    background-color: rgb(95, 0, 128);
+    color: #fff;
 }
 
-.ErrorBanner{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.errorBanner {
+    display: block; /* 이미지 기본 스타일 */
+    max-width: 30%; /* 필요 시 이미지 크기 제한 */
+    margin: 20px auto 0; /* 가로 중앙 정렬 */
 }
