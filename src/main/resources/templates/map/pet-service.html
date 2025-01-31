@@ -13,8 +13,7 @@
 
 
     <!-- js -->
-<!--    <script type="text/javascript" th:src="@{//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoMapKey}&libraries=services}"></script>-->
-    <script type="text/javascript" th:src="@{//dapi.kakao.com/v2/maps/sdk.js?appkey=ede54e3725e1cc3bd6d5cf466cb852dc&libraries=services}"></script>
+    <script type="text/javascript" th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoMapKey} + '&libraries=services'}"></script>
     <script defer type="module" th:src="@{/js/map/pet-service.js}"></script>
     <title>Document</title>
   </head>
@@ -39,7 +38,7 @@
                               value=""
                               id="keyword"
                               size="15"
-                              placeholder="동물병원"
+                              placeholder="반려동물 시설 검색"
                       />
                     <button type="submit">
                       <img th:src="@{/images/map/search-icon.png}" alt="검색하기"/>
